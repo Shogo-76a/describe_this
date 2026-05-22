@@ -372,4 +372,4 @@ MVPで検証したい核：
 Figma：[URL](https://www.figma.com/design/Ww2Wdo9hGjPXsq2QVxKj63/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3_Describe_This?node-id=0-1&t=OFZJ9ibkQG78B4Kl-1)
 
 ### 12. ER図
-[![Image from Gyazo](https://i.gyazo.com/9789c357f160c9ccfbebb46393b41521.png)]
+[![Image from Gyazo](https://i.gyazo.com/47a10556f12e20824b8b8e56afab279a.png)](https://gyazo.com/47a10556f12e20824b8b8e56afab279a)
