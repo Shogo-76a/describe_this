@@ -1,0 +1,8 @@
+<div>
+  <% if @game.generated_image.attached? %>
+    <%= image_tag @game.generated_image %>
+    
+  <% else %>
+    <p>画像がありません</p>
+  <% end %>
+</div>
