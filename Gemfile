@@ -61,13 +61,15 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  # Add a comment summarizing the current schema to the top or bottom of each of your schema-related file. [https://github.com/ctran/annotate_models]
-  gem 'annotate'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # A Ruby Gem that adds annotations to your Rails models and route files. [https://github.com/drwl/annotaterb]
+  gem "annotaterb"
+
 end
 
 group :test do

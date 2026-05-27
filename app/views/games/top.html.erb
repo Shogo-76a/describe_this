@@ -1,0 +1,11 @@
+<div>
+  <h1 class="font-bold text-4xl">Games#top</h1>
+  <p>Find me in app/views/games/top.html.erb</p>
+
+  <%= form_with model: @game do |f| %>
+
+    <%= f.label :generated_image, "画像" %>
+    <%= f.file_field :generated_image %>
+    <%= f.submit '送信'%>
+  <% end %>
+</div>
