@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: runtekun-blog
+    name: describe_this
     runtime: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
