@@ -48,6 +48,9 @@ gem "ruby-openai"
 # Cloud media management services for websites and apps [https://console.cloudinary.com/app/product-explorer]
 gem "cloudinary"
 
+# RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data. [https://github.com/railsadminteam/rails_admin]
+gem 'rails_admin', '~> 3.0'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -79,3 +82,4 @@ group :test do
   gem "webmock"
   gem 'vcr'
 end
+gem "cssbundling-rails", "~> 1.4"

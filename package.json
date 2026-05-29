@@ -1,0 +1,11 @@
+{
+  "name": "app",
+  "private": "true",
+  "scripts": {
+    "build:css": "sass ./app/assets/stylesheets/rails_admin.scss:./app/assets/builds/rails_admin.css --no-source-map --load-path=./node_modules"
+  },
+  "devDependencies": {
+    "rails_admin": "^3.3.0",
+    "sass": "^1.100.0"
+  }
+}
