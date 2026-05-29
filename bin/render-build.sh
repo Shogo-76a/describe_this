@@ -18,6 +18,6 @@ if [ "$SOLID_QUEUE_EXISTS" = "false" ]; then
  DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:schema:load SCHEMA=db/queue_schema.rb
 fi
 
-bundle exec rails db:prepare
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
+bundle exec rails db:migrate
