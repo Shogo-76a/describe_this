@@ -79,3 +79,4 @@ group :test do
   gem "webmock"
   gem 'vcr'
 end
+gem "avo", ">= 3.2"
