@@ -62,7 +62,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # [https://github.com/rspec/rspec-rails]
-  gem 'rspec-rails', '~> 8.0.0'
+  gem "rspec-rails", "~> 8.0.0"
 end
 
 group :development do
@@ -71,7 +71,6 @@ group :development do
 
   # A Ruby Gem that adds annotations to your Rails models and route files. [https://github.com/drwl/annotaterb]
   gem "annotaterb"
-
 end
 
 group :test do
@@ -79,6 +78,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webmock"
-  gem 'vcr'
+  gem "vcr"
 end
 gem "avo", ">= 3.2"
