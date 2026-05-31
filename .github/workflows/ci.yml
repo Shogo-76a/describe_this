@@ -96,6 +96,9 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Run Migrations
+        run: bundle exec rails db:create && bundle exec rails db:migrate
+
       - name: Run rspec
         env:
           RAILS_ENV: test
@@ -134,6 +137,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          
+      - name: Run Migrations
+        run: bundle exec rails db:create && bundle exec rails db:migrate
 
       - name: Run system specs
         env:
