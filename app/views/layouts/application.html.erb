@@ -25,7 +25,16 @@
 
   <body>
     <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+
+      <div data-controller="splash" class="splash-overlay hidden">
+        <!-- 導入画面の内容 -->
+        <%= 'ようこそ！' %>
+      </div>
+
+      <div class="app-content loading">
+        <%= yield %>
+      </div>
+
     </main>
   </body>
 </html>
