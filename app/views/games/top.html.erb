@@ -1,11 +1,22 @@
-<div>
-  <h1 class="font-bold text-4xl">Games#top</h1>
-  <p>Find me in app/views/games/top.html.erb</p>
-  <button class="btn btn-soft btn-primary">Primary</button>
-  <%= form_with model: @game do |f| %>
-
-    <%= f.label :generated_image, "画像" %>
-    <%= f.file_field :generated_image %>
-    <%= f.submit '送信'%>
-  <% end %>
+<div class="hero bg-base-200 items-start pt-10">
+  <div class="hero-content text-center ">
+    <div class="max-w-md grid place-items-center">
+      <%= link_to image_tag("DT_title.png", alt: "Describe this", class: "w-70 h-auto"), root_path%>
+      <p class="py-6">
+        説明する練習が楽しく続く
+      </p>
+      <div class="text-xs pb-10">
+        <p class="py-1">あなたの言葉で</p>
+        <p class="py-1">AIがお題のイメージを想像 </p>
+        <p class="py-1">正確に伝えられるかな？</p>
+      </div>
+      <div class="text-xm py-5">
+        <p class="">「伝わらない」を「伝わる」の自信に。</p>
+        <p class="">ステキな表現を探す旅へ。</p>
+      </div>
+      <div class="pt-25 pb-7">
+        <button class="btn btn-lg btn-primary w-70 h-15 rounded-2xl">はじめる</button>
+      </div>
+    </div>
+  </div>
 </div>
