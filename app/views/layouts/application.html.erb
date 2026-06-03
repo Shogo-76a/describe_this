@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="business"> <!-- ここに好きなテーマ名を指定 -->
   <head>
     <title><%= content_for(:title) || "App" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,7 +24,7 @@
   </head>
 
   <body>
-    <main class="m-0 p-0 overflow-x-hidden">
+    
 
       <!-- 導入画面の内容 -->
       <div data-controller="splash" class="splash-overlay hidden">
@@ -37,11 +37,16 @@
         </div>
       </div>
 
-
       <div class="app-content loading">
-        <%= yield %>
+        <%# --- ヘッダーの呼び出し --- %>
+        <%= render "layouts/header" %> 
+        <main class="m-0 p-0 overflow-x-hidden pb-16">
+          <%= yield %>
+        </main>
+        <%# --- フッターの呼び出し --- %>
+        <%= render "layouts/footer" %> 
       </div>
 
-    </main>
+    
   </body>
 </html>

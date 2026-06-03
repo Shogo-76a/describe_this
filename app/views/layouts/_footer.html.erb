@@ -1,0 +1,30 @@
+<footer class="footer footer-horizontal footer-center btm-nav fixed bottom-0 text-neutral-content p-5">
+  <div>
+    <% if content_for?(:footer_content) %>
+      <!-- 1. ページごとに指定された中身を表示（入力欄や非表示対応など） -->
+      <%= yield :footer_content %>
+    <% else %>
+      <!-- 2. デフォルト表示（複数のメニューリンク） -->
+      <nav class="grid grid-flow-col gap-10">
+        <%= link_to root_path do %>
+            <span class="nav-label inline-block w-20 text-center">
+                <span>🏠</span><br>
+                <span class="text-xs">ホーム</span>
+            </span>
+        <% end %>
+        <%= link_to root_path do %>
+            <span class="nav-label inline-block w-20 text-center">
+                <span>📚</span><br>
+                <span class="text-xs">プレイ履歴</span>
+            </span>
+        <% end %>
+        <%= link_to root_path do %>
+            <span class="nav-label inline-block w-20 text-center">
+                <span>🕵️‍♂️</span><br>
+                <span class="text-xs">プロフィール</span>
+            </span>
+        <% end %>
+      </nav>
+    <% end %>
+  </div>
+</footer>
