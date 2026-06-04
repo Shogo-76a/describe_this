@@ -78,6 +78,11 @@ jobs:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
 
+      chrome:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+
       # redis:
       #   image: valkey/valkey:8
       #   ports:
@@ -90,6 +95,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -123,6 +131,11 @@ jobs:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
 
+      chrome:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+
       # redis:
       #   image: valkey/valkey:8
       #   ports:
@@ -135,6 +148,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
