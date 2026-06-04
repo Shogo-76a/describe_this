@@ -13,6 +13,15 @@ services:
       # PCの5432番ポートをコンテナの5432番ポートに接続
       - "5432:5432"
 
+  # 追加するSeleniumコンテナ
+  chrome:
+    image: selenium/standalone-chrome:latest  # Intel / AMD チップ用
+    # image: seleniarm/standalone-chromium:latest # Apple Silicon (M1/M2/M3 Mac) 用
+    shm_size: 2gb
+    ports:
+      - "4444:4444"   # Seleniumの接続ポート
+      - "7900:7900"   # ブラウザ画面確認用（http://localhost:7900 パスワード: secret）
+
   # Railsアプリケーションサービス
   web:
     build:
@@ -32,6 +41,7 @@ services:
     # dbサービスが起動してからwebサービスを起動する
     depends_on:
       - db
+      - chrome
 
 # volumesで定義した名前付きボリュームをDockerに作成させる
 volumes:

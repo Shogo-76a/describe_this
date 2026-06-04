@@ -9,6 +9,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # return unless Rails.env.test?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'selenium-webdriver'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -69,4 +70,28 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+end
+
+RSpec.configure do |config|
+  config.before(:each, type: :system) do
+    Capybara.register_driver :remote_chrome do |app|
+      options = Selenium::WebDriver::Chrome::Options.new
+      options.add_argument("--no-sandbox")
+      options.add_argument("--disable-gpu")
+      options.add_argument("--window-size=1400,1400")
+
+      Capybara::Selenium::Driver.new(
+        app,
+        browser: :remote,
+        url: "http://chrome:4444/wd/hub",
+        capabilities: options
+      )
+    end
+
+    driven_by :remote_chrome
+
+    Capybara.server_host = "web"
+    Capybara.server_port = 3001
+    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+  end
 end
