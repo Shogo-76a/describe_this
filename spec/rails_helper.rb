@@ -92,8 +92,8 @@ RSpec.configure do |config|
 
       driven_by :remote_chrome
 
-      # Railsアプリ自体の起動ホストを 127.0.0.1 (localhost) にする
-      Capybara.server_host = "127.0.0.1"
+      # Railsアプリ自体の起動ホストを "0.0.0.0" にする。Chromeコンテナからの接続を許可。
+      Capybara.server_host = "0.0.0.0"
       Capybara.server_port = 3001
       Capybara.app_host = "http://localhost:#{Capybara.server_port}"
     else
