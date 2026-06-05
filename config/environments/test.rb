@@ -53,4 +53,5 @@ Rails.application.configure do
 
   # Rails 8でSeleniumコンテナ（外部ホスト名「web」）からのアクセスを許可する
   config.hosts << "web"
+  config.hosts << "127.0.0.1"
 end
