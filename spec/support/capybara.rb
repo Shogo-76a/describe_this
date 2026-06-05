@@ -14,6 +14,8 @@ RSpec.configure do |config|
       Capybara.server_host = "127.0.0.1"
       Capybara.server_port = 3001
       Capybara.app_host = "http://127.0.0.1:#{Capybara.server_port}"
+
+      Capybara.default_max_wait_time = 5
     else
 
       # --- ローカル環境（Docker Compose等）用の設定 ---
