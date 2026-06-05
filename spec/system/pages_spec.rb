@@ -33,5 +33,4 @@ RSpec.describe "画面表示物の確認", type: :system do
       expect(page).to have_link("プロフィール", href: root_path)
     end
   end
-
 end
