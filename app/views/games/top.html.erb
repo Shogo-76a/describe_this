@@ -23,17 +23,12 @@
     <div data-controller="splash-modal">
 
       <dialog data-splash-modal-target="dialog" class="modal">
-        <div class="modal-box">
-          <h3 class="text-lg font-bold">こんにちは！</h3>
-          <%= render "shared/form" %> 
-          <p class="py-4">これはページ読み込み時に自動で表示されたポップアップです。</p>
+        <div class="modal-box max-w-md text-center">
           
-          <div class="modal-action">
-            <form method="dialog">
-              <!-- このボタンを押すとモーダルが閉じます -->
-              <button class="btn">閉じる</button>
-            </form>
-          </div>
+          <%= turbo_frame_tag "tutorial_step" do %>
+            <%= render "shared/splash_modal/modal_01" %>
+          <% end %>
+
         </div>
         
         <!-- 背景をクリックしても閉じられるようにする設定（不要なら削除OK） -->

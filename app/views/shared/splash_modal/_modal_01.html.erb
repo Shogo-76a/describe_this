@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "tutorial_step" do %>
+  <div class="py-4">
+    <div class="text-5xl mb-4">🚀</div>
+    <h3 class="text-xl font-bold">ステップ 1: アカウントの設定</h3>
+    <p class="py-4 text-sm text-base-content/70">まずはプロファイルを入力して、あなた好みにカスタマイズしましょう。</p>
+    
+    <ul class="steps steps-horizontal w-full my-4 text-xs">
+      <li class="step step-primary">設定</li>
+      <li class="step">探す</li>
+      <li class="step">楽しむ</li>
+    </ul>
+
+    <div class="modal-action justify-center">
+      <%= link_to "次へ進む", tutorial_step_path(step: 2), class: "btn btn-primary w-full" %>
+    </div>
+  </div>
+<% end %>
