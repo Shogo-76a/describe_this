@@ -96,14 +96,6 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Archive rspec result screenshots
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: rspec result screenshots
-          path: tmp/capybara/
-          retention-days: 1
-
       - name: Precompile assets
         run: bundle exec rails assets:precompile RAILS_ENV=test
 
@@ -120,3 +112,11 @@ jobs:
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
         run: bundle exec rspec
+
+      - name: Archive rspec result screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rspec result screenshots
+          path: tmp/capybara/
+          retention-days: 1
