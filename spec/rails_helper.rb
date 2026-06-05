@@ -74,24 +74,50 @@ end
 
 RSpec.configure do |config|
   config.before(:each, type: :system) do
-    Capybara.register_driver :remote_chrome do |app|
-      options = Selenium::WebDriver::Chrome::Options.new
-      options.add_argument("--no-sandbox")
-      options.add_argument("--disable-gpu")
-      options.add_argument("--window-size=1400,1400")
+    if ENV['CI']
+      # --- GitHub Actions（CI）用の設定 ---
+      Capybara.register_driver :remote_chrome do |app|
+        options = Selenium::WebDriver::Chrome::Options.new
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--window-size=1400,1400")
 
-      Capybara::Selenium::Driver.new(
-        app,
-        browser: :remote,
-        url: "http://chrome:4444/wd/hub",
-        capabilities: options
-      )
+        Capybara::Selenium::Driver.new(
+          app,
+          browser: :remote,
+          url: "http://localhost:4444/wd/hub", # chrome から localhost に変更
+          capabilities: options
+        )
+      end
+
+      driven_by :remote_chrome
+
+      # Railsアプリ自体の起動ホストを 127.0.0.1 (localhost) にする
+      Capybara.server_host = "127.0.0.1"
+      Capybara.server_port = 3001
+      Capybara.app_host = "http://localhost:#{Capybara.server_port}"
+    else
+      # --- ローカル環境（Docker Compose等）用の設定 ---
+      Capybara.register_driver :remote_chrome do |app|
+        options = Selenium::WebDriver::Chrome::Options.new
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--window-size=1400,1400")
+
+        Capybara::Selenium::Driver.new(
+          app,
+          browser: :remote,
+          url: "http://chrome:4444/wd/hub", # ローカルでは従来通り chrome コンテナを指定
+          capabilities: options
+        )
+      end
+
+      driven_by :remote_chrome
+
+      # ローカル環境では "web" コンテナとして起動・アクセスさせる
+      Capybara.server_host = "web"
+      Capybara.server_port = 3001
+      Capybara.app_host = "http://web:#{Capybara.server_port}"
     end
-
-    driven_by :remote_chrome
-
-    Capybara.server_host = "web"
-    Capybara.server_port = 3001
-    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
   end
 end
