@@ -18,5 +18,25 @@
         <button class="btn btn-lg btn-primary w-70 h-15 rounded-2xl">はじめる</button>
       </div>
     </div>
+
+    <!-- 遊び方モーダルの内容 -->
+    <div data-controller="splash-modal">
+
+      <dialog data-splash-modal-target="dialog" class="modal">
+        <div class="modal-box max-w-md text-center">
+          
+          <%= turbo_frame_tag "tutorial_step" do %>
+            <%= render "shared/splash_modal/modal_01" %>
+          <% end %>
+
+        </div>
+        
+        <!-- 背景をクリックしても閉じられるようにする設定（不要なら削除OK） -->
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+    </div>
   </div>
 </div>
