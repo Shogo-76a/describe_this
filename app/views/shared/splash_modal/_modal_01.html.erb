@@ -4,14 +4,14 @@
     <h3 class="text-xl font-bold">ステップ 1: アカウントの設定</h3>
     <p class="py-4 text-sm text-base-content/70">まずはプロファイルを入力して、あなた好みにカスタマイズしましょう。</p>
     
-    <ul class="steps steps-horizontal w-full my-4 text-xs">
-      <li class="step step-primary">設定</li>
-      <li class="step">探す</li>
-      <li class="step">楽しむ</li>
-    </ul>
+    <div class="flex items-center justify-center gap-2">
+      <span class="h-3 w-3 rounded-full bg-primary"></span>
+      <span class="h-3 w-3 rounded-full bg-base-300"></span>
+      <span class="h-3 w-3 rounded-full bg-base-300"></span>
+    </div>
 
     <div class="modal-action justify-center">
-      <%= link_to "次へ進む", tutorial_step_path(step: 2), class: "btn btn-primary w-full" %>
+      <%= link_to "つぎへ", tutorial_step_path(step: 2), class: "btn btn-primary w-full" %>
     </div>
   </div>
 <% end %>

@@ -4,15 +4,14 @@
     <h3 class="text-xl font-bold">ステップ 2: コンテンツを探す</h3>
     <p class="py-4 text-sm text-base-content/70">タイムラインから興味のあるキーワードで検索してみましょう。</p>
     
-    <ul class="steps steps-horizontal w-full my-4 text-xs">
-      <li class="step step-primary">設定</li>
-      <li class="step step-primary">探す</li>
-      <li class="step">楽しむ</li>
-    </ul>
+    <div class="flex items-center justify-center gap-2">
+      <span class="h-3 w-3 rounded-full bg-primary"></span>
+      <span class="h-3 w-3 rounded-full bg-primary"></span>
+      <span class="h-3 w-3 rounded-full bg-base-300"></span>
+    </div>
 
-    <div class="modal-action justify-between gap-2">
-      <%= link_to "戻る", tutorial_step_path(step:1), class: "btn btn-outline flex-1" %>
-      <%= link_to "次へ進む", tutorial_step_path(step:3), class: "btn btn-primary flex-1" %>
+    <div class="modal-action justify-center">
+      <%= link_to "つぎへ", tutorial_step_path(step:3), class: "btn btn-primary flex-1" %>
     </div>
   </div>
 <% end %>
