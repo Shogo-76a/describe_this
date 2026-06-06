@@ -17,16 +17,6 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
 
-  def tutorial_step
-    case params[:step].to_i
-    when 1 then render partial: "shared/splash_modal/modal_01"
-    when 2 then render partial: "shared/splash_modal/modal_02"
-    when 3 then render partial: "shared/splash_modal/modal_03"
-    else
-      head :bad_request
-    end
-  end
-
 private
   def game_params
     params.require(:game).permit(:generated_image)
