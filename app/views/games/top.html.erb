@@ -20,17 +20,42 @@
     </div>
 
     <!-- 遊び方モーダルの内容 -->
-    <div data-controller="splash-modal">
-
-      <dialog data-splash-modal-target="dialog" class="modal">
-        <div class="modal-box max-w-md text-center rounded-2xl">
+    <div data-controller="splash-modal" >
+      <dialog data-splash-modal-target="dialog" id="swipe_modal" class="modal" data-controller="swipe-modal">
+        <div class="modal-box py-5 max-w-lg rounded-2xl overflow-hidden bg-base-100 flex flex-col items-center">
           <div class="text-3xl">遊び方</div>
-          <%= turbo_frame_tag "tutorial_step" do %>
-            <%= render "shared/splash_modal/modal_01" %>
-          <% end %>
-
+          <div 
+            class="carousel w-full snap-x snap-mandatory overflow-x-auto scroll-smooth"
+            data-swipe-modal-target="carousel"
+            data-action="scroll->swipe-modal#handleScroll"
+          >
+            <div id="slide1" class="carousel-item w-full flex-col">
+              <%= render "shared/splash_modal/modal_01" %>
+            </div>
+            <div id="slide2" class="carousel-item w-full flex-col">
+              <%= render "shared/splash_modal/modal_02" %>
+            </div>
+            <div id="slide3" class="carousel-item w-full flex-col">
+              <%= render "shared/splash_modal/modal_03" %>
+            </div>
+          </div>
+            
+          <div class="flex gap-1.5 py-5">
+            <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
+            <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
+            <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
+          </div>
+              
+          <button 
+            class="btn btn-sm px-6 btn-primary w-70 h-12 rounded-2xl"
+            data-swipe-modal-target="actionBtn"
+            data-action="click->swipe-modal#nextOrClose"
+          >
+            つぎへ
+          </button>
         </div>
-        
+
+
         <!-- 背景をクリックしても閉じられるようにする設定（不要なら削除OK） -->
         <form method="dialog" class="modal-backdrop">
           <button>close</button>
