@@ -157,6 +157,7 @@ GEM
       multipart-post (~> 2.0)
     faraday-net_http (3.4.3)
       net-http (~> 0.5)
+    ffi (1.17.4-x86_64-linux-gnu)
     fugit (1.12.1)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
@@ -165,7 +166,9 @@ GEM
     hashdiff (1.2.1)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    image_processing (2.0.2)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
+      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -210,6 +213,8 @@ GEM
     matrix (0.4.3)
     meta-tags (2.23.0)
       actionpack (>= 6.0.0)
+    mini_magick (5.3.1)
+      logger
     mini_mime (1.1.5)
     minitest (6.0.6)
       drb (~> 2.0)
@@ -358,6 +363,9 @@ GEM
       faraday (>= 1)
       faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
+    ruby-vips (2.3.0)
+      ffi (~> 1.12)
+      logger
     rubyzip (3.3.0)
     securerandom (0.4.1)
     selenium-webdriver (4.44.0)
@@ -446,7 +454,7 @@ DEPENDENCIES
   capybara
   cloudinary
   debug
-  image_processing (~> 2.0)
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
   kamal
