@@ -15,7 +15,7 @@
         <p class="">ステキな表現を探す旅へ。</p>
       </div>
       <div class="pt-25 pb-7">
-        <button class="btn btn-lg btn-primary w-70 h-15 rounded-2xl">はじめる</button>
+        <button class="btn btn-lg btn-primary w-70 h-12 rounded-2xl">はじめる</button>
       </div>
     </div>
 
@@ -23,7 +23,7 @@
     <div data-controller="splash-modal">
 
       <dialog data-splash-modal-target="dialog" class="modal">
-        <div class="modal-box max-w-md text-center">
+        <div class="modal-box max-w-md text-center rounded-2xl">
           
           <%= turbo_frame_tag "tutorial_step" do %>
             <%= render "shared/splash_modal/modal_01" %>

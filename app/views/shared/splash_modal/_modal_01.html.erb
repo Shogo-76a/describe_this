@@ -1,17 +1,25 @@
 <%= turbo_frame_tag "tutorial_step" do %>
-  <div class="py-4">
-    <div class="text-5xl mb-4">🚀</div>
-    <h3 class="text-xl font-bold">ステップ 1: アカウントの設定</h3>
-    <p class="py-4 text-sm text-base-content/70">まずはプロファイルを入力して、あなた好みにカスタマイズしましょう。</p>
-    
-    <div class="flex items-center justify-center gap-2">
+  <div class="py-4 place-items-center">
+    <div class="text-5xl mb-4">遊び方</div>
+    <div class="bg-neutral py-5 px-10 place-items-center rounded-2xl">
+      <h3 class="text-xl font-bold">① 見たままを言葉にする</h3>
+      <%= image_tag 'DT_howto01.png', alt: 'howto01', class: 'w-[150px] h-auto rounded-2xl' %>
+      <div class="pt-4 text-sm text-base-content/70">
+        <p>ランダムに表示される画像を</p>
+        <p>自分の言葉でAIに説明しよう！</p>
+      </div>
+    </div>
+    <div class="flex items-center justify-center gap-2 pt-10">
       <span class="h-3 w-3 rounded-full bg-primary"></span>
       <span class="h-3 w-3 rounded-full bg-base-300"></span>
       <span class="h-3 w-3 rounded-full bg-base-300"></span>
     </div>
-
+    <label class="label pt-5">
+      <input type="checkbox" class="checkbox" />
+      次回以降表示しない
+    </label>
     <div class="modal-action justify-center">
-      <%= link_to "つぎへ", tutorial_step_path(step: 2), class: "btn btn-primary w-full" %>
+      <%= link_to "つぎへ", tutorial_step_path(step: 2), class: "btn btn-primary w-70 h-12 rounded-2xl" %>
     </div>
   </div>
 <% end %>
