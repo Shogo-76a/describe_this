@@ -54,6 +54,13 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).not_to have_selector("img[src*='DT_logo'][alt='ロゴ']")
     end
 
+    it "ポップアップ が表示されない" do
+      visit root_path
+      page.refresh
+      expect(page).not_to have_css(".modal", visible: true, wait: 4)
+      expect(page).not_to have_content("① 見たままを言葉にする")
+    end
+
     it "トップページ の要素が すべて 表示される" do
       # このテストはJavaScriptを必要としないことが明確
       # 確認したいテキストのリスト
