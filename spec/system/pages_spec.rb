@@ -16,9 +16,9 @@ RSpec.describe "画面表示物 の確認", type: :system do
       click_button 'つぎへ'
       expect(page).to have_content("② AIがイメージして採点")
       click_button 'つぎへ'
-      expect(page).to have_content("③ コツを学んでレベルUP", wait: 2) 
-      click_button 'とじる' ## 表示切替の時にチラつく。切替チェックに1～2秒 waitする必要ある。あとで修正。
-      expect(page).not_to have_css(".modal", visible: true, wait: 1)
+      expect(page).to have_content("③ コツを学んでレベルUP")
+      click_button 'とじる'
+      expect(page).not_to have_css(".modal", visible: true)
     end
 
     it "トップページ の要素が すべて 表示される" do

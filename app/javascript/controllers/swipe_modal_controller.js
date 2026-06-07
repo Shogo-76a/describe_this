@@ -9,17 +9,25 @@ export default class extends Controller {
     this.currentIndex = 0
     this.totalSlides = this.dotTargets.length
     this.updateUI()
+    this.isProgrammaticScroll = false // ボタンからのスクロールかどうかを判定するフラグ。UI更新時のチラつき防止用。
   }
 
   // 「つぎへ / とじる」ボタンがクリックされたとき
   nextOrClose(event) {
     event.preventDefault()
+    this.isProgrammaticScroll = true // ロックをかける。UI更新時のチラつき防止。
 
     if (this.currentIndex < this.totalSlides - 1) {
       // 次のスライドへスクロール
       this.currentIndex++
       this.scrollToCurrentIndex()
       this.updateUI()
+
+      // アニメーションが終わる頃（約300〜400ms後）にロックを解除する
+      setTimeout(() => {
+        this.isProgrammaticScroll = false
+      }, 400) // smoothスクロールの時間に合わせて調整
+
     } else {
       // 最後のページならモーダルを閉じる
       this.element.close() // <dialog> 要素自体にコントローラーを付けるため this.element で閉じる
@@ -34,8 +42,13 @@ export default class extends Controller {
     }
   }
 
+  
   // ユーザーが直接手動でスワイプ（スクロール）したとき
   handleScroll() {
+
+    // ボタン操作によるスクロール中なら、途中の細かい位置計算はすべて無視する。
+    if (this.isProgrammaticScroll) return
+
     const slideWidth = this.carouselTarget.offsetWidth
     const newIndex = Math.round(this.carouselTarget.scrollLeft / slideWidth)
 
@@ -43,6 +56,15 @@ export default class extends Controller {
       this.currentIndex = newIndex
       this.updateUI()
     }
+  }
+
+  // 指定のインデックス位置へスクロールさせるヘルパー
+  scrollToCurrentIndex() {
+    const slideWidth = this.carouselTarget.offsetWidth
+    this.carouselTarget.scrollTo({
+      left: slideWidth * this.currentIndex,
+      behavior: 'smooth'
+    })
   }
 
   // 現在のインデックスに応じてUI（ボタン・ドット）を更新
@@ -66,12 +88,5 @@ export default class extends Controller {
     })
   }
 
-  // 指定のインデックス位置へスクロールさせるヘルパー
-  scrollToCurrentIndex() {
-    const slideWidth = this.carouselTarget.offsetWidth
-    this.carouselTarget.scrollTo({
-      left: slideWidth * this.currentIndex,
-      behavior: 'smooth'
-    })
-  }
+
 }
