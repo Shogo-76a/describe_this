@@ -41,7 +41,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
       end
       expect(page).to have_button("はじめる")
       expect(page).to have_link("ホーム", href: root_path)
-      expect(page).to have_link("プレイ履歴", href: root_path)
+      expect(page).to have_link("プレイ履歴", href: "#")
       expect(page).to have_link("プロフィール", href: game_path(9999)) # MVP用仮プロフィールページのパス
     end
   end
@@ -81,10 +81,10 @@ RSpec.describe "画面表示物 の確認", type: :system do
       end
       expect(page).to have_button("はじめる")
       expect(page).to have_link("ホーム", href: root_path)
-      expect(page).to have_link("プレイ履歴", href: root_path)
+      expect(page).to have_link("プレイ履歴", href: "#")
       expect(page).to have_link("プロフィール", href: game_path(9999)) # MVP用仮プロフィールページのパス
     end
-    
+
     it "プロフィールページの要素が すべて 表示される" do
       visit game_path(9999) # MVP用仮プロフィールページのパス
       page.refresh

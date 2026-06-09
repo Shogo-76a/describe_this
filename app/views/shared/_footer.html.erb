@@ -1,28 +1,28 @@
-<footer class="footer footer-horizontal footer-center btm-nav fixed bottom-0 text-neutral-content p-5 bg-base-100">
+<footer class="footer footer-horizontal footer-center fixed bottom-0 text-neutral-content p-5 bg-base-100">
   <div>
     <% if content_for?(:footer_content) %>
       <%= yield :footer_content %>
     <% else %>
-      <nav class="grid grid-flow-col gap-10">
-        <%= link_to root_path do %>
+      <div data-controller="footer-navigation" class="btm-nav flex gap-10">
+        <%= link_to root_path, data: { footer_navigation_target: "link" } do %>
             <span class="nav-label inline-block w-20 text-center">
                 <span>🏠</span><br>
                 <span class="text-xs">ホーム</span>
             </span>
         <% end %>
-        <%= link_to root_path do %>
+        <%= link_to '#', data: { footer_navigation_target: "link" } do %>
             <span class="nav-label inline-block w-20 text-center">
                 <span>📚</span><br>
                 <span class="text-xs">プレイ履歴</span>
             </span>
         <% end %>
-        <%= link_to game_path(9999) do %> <!-- MVP用の仮プロフィールページ -->
+        <%= link_to game_path(9999), data: { footer_navigation_target: "link" } do %> <!-- MVP用の仮プロフィールページ -->
             <span class="nav-label inline-block w-20 text-center">
                 <span>🕵️‍♂️</span><br>
                 <span class="text-xs">プロフィール</span>
             </span>
         <% end %>
-      </nav>
+      </div>
     <% end %>
   </div>
 </footer>
