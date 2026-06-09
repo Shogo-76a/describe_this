@@ -56,8 +56,9 @@ RSpec.describe "画面表示物 の確認", type: :system do
 
     it "ポップアップ が表示されない" do
       visit root_path
-      page.refresh
-      expect(page).not_to have_css(".modal", visible: true, wait: 4)
+      page.refresh # 1回目ページ更新により、トップページ要素のクラスloadingが消えたことで、ポップアップ表示。
+      page.refresh # 2回目ページ更新により、ポップアップが消える。
+      expect(page).not_to have_css(".modal", visible: true)
       expect(page).not_to have_content("① 見たままを言葉にする")
     end
 
