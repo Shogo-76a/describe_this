@@ -1,16 +1,16 @@
 class GamesController < ApplicationController
   def top
+  end
+
+  def new
     @game = Game.new
+    render "games/start"
   end
 
   def create
-    @game = Game.new(game_params)
-    if @game.save
-      redirect_to @game, notice: "保存しました" # リダイレクト先にインスタンス@game を入れると、game_path(@game)とRailsが解釈。よって、show アクションが実行される。
-    else
-      # status: :unprocessable_entity が必須！
-      render :new, status: :unprocessable_entity
-    end
+  end
+
+  def update
   end
 
   def show
