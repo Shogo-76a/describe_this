@@ -24,30 +24,28 @@
   </head>
 
   <body>
-    
-
-      <!-- 導入画面の内容 -->
-      <div data-controller="splash" class="splash-overlay hidden">
-        <div class="hero min-h-screen">
-          <div class="hero-content text-center">
-            <div class="max-w-md">
-              <%= image_tag "DT_logo.png", class: "mx-auto h-24 w-auto object-contain", alt: "ロゴ" %>
-            </div>
+    <!-- 導入画面の内容 -->
+    <div data-controller="splash" class="splash-overlay hidden">
+      <div class="hero min-h-screen">
+        <div class="hero-content text-center">
+          <div class="max-w-md">
+            <%= image_tag "DT_logo.png", class: "mx-auto h-24 w-auto object-contain", alt: "ロゴ" %>
           </div>
         </div>
-      </div>
+      </div>
+    </div>
 
 
-      <!-- メイン画面の内容 -->
-      <div class="app-content loading">
-        <%# --- ヘッダーの呼び出し --- %>
-        <%= render "shared/header" %> 
-        <main class="m-0 p-0 overflow-x-hidden">
-          <%= yield %>
-        </main>
-        <%# --- フッターの呼び出し --- %>
-        <%= render "shared/footer" %> 
-      </div>
+    <!-- メイン画面の内容 -->
+    <div class="app-content loading">
+      <%# --- ヘッダーの呼び出し --- %>
+      <%= render "shared/header" %> 
+      <main class="m-0 p-0 overflow-x-hidden">
+      <%= yield %>
+      </main>
+      <%# --- フッターの呼び出し --- %>
+      <%= render "shared/footer" %> 
+    </div>
 
     
   </body>
