@@ -14,7 +14,9 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+    # プロフィールページ
+    # MVP では仮ページを表示
+    # 本リリース ではユーザーテーブルからユーザーIDを渡す
   end
 
 private

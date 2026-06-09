@@ -1,8 +1,8 @@
 <header class="navbar bg-base-100">
     <!-- ページごとに書き換わるエリア -->
     <div class="navbar-start p-4">
-        <% if content_for?(:header_actions) %>
-            <%= yield :header_actions %>
+        <% if content_for?(:header_content) %>
+            <%= yield :header_content %>
         <% else %>
             <!-- どのページでも設定されていない場合のデフォルト表示 -->
             <%= link_to image_tag("DT_title.png", alt: "Describe this", class: "w-48 h-auto"), root_path%>
