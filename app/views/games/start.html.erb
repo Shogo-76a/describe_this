@@ -3,13 +3,20 @@
     <%= link_to "＜", root_path, class: "text-2xl font-bold" %>
 <% end %>
 
-<div class="hero bg-base-200 w-full items-start py-10">
-  <div class="hero-content text-center">
-    <div class="max-w-md grid place-items-center">
-      <p class="text-4xl">お題</p>
+<div class="hero items-start bg-base-200 w-full h-165 pt-10">
+    <div class="hero-content text-center">
+        <div class="max-w-md grid place-items-center gap-3">
+            <p class="text-4xl">お題</p>
+            <p class="text-base">このイメージを言葉で伝えてください。</p>
+            <img
+            id="gacha-image"
+            src="https://picsum.photos/800/600"
+            alt="ランダムイメージ"
+            class="rounded-4xl">
 
-      <div class="pt-25 pb-7">
-        <%=button_to "つぎへ", new_game_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
-      </div>
+            <div class="fixed bottom-6 h-37">
+                <%=button_to "つぎへ", games_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+            </div>
+        </div>
     </div>
 </div>
