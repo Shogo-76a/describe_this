@@ -1,4 +1,4 @@
-<!-- ヘッダーの内容変更（プロフィール表示の時） -->
+<!-- ヘッダーの内容変更 -->
 <% provide(:header_content) do %>
     <%= link_to "＜", root_path, class: "text-2xl font-bold" %>
 <% end %>
@@ -10,13 +10,29 @@
             <p class="text-base">このイメージを言葉で伝えてください。</p>
             <img
             id="gacha-image"
-            src="https://picsum.photos/800/600"
+            src="<%= @game.theme_image_url %>"
             alt="ランダムイメージ"
             class="rounded-4xl">
-
-            <div class="flex mt-10">
-                <%=button_to "つぎへ", games_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
-            </div>
+            <button
+             class="p-2 text-base-content/60 hover:text-base-content transition-colors duration-200 cursor-pointer focus:outline-none"
+             onclick="window.location.reload();">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-cw">
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                <path d="M16 16h5v5"/>
+            </svg>
+            </button>
+            <%= form_with model: @game do |f| %>
+                <%= f.hidden_field :theme_image_url %><br>
+                <%= f.submit "つぎへ", class: "flex btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+            <% end %>
         </div>
     </div>
 </div>
+
+
+<!-- フッターの内容変更 -->
+<% provide(:footer_content) do %>
+    <p></p>
+<% end %>
