@@ -37,10 +37,10 @@
 
 
     <!-- メイン画面の内容 -->
-    <div class="app-content loading">
+    <div class="app-content loading flex flex-col min-h-screen">
       <%# --- ヘッダーの呼び出し --- %>
       <%= render "shared/header" %> 
-      <main class="m-0 p-0 overflow-x-hidden">
+      <main class="overflow-x-hidden flex-grow w-full pt-10 bg-base-200">
       <%= yield %>
       </main>
       <%# --- フッターの呼び出し --- %>
