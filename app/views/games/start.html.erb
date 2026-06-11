@@ -1,4 +1,4 @@
-<!-- ヘッダーの内容変更（プロフィール表示の時） -->
+<!-- ヘッダーの内容変更 -->
 <% provide(:header_content) do %>
     <%= link_to "＜", root_path, class: "text-2xl font-bold" %>
 <% end %>
@@ -10,13 +10,20 @@
             <p class="text-base">このイメージを言葉で伝えてください。</p>
             <img
             id="gacha-image"
-            src="https://picsum.photos/800/600"
+            src="<%= @game.theme_image_url %>"
             alt="ランダムイメージ"
             class="rounded-4xl">
 
-            <div class="flex mt-10">
-                <%=button_to "つぎへ", games_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
-            </div>
+            <%= form_with model: @game do |f| %>
+                <%= f.hidden_field :theme_image_url %><br>
+                <%= f.submit "つぎへ", class: "flex btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+            <% end %>
         </div>
     </div>
 </div>
+
+
+<!-- フッターの内容変更 -->
+<% provide(:footer_content) do %>
+    <p></p>
+<% end %>
