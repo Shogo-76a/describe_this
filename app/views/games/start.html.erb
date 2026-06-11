@@ -3,7 +3,7 @@
     <%= link_to "＜", root_path, class: "text-2xl font-bold" %>
 <% end %>
 
-<div class="hero items-start bg-base-200 w-full h-165 pt-10">
+<div class="hero items-start">
     <div class="hero-content text-center">
         <div class="max-w-md grid place-items-center gap-3">
             <p class="text-4xl">お題</p>
@@ -14,7 +14,7 @@
             alt="ランダムイメージ"
             class="rounded-4xl">
 
-            <div class="fixed bottom-6 inset-x-0 mx-auto h-37">
+            <div class="flex mt-10">
                 <%=button_to "つぎへ", games_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
             </div>
         </div>
