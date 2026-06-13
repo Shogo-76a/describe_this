@@ -21,7 +21,7 @@
                 </svg>
 
             </button>
-            <%= form_with model: @game do |f| %>
+            <%= form_with model: @game, data: { turbo: false } do |f| %>
                 <%= f.hidden_field :theme_image_url %>
                 <%= f.submit "つぎへ", class: "flex btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
             <% end %>
