@@ -1,14 +1,24 @@
 <!-- ヘッダーの内容変更 -->
 <% provide(:header_content) do %>
-    <%= link_to "＜", root_path, class: "text-2xl font-bold" %>
+    <%= link_to "＜", new_game_path, class: "text-2xl font-bold" %>
 <% end %>
 
 
 <div class="hero items-start">
     <div class="hero-content text-center">
         <div class="max-w-md grid place-items-center gap-3">
-            <p class="text-4xl">画像生成</p>
+            <img
+            id="gacha-image"
+            src="<%= @game.theme_image_url %>"
+            alt="ランダムイメージ"
+            class="rounded-4xl">
 
         </div>
     </div>
 </div>
+
+
+<!-- フッターの内容変更 -->
+<% provide(:footer_content) do %>
+    <p></p>
+<% end %>
