@@ -28,10 +28,24 @@ class GamesController < ApplicationController
   end
 
   def update
+    @game = Game.find(params[:id])
+
+    if @game.update(game_params)
+      respond_to do |f|
+        # Turbo Stream で、変更されたメッセージの部分（HTML）だけを差し替える
+        f.turbo_stream
+        f.html { redirect_to @game }
+      end
+    else
+      respond_to do |f|
+        # バリデーションエラーなどの場合
+        f.html { render @game, status: :unprocessable_entity }
+      end
+    end
   end
 
 private
   def game_params
-    params.require(:game).permit(:generated_image, :theme_image_url)
+    params.require(:game).permit(:description, :generated_image, :theme_image_url)
   end
 end
