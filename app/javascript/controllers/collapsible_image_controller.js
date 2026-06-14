@@ -49,32 +49,18 @@ export default class extends Controller {
 
   updateLayout() {
     if (this.isWideScreen) {
-      // 横画面以上の時（画像1枚ずつの比率を 800:600 で完全固定）
-      this.wrapperGlobalTarget.classList.add("relative") 
-      this.wrapperGlobalTarget.classList.remove("aspect-[800/600]", "overflow-hidden")
-
+      // 横画面以上の時：Stimulusが付与した縦画面用のクラスをリセット
+      this.wrapperGlobalTarget.classList.remove("relative", "aspect-[800/600]", "overflow-hidden", "w-39/40", "w-1/40", "z-10")
       this.wrapperATarget.classList.remove("absolute", "top-0", "left-0", "h-full", "transition-all", "duration-500", "ease-in-out", "w-39/40", "w-1/40", "z-10")
-      this.wrapperATarget.classList.add("relative", "w-1/2", "aspect-[800/600]") // ★比率を固定
-
       this.wrapperBTarget.classList.remove("absolute", "top-0", "right-0", "h-full", "transition-all", "duration-500", "ease-in-out", "w-39/40", "w-1/40", "z-10")
-      this.wrapperBTarget.classList.add("relative", "w-1/2", "aspect-[800/600]") // ★比率を固定
-      
     } else {
-      // 縦画面に戻った時
+      // 縦画面に戻った時：クラスを再付与できるように初期化してAを展開
+      // ※これを入れないと、横画面から縦画面に「戻した」ときに absolute などが消えたまま崩れる
       this.wrapperGlobalTarget.classList.add("relative", "aspect-[800/600]", "overflow-hidden")
-      
-      this.wrapperATarget.classList.remove("relative", "w-1/2", "aspect-[800/600]")
-      this.wrapperBTarget.classList.remove("relative", "w-1/2", "aspect-[800/600]")
-
       this.wrapperATarget.classList.add("absolute", "top-0", "left-0", "h-full", "transition-all", "duration-500", "ease-in-out")
       this.wrapperBTarget.classList.add("absolute", "top-0", "right-0", "h-full", "transition-all", "duration-500", "ease-in-out")
       
-      // 保持していた現在の状態に合わせて展開
-      if (this.activeImage === "A") {
-        this.activateA()
-      } else {
-        this.activateB()
-      }
+      this.activateA()
     }
   }
 }
