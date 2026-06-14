@@ -24,10 +24,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
 
-  def edit
-  end
-
-  def update
+  def update # 画像生成ページ_説明文追加
     @game = Game.find(params[:id])
 
     if @game.update(game_params)
