@@ -10,9 +10,17 @@
             <img
             id="gacha-image"
             src="<%= @game.theme_image_url %>"
-            alt="ランダムイメージ"
-            class="rounded-4xl">
-
+            alt="お題イメージ"
+            class="rounded-4xl">        
+            <div class="w-full h-auto aspect-[800/600] bg-gray-900 object-cover rounded-4xl">
+                <% if @game.generated_image.attatched? %>
+                    <img
+                    id="gacha-image"
+                    src="<%= @game.generated_image %>"
+                    alt="生成イメージ"
+                    class="rounded-4xl">
+                <% end %>
+            </div>
         </div>
     </div>
 </div>
