@@ -12,6 +12,7 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
+    @game_form = GameForm.new( feedback: "どんなイメージ？" )
 
     if @game.save
       redirect_to @game
@@ -26,7 +27,10 @@ class GamesController < ApplicationController
 
   def update # 画像生成ページ_説明文追加
     @game = Game.find(params[:id])
-
+    @game_forms = [
+      GameForm.new(feedback: "MVP版は2目以降送信できません"),
+      GameForm.new(feedback: "うーん...(想像中)")
+    ]
     if @game.update(game_params)
       respond_to do |f|
         # Turbo Stream で、変更されたメッセージの部分（HTML）だけを差し替える

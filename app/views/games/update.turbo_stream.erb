@@ -3,6 +3,9 @@
         
         <!-- # すでに作ったパーシャル(_message)に、今保存された @game を流し込む -->
         <!-- # 最初の読み込み時は @game の中身（1件ならobject、複数ならcollection）を描画 -->
-        <%= render partial: 'shared/message', object: @game, as: :game %>
+        <%= render partial: 'shared/message', object: @game, as: :message %>
+
+        <!-- # アプリ側の 一時的なメッセージ -->
+        <%= render partial: 'shared/message', collection: @game_forms, as: :message %>
     <% end %>
 <% end %>
