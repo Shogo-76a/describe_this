@@ -27,8 +27,7 @@ class GamesController < ApplicationController
       format.turbo_stream do
         # 表示したいテキストの配列をインスタンス変数にセット
         @system_replies = [
-          GameForm.new(feedback: "こんにちは！ゲームチャットへようこそ"),
-          GameForm.new(feedback: "何かお手伝いできることはありますか？")
+          GameForm.new(feedback: "どんなイメージか教えてください"),
         ]
         # 自動的に app/views/games/show.turbo_stream.erb が呼ばれます
       end

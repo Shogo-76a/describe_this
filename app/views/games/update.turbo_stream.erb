@@ -1,11 +1,11 @@
 <!-- # すでに作ったパーシャル(_message)に、今保存された @game を流し込む -->
-<% if @game.present? %>
+<% if @game.description.present? || @game.feedback.present? %>
     <%= turbo_stream.append "chat_messages_container" do %>
         <!-- # すでに作ったパーシャル(_message)に、今保存された @game を流し込む -->
         <!-- # 最初の読み込み時は @game の中身（1件ならobject、複数ならcollection）を描画 -->
         <%= render partial: 'shared/message', object: @game, as: :message %>
 
-        <!-- # アプリ側の 一時的なメッセージ -->
+        <!-- # アプリ側のメッセージ @system_repliesを流し込む-->
         <%= render partial: 'shared/message', collection: @system_replies, as: :message %>
     <% end %>
 <% end %>
