@@ -22,31 +22,31 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-
     respond_to do |format|
-      # 通常のブラウザアクセス時：画面をそのまま表示
       format.html 
-
-      # Stimulusからの裏側リクエスト時：自動メッセージを配信
       format.turbo_stream do
-        render turbo_stream: render_system_message("どんなイメージかな？")
+        # 表示したいテキストの配列をインスタンス変数にセット
+        @system_replies = [
+          GameForm.new(feedback: "こんにちは！ゲームチャットへようこそ"),
+          GameForm.new(feedback: "何かお手伝いできることはありますか？")
+        ]
+        # 自動的に app/views/games/show.turbo_stream.erb が呼ばれます
       end
     end
   end
 
   def update
     @game = Game.find(params[:id])
-    # ユーザーメッセージの保存処理（例: @user_message = ... ）
+    # ユーザーメッセージの保存処理（例: @user_message = ...）
     if @game.update(game_params)
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: [
-            # ユーザーのメッセージを右側(chat-end)に追加                           
-            turbo_stream.append("chat_messages_container", partial: "shared/message", locals: { message: @game }),
-            # アプリ側の応答メッセージを左側(chat-start)に追加（共通メソッドの使い回し）
-            render_system_message("MVP版は2目以降送信できません"),
-            render_system_message("うーん...(想像中)")
+          # 返答したいテキストの配列をインスタンス変数にセット
+          @system_replies = [
+            GameForm.new(feedback: "MVP版は2目以降送信できません"),
+            GameForm.new(feedback: "うーん...(想像中)")
           ]
+          # 自動的に app/views/games/update.turbo_stream.erb が呼ばれます
         end
       end
     else
@@ -55,24 +55,11 @@ class GamesController < ApplicationController
         f.html { render @game, status: :unprocessable_entity }
       end
     end
+      
   end
 
 private
   def game_params
     params.require(:game).permit(:description, :generated_image, :theme_image_url)
   end
-
-
-
-  # アプリ側メッセージを生成してTurbo Stream形式で返す
-  def render_system_message(text)
-    system_message = Game.new(feedback: text)
-    
-    turbo_stream.append(
-      "chat_messages_container",
-      partial: "shared/message",
-      locals: { message: system_message }   
-    )
-  end
-
 end
