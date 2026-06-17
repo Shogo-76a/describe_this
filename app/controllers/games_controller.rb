@@ -49,10 +49,10 @@ class GamesController < ApplicationController
         end
       end
     else
-      respond_to do |f|
-        # バリデーションエラーなどの場合
-        f.html { render @game, status: :unprocessable_entity }
-      end
+      # 失敗した時は、newではなく現在のチャット画面（show）のデータを再準備して返す
+      # これにより、MissingTemplate エラーが消えます
+      # @system_replies = [GameForm.new(feedback: "空欄でござる。")] # 必要に応じて空の配列などを定義
+      render :show, status: :unprocessable_entity
     end
   end
 

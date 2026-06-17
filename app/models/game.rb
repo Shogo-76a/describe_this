@@ -13,7 +13,7 @@
 #
 class Game < ApplicationRecord
     has_one_attached :generated_image
-
+    validates :description, presence: true, on: :update
     # description カラムに文字が入っていれば、ユーザーからのメッセージと判定する
     def from_user?
         self.description.present?
