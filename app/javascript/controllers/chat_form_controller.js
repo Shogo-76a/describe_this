@@ -2,8 +2,31 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["textarea"]
+  static values = { limit: { type: Number, default: 1 } }
+  static targets = ["textarea", "submitButton"]
 
+  initialize() {
+    this.submitCount = 0
+  }
+
+  // フォーム送信が「完了」したときに動くメソッド
+  clear(event) {
+    // サーバーへの送信が「成功」しなかった場合は、カウントもリセットもしない
+    if (!event.detail.success) return
+
+    // 実際に送信が成功したので、ここで初めてカウントを＋1する
+    this.submitCount++
+
+    // フォームを空にして高さを戻す（既存の処理）
+    this.element.reset()
+    this.resize()
+
+    // 成功回数が制限に達したら、ボタンを無効化する
+    if (this.submitCount >= this.limitValue) {
+      this.submitButtonTarget.disabled = true
+      this.submitButtonTarget.classList.add("btn-disabled")
+    }
+  }
 
   // 入力欄の高さを 改行など があったときに自動調整するメソッド
   resize() {
@@ -51,11 +74,5 @@ export default class extends Controller {
         this.element.requestSubmit() // フォームをプログラムから送信
       }
     }
-  }
-
-  // 送信が成功したら入力を空にする
-  clear() {
-    this.element.reset()
-    this.resize()
   }
 }

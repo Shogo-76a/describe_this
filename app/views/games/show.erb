@@ -65,18 +65,19 @@
                 <%= form_with(model: @game, 
                             data: { 
                                 controller: "chat-form", 
+                                chat_form_limit_value: 1, 
                                 action: "keydown->chat-form#handleKeydown turbo:submit-end->chat-form#clear" 
                             }) do |f| %>
 
                     <div class="flex gap-2 items-end">
                         <%= f.text_area :description, 
-                                        data: { chat_form_target: "textarea", 
-                                        action: "input->chat-form#resize"},
-                                        rows: 1,
-                                        class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
-                                        placeholder: "メッセージを入力..." %>
+                            data: { chat_form_target: "textarea", 
+                            action: "input->chat-form#resize"},
+                            rows: 1,
+                            class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
+                            placeholder: "メッセージを入力..." %>
 
-                        <%= f.submit "送信", class: "btn btn-primary" %>
+                        <%= f.submit "送信", data: { chat_form_target: "submitButton" }, class: "btn btn-primary" %>
                     </div>
                 <% end %>
             </div>
