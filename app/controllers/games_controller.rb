@@ -42,7 +42,7 @@ class GamesController < ApplicationController
         format.turbo_stream do
           # 返答したいテキストの配列をインスタンス変数にセット
           @system_replies = [
-            GameForm.new(feedback: "MVP版は2目以降送信できません"),
+            GameForm.new(feedback: "MVP版は2回目以降送信できません"),
             GameForm.new(feedback: "うーん...(想像中)")
           ]
           # 自動的に app/views/games/update.turbo_stream.erb が呼ばれます
