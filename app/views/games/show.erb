@@ -66,7 +66,11 @@
                             data: { 
                                 controller: "chat-form", 
                                 chat_form_limit_value: 1, 
-                                action: "keydown->chat-form#handleKeydown turbo:submit-end->chat-form#clear" 
+                                action: "
+                                        submit->chat-form#validateForm 
+                                        keydown->chat-form#handleKeydown 
+                                        turbo:submit-end->chat-form#clear
+                                        " 
                             }) do |f| %>
 
                     <div class="flex gap-2 items-end">

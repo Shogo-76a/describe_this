@@ -63,7 +63,7 @@ export default class extends Controller {
       return
     }
 
-    // 2. パソコン（PC）の場合の挙動制御
+    // パソコン（PC）の場合の挙動制御
     if (event.key === "Enter") {
       if (event.shiftKey) {
         // Shift + Enter の場合は「改行」したいので、送信をスルー（普通の挙動）
@@ -75,4 +75,18 @@ export default class extends Controller {
       }
     }
   }
+
+  // 送信が実行される直前に「中身が空じゃないか」チェックする
+  validateForm(event) {
+    const text = this.textareaTarget.value
+
+    // 文字列の前後スペースや改行を除去（trim）して、完全に空っぽだったら
+    if (text.trim() === "") {
+      event.preventDefault() // サーバーへの送信（通信）を完全にストップする
+      
+      // テキストエリアをほんの少し揺らす（DaisyUI等と組み合わせてプチ演出も可）
+      return false
+    }
+  }
+  
 }
