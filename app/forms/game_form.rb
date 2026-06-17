@@ -11,9 +11,15 @@
 #  updated_at      :datetime         not null
 #  session_id      :string
 #
-class Game < ApplicationRecord
-    has_one_attached :generated_image
-    validates :description, presence: true, on: :update
+
+class GameForm
+    include ActiveModel::Model
+    include ActiveModel::Attributes
+
+    # 値を持たせる（初期化する）ための属性を定義する
+    attribute :description, :string
+    attribute :feedback, :string, default: -> { [] }
+
     # description カラムに文字が入っていれば、ユーザーからのメッセージと判定する
     def from_user?
         self.description.present?

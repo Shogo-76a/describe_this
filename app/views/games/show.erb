@@ -2,23 +2,89 @@
 <% provide(:header_content) do %>
     <%= link_to "＜", new_game_path, class: "text-2xl font-bold" %>
 <% end %>
+<div class="bg-base-300 min-h-full flex flex-col pt-0">
+    <div class="bg-base-200 p-4 flex flex-col landscape:m-0 landscape:hero">
+        <div data-collapsible-image-target="wrapperGlobal"
+            data-controller="collapsible-image"
+            class="relative w-full aspect-[800/600] overflow-hidden 
+                landscape:hero-content landscape:flex landscape:flex-row landscape:gap-4">
 
+            <div data-collapsible-image-target="wrapperA"
+                data-action="click->collapsible-image#toggle"
+                class="absolute top-0 left-0 h-full landscape:h-auto w-1/2 transition-all duration-500 ease-in-out
+                    landscape:h-auto">
 
-<div class="hero items-start">
-    <div class="hero-content text-center">
-        <div class="max-w-md grid place-items-center gap-3">
-            <img
-            id="gacha-image"
-            src="<%= @game.theme_image_url %>"
-            alt="ランダムイメージ"
-            class="rounded-4xl">
+                <div class="w-full h-full landscape:h-auto">
+                    <img
+                        id="gacha-image"
+                        src="<%= @game.theme_image_url %>"
+                        alt="お題イメージ"
+                        class="w-full h-full landscape:h-auto object-cover object-left rounded-4xl">
+                </div>
+            </div>
 
+            <div data-collapsible-image-target="wrapperB"
+                data-action="click->collapsible-image#toggle"
+                class="absolute top-0 right-0 h-full landscape:h-auto w-1/2 transition-all duration-500 ease-in-out
+                    landscape:h-auto">
+                <div class="w-full h-full landscape:h-auto">
+                    <% if @game.generated_image.attatched? %>
+                        <img
+                        id="gacha-image"
+                        src="<%= @game.generated_image %>"
+                        alt="生成イメージ"
+                        class="w-full h-full landscape:h-auto object-cover object-right rounded-4xl">
+                    <% else %>
+                        <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[800/600] bg-base-100 rounded-4xl"></div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center m-5">
+            <%=button_to "採点", '#', method: :get, class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl" %>
+        </div>
+    </div>
+
+    <!-- チャット欄 -->
+    <div class="bg-base-300">
+        <div class="w-full max-w-xl mx-auto px-4 py-8 flex flex-col gap-4">
+            <div data-controller="auto-message" data-auto-message-url-value="<%= game_path(@game) %>">
+                <div id="chat_messages_container">
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-
 <!-- フッターの内容変更 -->
 <% provide(:footer_content) do %>
-    <p></p>
+    <div id="reset_form">
+        <div class="fixed bottom-0 left-0 right-0 bg-base-100 py-4 px-4 z-10">
+            <div class="max-w-2xl mx-auto w-full pb-4">
+
+                <%= form_with(model: @game, 
+                            data: { 
+                                controller: "chat-form", 
+                                chat_form_limit_value: 1, 
+                                action: "
+                                        submit->chat-form#validateForm 
+                                        keydown->chat-form#handleKeydown 
+                                        turbo:submit-end->chat-form#clear
+                                        " 
+                            }) do |f| %>
+
+                    <div class="flex gap-2 items-end">
+                        <%= f.text_area :description, 
+                            data: { chat_form_target: "textarea", 
+                            action: "input->chat-form#resize"},
+                            rows: 1,
+                            class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
+                            placeholder: "メッセージを入力..." %>
+
+                        <%= f.submit "送信", data: { chat_form_target: "submitButton" }, class: "btn btn-primary" %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
 <% end %>

@@ -22,16 +22,42 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-  end
-
-  def edit
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        # 表示したいテキストの配列をインスタンス変数にセット
+        @system_replies = [
+          GameForm.new(feedback: "どんなイメージか教えてください")
+        ]
+        # 自動的に app/views/games/show.turbo_stream.erb が呼ばれます
+      end
+    end
   end
 
   def update
+    @game = Game.find(params[:id])
+    # ユーザーメッセージの保存処理（例: @user_message = ...）
+    if @game.update(game_params)
+      respond_to do |format|
+        format.turbo_stream do
+          # 返答したいテキストの配列をインスタンス変数にセット
+          @system_replies = [
+            GameForm.new(feedback: "MVP版は2回目以降送信できません"),
+            GameForm.new(feedback: "うーん...(想像中)")
+          ]
+          # 自動的に app/views/games/update.turbo_stream.erb が呼ばれます
+        end
+      end
+    else
+      # 失敗した時は、newではなく現在のチャット画面（show）のデータを再準備して返す
+      # これにより、MissingTemplate エラーが消えます
+      # @system_replies = [GameForm.new(feedback: "空欄でござる。")] # 必要に応じて空の配列などを定義
+      render :show, status: :unprocessable_entity
+    end
   end
 
 private
   def game_params
-    params.require(:game).permit(:generated_image, :theme_image_url)
+    params.require(:game).permit(:description, :generated_image, :theme_image_url)
   end
 end
