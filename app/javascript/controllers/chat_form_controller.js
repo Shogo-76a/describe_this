@@ -51,6 +51,16 @@ export default class extends Controller {
 
   // キーボードが押されたときに発火するメソッド
   handleKeydown(event) {
+    
+    if (this.submitButtonTarget.disabled) {
+      // もし無効化中にEnterを押された場合、改行すらさせずに完全に無視したいなら preventDefault() を有効にします
+      // 改行だけは許すなら、単に「return」にするだけでOKです
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault() // 送信も改行もしない
+      }
+      return 
+    }
+
     // 変換確定時のEnter（日本語入力の確定など）はスルーする
     if (event.isComposing || event.keyCode === 229) return
 
