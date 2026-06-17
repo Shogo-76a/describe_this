@@ -58,22 +58,28 @@
 
 <!-- フッターの内容変更 -->
 <% provide(:footer_content) do %>
-    <div class="fixed bottom-0 left-0 right-0 bg-base-100 py-4 px-4 z-10">
-        <div class="max-w-2xl mx-auto w-full pb-4">
+    <div id="reset_form">
+        <div class="fixed bottom-0 left-0 right-0 bg-base-100 py-4 px-4 z-10">
+            <div class="max-w-2xl mx-auto w-full pb-4">
 
-            <%= form_with model: @game, local: false, class: "flex gap-2 items-center",
-            data: { controller: "chat-form", action: "turbo:submit-end->chat-form#clear" } do |f| %>
-                
-                <!-- テキスト入力欄 -->
-                <%= f.text_field :description, 
-                        placeholder: "メッセージを入力...", 
-                        class: "input input-bordered flex-1 bg-base-100 text-base-content focus:outline-primary",
-                        autocomplete: "off" %>
-                <!-- 送信ボタン -->
-                <%= f.button class: "btn btn-primary" do %>
-                    <span>送信</span>
+                <%= form_with(model: @game, 
+                            data: { 
+                                controller: "chat-form", 
+                                action: "keydown->chat-form#handleKeydown turbo:submit-end->chat-form#clear" 
+                            }) do |f| %>
+
+                    <div class="flex gap-2 items-end">
+                        <%= f.text_area :description, 
+                                        data: { chat_form_target: "textarea", 
+                                        action: "input->chat-form#resize"},
+                                        rows: 1,
+                                        class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
+                                        placeholder: "メッセージを入力..." %>
+
+                        <%= f.submit "送信", class: "btn btn-primary" %>
+                    </div>
                 <% end %>
-            <% end %>
+            </div>
         </div>
     </div>
 <% end %>

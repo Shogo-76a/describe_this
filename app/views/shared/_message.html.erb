@@ -1,8 +1,8 @@
 <!-- # message.from_user? が true なら自分 (右側) 、false ならアプリ側 (左側) -->
 <div class="chat <%= message.from_user? ? 'chat-end' : 'chat-start' %>">
     
-    <div class="chat-bubble <%= message.from_user? ? 'chat-bubble-primary' : 'bg-base-100 text-base-content' %>">
-        <%= message.description || message.feedback %>
-    </div>
-        
+    <div class="chat-bubble whitespace-pre-wrap 
+        <%= 
+            message.from_user? ? 'chat-bubble-primary' : 'bg-base-100 text-base-content'
+         %>"><%= message.description || message.feedback %></div>
 </div>
