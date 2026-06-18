@@ -35,12 +35,13 @@
             </div>
         </div>
         
-        <%= turbo_stream_from "enable_scoring" %>
+        <%= turbo_stream_from "scoring_button_enable" %>
         <div id="scoring_button", class="flex justify-center m-5">
             <%=button_to "採点", '#', 
                 method: :get, 
                 class: "btn btn-lg btn-primary text-primary-content/25 w-70 h-12 rounded-2xl", 
-                disabled: true %>
+                disabled: true, 
+                data: { collapsible_image_target: "submitButton"} %>
         </div>
     </div>
 

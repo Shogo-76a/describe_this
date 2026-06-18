@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "wrapperGlobal", "wrapperA", "wrapperB" ]
+  static targets = [ "wrapperGlobal", "wrapperA", "wrapperB", "submitButton" ]
 
   connect() {
     // 初期状態は A をアクティブに設定
@@ -63,4 +63,21 @@ export default class extends Controller {
       this.activateA()
     }
   }
+
+
+  // コントローラ自体の初期化時だけでなく、
+  // Turbo Stream等でこのターゲット要素が「画面に現れた瞬間」に毎回自動で動く
+  submitButtonTargetConnected(element) {
+    const isDisabled = element.disabled
+    console.log(`[Target接続] ボタンが新しく届きました。disabled: ${isDisabled}`)
+
+    if (isDisabled) {
+      // 無効時の処理
+      return
+    } else {
+      // 有効時の処理
+
+    }
+  }
+
 }
