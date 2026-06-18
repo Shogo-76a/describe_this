@@ -66,5 +66,13 @@ class GenerateImageJob < ApplicationJob
       partial: "shared/generated_image", # レンダーするパーシャルのパス
       locals: { game: game }           # パーシャル内で使う変数
     )
+
+    system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
+    Turbo::StreamsChannel.broadcast_append_to(
+      "chat_messages_container_for_job",        # ストリーム名（View側と一致させる）
+      target: "chat_messages_container",       # 置き換えるHTML要素のid
+      partial: "shared/message", # レンダーするパーシャルのパス
+      locals: { message: system_replies }           # パーシャル内で使う変数
+    )
   end
 end
