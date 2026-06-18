@@ -3,9 +3,8 @@
     <%= link_to "＜", new_game_path, class: "text-2xl font-bold" %>
 <% end %>
 <div class="bg-base-300 min-h-full flex flex-col pt-0">
-    <div class="bg-base-200 p-4 flex flex-col landscape:m-0 landscape:hero">
-        <div data-collapsible-image-target="wrapperGlobal"
-            data-controller="collapsible-image"
+    <div data-controller="collapsible-image" class="bg-base-200 p-4 flex flex-col landscape:m-0 landscape:hero">
+        <div data-collapsible-image-target="wrapperGlobal"        
             class="relative w-full aspect-[800/600] overflow-hidden 
                 landscape:hero-content landscape:flex landscape:flex-row landscape:gap-4">
 
@@ -28,15 +27,20 @@
                 class="absolute top-0 right-0 h-full landscape:h-auto w-1/2 transition-all duration-500 ease-in-out
                     landscape:h-auto">
 
-                <!-- 画像生成ジョブからの通信(WebSocket)をみる。画像生成でき次第差し替える -->
+                <!-- # 画像生成Job からの通信(WebSocket)をみる。画像生成でき次第差し替える -->
                 <%= turbo_stream_from "generate_image_result" %>
                 <div id="generated-image" class="w-full h-full landscape:h-auto">
                     <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[800/600] bg-base-100 rounded-4xl"></div>
                 </div>
             </div>
         </div>
-        <div class="flex justify-center m-5">
-            <%=button_to "採点", '#', method: :get, class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl" %>
+        
+        <%= turbo_stream_from "enable_scoring" %>
+        <div id="scoring_button", class="flex justify-center m-5">
+            <%=button_to "採点", '#', 
+                method: :get, 
+                class: "btn btn-lg btn-primary text-primary-content/25 w-70 h-12 rounded-2xl", 
+                disabled: true %>
         </div>
     </div>
 
@@ -44,7 +48,7 @@
     <div class="bg-base-300">
         <div class="w-full max-w-xl mx-auto px-4 py-8 flex flex-col gap-4">
             <div data-controller="auto-message" data-auto-message-url-value="<%= game_path(@game) %>">
-            <%= turbo_stream_from "chat_messages_container_for_job" %>
+                <%= turbo_stream_from "chat_messages_container_for_job" %>
                 <div id="chat_messages_container">
                 </div>
             </div>
