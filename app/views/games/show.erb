@@ -16,27 +16,22 @@
 
                 <div class="w-full h-full landscape:h-auto">
                     <img
-                        id="gacha-image"
+                        id="theme-image-imgtag"
                         src="<%= @game.theme_image_url %>"
                         alt="お題イメージ"
                         class="w-full h-full landscape:h-auto object-cover object-left rounded-4xl">
                 </div>
             </div>
-
+            
             <div data-collapsible-image-target="wrapperB"
                 data-action="click->collapsible-image#toggle"
                 class="absolute top-0 right-0 h-full landscape:h-auto w-1/2 transition-all duration-500 ease-in-out
                     landscape:h-auto">
-                <div class="w-full h-full landscape:h-auto">
-                    <% if @game.generated_image.atatched? %>
-                        <img
-                        id="gacha-image"
-                        src="<%= @game.generated_image %>"
-                        alt="生成イメージ"
-                        class="w-full h-full landscape:h-auto object-cover object-right rounded-4xl">
-                    <% else %>
-                        <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[800/600] bg-base-100 rounded-4xl"></div>
-                    <% end %>
+
+                <!-- 画像生成ジョブからの通信(WebSocket)をみる。画像生成でき次第差し替える -->
+                <%= turbo_stream_from "generate_image_result" %>
+                <div id="generated-image" class="w-full h-full landscape:h-auto">
+                    <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[800/600] bg-base-100 rounded-4xl"></div>
                 </div>
             </div>
         </div>

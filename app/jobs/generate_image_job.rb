@@ -59,5 +59,12 @@ class GenerateImageJob < ApplicationJob
     filename: "describethisimage_#{Time.current.to_i}.png",
     content_type: "image/png"
     )
+
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "generate_image_result",        # ストリーム名（View側と一致させる）
+      target: "generated-image",       # 置き換えるHTML要素のid
+      partial: "shared/generated_image", # レンダーするパーシャルのパス
+      locals: { game: game }           # パーシャル内で使う変数
+    )
   end
 end
