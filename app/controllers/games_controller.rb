@@ -48,7 +48,7 @@ class GamesController < ApplicationController
           ]
           
           # 画像生成のJobを実行
-          GenerateImageJob.perform_later(@game.description)
+          GenerateImageJob.perform_later(@game, "日本語")
         end
       end
     else
