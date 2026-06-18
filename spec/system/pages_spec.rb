@@ -99,7 +99,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).to have_content("このイメージを言葉で伝えてください。")
       expect(page).to have_css('button[onclick="window.location.reload();"] svg')
       expect(page).to have_button("つぎへ")
-      expect(page).to have_css('img')  
+      expect(page).to have_css('img')
     end
   end
 end
