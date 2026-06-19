@@ -12,7 +12,7 @@ class DeepInfraImageService
         parameters: {
             model: "black-forest-labs/FLUX-1-schnell", # モデルIDを正確に指定
             prompt: prompt,
-            size: "400x400", # 対応サイズ: 1024x1024, 512x512等
+            size: "1024x768",
             response_format: "b64_json" # DeepInfraは現在 b64_json のみをサポート
             }
         )    
