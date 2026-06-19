@@ -28,11 +28,11 @@ class GenerateImageJob < ApplicationJob
     request_gpt = client.chat(
     parameters: {
         model: "gpt-4o-mini",
-        messages: [{ role: "user", content: prompt }],
+        messages: [ { role: "user", content: prompt } ],
         response_format: { type: "json_object" },
         # temperature: 応答のランダム性（創造性）を制御。0に近いほど決定的で、2に近いほど多様な応答。
         # 0.7は、ある程度の創造性を保ちつつ、安定した応答を得やすい一般的な値。
-        temperature: 0.7,
+        temperature: 0.7
     }
     )
 
@@ -40,10 +40,10 @@ class GenerateImageJob < ApplicationJob
     raw_response_gpt = request_gpt.dig("choices", 0, "message", "content")
     response_gpt = JSON.parse(raw_response_gpt)
 
-    
-    puts response_gpt["instructions"] 
 
-    
+    puts response_gpt["instructions"]
+
+
     # Base64文字列を抽出
     base64_string = DeepInfraImageService.generate(response_gpt["instructions"])
 
@@ -69,15 +69,15 @@ class GenerateImageJob < ApplicationJob
 
     system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
     Turbo::StreamsChannel.broadcast_append_to(
-      "chat_messages_container_for_job", 
-      target: "chat_messages_container",  
-      partial: "shared/message", 
-      locals: { message: system_replies } 
+      "chat_messages_container_for_job",
+      target: "chat_messages_container",
+      partial: "shared/message",
+      locals: { message: system_replies }
     )
 
     Turbo::StreamsChannel.broadcast_replace_to(
-      "scoring_button_enable", 
-      target: "scoring_button",  
+      "scoring_button_enable",
+      target: "scoring_button",
       partial: "shared/scoring_button"
     )
   end

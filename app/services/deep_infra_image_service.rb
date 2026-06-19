@@ -15,7 +15,7 @@ class DeepInfraImageService
             size: "1024x768",
             response_format: "b64_json" # DeepInfraは現在 b64_json のみをサポート
             }
-        )    
+        )
 
         # Base64文字列を抽出（これはデコードではない）
         response.dig("data", 0, "b64_json")

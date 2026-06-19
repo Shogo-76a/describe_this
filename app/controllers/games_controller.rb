@@ -46,7 +46,7 @@ class GamesController < ApplicationController
             GameForm.new(feedback: "MVP版は2回目以降送信できません"),
             GameForm.new(feedback: "うーん...(想像中)")
           ]
-          
+
           # 画像生成のJobを実行
           GenerateImageJob.perform_later(@game, "日本語")
         end
