@@ -41,11 +41,14 @@ class GamesController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           # 返答したいテキストの配列をインスタンス変数にセット
+          # 自動的に app/views/games/update.turbo_stream.erb が呼ばれます
           @system_replies = [
             GameForm.new(feedback: "MVP版は2回目以降送信できません"),
             GameForm.new(feedback: "うーん...(想像中)")
           ]
-          # 自動的に app/views/games/update.turbo_stream.erb が呼ばれます
+
+          # 画像生成のJobを実行
+          GenerateImageJob.perform_later(@game, "日本語")
         end
       end
     else
