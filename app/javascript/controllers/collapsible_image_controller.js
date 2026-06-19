@@ -76,8 +76,11 @@ export default class extends Controller {
       return
     } else {
       // 有効時の処理
-
+      if (this.activeImage === "A") {
+      this.toggle() 
+    } else {
+      return
+      }
     }
   }
-
 }
