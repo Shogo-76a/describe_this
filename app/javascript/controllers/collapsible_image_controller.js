@@ -60,7 +60,13 @@ export default class extends Controller {
       this.wrapperATarget.classList.add("absolute", "top-0", "left-0", "h-full", "transition-all", "duration-500", "ease-in-out")
       this.wrapperBTarget.classList.add("absolute", "top-0", "right-0", "h-full", "transition-all", "duration-500", "ease-in-out")
       
-      this.activateA()
+      
+      if (this.activeImage === "A") {
+      this.activateA() 
+    } else {
+      this.activateB()
+      return
+      }
     }
   }
 
