@@ -1,6 +1,8 @@
 <!-- ヘッダーの内容変更 -->
 <% provide(:header_content) do %>
-    <%= link_to "＜", new_game_path, class: "text-2xl font-bold" %>
+    <%= button_to "＜", game_path(@game), 
+              method: :delete, 
+              class: "text-2xl font-bold bg-transparent border-none p-0 cursor-pointer inline-block" %>
 <% end %>
 <div class="bg-base-300 min-h-full flex flex-col pt-0">
     <div data-controller="collapsible-image" class="bg-base-200 p-4 flex flex-col landscape:m-0 landscape:hero">
