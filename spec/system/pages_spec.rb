@@ -49,7 +49,8 @@ RSpec.describe "画面表示物 の確認", type: :system do
   context "ブラウザ を リロード", js: true do
     before do
       visit root_path
-      page.refresh     # 1回目ページ更新
+      page.refresh # 1回目ページ更新
+      page.refresh # 2回目ページ更新により、ポップアップが消える。(1回目ページ更新では、トップページ要素のクラスloadingが消えたことで、ポップアップ表示。)
     end
     it "導入画面が表示されない" do
       # このテストはJavaScriptが必要なことが明確
@@ -57,8 +58,6 @@ RSpec.describe "画面表示物 の確認", type: :system do
     end
 
     it "ポップアップ が表示されない" do
-      visit root_path
-      page.refresh # 2回目ページ更新により、ポップアップが消える。(1回目ページ更新では、トップページ要素のクラスloadingが消えたことで、ポップアップ表示。)
       expect(page).not_to have_css(".modal", visible: true)
       expect(page).not_to have_content("① 見たままを言葉にする")
     end
@@ -75,7 +74,6 @@ RSpec.describe "画面表示物 の確認", type: :system do
         "ステキな表現を探す旅へ。"
       ]
 
-      visit root_path
       expect(page).to have_selector("img[src*='DT_title'][alt='Describe this']")
       expected_texts.each do |text|
         expect(page).to have_content(text)
@@ -94,12 +92,21 @@ RSpec.describe "画面表示物 の確認", type: :system do
     end
 
     it "ゲーム導入ページの要素が すべて 表示される" do
-      visit new_game_path # MVP用仮プロフィールページのパス
+      visit new_game_path
       expect(page).to have_content("お題")
       expect(page).to have_content("このイメージを言葉で伝えてください。")
+      expect(page).to have_css('img')
       expect(page).to have_css('button[onclick="window.location.reload();"] svg')
       expect(page).to have_button("つぎへ")
+    end
+
+    it "画像生成ページの要素が すべて 表示される" do
+      visit new_game_path
+      click_button 'つぎへ'
       expect(page).to have_css('img')
+      expect(page).to have_button("採点", disabled: true)
+      expect(page).to have_content("どんなイメージか教えてください")
+      expect(page).to have_button("送信")
     end
   end
 end
