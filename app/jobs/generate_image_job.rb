@@ -6,9 +6,10 @@ class GenerateImageJob < ApplicationJob
 
     # gptへの指示（プロンプト）を作成する。今回はJSON形式での出力を厳密に指示する。
     prompt = <<-PROMPT
-    「#{game.description}」という説明を#{language}ネイティブとして理解してください。あまり親切に説明の意図を汲む必要はありません。説明から受ける印象だけを頼りにしてください。
-    理解した内容を、下記の[Subject + Setting + Lighting] 構文を意識した記述例を参考に画像生成APIへ指示を記述してください。
-
+    「#{game.description}」という説明を#{language}ネイティブとして理解してください。
+    説明文にあること以外は脚色せず、説明から受ける印象だけを頼りに画像生成API「FLUX.1 Schnell」へ指示を記述してください。
+    記述方法は下記[Subject + Setting + Lighting] 構文を参考にしてください。
+    
     A macro photo of a single rain droplet on a neon-green leaf, sunset light reflecting inside the water, sharp focus, cinematic bokeh.
 
     以下のJSON形式で、キーや値の型も完全に守って応答してください。
