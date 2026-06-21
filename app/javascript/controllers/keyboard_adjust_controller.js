@@ -4,32 +4,32 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() {
     if (window.visualViewport) {
-      // キーボード開閉やスクロール（ズレ防止）のイベントを設定
-      window.visualViewport.addEventListener("resize", this.adjustPosition)
-      window.visualViewport.addEventListener("scroll", this.adjustPosition)
+      window.visualViewport.addEventListener("resize", this.handleResize)
+      window.visualViewport.addEventListener("scroll", this.handleResize)
     }
   }
 
   disconnect() {
     if (window.visualViewport) {
-      window.visualViewport.removeEventListener("resize", this.adjustPosition)
-      window.visualViewport.removeEventListener("scroll", this.adjustPosition)
+      window.visualViewport.removeEventListener("resize", this.handleResize)
+      window.visualViewport.removeEventListener("scroll", this.handleResize)
     }
   }
 
-  adjustPosition = () => {
-    const inputBar = document.getElementById("fixed-input-bar")
-    if (!inputBar) return
+  handleResize = () => {
+    // Safariの描画タイミングに合わせることでガタつきを減らす
+    requestAnimationFrame(() => {
+      const inputBar = document.getElementById("fixed-input-bar")
+      if (!inputBar) return
 
-    // 画面全体の高さから、見えている範囲の高さ（とズレ）を引く
-    const viewportHeight = window.visualViewport.height
-    const offsetTop = window.visualViewport.offsetTop
-    const fullHeight = window.innerHeight
+      const viewport = window.visualViewport
+      const fullHeight = window.innerHeight
+      
+      // キーボードの高さを計算
+      const bottomOffset = fullHeight - viewport.height - viewport.offsetTop
 
-    // キーボードの高さ分、下からの位置を上げる
-    const bottomOffset = fullHeight - viewportHeight - offsetTop
-
-    // 負の数にならないよう調整してCSSを書き換え
-    inputBar.style.bottom = `${Math.max(0, bottomOffset)}px`
+      // iPhoneの底部セーフエリア（バー）の考慮
+      inputBar.style.bottom = `${Math.max(0, bottomOffset)}px`
+    })
   }
 }
