@@ -100,13 +100,28 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).to have_button("つぎへ")
     end
 
-    it "画像生成ページの要素が すべて 表示される" do
+    around do |example| # ActiveJob をテスト環境で有効化する。
+      # テスト時のみActiveJobのアダプターをinline（同期）に変更
+      original_adapter = ActiveJob::Base.queue_adapter
+      ActiveJob::Base.queue_adapter = :inline
+      example.run
+      ActiveJob::Base.queue_adapter = original_adapter
+    end
+
+    it "画像生成ページの要素が すべて 表示される", vcr: true do
       visit new_game_path
       click_button 'つぎへ'
       expect(page).to have_css('img')
       expect(page).to have_button("採点", disabled: true)
       expect(page).to have_content("どんなイメージか教えてください")
       expect(page).to have_button("送信")
+
+      fill_in 'game_description', with: '机の上のコーヒーカップとノートパソコン。' # VCRのカセット使用条件に影響。
+      click_button '送信'
+      expect(page).to have_button("送信", disabled: true)
+
+      expect(page).to have_button("採点", disabled: false, wait: 60)
+      expect(page).not_to have_button('採点', disabled: true) #採点ボタンが確実に無効状態でなくなった事を確認。
     end
   end
 end
