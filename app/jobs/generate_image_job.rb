@@ -9,7 +9,7 @@ class GenerateImageJob < ApplicationJob
     「#{game.description}」という説明を#{language}ネイティブとして理解してください。
     説明文にあること以外は脚色せず、説明から受ける印象だけを頼りに画像生成API「FLUX.1 Schnell」へ指示を記述してください。
     記述方法は下記[Subject + Setting + Lighting] 構文を参考にしてください。
-    
+
     A macro photo of a single rain droplet on a neon-green leaf, sunset light reflecting inside the water, sharp focus, cinematic bokeh.
 
     以下のJSON形式で、キーや値の型も完全に守って応答してください。
