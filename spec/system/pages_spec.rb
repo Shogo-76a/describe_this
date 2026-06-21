@@ -121,7 +121,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).to have_button("送信", disabled: true)
 
       expect(page).to have_button("採点", disabled: false, wait: 60)
-      expect(page).not_to have_button('採点', disabled: true) #採点ボタンが確実に無効状態でなくなった事を確認。
+      expect(page).not_to have_button('採点', disabled: true) # 採点ボタンが確実に無効状態でなくなった事を確認。
     end
   end
 end

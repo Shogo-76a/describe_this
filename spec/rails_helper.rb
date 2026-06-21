@@ -25,11 +25,11 @@ VCR.configure do |config|
   }
 
   # vcrカセットを使う条件を緩和。メソッド（GET/POST）さえ合っていれば、過去のカセットを再生する。
-    # urlなどが動的に変更される場合などは match_requests_on で条件から除外できる。
+  # urlなどが動的に変更される場合などは match_requests_on で条件から除外できる。
   config.ignore_hosts '127.0.0.1', 'localhost', 'chromedriver.storage.googleapis.com', 'chrome'
 
   # カセットに保存する前に、機密情報を "<GIT_CREDENTIALS>" のようなプレースホルダーに置き換える
-    # Rails 8の credentials から該当の値を取得（階層に合わせて変更）
+  # Rails 8の credentials から該当の値を取得（階層に合わせて変更）
   config.filter_sensitive_data('<GIT_TOKEN>') do
     Rails.application.credentials.dig(:git, :access_token)
   end
