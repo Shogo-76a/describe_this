@@ -11,6 +11,43 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'selenium-webdriver'
 
+# VCR の設定
+require 'vcr'
+require 'webmock/rspec'
+VCR.configure do |config|
+  config.allow_http_connections_when_no_cassette = true # vcrカセットがない時はhttp接続を許可する。
+  config.cassette_library_dir = 'spec/vcr' # 記録ファイルの保存先
+  config.hook_into :webmock                # WebMockと連携
+  config.configure_rspec_metadata!         # vcr: trueで自動設定
+  config.default_cassette_options = {
+    record: :once, # record 設定
+    match_requests_on: [ :method ] # メソッド（GET/POST）さえ合っていれば、過去のカセットを再生する
+  }
+
+  # vcrカセットを使う条件を緩和。メソッド（GET/POST）さえ合っていれば、過去のカセットを再生する。
+  # urlなどが動的に変更される場合などは match_requests_on で条件から除外できる。
+  config.ignore_hosts '127.0.0.1', 'localhost', 'chromedriver.storage.googleapis.com', 'chrome'
+
+  # カセットに保存する前に、機密情報を "<GIT_CREDENTIALS>" のようなプレースホルダーに置き換える
+  # Rails 8の credentials から該当の値を取得（階層に合わせて変更）
+  config.filter_sensitive_data('<GIT_TOKEN>') do
+    Rails.application.credentials.dig(:git, :access_token)
+  end
+  config.filter_sensitive_data('<GIT_PASSWORD>') do
+    Rails.application.credentials.dig(:git, :password)
+  end
+
+  # OpenAI用のマスク設定
+  config.filter_sensitive_data('<OPENAI_API_KEY>') do
+    Rails.application.credentials.dig(:openai, :api_key)
+  end
+
+  # DeepInfra用のマスク設定
+  config.filter_sensitive_data('<DEEPINFRA_API_KEY>') do
+    Rails.application.credentials.dig(:deepinfra, :api_key)
+  end
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
