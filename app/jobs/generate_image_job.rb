@@ -79,7 +79,8 @@ class GenerateImageJob < ApplicationJob
     Turbo::StreamsChannel.broadcast_replace_to(
       "scoring_button_enable",
       target: "scoring_button",
-      partial: "shared/scoring_button"
+      partial: "shared/scoring_button",
+      locals: { game: game }
     )
   end
 end
