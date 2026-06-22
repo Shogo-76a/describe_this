@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :games, only: [ :new, :create, :show, :update, :destroy ] do
     member do
       # 採点/フィードバックのアクションを追加定義
-      get :score 
+      get :score
       get :feedback
     end
   end

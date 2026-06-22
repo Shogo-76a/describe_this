@@ -80,7 +80,7 @@ class GenerateImageJob < ApplicationJob
       "scoring_button_enable",
       target: "scoring_button",
       partial: "shared/scoring_button",
-      locals: { game: game } 
+      locals: { game: game }
     )
   end
 end
