@@ -39,7 +39,7 @@
         
         <%= turbo_stream_from "scoring_button_enable" %>
         <div id="scoring_button", class="flex justify-center m-5">
-            <%=button_to "採点", '#', 
+            <%=button_to "採点", "#", 
                 method: :get, 
                 class: "btn btn-lg btn-primary text-primary-content/25 w-70 h-12 rounded-2xl", 
                 disabled: true, 
@@ -61,33 +61,31 @@
 
 <!-- フッターの内容変更 -->
 <% provide(:footer_content) do %>
-    <div id="reset_form">
-        <div class="fixed bottom-0 left-0 right-0 bg-base-100 py-4 px-4 z-10">
-            <div class="max-w-2xl mx-auto w-full pb-4">
+    <div class="fixed bottom-0 left-0 right-0 bg-base-100 py-4 px-4 z-10">
+        <div class="max-w-2xl mx-auto w-full pb-4">
 
-                <%= form_with(model: @game, 
-                            data: { 
-                                controller: "chat-form", 
-                                chat_form_limit_value: 1, 
-                                action: "
-                                        submit->chat-form#validateForm 
-                                        keydown->chat-form#handleKeydown 
-                                        turbo:submit-end->chat-form#clear
-                                        " 
-                            }) do |f| %>
+            <%= form_with(model: @game, 
+                        data: { 
+                            controller: "chat-form", 
+                            chat_form_limit_value: 1, 
+                            action: "
+                                    submit->chat-form#validateForm 
+                                    keydown->chat-form#handleKeydown 
+                                    turbo:submit-end->chat-form#clear
+                                    " 
+                        }) do |f| %>
 
-                    <div class="flex gap-2 items-end">
-                        <%= f.text_area :description, 
-                            data: { chat_form_target: "textarea", 
-                            action: "input->chat-form#resize"},
-                            rows: 1,
-                            class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
-                            placeholder: "メッセージを入力..." %>
+                <div class="flex gap-2 items-end">
+                    <%= f.text_area :description, 
+                        data: { chat_form_target: "textarea", 
+                        action: "input->chat-form#resize"},
+                        rows: 1,
+                        class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
+                        placeholder: "メッセージを入力..." %>
 
-                        <%= f.submit "送信", data: { chat_form_target: "submitButton" }, class: "btn btn-primary" %>
-                    </div>
-                <% end %>
-            </div>
+                    <%= f.submit "送信", data: { chat_form_target: "submitButton" }, class: "btn btn-primary" %>
+                </div>
+            <% end %>
         </div>
     </div>
 <% end %>

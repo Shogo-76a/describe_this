@@ -1,0 +1,20 @@
+<!-- ヘッダーの内容変更 -->
+<% provide(:header_content) do %>
+    <p class="text-2xl font-bold">採点結果</p>
+<% end %>
+<div class="min-h-full flex flex-col pt-0">
+    <div class="bg-base-200 p-4 flex flex-col landscape:m-0 landscape:hero">
+        
+        <div class="flex justify-center m-5">
+            <%=button_to "つぎへ", feedback_game_path(@game),
+                method: :get, 
+                class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+                disabled: false %>
+        </div>
+    </div>
+</div>
+
+<!-- フッターの内容変更 -->
+<% provide(:footer_content) do %>
+    <p></p>
+<% end %>

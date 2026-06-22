@@ -59,6 +59,13 @@ class GamesController < ApplicationController
     end
   end
 
+  def score
+    @game = Game.find(params[:id])
+  end
+
+  def feedback
+  end
+
   def destroy
     @game = Game.find(params[:id])
     @game.destroy
