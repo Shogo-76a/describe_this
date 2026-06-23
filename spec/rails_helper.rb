@@ -46,6 +46,17 @@ VCR.configure do |config|
   config.filter_sensitive_data('<DEEPINFRA_API_KEY>') do
     Rails.application.credentials.dig(:deepinfra, :api_key)
   end
+
+  # Cloudinary用のマスク設定
+  config.filter_sensitive_data('<CLOUDINARY_API_KEY>') do
+    Rails.application.credentials.dig(:cloudinary, :api_key)
+  end
+  config.filter_sensitive_data('<CLOUDINARY_API_SECRET>') do
+    Rails.application.credentials.dig(:cloudinary, :api_secret)
+  end
+  config.filter_sensitive_data('<CLOUDINARY_CLOUD_NAME>') do
+    Rails.application.credentials.dig(:cloudinary, :cloud_name)
+  end
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
