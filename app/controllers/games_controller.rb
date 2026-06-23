@@ -18,12 +18,12 @@ class GamesController < ApplicationController
 
         # cl_image_tagの代わりに、通常のimage_tagで使えるCloudinaryのURLを生成
         image_url = Cloudinary::Utils.cloudinary_url(
-                          selected_id,
-                          width: 600, height: 400, crop: :fill, fetch_format: :auto, quality: :auto
-                        )
+                      selected_id,
+                      width: 600, height: 400, crop: :fill, fetch_format: :auto, quality: :auto
+                    )
       else
         # フォルダが空だった場合のフォールバック（assets内のデフォルト画像）
-        image_url = "default_placeholder.png"
+        image_url = "placeholder_gray.png"
       end
 
     rescue => e
@@ -31,7 +31,7 @@ class GamesController < ApplicationController
       Rails.logger.error "Cloudinary Error: #{e.message}"
 
       # Active Storageの仕組みやローカルのassets画像に逃がす
-      image_url = "default_placeholder.png"
+      image_url = "placeholder_white.png"
     end
 
     @game = Game.new(theme_image_url: image_url)
