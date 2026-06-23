@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   def top
   end
 
-  
+
   def new
     # ここでお題画像のseed値を決定
     current_seed = SecureRandom.uuid
@@ -15,27 +15,26 @@ class GamesController < ApplicationController
       if images.any?
         random_generator = Random.new(seed_integer)
         selected_id = images.sample(random: random_generator)
-        
+
         # cl_image_tagの代わりに、通常のimage_tagで使えるCloudinaryのURLを生成
         image_url = Cloudinary::Utils.cloudinary_url(
-                          selected_id, 
+                          selected_id,
                           width: 600, height: 400, crop: :fill, fetch_format: :auto, quality: :auto
                         )
       else
         # フォルダが空だった場合のフォールバック（assets内のデフォルト画像）
-        image_url = 'default_placeholder.png'
+        image_url = "default_placeholder.png"
       end
 
     rescue => e
       # Cloudinaryでエラーが起きたときの処理
       Rails.logger.error "Cloudinary Error: #{e.message}"
-      
+
       # Active Storageの仕組みやローカルのassets画像に逃がす
-      image_url = 'default_placeholder.png' 
+      image_url = "default_placeholder.png"
     end
-    
+
     @game = Game.new(theme_image_url: image_url)
-    
   end
 
 
