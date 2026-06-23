@@ -10,11 +10,11 @@ class GamesController < ApplicationController
 
     begin
       # Cloudinaryから画像リストを取得
-      images = CloudinaryFolderService.fetch_images_from_folder("theme_images")
+      images = CloudinaryFolderService.fetch_images_from_folder("describe_this/theme_images")
 
       if images.any?
         random_generator = Random.new(seed_integer)
-        selected_id = images.sample(random_generator:)
+        selected_id = images.sample(random: random_generator)
         
         # cl_image_tagの代わりに、通常のimage_tagで使えるCloudinaryのURLを生成
         image_url = Cloudinary::Utils.cloudinary_url(
@@ -35,6 +35,7 @@ class GamesController < ApplicationController
     end
     
     @game = Game.new(theme_image_url: image_url)
+    
   end
 
 
