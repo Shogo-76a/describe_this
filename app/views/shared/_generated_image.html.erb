@@ -1,7 +1,7 @@
 <div id="generated-image" class="w-full h-full landscape:h-auto">
     <% if game.generated_image.attached? %>
-        <img src="<%= url_for(game.generated_image) %>" alt="生成された画像" class="w-full h-full landscape:h-auto object-cover object-left aspect-[800/600] rounded-4xl">
+        <img src="<%= url_for(game.generated_image) %>" alt="生成された画像" class="w-full h-full landscape:h-auto object-cover object-left aspect-[600/400] rounded-4xl">
     <% else %>
-        <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[800/600] bg-base-100 rounded-4xl"></div>
+        <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[600/400] bg-base-100 rounded-4xl"></div>
     <% end %>
 </div>
