@@ -1,7 +1,5 @@
-<div id="scoring_button", class="flex justify-center m-5">
-    <%=button_to "採点", score_game_path(game),
-        method: :get, 
-        class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
-        disabled: false, 
-        data: { collapsible_image_target: "submitButton" } %>
-</div>
+<%=button_to "採点", score_game_path(game),
+    method: :get, 
+    class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+    disabled: false, 
+    data: { collapsible_image_target: "submitButton" } %>

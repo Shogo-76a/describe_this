@@ -29,18 +29,18 @@ export default class extends Controller {
 
   activateA() {
     this.activeImage = "A"
-    this.wrapperATarget.classList.add("w-39/40", "z-10")
+    this.wrapperATarget.classList.add("w-39/40")
     this.wrapperATarget.classList.remove("w-1/40")
     this.wrapperBTarget.classList.add("w-1/40")
-    this.wrapperBTarget.classList.remove("w-39/40", "z-10")
+    this.wrapperBTarget.classList.remove("w-39/40")
   }
 
   activateB() {
     this.activeImage = "B"
-    this.wrapperBTarget.classList.add("w-39/40", "z-10")
+    this.wrapperBTarget.classList.add("w-39/40")
     this.wrapperBTarget.classList.remove("w-1/40")
     this.wrapperATarget.classList.add("w-1/40")
-    this.wrapperATarget.classList.remove("w-39/40", "z-10")
+    this.wrapperATarget.classList.remove("w-39/40")
   }
 
   get isWideScreen() {
@@ -50,9 +50,9 @@ export default class extends Controller {
   updateLayout() {
     if (this.isWideScreen) {
       // 横画面以上の時：Stimulusが付与した縦画面用のクラスをリセット
-      this.wrapperGlobalTarget.classList.remove("relative", "aspect-[600/400]", "overflow-hidden", "w-39/40", "w-1/40", "z-10")
-      this.wrapperATarget.classList.remove("absolute", "top-0", "left-0", "h-full", "transition-all", "duration-500", "ease-in-out", "w-39/40", "w-1/40", "z-10")
-      this.wrapperBTarget.classList.remove("absolute", "top-0", "right-0", "h-full", "transition-all", "duration-500", "ease-in-out", "w-39/40", "w-1/40", "z-10")
+      this.wrapperGlobalTarget.classList.remove("relative", "aspect-[600/400]", "overflow-hidden", "w-39/40", "w-1/40")
+      this.wrapperATarget.classList.remove("absolute", "top-0", "left-0", "h-full", "transition-all", "duration-500", "ease-in-out", "w-39/40", "w-1/40")
+      this.wrapperBTarget.classList.remove("absolute", "top-0", "right-0", "h-full", "transition-all", "duration-500", "ease-in-out", "w-39/40", "w-1/40")
     } else {
       // 縦画面に戻った時：クラスを再付与できるように初期化してAを展開
       // ※これを入れないと、横画面から縦画面に「戻した」ときに absolute などが消えたまま崩れる
