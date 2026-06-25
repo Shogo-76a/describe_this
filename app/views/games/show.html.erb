@@ -4,7 +4,7 @@
               method: :delete, 
               class: "text-2xl font-bold bg-transparent border-none p-0 cursor-pointer inline-block" %>
 <% end %>
-<div class="bg-base-300 min-h-full flex flex-col pt-0">
+<div class="bg-base-300 min-h-full flex flex-col pt-0 z-10">
     <div data-controller="collapsible-image" class="bg-base-200 p-4 flex flex-col landscape:hero">
         <div data-collapsible-image-target="wrapperGlobal"        
             class="relative w-full aspect-[600/400] overflow-hidden 
@@ -73,14 +73,9 @@
         </div>
     </div>
 
-
-</div>
-
-<!-- フッターの内容変更 -->
-<% provide(:footer_content) do %>
     <!-- チャット欄 -->
-    <div class="fixed bottom-0 left-0 right-0 bg-base-300 py-4 px-4 z-10">
-        <div class="w-full max-w-xl mx-auto px-4 py-8 flex flex-col gap-4">
+    <div class="bg-base-300">
+        <div class="w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4">
             <div data-controller="auto-message" data-auto-message-url-value="<%= game_path(@game) %>">
                 <%= turbo_stream_from "chat_messages_container_for_job" %>
                 <div id="chat_messages_container">
@@ -88,4 +83,9 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- フッターの内容変更 -->
+<% provide(:footer_content) do %>
+    <!-- 空欄 -->
 <% end %>
