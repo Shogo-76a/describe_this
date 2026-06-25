@@ -76,7 +76,7 @@ class GenerateImageJob < ApplicationJob
       locals: { message: system_replies }
     )
 
-    Turbo::StreamsChannel.broadcast_replace_to(
+    Turbo::StreamsChannel.broadcast_update_to(
       "scoring_button_enable",
       target: "scoring_button",
       partial: "shared/scoring_button",

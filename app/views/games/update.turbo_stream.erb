@@ -8,4 +8,13 @@
         <!-- # アプリ側のメッセージ @system_repliesを流し込む-->
         <%= render partial: 'shared/message', collection: @system_replies, as: :message %>
     <% end %>
+    
+    <%= turbo_stream.update "scoring_button" do %>
+        <%= button_to "#", 
+            class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+            disabled: true, 
+            data: { collapsible_image_target: "submitButton" } do %>
+            <span class="loading loading-spinner loading-md"></span>
+        <% end %>
+    <% end %>
 <% end %>

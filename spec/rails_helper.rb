@@ -118,6 +118,24 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+
+  config.before(:each, type: :system) do
+    # System Specの時だけ、実際の通信が行えるアダプタに切り替える
+    # (async がメモリ上で完結するためテストでは高速・安定でおすすめです)
+    #ActionCable.server.config.cable = { "adapter" => "async" }
+    
+    # ※もしどうしても本番と同じ solid_cable でテストしたい場合は以下のようにします
+    ActionCable.server.config.cable = { "adapter" => "solid_cable", "polling_interval" => 0.1 }
+  end
+
+  config.after(:each, type: :system) do
+    # テストが終わったら元に戻す（副作用を防ぐため）
+    ActionCable.server.config.cable = { "adapter" => "test" }
+  end
+
+
+
 end
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
