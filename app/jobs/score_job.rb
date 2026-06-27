@@ -36,7 +36,7 @@ class ScoreJob < ApplicationJob
     You must output ONLY a valid JSON object. Do not include any conversational filler, markdown formatting (except the JSON itself), or extra text outside the JSON.
 
     {
-    "score": (integer between 0 and 100),
+    "overall": (integer between 0 and 100),
     "details":["concept": (integer between 0 and 100), "color": (integer between 0 and 100), "composition": (integer between 0 and 100)],
     "reason": "(A very short, one-sentence explanation in #{language} highlighting why this score was given, mentioning key similarities or differences.)"
     }
@@ -79,7 +79,7 @@ class ScoreJob < ApplicationJob
     response_gpt = JSON.parse(raw_response_gpt)
 
 
-    puts response_gpt["score"]
+    puts response_gpt["overall"]
 
     # update! で安全に実行。失敗したときに例外を発生する。
     game.update!(score: response_gpt)

@@ -1,11 +1,24 @@
 <!-- ヘッダーの内容変更 -->
 <% provide(:header_content) do %>
-    <p class="text-2xl font-bold">採点結果</p>
+    <div class="flex items-end gap-0">
+        <p class="text-2xl font-bold">採点結果</p>
+    </div>
 <% end %>
-<div class="min-h-full flex flex-col pt-0">
-    <div class="bg-base-200 p-4 flex flex-col landscape:m-0 landscape:hero">
+<div class="min-h-full flex flex-col">
+    <div class="bg-base-200 p-4 flex flex-col text-center m-0 hero gap-5">
+        <div class="flex flex-col">
+            <p class="text-2xl font-bold">イメージ</p>
+            <p class="text-2xl font-bold">シンクロ率</p>
+        </div>
+        <div 
+        class="radial-progress" 
+        style="--value:80; --size:10rem; --thickness:15px;" 
+        role="progressbar"
+        >
+            <p class="text-5xl font-bold ml-[7.15px]">80<span class="text-sm font-bold">%</span></p>
+        </div>
         
-        <div class="flex justify-center m-5">
+        <div class="flex justify-center mt-20">
             <%=button_to "つぎへ", feedback_game_path(@game),
                 method: :get, 
                 class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
