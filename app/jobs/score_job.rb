@@ -2,9 +2,9 @@
 
 class ScoreJob < ApplicationJob
   queue_as :default
-  require 'openai'
-  require 'base64'
-    
+  require "openai"
+  require "base64"
+
   # ジョブが失敗した際のリトライ回数を指定（Solid Queueが自動で管理）
   retry_on ActiveRecord::Deadlocked, wait: 3.seconds, attempts: 2
 
@@ -17,7 +17,7 @@ class ScoreJob < ApplicationJob
 
     # gptへの指示（プロンプト）を作成する。今回はJSON形式での出力を厳密に指示する。
     system_prompt = <<-PROMPT
-    You are the referee for an image whispering game (Telephone game). 
+    You are the referee for an image whispering game (Telephone game).#{' '}
     Your task is to strictly evaluate the intuitive and atmospheric similarity between two provided images (Image A: Original Prompt, Image B: Player's Answer) and score it out of 100.
 
     Evaluate the similarity based comprehensively on these three aspects:
@@ -92,9 +92,9 @@ class ScoreJob < ApplicationJob
     )
 
     # 採点ロジックの合間で進捗を配信
-    [game.score["overall"]].each do |progress|
+    [ game.score["overall"] ].each do |progress|
       sleep 1 # 擬似的な重い処理
-      
+
       # カスタムStreamアクションを直接送出する
       Turbo::StreamsChannel.broadcast_action_to(
         "submission_#{game.id}",
