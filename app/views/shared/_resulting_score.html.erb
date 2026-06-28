@@ -1,0 +1,31 @@
+<div class="min-h-full flex flex-col">
+    <div class="bg-base-200 p-4 flex flex-col text-center hero gap-5">
+        <div class="flex flex-col base-content">
+            <p class="text-2xl font-bold">イメージ</p>
+            <p class="text-2xl font-bold">シンクロ率</p>
+        </div>
+
+
+        <!-- progress_controllerと紐付け -->
+        <%= turbo_stream_from "submission_#{game.id}" %>
+        <div 
+            id="scoring-gauge"
+            data-controller="progress" 
+            data-action="progress:update->progress#handleUpdate"
+            class="radial-progress text-primary" 
+            style="--value: 0; --size:12rem; 2rem;" 
+            role="progressbar"
+        >
+            <div 
+                data-progress-target="progressNum"
+                class="text-5xl font-bold transition-opacity duration-500 opacity-0 hidden"><%= game.score["overall"] %></div>
+        </div>
+
+        <div class="flex justify-center mt-20">
+            <%=button_to "つぎへ", feedback_game_path(game),
+                method: :get, 
+                class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+                disabled: false %>
+        </div>
+    </div>
+</div>

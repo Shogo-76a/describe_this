@@ -4,26 +4,22 @@
         <p class="text-2xl font-bold">採点結果</p>
     </div>
 <% end %>
-<div class="min-h-full flex flex-col">
-    <div class="bg-base-200 p-4 flex flex-col text-center m-0 hero gap-5">
-        <div class="flex flex-col">
-            <p class="text-2xl font-bold">イメージ</p>
-            <p class="text-2xl font-bold">シンクロ率</p>
+
+<!-- 採点Job からの通信(WebSocket)をみる。採点でき次第差し替える -->
+<%= turbo_stream_from "resulting_score_#{@game.id}" %>
+
+<div id="resulting_score">
+    <div class="hero min-h-screen">
+      <div class="hero-content text-center">
+        <div class="grid place-items-center text-center w-full">
+          <p class="text-2xl">
+            採点中
+          </p>
+          <div class="text-xm my-5">
+            <span class="loading loading-spinner loading-md"></span>
+          </div>
         </div>
-        <div 
-        class="radial-progress" 
-        style="--value:80; --size:10rem; --thickness:15px;" 
-        role="progressbar"
-        >
-            <p class="text-5xl font-bold ml-[7.15px]">80<span class="text-sm font-bold">%</span></p>
-        </div>
-        
-        <div class="flex justify-center mt-20">
-            <%=button_to "つぎへ", feedback_game_path(@game),
-                method: :get, 
-                class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
-                disabled: false %>
-        </div>
+      </div>
     </div>
 </div>
 

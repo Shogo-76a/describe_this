@@ -84,6 +84,25 @@ class ScoreJob < ApplicationJob
     # update! で安全に実行。失敗したときに例外を発生する。
     game.update!(score: response_gpt)
 
+    Turbo::StreamsChannel.broadcast_update_to(
+      "resulting_score_#{game.id}",
+      target: "resulting_score",
+      partial: "shared/resulting_score",
+      locals: { game: game }
+    )
+
+    # 採点ロジックの合間で進捗を配信
+    [game.score["overall"]].each do |progress|
+      sleep 1 # 擬似的な重い処理
+      
+      # カスタムStreamアクションを直接送出する
+      Turbo::StreamsChannel.broadcast_action_to(
+        "submission_#{game.id}",
+        action: :update_gauge,
+        attributes: { value: progress }
+      )
+    end
+
   rescue ActiveRecord::RecordNotFound => e
     # レコードが削除されていた場合は、リトライせずにログを残して終了
     Rails.logger.warn("Job skipped: #{game} not found. #{e.message}")
