@@ -91,17 +91,14 @@ class ScoreJob < ApplicationJob
       locals: { game: game }
     )
 
-    # 採点ロジックの合間で進捗を配信
-    [ game.score["overall"] ].each do |progress|
-      sleep 1 # 擬似的な重い処理
-
-      # カスタムStreamアクションを直接送出する
-      Turbo::StreamsChannel.broadcast_action_to(
-        "submission_#{game.id}",
-        action: :update_gauge,
-        attributes: { value: progress }
-      )
-    end
+    
+    sleep 1 # フロント側の読み込み完了を待つ
+    # カスタムStreamアクションを直接送出する
+    Turbo::StreamsChannel.broadcast_action_to(
+      "submission_#{game.id}",
+      action: :update_gauge,
+      attributes: { value: game.score["overall"] }
+    )
 
   rescue ActiveRecord::RecordNotFound => e
     # レコードが削除されていた場合は、リトライせずにログを残して終了
