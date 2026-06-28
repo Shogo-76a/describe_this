@@ -91,7 +91,7 @@ class ScoreJob < ApplicationJob
       locals: { game: game }
     )
 
-    
+
     sleep 1 # フロント側の読み込み完了を待つ
     # カスタムStreamアクションを直接送出する
     Turbo::StreamsChannel.broadcast_action_to(
