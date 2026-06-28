@@ -13,7 +13,7 @@ class ScoreJob < ApplicationJob
     # 画像ファイルを読み込んでBase64に変換
     # File.read の代わりに URI.open を使用して、インターネット上の画像データを直接読み込む
     base64_theme_image = Base64.strict_encode64(URI.open(game.theme_image_url).read)
-    base64_generated_image = Base64.strict_encode64(URI.open(game.generated_image.url).read)
+    base64_generated_image = Base64.strict_encode64(game.generated_image.download)
 
     # gptへの指示（プロンプト）を作成する。今回はJSON形式での出力を厳密に指示する。
     system_prompt = <<-PROMPT
