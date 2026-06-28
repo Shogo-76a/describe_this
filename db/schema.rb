@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_18_053203) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_26_075624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -46,7 +46,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_18_053203) do
     t.datetime "created_at", null: false
     t.text "description"
     t.jsonb "feedback"
-    t.integer "score"
+    t.jsonb "score"
     t.string "session_id"
     t.string "theme_image_url"
     t.datetime "updated_at", null: false

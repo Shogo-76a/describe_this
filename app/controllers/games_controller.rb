@@ -76,7 +76,7 @@ class GamesController < ApplicationController
           ]
 
           # 画像生成のJobを実行
-          GenerateImageJob.perform_later(@game, "日本語")
+          GenerateImageJob.perform_later(@game, "Japanese")
         end
       end
     else
@@ -89,6 +89,8 @@ class GamesController < ApplicationController
 
   def score
     @game = Game.find(params[:id])
+    # 採点のJobを実行
+    ScoreJob.perform_later(@game, "Japanese")
   end
 
   def feedback
