@@ -64,8 +64,8 @@ group :development, :test do
   # [https://github.com/rspec/rspec-rails]
   gem "rspec-rails", "~> 8.0.0"
 
-  gem 'factory_bot_rails'
-  gem 'faker'
+  gem "factory_bot_rails"
+  gem "faker"
 end
 
 group :development do

@@ -130,7 +130,7 @@ RSpec.configure do |config|
     example.run
     ActiveJob::Base.queue_adapter = original_adapter
   end
-  
+
   config.before(:each, type: :system) do
     # System Specの時だけ、実際の通信が行えるアダプタに切り替える
     # (async がメモリ上で完結するためテストでは高速・安定でおすすめです)

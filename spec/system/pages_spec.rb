@@ -118,7 +118,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).not_to have_button('採点', disabled: true) # 採点ボタンが確実に無効状態でなくなった事を確認。
     end
   end
-  
+
   context "採点ページ", js: true, vcr: true do
     # 採点ページのテスト用ダミーデータ
     let(:game_dummy) { create(:game, :with_generated_image) }
@@ -133,13 +133,12 @@ RSpec.describe "画面表示物 の確認", type: :system do
     end
 
     it "gameレコードの scoreカラム に採点結果が保存される", vcr: true do
-
       # Jobが実行される時間を待つ
       sleep 3
 
       # データベースから再読み込み
       game_dummy.reload
-    
+
       # データベースにスコアが保存されたことを確認
       expect(game_dummy.score).not_to be_nil
       expect(game_dummy.score["overall"]).to eq(65)

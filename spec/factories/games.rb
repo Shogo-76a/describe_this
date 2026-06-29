@@ -10,7 +10,7 @@ FactoryBot.define do
       # メモリ上のローカルダミーファイルを添付
       generated_image do
         Rack::Test::UploadedFile.new(
-          Rails.root.join('spec/fixtures/files/dummy_generated_image_001.jpg'), 
+          Rails.root.join('spec/fixtures/files/dummy_generated_image_001.jpg'),
           'image/jpeg'
         )
       end
