@@ -53,9 +53,6 @@ RSpec.describe "画面表示物 の確認", type: :system do
       page.refresh # 2回目ページ更新により、ポップアップが消える。(1回目ページ更新では、トップページ要素のクラスloadingが消えたことで、ポップアップ表示。)
     end
 
-    # 採点ページのテスト用ダミーデータ
-    let(:game_dummy) { create(:game, :with_generated_image) }
-
     it "導入画面が表示されない" do
       # このテストはJavaScriptが必要なことが明確
       expect(page).not_to have_selector("img[src*='DT_logo'][alt='ロゴ']")
@@ -120,13 +117,32 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).to have_button("採点", disabled: false, wait: 60)
       expect(page).not_to have_button('採点', disabled: true) # 採点ボタンが確実に無効状態でなくなった事を確認。
     end
-
-
-    it "採点ページの要素が すべて 表示される", vcr: true do
+  end
+  
+  context "採点ページ", js: true, vcr: true do
+    # 採点ページのテスト用ダミーデータ
+    let(:game_dummy) { create(:game, :with_generated_image) }
+    before do
       visit score_game_path(game_dummy)
+      page.refresh # ページ更新。導入画面を消す。
+    end
+
+    it "ローディング画面 が表示される" do
       expect(page).to have_content("採点中")
       expect(page).to have_css('span.loading-spinner')
-      # expect(page).to have_button("つぎへ", wait: 10)
+    end
+
+    it "gameレコードの scoreカラム に採点結果が保存される", vcr: true do
+
+      # Jobが実行される時間を待つ
+      sleep 3
+
+      # データベースから再読み込み
+      game_dummy.reload
+    
+      # データベースにスコアが保存されたことを確認
+      expect(game_dummy.score).not_to be_nil
+      expect(game_dummy.score["overall"]).to eq(65)
     end
   end
 end
