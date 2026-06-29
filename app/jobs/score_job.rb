@@ -13,7 +13,7 @@ class ScoreJob < ApplicationJob
     # 画像ファイルを読み込んでBase64に変換
     # File.read の代わりに URI.open を使用して、インターネット上の画像データを直接読み込む
     base64_theme_image = Base64.strict_encode64(URI.open(game.theme_image_url).read)
-    base64_generated_image = Base64.strict_encode64(URI.open(game.generated_image.url).read)
+    base64_generated_image = Base64.strict_encode64(game.generated_image.download)
 
     # gptへの指示（プロンプト）を作成する。今回はJSON形式での出力を厳密に指示する。
     system_prompt = <<-PROMPT
@@ -78,28 +78,26 @@ class ScoreJob < ApplicationJob
     raw_response_gpt = request_gpt.dig("choices", 0, "message", "content")
     response_gpt = JSON.parse(raw_response_gpt)
 
-
-    puts response_gpt["overall"]
-
     # update! で安全に実行。失敗したときに例外を発生する。
     game.update!(score: response_gpt)
 
-    Turbo::StreamsChannel.broadcast_update_to(
-      "resulting_score_#{game.id}",
-      target: "resulting_score",
-      partial: "shared/resulting_score",
-      locals: { game: game }
-    )
+    # テスト環境ではブロードキャストをスキップ。反映できない。
+    unless Rails.env.test?
+      Turbo::StreamsChannel.broadcast_update_to(
+        "resulting_score_#{game.id}",
+        target: "resulting_score",
+        partial: "shared/resulting_score",
+        locals: { game: game }
+      )
 
-
-    sleep 1 # フロント側の読み込み完了を待つ
-    # カスタムStreamアクションを直接送出する
-    Turbo::StreamsChannel.broadcast_action_to(
-      "submission_#{game.id}",
-      action: :update_gauge,
-      attributes: { value: game.score["overall"] }
-    )
-
+      sleep 1 # フロント側の読み込み完了を待つ
+      # カスタムStreamアクションを直接送出する
+      Turbo::StreamsChannel.broadcast_action_to(
+        "submission_#{game.id}",
+        action: :update_gauge,
+        attributes: { value: game.score["overall"] }
+      )
+    end
   rescue ActiveRecord::RecordNotFound => e
     # レコードが削除されていた場合は、リトライせずにログを残して終了
     Rails.logger.warn("Job skipped: #{game} not found. #{e.message}")
