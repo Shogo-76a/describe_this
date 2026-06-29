@@ -104,14 +104,6 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).to have_button("つぎへ")
     end
 
-    around do |example| # ActiveJob をテスト環境で有効化する。
-      # テスト時のみActiveJobのアダプターをinline（同期）に変更
-      original_adapter = ActiveJob::Base.queue_adapter
-      ActiveJob::Base.queue_adapter = :inline
-      example.run
-      ActiveJob::Base.queue_adapter = original_adapter
-    end
-
     it "画像生成ページの要素が すべて 表示される", vcr: true do
       visit new_game_path
       click_button 'つぎへ'
@@ -131,7 +123,6 @@ RSpec.describe "画面表示物 の確認", type: :system do
 
 
     it "採点ページの要素が すべて 表示される", vcr: true do
-
       visit score_game_path(game_dummy)
       expect(page).to have_content("採点中")
       expect(page).to have_css('span.loading-spinner')

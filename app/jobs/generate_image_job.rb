@@ -42,9 +42,6 @@ class GenerateImageJob < ApplicationJob
     response_gpt = JSON.parse(raw_response_gpt)
 
 
-    puts response_gpt["instructions"]
-
-
     # Base64文字列を抽出
     base64_string = DeepInfraImageService.generate(response_gpt["instructions"])
 

@@ -122,6 +122,15 @@ RSpec.configure do |config|
   # FactoryBotのメソッドを省略して書けるようにする
   config.include FactoryBot::Syntax::Methods
 
+  # Jobを同期実行に変更
+  config.around(:each, type: :system) do |example|
+    # System Specの時だけ、バックグラウンドJobを同期実行
+    original_adapter = ActiveJob::Base.queue_adapter
+    ActiveJob::Base.queue_adapter = :inline
+    example.run
+    ActiveJob::Base.queue_adapter = original_adapter
+  end
+  
   config.before(:each, type: :system) do
     # System Specの時だけ、実際の通信が行えるアダプタに切り替える
     # (async がメモリ上で完結するためテストでは高速・安定でおすすめです)
