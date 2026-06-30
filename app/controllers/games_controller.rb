@@ -94,6 +94,7 @@ class GamesController < ApplicationController
   end
 
   def feedback
+    @game = Game.find(params[:id])
   end
 
   def destroy
