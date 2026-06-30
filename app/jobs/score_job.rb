@@ -18,10 +18,10 @@ class ScoreJob < ApplicationJob
     # gptへの指示（プロンプト）を作成する。今回はJSON形式での出力を厳密に指示する。
     system_prompt = <<-PROMPT
     # Role & Context
-    Act as a warm, supportive #{target_lang} coach for intermediate learners (aged 10+, CEFR B1-B2). Review the user's description by comparing the "Theme Image" (お題) and the "AI's Image". Frame your advice around helping the user convey a more specific and clear image to the other party (the AI) to perfectly match the Theme Image. Always address the user directly ("you") in #{explanation_lang} for explanations/praise, and use natural #{target_lang} for corrections/examples.
+    Act as a warm, supportive #{target_lang} coach for intermediate learners (aged 10+, CEFR B1-B2). Review the user's description by comparing the "Model Image" (お題) and the "AI's Image". Frame your advice around helping the user convey a more specific and clear image to the other party (the AI) to perfectly match the Model Image. Always address the user directly ("you") in #{explanation_lang} for explanations/praise, and use natural #{target_lang} for corrections/examples.
 
     # Scoring Criteria (0-100)
-    Assess how accurately and vividly the text communicated the details of the Theme Image to recreate it as the AI's Image.
+    Assess how accurately and vividly the text communicated the details of the Model Image to recreate it as the AI's Image.
     - 90-100: Flawless communication of the image.
     - 70-89: Clear motif, minor details or color shifts.
     - 40-69: Visible intent, but the core image didn't fully come across.
@@ -36,9 +36,9 @@ class ScoreJob < ApplicationJob
     Output ONLY a valid JSON object. No conversational filler or markdown formatting outside the JSON wrapper.
     {
       "overall": (integer, 0-100 based on scoring criteria),
-      "image_analysis": "Explain in #{explanation_lang} how well the description conveyed the image to the other party. Include what was successfully communicated, what didn't quite come across, and specific tips/phrases to convey a more specific image to the AI next time. [CRUCIAL: If score >= 70 and text is natural, you MUST start with '十分にイメージの伝達ができていますので、これ以上の修正は必要ないかもしれませんが、'. If score < 40, NEVER use this disclaimer; explain why the main image failed to come across in the AI's Image].",
+      "image_analysis": "Explain in #{explanation_lang} how well the description conveyed the image to the other party. Include what was successfully communicated, what didn't quite come across, and specific tips/phrases to convey a more specific image to the AI next time. [CRUCIAL: If score > 70 and text is natural at the same time, you MUST start with '十分にイメージの伝達ができていますので、これ以上の修正は必要ないかもしれませんが、'. If score < 40, NEVER use this disclaimer; explain why the main image failed to come across in the AI's Image].",
       
-      "praise": "Encouraging comment in #{explanation_lang}. If score >= 40: Praise how effectively the text conveyed a vivid image to the other party, resulting in a great AI's Image. If score < 40: Praise the user's attempt and encourage a fresh start on communicating the Theme Image's core subject. NEVER praise the visual result if score < 40.",
+      "praise": "Encouraging comment in #{explanation_lang}. If score >= 40: Praise how effectively the text conveyed a vivid image to the other party, resulting in a great AI's Image. If score < 40: Praise the user's attempt and encourage a fresh start on communicating the Model Image's core subject. NEVER praise the visual result if score < 40.",
       
       "original_text": "The exact text provided by the user.",
       "rewritten_text": "A natural, native-level #{target_lang} version of the user's text. It MUST be phrased as a natural, fluid 'description of the image' (colloquial or literary is fine) that perfectly paints a clear picture for the listener.",
@@ -72,7 +72,7 @@ class ScoreJob < ApplicationJob
     # APIにリクエストを送信する。JSONモードを有効にする。
     request_gpt = client.chat(
     parameters: {
-        Theme: "gpt-4o-mini",
+        model: "gpt-4o-mini",
         messages: [
         { role: "system", content: system_prompt },
         {
