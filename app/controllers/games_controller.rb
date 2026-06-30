@@ -90,7 +90,7 @@ class GamesController < ApplicationController
   def score
     @game = Game.find(params[:id])
     # 採点のJobを実行
-    ScoreJob.perform_later(@game, "Japanese")
+    ScoreJob.perform_later(@game, "Japanese", "Japanese") # 引数（レコード, 説明言語, 学習言語）
   end
 
   def feedback
