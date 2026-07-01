@@ -50,12 +50,10 @@ class ScoreJob < ApplicationJob
         }
       ],
       
-      "key_points": [
-        {
+      "key_points": {
           "point": "Short title of advice in #{explanation_lang}.",
           "explanation": "Concise explanation (1-2 sentences) in #{explanation_lang}. [CRUCIAL: If score >= 70 and text is natural, you MUST start with '十分にイメージの伝達ができていますので、これ以上の修正は必要ないかもしれませんが、'. Otherwise, NEVER use it]."
-        }
-      ],
+        },
       
       "bonus_phrase": {
         "phrase": "One useful idiom/collocation/phrasal verb in #{target_lang} related to the topic.",

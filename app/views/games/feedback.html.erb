@@ -4,22 +4,75 @@
         <p class="text-2xl font-bold">フィードバック</p>
     </div>
 <% end %>
-
 <div class="pt-10">
-    <div class ="max-w-xs landscape:max-w-3xl mx-auto">
-        <div class="w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4">
-            <div data-controller="auto-message" data-auto-message-url-value="<%= feedback_game_path(@game) %>">
-                    <%= turbo_stream_from "chat_messages_container_for_job" %>
-                    <div id="chat_messages_container">
+    <div data-controller="chat-feedback" class ="flex flex-col max-w-xs landscape:max-w-3xl mx-auto">
 
-                        <!-- タイプ中アニメーション -->
-                        <div class="chat chat-start">
-                            <div class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><span class="loading loading-dots loading-sm"></span></div>
-                        </div>
-                    </div>
-                </div> 
+        <!-- コントローラー名を chat-feedback と定義 -->
+        <div class="chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4"> 
+            <!-- 各メッセージ要素に target を指定 -->
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><span class="loading loading-dots loading-sm"></span></div>
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["praise"] %></div>
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><p 
+                class="font-bold text-lg">総評</p><%= @game.score["image_analysis"] %></div>
+
+            <% if @game.score["spelling_errors"].present? %>
+                <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["spelling_errors"][0]["error"] %></div>
+                <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["spelling_errors"][0]["correction"] %></div>
+            <% end %>
+
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["original_text"] %></div>
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["rewritten_text"] %></div>
+
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["key_points"]["point"] %></div>
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["key_points"]["explanation"] %></div>
+
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["bonus_phrase"]["phrase"] %></div>
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["bonus_phrase"]["meaning"] %></div>
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["bonus_phrase"]["example"] %></div>
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["bonus_phrase"]["example_translation"] %></div>
+
+
+            <!-- サンプル -->
+            <div class="chat-bubble flex flex-col gap-2">
+                <!-- 段落1: 通常のテキスト -->
+                <p>こちらは通常の文章です。全体の流れを説明しています。</p>
+                
+                <!-- 段落2: 太字で強調 -->
+                <p class="font-bold text-lg">ここが一番重要なポイントです！</p>
+                
+                <!-- 段落3: 薄い色で補足 -->
+                <p class="text-xs text-base-content/70">※注記：このスタイルは自由に変更できます。</p>
             </div>
+
+            <div class="chat-bubble flex flex-col gap-3">
+                <p>以下のコマンドを実行してください。</p>
+                
+                <!-- コード風の段落（背景とフォントを変更） -->
+                <p class="bg-base-300 text-warning font-mono p-2 rounded text-sm">
+                npm install daisyui
+                </p>
+                
+                <p class="text-sm">インストールが完了したら、設定ファイルを編集します。</p>
+            </div>
+            
+            <div class="chat-bubble flex flex-col">
+                <!-- 上部：送信者（小さく右寄せ） -->
+                <span class="text-xs text-primary-content/60 text-right mb-1">あなた</span>
+                
+                <!-- 中央：メインのメッセージ（太字） -->
+                <p class="font-semibold">了解しました。10分後に行きます！</p>
+            </div>
+
+            <!-- テスト用の削除ボタン（クリックすると removeFirst アクションを実行） -->
+            <button data-action="click->chat-feedback#removeFirst" class="btn btn-error btn-sm mt-4">
+                一番上を削除
+            </button>
+
         </div>
+        <div class="flex justify-center gap-15 landscape:gap-25"> 
+            <%=button_to "リトライ", root_path, method: :get, class: "btn btn-lg btn-neutral btn-lg h-12 rounded-2xl" %>
+            <%=button_to "やめる", root_path, method: :get, class: "btn btn-lg btn-neutral btn-lg h-12 rounded-2xl" %>
+        </div> 
     </div>
 </div>
 
