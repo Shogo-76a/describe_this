@@ -16,32 +16,43 @@
             <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["praise"] %></div>
             
             <!-- フィードバック総評 -->
-            <div class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content flex flex-col gap-2">
+            <div class="chat-bubble bg-base-100 flex flex-col">
                 <!-- 太字で強調 -->
-                <p class="font-bold text-lg opacity-75">📜総評 :</p>
-
-                <p class="pl-8"><%= @game.score["image_analysis"] %></p>
-
-                <!-- 薄い色で補足 -->
-                <p class="flex justify-end text-xs text-base-content/25">※AIによる評価</p>
+                <p class="text-lg opacity-75">📄総評 :</p>
+                <div class="ml-8">
+                    <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
+                        <p class="pl-4"><%= @game.score["image_analysis"] %></p>
+                    </div>
+                </div>
             </div>            
+
+            <!-- まとめ -->
+            <div class="chat-bubble bg-base-100 flex flex-col">
+                <p class="text-lg opacity-75">🎗️まとめ</p>
+                <p class="ml-4 text-lg"><%= @game.score["key_points"]["point"] %></p>
+                <div class="ml-8">
+                    <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
+                        <p class="pl-4"><%= @game.score["key_points"]["explanation"] %></p>
+                    </div>
+                </div>
+            </div>
 
             <!-- スペルミス指摘 -->
             <% if @game.score["spelling_errors"].present? %>
                 <div class="chat-bubble bg-base-100 text-base-content"> 
-                    <p class="font-bold text-lg opacity-75">✒️スペルミス :</p>
+                    <p class="text-lg opacity-75">✒️スペルミス :</p>
                     <% @game.score["spelling_errors"].length.times do |n| %>
                                     
                         <div class="flex flex-row">
                             <p class="ml-8 flex items-center text-lg opacity-15"><%=n+1%>. </p>
                             <div class="ml-4 flex flex-col">
                                 <div class="my-3 flex flex-col">
-                                    <!-- 上段：間違い（薄め・打消し） -->
+                                    <!-- 上段：間違い -->
                                     <p class="pt-1 text-base font-mono opacity-50 border-b border-base-content/10">
                                     ✕ <%= @game.score["spelling_errors"][n]["error"] %>
                                     </p>
                                     
-                                    <!-- 下段：正しいスペル（ここだけしっかり見せる） -->
+                                    <!-- 下段：正しいスペル -->
                                     <p class="pt-1 text-base font-mono font-black text-success ">
                                     ◯ <%= @game.score["spelling_errors"][n]["correction"] %>
                                     </p>
@@ -55,96 +66,48 @@
                 </div>
             <% end %>
 
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["original_text"] %></div>
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["rewritten_text"] %></div>
 
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["key_points"]["point"] %></div>
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["key_points"]["explanation"] %></div>
+            <!-- 説明文比較 -->
+            <div class="chat-bubble bg-base-100 text-base-content"> 
+                <p class="text-lg opacity-75">🌷より自然な表現 :</p>           
 
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["bonus_phrase"]["phrase"] %></div>
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["bonus_phrase"]["meaning"] %></div>
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["bonus_phrase"]["example"] %></div>
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["bonus_phrase"]["example_translation"] %></div>
+                <div class="ml-4 flex flex-col">
+                    <!-- 上段：原文 -->
+                    <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
 
+                    <p class="ml-8 pt-1 pb-2 text-base font-mono opacity-50 border-b border-base-content/10">
+                        <%= @game.score["original_text"] %>
+                    </p>
+                    
+                    <!-- 下段：修正後 -->
+                    <p class="flex justify-start mt-2 text-xs text-base-content/50">提案 :</p>
+                    <p class="ml-8 pt-1 text-base font-mono font-black text-success ">
+                        <%= @game.score["rewritten_text"] %>
+                    </p>
+                </div>
 
-
-
-        <!-- サンプル -->
-            <div class="chat-bubble flex flex-col gap-2">
-                <!-- 段落1: 通常のテキスト -->
-                <p>こちらは通常の文章です。全体の流れを説明しています。</p>
-                
-                <!-- 段落2: 太字で強調 -->
-                <p class="font-bold text-lg">ここが一番重要なポイントです！</p>
-                
-                <!-- 段落3: 薄い色で補足 -->
-                <p class="text-xs text-base-content/70">※注記：このスタイルは自由に変更できます。</p>
             </div>
 
-            <div class="chat-bubble flex flex-col gap-3">
-                <p>以下のコマンドを実行してください。</p>
-                
-                <!-- コード風の段落（背景とフォントを変更） -->
-                <p class="bg-base-300 text-warning font-mono p-2 rounded text-sm">
-                npm install daisyui
-                </p>
-                
-                <p class="text-sm">インストールが完了したら、設定ファイルを編集します。</p>
+            <!-- 新フレーズ -->
+            <div class="chat-bubble bg-base-100 flex flex-col">
+                <p class="text-lg opacity-75">🎁更なる表現力アップへ</p>
+                <div class="ml-4">
+                    <p class="text-lg">「<%= @game.score["bonus_phrase"]["phrase"] %>」</p>
+                    <p class="ml-4 mt-2 mb-2 text-sm tracking-wide"><%= @game.score["bonus_phrase"]["meaning"] %></p>
+
+                    <p class="ml-4 border-b-2 border-base-content/10"></p>
+                    
+                    <p class="mt-2">・<%= @game.score["bonus_phrase"]["example"] %></p>
+                </div>
+                <div class="ml-8">
+                    <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
+
+
+                        <!-- 翻訳は説明言語と学習言語が同じ場合、非表示にすること -->
+                        <p class="pl-4"><%= @game.score["bonus_phrase"]["example_translation"] %></p>
+                    </div>
+                </div>
             </div>
-
-            <div class="chat-bubble flex flex-col">
-                <!-- 上部：送信者（小さく右寄せ） -->
-                <span class="text-xs text-primary-content/60 text-right mb-1">あなた</span>
-                
-                <!-- 中央：メインのメッセージ（太字） -->
-                <p class="font-semibold">了解しました。10分後に行きます！</p>
-            </div>
-
-            <div class="chat-bubble bg-base-300 text-base-content p-3 flex flex-col gap-2">
-                
-                <!-- 上段：間違い（薄め・打消し） -->
-                <p class="text-base font-mono opacity-50 pb-1 border-b border-base-content/10">
-                ✕ beautifull
-                </p>
-                
-                <!-- 下段：正しいスペル（ここだけしっかり見せる） -->
-                <p class="text-base font-mono font-black text-success">
-                ◯ beautiful
-                </p>
-                
-            </div>
-
-
-            <div class="chat-bubble bg-base-200 text-base-content flex flex-col gap-1">
-                
-                <!-- 上段：問題の指摘（単語のみにフォーカス） -->
-                <p class="font-mono text-base-content/60">
-                <span class="line-through text-error/80">recive</span> 
-                <span class="mx-2 text-base-content/40">→</span> 
-                <span class="font-bold text-success underline decoration-2">receive</span>
-                </p>
-                
-                <!-- 下段：薄い文字で1行アドバイス -->
-                <p class="text-xs opacity-70 mt-1 border-t border-base-content/10 pt-1">
-                「c」の後ろは「ei」の順番になります。
-                </p>
-                
-            </div>
-
-            <div class="chat-bubble bg-base-200 text-base-content flex flex-col gap-1.5 p-3">
-                
-                <p class="text-sm opacity-70">スペルをチェックしましょう。</p>
-                
-                <!-- 誤り：打消し線と赤文字 -->
-                <p class="font-mono text-error/90 line-through">✕ enviorment</p>
-                
-                <!-- 正解：太字と緑文字 -->
-                <p class="font-mono text-success font-bold">◯ environment</p>
-                
-            </div>
-
-
-        <!-- /サンプル -->
 
 
             <!-- テスト用の削除ボタン（クリックすると removeFirst アクションを実行） -->
