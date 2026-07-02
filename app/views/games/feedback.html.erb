@@ -5,18 +5,16 @@
     </div>
 <% end %>
 <div class="pt-10">
+    <!-- コントローラー名を chat-feedback と定義 -->
     <div data-controller="chat-feedback" class ="flex flex-col max-w-xs landscape:max-w-3xl mx-auto">
-
-        <!-- コントローラー名を chat-feedback と定義 -->
+        
         <div class="chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4"> 
-            <!-- 各メッセージ要素に target を指定 -->
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><span class="loading loading-dots loading-sm"></span></div>
 
             <!-- ステキな箇所 -->
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["praise"] %></div>
+            <div data-chat-feedback-target="message" class="chat-bubble hidden whitespace-pre-wrap bg-base-100 text-base-content"><%= @game.score["praise"] %></div>
             
             <!-- フィードバック総評 -->
-            <div class="chat-bubble bg-base-100 flex flex-col">
+            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
                 <!-- 太字で強調 -->
                 <p class="text-lg opacity-75">📄総評 :</p>
                 <div class="ml-8">
@@ -27,7 +25,7 @@
             </div>            
 
             <!-- まとめ -->
-            <div class="chat-bubble bg-base-100 flex flex-col">
+            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
                 <p class="text-lg opacity-75">🎗️まとめ</p>
                 <p class="ml-4 text-lg"><%= @game.score["key_points"]["point"] %></p>
                 <div class="ml-8">
@@ -39,7 +37,7 @@
 
             <!-- スペルミス指摘 -->
             <% if @game.score["spelling_errors"].present? %>
-                <div class="chat-bubble bg-base-100 text-base-content"> 
+                <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 text-base-content"> 
                     <p class="text-lg opacity-75">✒️スペルミス :</p>
                     <% @game.score["spelling_errors"].length.times do |n| %>
                                     
@@ -68,7 +66,7 @@
 
 
             <!-- 説明文比較 -->
-            <div class="chat-bubble bg-base-100 text-base-content"> 
+            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 text-base-content"> 
                 <p class="text-lg opacity-75">🌷より自然な表現 :</p>           
 
                 <div class="ml-4 flex flex-col">
@@ -89,7 +87,7 @@
             </div>
 
             <!-- 新フレーズ -->
-            <div class="chat-bubble bg-base-100 flex flex-col">
+            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
                 <p class="text-lg opacity-75">🎁更なる表現力アップへ</p>
                 <div class="ml-4">
                     <p class="text-lg">「<%= @game.score["bonus_phrase"]["phrase"] %>」</p>
@@ -109,13 +107,14 @@
                 </div>
             </div>
 
-
-            <!-- テスト用の削除ボタン（クリックすると removeFirst アクションを実行） -->
-            <button data-action="click->chat-feedback#removeFirst" class="btn btn-error btn-sm mt-4">
-                一番上を削除
-            </button>
-
+            <!-- 書き込み中表示 -->
+            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><span class="loading loading-dots loading-sm"></span></div>
         </div>
+
+        <!-- テスト用の削除ボタン（クリックすると removeFirst アクションを実行） -->
+        <button data-action="click->chat-feedback#removeFirst" class="btn btn-error btn-sm mt-4">
+            一番上を削除
+        </button>
         <div class="flex justify-center gap-15 landscape:gap-25"> 
             <%=button_to "リトライ", root_path, method: :get, class: "btn btn-lg btn-neutral btn-lg h-12 rounded-2xl" %>
             <%=button_to "やめる", root_path, method: :get, class: "btn btn-lg btn-neutral btn-lg h-12 rounded-2xl" %>
