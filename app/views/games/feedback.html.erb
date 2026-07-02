@@ -111,11 +111,8 @@
             <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content"><span class="loading loading-dots loading-sm"></span></div>
         </div>
 
-        <!-- テスト用の削除ボタン（クリックすると removeFirst アクションを実行） -->
-        <button data-action="click->chat-feedback#removeFirst" class="btn btn-error btn-sm mt-4">
-            一番上を削除
-        </button>
-        <div class="flex justify-center gap-15 landscape:gap-25"> 
+
+        <div data-chat-feedback-target="button" class="hidden mb-5 flex justify-center gap-15 landscape:gap-25"> 
             <%=button_to "リトライ", root_path, method: :get, class: "btn btn-lg btn-neutral btn-lg h-12 rounded-2xl" %>
             <%=button_to "やめる", root_path, method: :get, class: "btn btn-lg btn-neutral btn-lg h-12 rounded-2xl" %>
         </div> 
