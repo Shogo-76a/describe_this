@@ -37,24 +37,24 @@ class ScoreJob < ApplicationJob
     {
       "overall": (integer, 0-100 based on scoring criteria),
       "image_analysis": "Explain in #{explanation_lang} how well the description conveyed the image to the other party. Include what was successfully communicated, what didn't quite come across, and specific tips/phrases to convey a more specific image to the AI next time. [CRUCIAL: If score > 70 and text is natural at the same time, you MUST start with '十分にイメージの伝達ができていますので、これ以上の修正は必要ないかもしれませんが、'. If score < 40, NEVER use this disclaimer; explain why the main image failed to come across in the AI's Image].",
-      
+    #{'  '}
       "praise": "Encouraging comment in #{explanation_lang}. If score >= 40: Praise how effectively the text conveyed a vivid image to the other party, resulting in a great AI's Image. If score < 40: Praise the user's attempt and encourage a fresh start on communicating the Model Image's core subject. NEVER praise the visual result if score < 40.",
-      
+    #{'  '}
       "original_text": "The exact text provided by the user.",
       "rewritten_text": "A natural, native-level #{target_lang} version of the user's text. It MUST be phrased as a natural, fluid 'description of the image' (colloquial or literary is fine) that perfectly paints a clear picture for the listener.",
-      
+    #{'  '}
       "spelling_errors": [
         {
           "error": "Misspelled word",
           "correction": "Correct spelling"
         }
       ],
-      
+    #{'  '}
       "key_points": {
           "point": "Short title of advice in #{explanation_lang}.",
           "explanation": "Concise explanation (1-2 sentences) in #{explanation_lang}. [CRUCIAL: If score >= 70 and text is natural, you MUST start with '十分にイメージの伝達ができていますので、これ以上の修正は必要ないかもしれませんが、'. Otherwise, NEVER use it]."
         },
-      
+    #{'  '}
       "bonus_phrase": {
         "phrase": "One useful idiom/collocation/phrasal verb in #{target_lang} related to the topic.",
         "meaning": "Meaning explained in #{explanation_lang}.",
@@ -76,7 +76,7 @@ class ScoreJob < ApplicationJob
         {
             role: "user",
             content: [
-            {type: "text", text: "Please evaluate this explanation '#{game.description}' as the original_text based on the system instructions."},
+            { type: "text", text: "Please evaluate this explanation '#{game.description}' as the original_text based on the system instructions." },
             { type: "text", text: "Please evaluate these two images based on the system instructions. By the way, Image A is the Theme and Image B is the AI's Image." },
             # お題のイメージ
             {
