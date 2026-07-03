@@ -54,16 +54,6 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.turbo_stream do
-        # 表示したいテキストの配列をインスタンス変数にセット
-        @system_replies = [
-          GameForm.new(feedback: "どんなイメージか教えてください")
-        ]
-        # 自動的に app/views/games/show.turbo_stream.erb が呼ばれます
-      end
-    end
   end
 
   def update
