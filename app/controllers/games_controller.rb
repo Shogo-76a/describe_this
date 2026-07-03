@@ -4,37 +4,41 @@ class GamesController < ApplicationController
 
 
   def new
-    # ここでお題画像のseed値を決定
-    current_seed = SecureRandom.uuid
-    seed_integer = current_seed.hash
+    if params[:image_url].present?
+      @game = Game.new(theme_image_url: params[:image_url])
+    else
+      # ここでお題画像のseed値を決定
+      current_seed = SecureRandom.uuid
+      seed_integer = current_seed.hash
 
-    begin
-      # Cloudinaryから画像リストを取得
-      images = CloudinaryFolderService.fetch_images_from_folder("describe_this/theme_images")
+      begin
+        # Cloudinaryから画像リストを取得
+        images = CloudinaryFolderService.fetch_images_from_folder("describe_this/theme_images")
 
-      if images.any?
-        random_generator = Random.new(seed_integer)
-        selected_id = images.sample(random: random_generator)
+        if images.any?
+          random_generator = Random.new(seed_integer)
+          selected_id = images.sample(random: random_generator)
 
-        # cl_image_tagの代わりに、通常のimage_tagで使えるCloudinaryのURLを生成
-        image_url = Cloudinary::Utils.cloudinary_url(
-                      selected_id,
-                      width: 600, height: 400, crop: :fill, fetch_format: :auto, quality: :auto
-                    )
-      else
-        # フォルダが空だった場合のフォールバック（assets内のデフォルト画像）
-        image_url = "placeholder_gray.png"
+          # cl_image_tagの代わりに、通常のimage_tagで使えるCloudinaryのURLを生成
+          image_url = Cloudinary::Utils.cloudinary_url(
+                        selected_id,
+                        width: 600, height: 400, crop: :fill, fetch_format: :auto, quality: :auto
+                      )
+        else
+          # フォルダが空だった場合のフォールバック（assets内のデフォルト画像）
+          image_url = "placeholder_gray.png"
+        end
+
+      rescue => e
+        # Cloudinaryでエラーが起きたときの処理
+        Rails.logger.error "Cloudinary Error: #{e.message}"
+
+        # Active Storageの仕組みやローカルのassets画像に逃がす
+        image_url = "placeholder_white.png"
       end
 
-    rescue => e
-      # Cloudinaryでエラーが起きたときの処理
-      Rails.logger.error "Cloudinary Error: #{e.message}"
-
-      # Active Storageの仕組みやローカルのassets画像に逃がす
-      image_url = "placeholder_white.png"
+      @game = Game.new(theme_image_url: image_url)
     end
-
-    @game = Game.new(theme_image_url: image_url)
   end
 
 
