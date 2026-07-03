@@ -1,7 +1,0 @@
-<!-- # すでに作ったパーシャル(_message)にアプリ側メッセージ @system_replies を流し込む -->
-<% if @game.present? %>
-    <%= turbo_stream.append "chat_messages_container" do %>
-
-        <%= render partial: 'shared/message', collection: @system_replies, as: :message %>
-    <% end %>
-<% end %>
