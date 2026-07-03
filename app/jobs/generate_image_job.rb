@@ -57,27 +57,5 @@ class GenerateImageJob < ApplicationJob
     filename: "describethisimage_#{Time.current.to_i}.png",
     content_type: "image/png"
     )
-
-    Turbo::StreamsChannel.broadcast_replace_to(
-      "generate_image_result",        # ストリーム名（View側と一致させる）
-      target: "generated-image",       # 置き換えるHTML要素のid
-      partial: "shared/generated_image", # レンダーするパーシャルのパス
-      locals: { game: game }           # パーシャル内で使う変数
-    )
-
-    system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
-    Turbo::StreamsChannel.broadcast_append_to(
-      "chat_messages_container_for_job",
-      target: "chat_messages_container",
-      partial: "shared/message",
-      locals: { message: system_replies }
-    )
-
-    Turbo::StreamsChannel.broadcast_update_to(
-      "scoring_button_enable",
-      target: "scoring_button",
-      partial: "shared/scoring_button",
-      locals: { game: game }
-    )
   end
 end

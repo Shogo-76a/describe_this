@@ -81,6 +81,41 @@ class GamesController < ApplicationController
     end
   end
 
+  def check_generated_image
+    @game = Game.find(params[:id])
+    @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
+
+    if @game.generated_image.attached?
+      # 配列に入れて、1回の render turbo_stream: でまとめて返却する
+      render turbo_stream: [
+        # 1. 画像プレースホルダーを置き換える (id="generated-image" の要素を置換)
+        turbo_stream.replace(
+          "generated-image", 
+          partial: "shared/generated_image", 
+          locals: { game: @game }
+        ),
+        
+        # 2. チャットコンテナの末尾にメッセージを追加 (id="chat_messages_container" の末尾に追加)
+        turbo_stream.append(
+          "chat_messages_container", 
+          partial: "shared/message", 
+          locals: { message: @system_replies }
+        ),
+        
+        # 3. 採点ボタンを更新して有効化 (id="scoring_button" の中身を更新)
+        # ※ game を @game に修正しています
+        turbo_stream.update(
+          "scoring_button", 
+          partial: "shared/scoring_button", 
+          locals: { game: @game }
+        )
+      ]
+    else
+      # まだレコードがない場合は「204 No Content」を返し、Stimulus側に継続させる
+      head :no_content
+    end
+  end
+
   def score
     @game = Game.find(params[:id])
     # 採点のJobを実行
