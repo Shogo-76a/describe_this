@@ -75,8 +75,6 @@ class GamesController < ApplicationController
       end
     else
       # 失敗した時は、newではなく現在のチャット画面（show）のデータを再準備して返す
-      # これにより、MissingTemplate エラーが消えます
-      # @system_replies = [GameForm.new(feedback: "空欄でござる。")] # 必要に応じて空の配列などを定義
       render :show, status: :unprocessable_entity
     end
   end
@@ -88,21 +86,21 @@ class GamesController < ApplicationController
     if @game.generated_image.attached?
       # 配列に入れて、1回の render turbo_stream: でまとめて返却する
       render turbo_stream: [
-        # 1. 画像プレースホルダーを置き換える (id="generated-image" の要素を置換)
+        # 画像プレースホルダーを置き換える (id="generated-image" の要素を置換)
         turbo_stream.replace(
           "generated-image",
           partial: "shared/generated_image",
           locals: { game: @game }
         ),
 
-        # 2. チャットコンテナの末尾にメッセージを追加 (id="chat_messages_container" の末尾に追加)
+        # チャットコンテナの末尾にメッセージを追加 (id="chat_messages_container" の末尾に追加)
         turbo_stream.append(
           "chat_messages_container",
           partial: "shared/message",
           locals: { message: @system_replies }
         ),
 
-        # 3. 採点ボタンを更新して有効化 (id="scoring_button" の中身を更新)
+        # 採点ボタンを更新して有効化 (id="scoring_button" の中身を更新)
         # ※ game を @game に修正しています
         turbo_stream.update(
           "scoring_button",
@@ -120,7 +118,6 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
 
     if @game.score.present?
-      # 配列に入れて、1回の render turbo_stream: でまとめて返却する
       render turbo_stream: turbo_stream.update(
           "resulting_score",
           partial: "shared/resulting_score",
