@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: games
+#
+#  id              :bigint           not null, primary key
+#  description     :text
+#  feedback        :jsonb
+#  score           :jsonb
+#  theme_image_url :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  session_id      :string
+#
 FactoryBot.define do
   factory :game do
     description  { 'テストデータテストテスト' }
