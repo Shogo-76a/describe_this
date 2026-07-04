@@ -90,23 +90,23 @@ class GamesController < ApplicationController
       render turbo_stream: [
         # 1. 画像プレースホルダーを置き換える (id="generated-image" の要素を置換)
         turbo_stream.replace(
-          "generated-image", 
-          partial: "shared/generated_image", 
+          "generated-image",
+          partial: "shared/generated_image",
           locals: { game: @game }
         ),
-        
+
         # 2. チャットコンテナの末尾にメッセージを追加 (id="chat_messages_container" の末尾に追加)
         turbo_stream.append(
-          "chat_messages_container", 
-          partial: "shared/message", 
+          "chat_messages_container",
+          partial: "shared/message",
           locals: { message: @system_replies }
         ),
-        
+
         # 3. 採点ボタンを更新して有効化 (id="scoring_button" の中身を更新)
         # ※ game を @game に修正しています
         turbo_stream.update(
-          "scoring_button", 
-          partial: "shared/scoring_button", 
+          "scoring_button",
+          partial: "shared/scoring_button",
           locals: { game: @game }
         )
       ]
@@ -122,8 +122,8 @@ class GamesController < ApplicationController
     if @game.score.present?
       # 配列に入れて、1回の render turbo_stream: でまとめて返却する
       render turbo_stream: turbo_stream.update(
-          "resulting_score", 
-          partial: "shared/resulting_score", 
+          "resulting_score",
+          partial: "shared/resulting_score",
           locals: { game: @game }
         )
 
@@ -133,7 +133,7 @@ class GamesController < ApplicationController
       head :no_content
     end
   end
-  
+
   def score
     @game = Game.find(params[:id])
     # 採点のJobを実行
