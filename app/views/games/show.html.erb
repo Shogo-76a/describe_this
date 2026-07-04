@@ -4,7 +4,14 @@
               method: :delete, 
               class: "text-2xl font-bold bg-transparent border-none p-0 cursor-pointer inline-block" %>
 <% end %>
-<div class="bg-base-300 min-h-full flex flex-col pt-0 z-10">
+
+<div 
+  data-controller="generated-image-polling"
+  data-generated-image-polling-url-value="<%= check_generated_image_game_path(@game) %>"
+  data-generated-image-polling-max-attempts-value="100"
+  data-generated-image-polling-interval-value="2000"
+  class="bg-base-300 min-h-full flex flex-col pt-0 z-10"
+>
     <div data-controller="collapsible-image" class="bg-base-200 p-4 flex flex-col landscape:hero">
         <div data-collapsible-image-target="wrapperGlobal"        
             class="relative w-full aspect-[600/400] overflow-hidden 
@@ -29,15 +36,12 @@
                 class="absolute top-0 right-0 h-full landscape:h-auto w-1/2 transition-all duration-500 ease-in-out
                     landscape:h-auto">
 
-                <!-- # 画像生成Job からの通信(WebSocket)をみる。画像生成でき次第差し替える -->
-                <%= turbo_stream_from "generate_image_result" %>
                 <div id="generated-image" class="w-full h-full landscape:h-auto">
                     <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[600/400] bg-base-100 rounded-4xl"></div>
                 </div>
             </div>
         </div>
         
-        <%= turbo_stream_from "scoring_button_enable" %>
         <div id="scoring_button", class="flex justify-center m-5">
             <%=button_to "採点", "#", 
                 method: :get, 
@@ -77,8 +81,6 @@
     <div class="bg-base-300">
         <div class="w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4">
             
-                <%= turbo_stream_from "chat_messages_container_for_job" %>
-
                 <div class="chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4"> 
                     <div class="chat-bubble whitespace-pre-wrap bg-base-100 text-base-content">どんなイメージか教えてください</span></div>
                 </div>
@@ -89,7 +91,6 @@
         </div>
     </div>
 </div>
-
 <!-- フッターの内容変更 -->
 <% provide(:footer_content) do %>
     <!-- 空欄 -->

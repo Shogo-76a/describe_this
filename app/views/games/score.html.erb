@@ -5,22 +5,26 @@
     </div>
 <% end %>
 
-<!-- 採点Job からの通信(WebSocket)をみる。採点でき次第差し替える -->
-<%= turbo_stream_from "resulting_score_#{@game.id}" %>
-
-<div id="resulting_score">
-    <div class="splash-overlay">
-      <div class="hero-content text-center">
-        <div class="grid place-items-center text-center w-full">
-          <p class="text-2xl">
-            採点中
-          </p>
-          <div class="text-xm my-5">
-            <span class="loading loading-spinner loading-md"></span>
+<div 
+  data-controller="score-polling"
+  data-score-polling-url-value="<%= check_score_game_path(@game) %>"
+  data-score-polling-max-attempts-value="100"
+  data-score-polling-interval-value="2000"
+>
+  <div id="resulting_score">
+      <div class="splash-overlay">
+        <div class="hero-content text-center">
+          <div class="grid place-items-center text-center w-full">
+            <p class="text-2xl">
+              採点中
+            </p>
+            <div class="text-xm my-5">
+              <span class="loading loading-spinner loading-md"></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+  </div>
 </div>
 
 <!-- フッターの内容変更 -->
