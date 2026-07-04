@@ -116,6 +116,24 @@ class GamesController < ApplicationController
     end
   end
 
+  def check_score
+    @game = Game.find(params[:id])
+
+    if @game.score.present?
+      # 配列に入れて、1回の render turbo_stream: でまとめて返却する
+      render turbo_stream: turbo_stream.update(
+          "resulting_score", 
+          partial: "shared/resulting_score", 
+          locals: { game: @game }
+        )
+
+
+    else
+      # まだレコードがない場合は「204 No Content」を返し、Stimulus側に継続させる
+      head :no_content
+    end
+  end
+  
   def score
     @game = Game.find(params[:id])
     # 採点のJobを実行

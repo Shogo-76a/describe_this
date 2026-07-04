@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get :score
       get :feedback
       get :check_generated_image
+      get :check_score
     end
   end
   resources :users, only: [ :show ]
