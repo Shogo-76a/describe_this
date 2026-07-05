@@ -22,6 +22,10 @@ export default class extends Controller {
     document.documentElement.setAttribute("data-theme", theme)
     localStorage.setItem("theme", theme)
 
+    // Cookieにも同じ名前で保存（Railsのサーバー側で読めるようにする）
+    // max-age=31536000 で1年間有効
+    document.cookie = "theme=${theme}; path=/; max-age=31536000; SameSite=Lax"
+
     // 親ボタン（タブ）のアイコンを現在のテーマに更新
     if (this.hasActiveIconTarget) {
       // 親ボタンのアイコン部分全体を、現在選択されているメニュー項目のアイコンで差し替える

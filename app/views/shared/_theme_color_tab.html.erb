@@ -6,8 +6,8 @@
 
         <!-- ここにStimulusコントローラで指定したSVGアイコンが自動挿入されます(connect時に更新) -->
         <span data-theme-select-target="activeIcon">
-        <!-- connectが動くまでの初期表示として、例えばLightのアイコンを置いておきます -->
-            <%= render 'shared/theme_icon', theme_name: 'light' %>
+            <!-- connectが動くまでの初期表示として、例えばLightのアイコンを置いておきます -->
+            <%= render 'shared/theme_icon', theme_name: cookies[:theme].presence || 'light' %>
         </span>
 
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
