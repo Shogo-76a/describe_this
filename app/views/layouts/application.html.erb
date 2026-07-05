@@ -29,6 +29,8 @@
       <div class="hero min-h-screen">
         <div class="hero-content text-center">
           <div class="max-w-md">
+
+            <!-- ロゴ -->
             <div 
                       class="bg-primary mx-auto h-24 w-24 object-contain" 
                       style="
@@ -50,12 +52,12 @@
 
     <!-- メイン画面の内容 -->
     <div class="app-content loading flex flex-col h-screen">
-      <%# --- ヘッダーの呼び出し --- %>
+      <!-- ヘッダーの呼び出し -->
       <%= render "shared/header" %> 
       <main class="overflow-x-hidden flex-grow bg-base-200">
       <%= yield %>
       </main>
-      <%# --- フッターの呼び出し --- %>
+      <!-- フッターの呼び出し -->
       <%= render "shared/footer" %> 
     </div>
 
