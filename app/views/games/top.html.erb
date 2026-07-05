@@ -2,7 +2,20 @@
   <div class="hero">
     <div class="hero-content flex-col items-center w-full">
       <div class="grid place-items-center text-center w-full">
-        <%= image_tag("DT_title.png", alt: "Describe this", class: "w-70 h-auto") %>
+
+        <div 
+                  class="bg-primary w-70 h-16" 
+                  style="
+                    -webkit-mask-image: url('<%= asset_path("DT_title.png") %>');
+                    mask-image: url('<%= asset_path("DT_title.png") %>');
+                    -webkit-mask-size: contain;
+                    mask-size: contain;
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    -webkit-mask-position: center;
+                    mask-position: center;
+                  "
+                ></div>
         <p class="my-6">
           説明する練習が楽しく続く
         </p>

@@ -4,6 +4,18 @@
         <%= yield :header_content %>
     <% else %>
         <!-- どのページでも設定されていない場合のデフォルト表示 -->
-        <%= link_to image_tag("DT_logo.png", alt: "logo", class: "w-10 h-auto"), root_path%>
+        <div 
+                class="bg-primary w-11 h-11" 
+                style="
+                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
+                    mask-image: url('<%= asset_path("DT_logo.png") %>');
+                    -webkit-mask-size: contain;
+                    mask-size: contain;
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    -webkit-mask-position: center;
+                    mask-position: center;
+                "
+                ></div>
     <% end %>
 </header>

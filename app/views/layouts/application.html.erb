@@ -29,7 +29,19 @@
       <div class="hero min-h-screen">
         <div class="hero-content text-center">
           <div class="max-w-md">
-            <%= image_tag "DT_logo.png", class: "mx-auto h-24 w-auto object-contain", alt: "ロゴ" %>
+            <div 
+                      class="bg-primary mx-auto h-24 w-24 object-contain" 
+                      style="
+                        -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
+                        mask-image: url('<%= asset_path("DT_logo.png") %>');
+                        -webkit-mask-size: contain;
+                        mask-size: contain;
+                        -webkit-mask-repeat: no-repeat;
+                        mask-repeat: no-repeat;
+                        -webkit-mask-position: center;
+                        mask-position: center;
+                      "
+                    ></div>
           </div>
         </div>
       </div>
