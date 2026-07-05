@@ -1,11 +1,13 @@
-<header class="navbar bg-base-100 p-2">
-    <!-- ページごとに書き換わるエリア -->
-    <% if content_for?(:header_content) %>
-        <%= yield :header_content %>
-    <% else %>
-        <!-- どのページでも設定されていない場合のデフォルト表示 -->
 
-        <!-- ロゴ -->
+<!-- ページごとに書き換わるエリア -->
+<% if content_for?(:header_content) %>
+    <header class="navbar bg-base-100 p-2">
+        <%= yield :header_content %>
+    </header>
+<% else %>
+    <header class="flex justify-between items-center navbar bg-base-100 p-2">
+        <!-- どのページでも設定されていない場合のデフォルト表示 -->
+            <!-- ロゴ -->
         <div 
                 class="bg-primary w-11 h-11" 
                 style="
@@ -18,18 +20,59 @@
                     -webkit-mask-position: center;
                     mask-position: center;
                 "
-                ></div>
+                >
+        </div>
 
-        <!-- data-controller="theme-select" を追加します -->
-        <select 
-        data-controller="theme-select" 
-        data-action="change->theme-select#change"
-        class="select select-bordered w-full max-w-xs"
-        >
-            <option value="light">Default (Light)</option>
-            <option value="dark">Dark</option>
-            <option value="cupcake">Cupcake</option>
-            <option value="bumblebee">Bumblebee</option>
-        </select>
-    <% end %>
-</header>
+
+        <!-- テーマカラー変更 -->
+        <div data-controller="theme-select" class="dropdown dropdown-end">
+        
+            <!-- メインのボタン（現在適用されているテーマのアイコンを表示する場所）-->
+            <div tabindex="0" role="button" class="btn btn-ghost m-1 gap-2">
+
+                <!-- ここに上のJSで指定したSVGアイコンが自動挿入されます(connect時に更新) -->
+                <span data-theme-select-target="activeIcon">
+                <!--  connectが動くまでの初期表示として、例えばLightのアイコンを置いておきます -->
+                    <%= render 'shared/theme_icon', theme_name: 'light' %>
+                </span>
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+
+            </div>
+
+            <!-- ドロップダウンメニューの中身 -->
+            <ul tabindex="0" class="dropdown-content menu bg-base-200 text-base-content rounded-box z-[1] w-52 p-2 shadow-2xl">
+                
+                <!-- テーマのリストを定義してループで回すのがRailsらしい書き方です -->
+                <% themes = [ 
+                    { name: 'Light', value: 'light' }, 
+                    { name: 'Dark', value: 'dark' }, 
+                    { name: 'Cupcake', value: 'cupcake' } 
+                    ] %>
+
+                <% themes.each do |theme| %>
+                    <li>
+                        <button 
+                        data-theme-select-target="menuItem" 
+                        data-theme-value="<%= theme[:value] %>" 
+                        data-action="click->theme-select#select"
+                        class="gap-3 grid grid-cols-[auto,1fr,auto] items-center"
+                        >
+                            <!-- 各項目のアイコンとしてPartialを呼び出す -->
+                            <%= render 'shared/theme_icon', theme_name: theme[:value] %>
+                            <span><%= theme[:name] %></span>
+                            
+                            <!-- daisyUI公式のように、選択されたテーマにチェックマークを表示する -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current opacity-0 active:opacity-100" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                            </svg>
+                        </button>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    </header>
+<% end %>
+
