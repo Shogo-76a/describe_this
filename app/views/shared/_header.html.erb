@@ -19,5 +19,17 @@
                     mask-position: center;
                 "
                 ></div>
+
+        <!-- data-controller="theme-select" を追加します -->
+        <select 
+        data-controller="theme-select" 
+        data-action="change->theme-select#change"
+        class="select select-bordered w-full max-w-xs"
+        >
+            <option value="light">Default (Light)</option>
+            <option value="dark">Dark</option>
+            <option value="cupcake">Cupcake</option>
+            <option value="bumblebee">Bumblebee</option>
+        </select>
     <% end %>
 </header>
