@@ -7,8 +7,8 @@ export default class extends Controller {
   static targets = ["activeIcon", "menuItem"]
 
   connect() {
-    const savedTheme = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "light"
-    this.applyTheme(savedTheme)
+    const savedTheme = localStorage.getItem("theme") || "light"
+    this.updateMenuHighlight(savedTheme)
   }
 
   // メニュー内の項目がクリックされたときに動く処理
