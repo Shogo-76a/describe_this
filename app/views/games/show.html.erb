@@ -43,9 +43,9 @@
         </div>
         
         <div id="scoring_button", class="flex justify-center m-5">
-            <%=button_to "採点", "#", 
+            <%=button_to "お題を説明してください", "#", 
                 method: :get, 
-                class: "btn btn-lg btn-primary text-primary-content/25 w-70 h-12 rounded-2xl", 
+                class: "btn btn-lg bg-neutral/50 text-neutral-content/50 font-normal w-70 h-12 rounded-2xl", 
                 disabled: true, 
                 data: { collapsible_image_target: "submitButton"} %>
         </div>
@@ -83,9 +83,9 @@
 
     <!-- チャット欄 -->
     <div class="bg-base-300">
-        <div class="w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4">
+        <div class="w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-0">
             
-                <div class="chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4"> 
+                <div class="chat chat-start w-full max-w-xl mx-auto px-4 flex flex-col"> 
                     <div class="chat-bubble whitespace-pre-wrap bg-base-100">どんなイメージか教えてください</span></div>
                 </div>
 

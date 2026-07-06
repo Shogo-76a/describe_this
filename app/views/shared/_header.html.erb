@@ -1,16 +1,16 @@
 
 <!-- ページごとに書き換わるエリア -->
 <% if content_for?(:header_content) %>
-    <header class="flex justify-between items-center navbar bg-base-100 text-primary p-2">
+    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
         <%= yield :header_content %>
         <%= render 'shared/theme_color_tab', theme_name: 'light' %>
     </header>
 <% else %>
-    <header class="flex justify-between items-center navbar bg-base-100 text-primary p-2">
+    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
         <!-- どのページでも設定されていない場合のデフォルト表示 -->
             <!-- ロゴ -->
         <div 
-                class="bg-primary w-11 h-11" 
+                class="bg-base-content/75 w-11 h-11" 
                 style="
                     -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
                     mask-image: url('<%= asset_path("DT_logo.png") %>');

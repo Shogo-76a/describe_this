@@ -3,6 +3,6 @@
     
     <div class="chat-bubble whitespace-pre-wrap 
         <%= 
-            message.from_user? ? 'chat-bubble-primary' : 'bg-base-100 text-base-content'
+            message.from_user? ? 'bg-accent text-accent-content' : 'bg-base-100 text-base-content'
          %>"><%= message.description || message.feedback %></div>
 </div>

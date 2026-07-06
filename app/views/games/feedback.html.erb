@@ -1,7 +1,7 @@
 <!-- ヘッダーの内容変更 -->
 <% provide(:header_content) do %>
-    <div class="flex items-end gap-0">
-        <p class="text-2xl font-bold">フィードバック</p>
+    <div class="flex items-end gap-0 text-2xl opacity-75">
+        <p>フィードバック</p>
     </div>
 <% end %>
 <div class="pt-10">
@@ -113,8 +113,8 @@
 
 
         <div data-chat-feedback-target="button" class="hidden mb-20 flex justify-center gap-15 landscape:gap-25"> 
-            <%=link_to "リトライ", new_game_path(image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral btn-lg h-12 rounded-2xl" %>
-            <%=button_to "やめる", root_path, method: :get, class: "btn btn-lg btn-neutral btn-lg h-12 rounded-2xl" %>
+            <%=link_to "リトライ", new_game_path(image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 rounded-2xl" %>
+            <%=button_to "やめる", root_path, method: :get, class: "btn btn-lg btn-neutral h-12 rounded-2xl" %>
         </div> 
     </div>
 </div>
