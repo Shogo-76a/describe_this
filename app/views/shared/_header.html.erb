@@ -1,12 +1,12 @@
 
 <!-- ページごとに書き換わるエリア -->
 <% if content_for?(:header_content) %>
-    <header class="flex justify-between items-center navbar bg-base-100 p-2">
+    <header class="flex justify-between items-center navbar bg-base-100 text-primary p-2">
         <%= yield :header_content %>
         <%= render 'shared/theme_color_tab', theme_name: 'light' %>
     </header>
 <% else %>
-    <header class="flex justify-between items-center navbar bg-base-100 p-2">
+    <header class="flex justify-between items-center navbar bg-base-100 text-primary p-2">
         <!-- どのページでも設定されていない場合のデフォルト表示 -->
             <!-- ロゴ -->
         <div 
