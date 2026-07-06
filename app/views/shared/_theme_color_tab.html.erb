@@ -17,7 +17,8 @@
     </div>
 
     <!-- ドロップダウンメニューの中身 -->
-    <ul tabindex="0" class="dropdown-content menu bg-base-200 text-base-content rounded-box top-px h-122 max-h-[calc(100vh-8.6rem)] overflow-y-auto border-(length:--border) border-white/5 shadow-2xl outline-(length:--border) outline-black/5 mt-6 flex flex-col flex-nowrap">
+    <ul tabindex="0" class="dropdown-content menu bg-base-200 text-base-content rounded-box z-[1] w-42 p-2 shadow
+                max-h-122 overflow-y-auto flex-nowrap">
         
         <!-- テーマのリストを定義してループで回すのがRailsらしい書き方です -->
         <% themes = [ 
