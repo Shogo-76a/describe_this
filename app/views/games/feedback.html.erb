@@ -9,11 +9,8 @@
     <div data-controller="chat-feedback" class ="flex flex-col max-w-xs landscape:max-w-3xl mx-auto">
         
         <div class="chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4"> 
-
-            <!-- ステキな箇所 -->
-            <div data-chat-feedback-target="message" class="chat-bubble hidden whitespace-pre-wrap bg-base-100"><%= @game.score["praise"] %></div>
             
-            <!-- フィードバック総評 -->
+            <!-- 総評 -->
             <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
                 <!-- 太字で強調 -->
                 <p class="text-lg opacity-75">📄総評 :</p>
@@ -21,19 +18,9 @@
                     <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
                         <p class="pl-4"><%= @game.score["image_analysis"] %></p>
                     </div>
+                    <p class="flex justify-end mt-2 text-xs text-base-content/25">※AIの解釈で画像生成するため、アドバイス通りにならない場合があります。</p>
                 </div>
             </div>            
-
-            <!-- まとめ -->
-            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
-                <p class="text-lg opacity-75">🎗️まとめ</p>
-                <p class="ml-4 text-lg"><%= @game.score["key_points"]["point"] %></p>
-                <div class="ml-8">
-                    <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
-                        <p class="pl-4"><%= @game.score["key_points"]["explanation"] %></p>
-                    </div>
-                </div>
-            </div>
 
             <!-- スペルミス指摘 -->
             <% if @game.score["spelling_errors"].present? %>
@@ -67,30 +54,43 @@
 
             <!-- 説明文比較 -->
             <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100"> 
-                <p class="text-lg opacity-75">🌷より自然な表現 :</p>           
+                <p class="text-lg opacity-75">🌷自然な言い回し :</p>           
+                <% if @game.score["rewritten_text"].present? %>
+                    <div class="ml-4 flex flex-col">
+                        <p class="flex justify-start mt-2 text-sm">
+                        すでに自然な言い回しで、提案の必要がありませんでした。<br>
+                        素晴らしいです！</p>
+                        <!-- 上段：原文 -->
+                        <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
 
-                <div class="ml-4 flex flex-col">
-                    <!-- 上段：原文 -->
-                    <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
+                        <p class="ml-8 pt-1 text-base font-mono font-black text-success">
+                            <%= @game.score["original_text"] %>
+                        </p>
+                    </div>
+                <% else %>
+                    <div class="ml-4 flex flex-col">
+                        <!-- 上段：原文 -->
+                        <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
 
-                    <p class="ml-8 pt-1 pb-2 text-base font-mono opacity-50 border-b border-base-content/10">
-                        <%= @game.score["original_text"] %>
-                    </p>
-                    
-                    <!-- 下段：修正後 -->
-                    <p class="flex justify-start mt-2 text-xs text-base-content/50">提案 :</p>
-                    <p class="ml-8 pt-1 text-base font-mono font-black text-success ">
-                        <%= @game.score["rewritten_text"] %>
-                    </p>
-                </div>
+                        <p class="ml-8 pt-1 pb-2 text-base font-mono opacity-50 border-b border-base-content/10">
+                            <%= @game.score["original_text"] %>
+                        </p>
+                        
+                        <!-- 下段：修正後 -->
+                        <p class="flex justify-start mt-2 text-xs text-base-content/50">提案 :</p>
+                        <p class="ml-8 pt-1 text-base font-mono font-black text-success">
+                            <%= @game.score["rewritten_text"] %>
+                        </p>
+                    </div>
+                <% end %>
 
             </div>
 
-            <!-- 新フレーズ -->
+            <!-- 関連フレーズ -->
             <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
-                <p class="text-lg opacity-75">🎁更なる表現力アップへ</p>
+                <p class="text-lg opacity-75">🎁関連フレーズ</p>
                 <div class="ml-4">
-                    <p class="text-lg">「<%= @game.score["bonus_phrase"]["phrase"] %>」</p>
+                    <p class="text-lg">・<%= @game.score["bonus_phrase"]["phrase"] %></p>
                     <p class="ml-4 mt-2 mb-2 text-sm tracking-wide"><%= @game.score["bonus_phrase"]["meaning"] %></p>
 
                     <p class="ml-4 border-b-2 border-base-content/10"></p>
@@ -104,6 +104,17 @@
                         <!-- 翻訳は説明言語と学習言語が同じ場合、非表示にすること -->
                         <p class="pl-4"><%= @game.score["bonus_phrase"]["example_translation"] %></p>
                     </div>
+                </div>
+            </div>
+
+            <!-- まとめ -->
+            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
+                <p class="text-lg opacity-75">🎗️まとめ</p>
+                <div class="ml-8">
+                    <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
+                        <p class="pl-4"><%= @game.score["next_step_advice"] %></p>
+                    </div>
+                    <p class="flex justify-end mt-2 text-xs text-base-content/25">※AIの解釈で画像生成するため、アドバイス通りにならない場合があります。</p>
                 </div>
             </div>
 

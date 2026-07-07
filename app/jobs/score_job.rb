@@ -29,19 +29,17 @@ class ScoreJob < ApplicationJob
     - 0: Completely unrelated.
 
     # Rules
-    1. Focus ONLY on 1-2 critical language errors in "key_points". Do not nitpick.
+    1. Instead of nitpicking minor grammar, provide one clear, actionable takeaway in "next_step_advice" based on the overall feedback to help the user describe images better next time.
     2. Identify up to 5 spelling errors. If none, return an empty array `[]`.
 
     # Output Format
     Output ONLY a valid JSON object. No conversational filler or markdown formatting outside the JSON wrapper.
     {
       "overall": (integer, 0-100 based on scoring criteria),
-      "image_analysis": "Explain in #{explanation_lang} how well the description conveyed the image to the other party. Include what was successfully communicated, what didn't quite come across, and specific tips/phrases to convey a more specific image to the AI next time. [CRUCIAL: If score > 70 and text is natural at the same time, you MUST start with '十分にイメージの伝達ができていますので、これ以上の修正は必要ないかもしれませんが、'. If score < 40, NEVER use this disclaimer; explain why the main image failed to come across in the AI's Image].",
-    #{'  '}
-      "praise": "Encouraging comment in #{explanation_lang}. If score >= 40: Praise how effectively the text conveyed a vivid image to the other party, resulting in a great AI's Image. If score < 40: Praise the user's attempt and encourage a fresh start on communicating the Model Image's core subject. NEVER praise the visual result if score < 40.",
+      "image_analysis": "Explain in #{explanation_lang} how well the description conveyed the image to the other party. Include what was successfully communicated, what didn't quite come across, and specific tips/phrases to convey a more specific image to the AI next time. [CRUCIAL: If score < 40, NEVER use this disclaimer; explain why the main image failed to come across in the AI's Image].",
     #{'  '}
       "original_text": "The exact text provided by the user.",
-      "rewritten_text": "A natural, native-level #{target_lang} version of the user's text. It MUST be phrased as a natural, fluid 'description of the image' (colloquial or literary is fine) that perfectly paints a clear picture for the listener.",
+      "rewritten_text": "A natural, native-level #{target_lang} version of the user's text. It MUST be phrased as a natural, fluid 'description of the image' that perfectly paints a clear picture for the listener. [CRUCIAL: If the user's text is perfectly natural, structurally sound, and requires absolutely no corrections, output null instead of a string.]",
     #{'  '}
       "spelling_errors": [
         {
@@ -50,15 +48,13 @@ class ScoreJob < ApplicationJob
         }
       ],
     #{'  '}
-      "key_points": {
-          "point": "Short title of advice in #{explanation_lang}.",
-          "explanation": "Concise explanation (1-2 sentences) in #{explanation_lang}. [CRUCIAL: If score >= 70 and text is natural, you MUST start with '十分にイメージの伝達ができていますので、これ以上の修正は必要ないかもしれませんが、'. Otherwise, NEVER use it]."
-        },
+      "next_step_advice": "One concise, forward-looking comment (1-3 sentences) in #{explanation_lang} that synthesizes the most important takeaway from the rest of the feedback (both language and image communication). Tell the user exactly what to focus on next time to improve. (e.g., '次は〇〇のような表現を使って、場所の状況から説明してみましょう').",
+      },
     #{'  '}
       "bonus_phrase": {
-        "phrase": "One useful idiom/collocation/phrasal verb in #{target_lang} related to the topic.",
+        "phrase": "One useful idiom/collocation/phrasal verb in #{target_lang} related to the topic. [CRUCIAL: This exact phrase MUST NOT be present in either the 'original_text' or the 'rewritten_text'.]",
         "meaning": "Meaning explained in #{explanation_lang}.",
-        "example": "Short example sentence in #{target_lang} using the phrase.",
+        "example": "A practical example sentence in #{target_lang} using the phrase. [CRUCIAL ALGORITHM: 1. Identify what the user was trying to describe in their original text. 2. Write a sentence that perfectly describes that EXACT same scene from the Model Image, incorporating the bonus phrase. DO NOT invent new actions or a story (e.g., do not write 'the canoe entered the lake' if the user just said 'a woman is canoeing'). It must serve as a direct, upgraded replacement for a part of the user's original description.]",
         "example_translation": "The exact translation of the example sentence written in #{explanation_lang}."
       }
     }
