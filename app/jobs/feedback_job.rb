@@ -1,6 +1,6 @@
 
 
-class ScoreJob < ApplicationJob
+class FeedbackJob < ApplicationJob
   queue_as :default
   require "openai"
   require "base64"
@@ -108,7 +108,7 @@ class ScoreJob < ApplicationJob
     response_gpt = JSON.parse(raw_response_gpt)
 
     # update! で安全に実行。失敗したときに例外を発生する。
-    game.update!(score: response_gpt)
+    game.update!(feedback: response_gpt)
 
   rescue ActiveRecord::RecordNotFound => e
     # レコードが削除されていた場合は、リトライせずにログを残して終了

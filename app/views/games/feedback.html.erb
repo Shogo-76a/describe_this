@@ -16,16 +16,16 @@
                 <p class="text-lg opacity-75">📄総評 :</p>
                 <div class="ml-8">
                     <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
-                        <p class="pl-4"><%= @game.score["image_analysis"] %></p>
+                        <p class="pl-4"><%= @game.feedback["image_analysis"] %></p>
                     </div>
                 </div>
             </div>            
 
             <!-- スペルミス指摘 -->
-            <% if @game.score["spelling_errors"].present? %>
+            <% if @game.feedback["spelling_errors"].present? %>
                 <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100"> 
                     <p class="text-lg opacity-75">✒️スペルミス :</p>
-                    <% @game.score["spelling_errors"].length.times do |n| %>
+                    <% @game.feedback["spelling_errors"].length.times do |n| %>
                                     
                         <div class="flex flex-row">
                             <p class="ml-8 flex items-center text-lg opacity-15"><%=n+1%>. </p>
@@ -33,15 +33,15 @@
                                 <div class="my-3 flex flex-col">
                                     <!-- 上段：間違い -->
                                     <p class="pt-1 text-base font-mono opacity-50 border-b border-base-content/10">
-                                    ✕ <%= @game.score["spelling_errors"][n]["error"] %>
+                                    ✕ <%= @game.feedback["spelling_errors"][n]["error"] %>
                                     </p>
                                     
                                     <!-- 下段：正しいスペル -->
                                     <p class="pt-1 text-base font-mono font-black text-success ">
-                                    ◯ <%= @game.score["spelling_errors"][n]["correction"] %>
+                                    ◯ <%= @game.feedback["spelling_errors"][n]["correction"] %>
                                     </p>
                                 </div>
-                                <p class="<%= n+1 == @game.score["spelling_errors"].length ? '' : 'border-b-2 border-base-content/20' %> "></p>
+                                <p class="<%= n+1 == @game.feedback["spelling_errors"].length ? '' : 'border-b-2 border-base-content/20' %> "></p>
                             </div>
                         </div>
                     <% end %>
@@ -54,19 +54,19 @@
             <!-- 説明文比較 -->
             <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100"> 
                 <p class="text-lg opacity-75">🌷自然な言い回し :</p>           
-                <% if @game.score["rewritten_text"].present? %>
+                <% if @game.feedback["rewritten_text"].present? %>
                     <div class="ml-4 flex flex-col">
                         <!-- 上段：原文 -->
                         <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
 
                         <p class="ml-8 pt-1 pb-2 text-base font-mono opacity-50 border-b border-base-content/10">
-                            <%= @game.score["original_text"] %>
+                            <%= @game.feedback["original_text"] %>
                         </p>
                         
                         <!-- 下段：修正後 -->
                         <p class="flex justify-start mt-2 text-xs text-base-content/50">提案 :</p>
                         <p class="ml-8 pt-1 text-base font-mono font-black text-success">
-                            <%= @game.score["rewritten_text"] %>
+                            <%= @game.feedback["rewritten_text"] %>
                         </p>
                     </div>
                     <p class="flex justify-end mt-2 text-xs text-base-content/25">
@@ -82,7 +82,7 @@
                         <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
 
                         <p class="ml-8 pt-1 text-base font-mono font-black text-success">
-                            <%= @game.score["original_text"] %>
+                            <%= @game.feedback["original_text"] %>
                         </p>
                     </div>
                 <% end %>
@@ -93,19 +93,19 @@
             <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
                 <p class="text-lg opacity-75">🎁関連フレーズ</p>
                 <div class="ml-4">
-                    <p class="text-lg">・<%= @game.score["bonus_phrase"]["phrase"] %></p>
-                    <p class="ml-4 mt-2 mb-2 text-sm tracking-wide"><%= @game.score["bonus_phrase"]["meaning"] %></p>
+                    <p class="text-lg">・<%= @game.feedback["bonus_phrase"]["phrase"] %></p>
+                    <p class="ml-4 mt-2 mb-2 text-sm tracking-wide"><%= @game.feedback["bonus_phrase"]["meaning"] %></p>
 
                     <p class="ml-4 border-b-2 border-base-content/10"></p>
                     
-                    <p class="mt-2">・<%= @game.score["bonus_phrase"]["example"] %></p>
+                    <p class="mt-2">・<%= @game.feedback["bonus_phrase"]["example"] %></p>
                 </div>
                 <div class="ml-8">
                     <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
 
 
                         <!-- 翻訳は説明言語と学習言語が同じ場合、非表示にすること -->
-                        <p class="pl-4"><%= @game.score["bonus_phrase"]["example_translation"] %></p>
+                        <p class="pl-4"><%= @game.feedback["bonus_phrase"]["example_translation"] %></p>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                 <p class="text-lg opacity-75">🎗️まとめ</p>
                 <div class="ml-8">
                     <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
-                        <p class="pl-4"><%= @game.score["next_step_advice"] %></p>
+                        <p class="pl-4"><%= @game.feedback["next_step_advice"] %></p>
                     </div>
                 </div>
                 <p class="flex justify-end mt-2 text-xs text-base-content/25">

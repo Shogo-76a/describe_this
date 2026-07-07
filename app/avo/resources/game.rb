@@ -10,9 +10,10 @@ class Avo::Resources::Game < Avo::BaseResource
     field :session_id, as: :text
     field :description, as: :textarea
     field :theme_image_url, as: :text
-    field :score, as: :number
     field :feedback, as: :code
     field :generated_image, as: :file
+    field :created_at, as: :date_time, readonly: true
+    field :updated_at, as: :date_time, readonly: true
   end
 
 

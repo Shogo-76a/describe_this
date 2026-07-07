@@ -117,7 +117,7 @@ class GamesController < ApplicationController
   def check_score
     @game = Game.find(params[:id])
 
-    if @game.score.present?
+    if @game.feedback.present?
       render turbo_stream: turbo_stream.update(
           "resulting_score",
           partial: "shared/resulting_score",
@@ -134,7 +134,7 @@ class GamesController < ApplicationController
   def score
     @game = Game.find(params[:id])
     # 採点のJobを実行
-    ScoreJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+    FeedbackJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
   end
 
   def feedback
