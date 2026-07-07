@@ -8,7 +8,7 @@ class ScoreJob < ApplicationJob
   # ジョブが失敗した際のリトライ回数を指定（Solid Queueが自動で管理）
   retry_on ActiveRecord::Deadlocked, wait: 3.seconds, attempts: 2
 
-  def perform(game, explanation_lang, target_lang)
+  def perform(game, target_lang, explanation_lang)
     Rails.logger.info "採点 のジョブが実行されました: #{game}"
     # 画像ファイルを読み込んでBase64に変換
     # File.read の代わりに URI.open を使用して、インターネット上の画像データを直接読み込む
@@ -30,7 +30,7 @@ class ScoreJob < ApplicationJob
 
     # Rules
     1. Instead of nitpicking minor grammar, provide one clear, actionable takeaway in "next_step_advice" based on the overall feedback to help the user describe images better next time.
-    2. Identify up to 5 spelling errors. If none, return an empty array `[]`.
+    2. Identify up to 5 spelling errors. If none, return an empty array `[]`. [CRUCIAL ALGORITHM: When correcting a spelling error, you MUST look at the Model Image to infer the user's intended word. (e.g., if the user wrote "caw" but the image shows a "canoe", correct it to "canoe", not "cow").]
 
     # Output Format
     Output ONLY a valid JSON object. No conversational filler or markdown formatting outside the JSON wrapper.
@@ -39,17 +39,16 @@ class ScoreJob < ApplicationJob
       "image_analysis": "Explain in #{explanation_lang} how well the description conveyed the image to the other party. Include what was successfully communicated, what didn't quite come across, and specific tips/phrases to convey a more specific image to the AI next time. [CRUCIAL: If score < 40, NEVER use this disclaimer; explain why the main image failed to come across in the AI's Image].",
     #{'  '}
       "original_text": "The exact text provided by the user.",
-      "rewritten_text": "A natural, native-level #{target_lang} version of the user's text. It MUST be phrased as a natural, fluid 'description of the image' that perfectly paints a clear picture for the listener. [CRUCIAL: If the user's text is perfectly natural, structurally sound, and requires absolutely no corrections, output null instead of a string.]",
+      "rewritten_text": "An upgraded, native-level #{target_lang} version of the user's text. While preserving the user's original intent, you MUST actively add as many missing descriptive elements from the Model Image as possible (e.g., specific colors, background details, spatial relationships) to bridge the gap between the AI's Image and the Model Image. It must serve as the ultimate model answer to fully recreate the target image. [CRUCIAL: Output `null` ONLY IF the user's text is 100% grammatically flawless AND already perfectly covers all necessary details of the Model Image. Do NOT include the bonus_phrase here.]",
     #{'  '}
       "spelling_errors": [
         {
           "error": "Misspelled word",
-          "correction": "Correct spelling"
+          "correction": "Correct spelling inferred strictly from the Model Image's context."
         }
       ],
     #{'  '}
       "next_step_advice": "One concise, forward-looking comment (1-3 sentences) in #{explanation_lang} that synthesizes the most important takeaway from the rest of the feedback (both language and image communication). Tell the user exactly what to focus on next time to improve. (e.g., '次は〇〇のような表現を使って、場所の状況から説明してみましょう').",
-      },
     #{'  '}
       "bonus_phrase": {
         "phrase": "One useful idiom/collocation/phrasal verb in #{target_lang} related to the topic. [CRUCIAL: This exact phrase MUST NOT be present in either the 'original_text' or the 'rewritten_text'.]",
@@ -65,32 +64,43 @@ class ScoreJob < ApplicationJob
 
     # APIにリクエストを送信する。JSONモードを有効にする。
     request_gpt = client.chat(
-    parameters: {
+      parameters: {
         model: "gpt-4o-mini",
         messages: [
-        { role: "system", content: system_prompt },
-        {
-            role: "user",
-            content: [
-            { type: "text", text: "Please evaluate this explanation '#{game.description}' as the original_text based on the system instructions." },
-            { type: "text", text: "Please evaluate these two images based on the system instructions. By the way, Image A is the Theme and Image B is the AI's Image." },
-            # お題のイメージ
-            {
-                type: "image_url",
-                image_url: { url: "data:image/jpeg;base64,#{base64_theme_image}" }
-            },
-            # AIのイメージ
-            {
-                type: "image_url",
-                image_url: { url: "data:image/jpeg;base64,#{base64_generated_image}" }
-            }
-            ]
-        }
+          { role: "system", content: system_prompt },
+          {
+              role: "user",
+              content: [
+              { 
+                  type: "text", 
+                  text: "Please evaluate this explanation '#{game.description}' as the original_text based on the system instructions." 
+              },
+              # 1つ目の画像のアナウンス
+              { 
+                  type: "text", 
+                  text: "Below is the 'Model Image' (お題) referenced in the system instructions:" 
+              },
+              # お題のイメージ
+              {
+                  type: "image_url",
+                  image_url: { url: "data:image/jpeg;base64,#{base64_theme_image}" }
+              },
+              # 2つ目の画像のアナウンス
+              { 
+                  type: "text", 
+                  text: "Below is the 'AI's Image' (AI画像) referenced in the system instructions:" 
+              },
+              # AIのイメージ
+              {
+                  type: "image_url",
+                  image_url: { url: "data:image/jpeg;base64,#{base64_generated_image}" }
+              }
+              ]
+          }
         ],
         response_format: { type: "json_object" },
-        # temperature: 応答のランダム性（創造性）を制御。0に近いほど決定的で、2に近いほど多様な応答。
-        temperature: 0.5
-    }
+        temperature: 0.2
+      }
     )
 
     # AIからのJSON応答をパースし、インスタンス変数に格納する

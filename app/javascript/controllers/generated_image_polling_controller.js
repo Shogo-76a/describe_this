@@ -39,7 +39,7 @@ export default class extends Controller {
         this.handleFailure()
       } else {
         console.log("画像はまだ未添付です。数秒後に再確認します。");
-        this.timeoutId = setTimeout(() => this.checkRecord(), this.intervalValue + 2000)
+        this.timeoutId = setTimeout(() => this.checkRecord(), this.intervalValue + 4000)
       }
     } 
     

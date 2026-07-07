@@ -18,7 +18,6 @@
                     <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
                         <p class="pl-4"><%= @game.score["image_analysis"] %></p>
                     </div>
-                    <p class="flex justify-end mt-2 text-xs text-base-content/25">※AIの解釈で画像生成するため、アドバイス通りにならない場合があります。</p>
                 </div>
             </div>            
 
@@ -57,18 +56,6 @@
                 <p class="text-lg opacity-75">🌷自然な言い回し :</p>           
                 <% if @game.score["rewritten_text"].present? %>
                     <div class="ml-4 flex flex-col">
-                        <p class="flex justify-start mt-2 text-sm">
-                        すでに自然な言い回しで、提案の必要がありませんでした。<br>
-                        素晴らしいです！</p>
-                        <!-- 上段：原文 -->
-                        <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
-
-                        <p class="ml-8 pt-1 text-base font-mono font-black text-success">
-                            <%= @game.score["original_text"] %>
-                        </p>
-                    </div>
-                <% else %>
-                    <div class="ml-4 flex flex-col">
                         <!-- 上段：原文 -->
                         <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
 
@@ -80,6 +67,22 @@
                         <p class="flex justify-start mt-2 text-xs text-base-content/50">提案 :</p>
                         <p class="ml-8 pt-1 text-base font-mono font-black text-success">
                             <%= @game.score["rewritten_text"] %>
+                        </p>
+                    </div>
+                    <p class="flex justify-end mt-2 text-xs text-base-content/25">
+                        ※ゲーム内容からできる限りの要素を書き出した例文になります。<br>
+                        ※例文を使って満点にすることはできません。
+                    </p>
+                <% else %>
+                    <div class="ml-4 flex flex-col">
+                        <p class="flex justify-start mt-2 text-sm">
+                        すでに自然な言い回しで、提案の必要がありませんでした。<br>
+                        素晴らしいです！</p>
+                        <!-- 上段：原文 -->
+                        <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
+
+                        <p class="ml-8 pt-1 text-base font-mono font-black text-success">
+                            <%= @game.score["original_text"] %>
                         </p>
                     </div>
                 <% end %>
@@ -114,8 +117,11 @@
                     <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
                         <p class="pl-4"><%= @game.score["next_step_advice"] %></p>
                     </div>
-                    <p class="flex justify-end mt-2 text-xs text-base-content/25">※AIの解釈で画像生成するため、アドバイス通りにならない場合があります。</p>
                 </div>
+                <p class="flex justify-end mt-2 text-xs text-base-content/25">
+                    ※AIに判定基準を設定してますが、フィードバックと違う結果になる事があります。<br>
+                    ※フィードバックは直接点数に影響しないですが、説明方法にお役立てください。
+                </p>
             </div>
 
             <!-- 書き込み中表示 -->
