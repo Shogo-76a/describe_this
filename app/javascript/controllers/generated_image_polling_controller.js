@@ -38,8 +38,8 @@ export default class extends Controller {
         this.stopPolling()
         this.handleFailure()
       } else {
-        console.log("画像はまだ未添付です。2秒後に再確認します。");
-        this.timeoutId = setTimeout(() => this.checkRecord(), this.intervalValue)
+        console.log("画像はまだ未添付です。数秒後に再確認します。");
+        this.timeoutId = setTimeout(() => this.checkRecord(), this.intervalValue + 2000)
       }
     } 
     

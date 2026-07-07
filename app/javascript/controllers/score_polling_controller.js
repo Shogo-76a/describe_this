@@ -38,7 +38,7 @@ export default class extends Controller {
         this.stopPolling()
         this.handleFailure()
       } else {
-        console.log("まだ採点中です。2秒後に再確認します。");
+        console.log("まだ採点中です。数秒後に再確認します。");
         this.timeoutId = setTimeout(() => this.checkRecord(), this.intervalValue)
       }
     } 
