@@ -1,8 +1,8 @@
 <div class="min-h-full flex flex-col">
     <div class="bg-base-200 p-4 flex flex-col text-center hero gap-5">
-        <div class="flex flex-col base-content">
-            <p class="text-2xl font-bold">イメージ</p>
-            <p class="text-2xl font-bold">シンクロ率</p>
+        <div class="flex flex-col base-content text-2xl">
+            <p>イメージ</p>
+            <p>シンクロ率</p>
         </div>
 
 
@@ -10,14 +10,14 @@
         <%= turbo_stream_from "submission_#{game.id}" %>
         <div 
             data-controller="progress" 
-            data-progress-overall-value="<%= game.score["overall"] %>"
+            data-progress-overall-value="<%= game.feedback["overall"] %>"
             class="radial-progress text-primary" 
             style="--value: 0; --size:12rem; 2rem;" 
             role="progressbar"
         >
             <div 
                 data-progress-target="progressNum"
-                class="text-5xl font-bold transition-opacity duration-500 opacity-0 hidden"><%= game.score["overall"] %>
+                class="text-5xl font-bold transition-opacity duration-500 opacity-0 hidden"><%= game.feedback["overall"] %>
             </div>
         </div>
 

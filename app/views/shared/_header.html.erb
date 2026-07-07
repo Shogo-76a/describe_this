@@ -1,9 +1,29 @@
-<header class="navbar bg-base-100 p-2">
-    <!-- ページごとに書き換わるエリア -->
-    <% if content_for?(:header_content) %>
+
+<!-- ページごとに書き換わるエリア -->
+<% if content_for?(:header_content) %>
+    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
         <%= yield :header_content %>
-    <% else %>
+        <%= render 'shared/theme_color_tab', theme_name: 'light' %>
+    </header>
+<% else %>
+    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
         <!-- どのページでも設定されていない場合のデフォルト表示 -->
-        <%= link_to image_tag("DT_logo.png", alt: "logo", class: "w-10 h-auto"), root_path%>
-    <% end %>
-</header>
+            <!-- ロゴ -->
+        <div 
+                class="bg-base-content/75 w-11 h-11" 
+                style="
+                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
+                    mask-image: url('<%= asset_path("DT_logo.png") %>');
+                    -webkit-mask-size: contain;
+                    mask-size: contain;
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    -webkit-mask-position: center;
+                    mask-position: center;
+                "
+                >
+        </div>
+        <%= render 'shared/theme_color_tab', theme_name: 'light' %>
+    </header>
+<% end %>
+

@@ -1,19 +1,33 @@
 <div class="pt-10">
   <div class="hero">
-    <div class="hero-content flex-col items-center w-full">
-      <div class="grid place-items-center text-center w-full">
-        <%= image_tag("DT_title.png", alt: "Describe this", class: "w-70 h-auto") %>
+    <div class="hero-content flex flex-col items-center w-full">
+      <div class="grid flex flex-col place-items-center text-center w-full">
+
+        <!-- タイトルロゴ -->
+        <div 
+                  class="bg-base-content w-70 h-16" 
+                  style="
+                    -webkit-mask-image: url('<%= asset_path("DT_title.png") %>');
+                    mask-image: url('<%= asset_path("DT_title.png") %>');
+                    -webkit-mask-size: contain;
+                    mask-size: contain;
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    -webkit-mask-position: center;
+                    mask-position: center;
+                  "
+                ></div>
         <p class="my-6">
-          説明する練習が楽しく続く
+          言語学習に遊びを
         </p>
-        <div class="text-xs mb-10 gap-1">
+        <div class="text-xs mb-10 flex flex-col gap-1">
           <p>あなたの言葉で</p>
           <p>AIがお題のイメージを想像 </p>
-          <p>正確に伝えられるかな？</p>
+          <p>正確に伝わるかな？</p>
         </div>
         <div class="text-xm my-5">
-          <p>「伝わらない」を「伝わる」の自信に。</p>
-          <p>ステキな表現を探す旅へ。</p>
+          <p>知ってる語彙や文法を出し切って</p>
+          <p>新たな表現と出会う旅へ</p>
         </div>
         <div class="flex mt-10">
           <%=button_to "はじめる", new_game_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
@@ -23,10 +37,10 @@
       <!-- 遊び方モーダルの内容 -->
       <div data-controller="splash-modal" >
         <dialog data-splash-modal-target="dialog" id="swipe_modal" class="modal" data-controller="swipe-modal">
-          <div class="modal-box py-5 max-w-lg rounded-2xl overflow-hidden bg-base-100 flex flex-col items-center">
+          <div class="modal-box py-3 max-w-sm rounded-2xl overflow-hidden bg-base-100 flex flex-col items-center">
             <div class="text-3xl">遊び方</div>
             <div 
-              class="carousel w-full snap-x snap-mandatory overflow-x-auto scroll-smooth"
+              class="carousel focus:outline-none w-full snap-x snap-mandatory overflow-x-auto scroll-smooth"
               data-swipe-modal-target="carousel"
               data-action="scroll->swipe-modal#handleScroll"
             >
@@ -41,7 +55,7 @@
               </div>
             </div>
               
-            <div class="flex gap-1.5 py-5">
+            <div class="flex gap-1.5 py-2">
               <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
               <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
               <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="business"> <!-- ここに好きなテーマ名を指定 -->
+<html data-theme="light">
   <head>
     <title><%= content_for(:title) || "DescribeThis" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,6 +8,18 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <!-- 
+      テーマカラー用スクリプト
+      画面が描画される前にローカルストレージをチェックし、テーマを適用することで
+      ページ遷移時に元の色に戻る現象を防ぎます。
+    -->
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      })();
+    </script>
 
     <%= yield :head %>
 
@@ -29,7 +41,21 @@
       <div class="hero min-h-screen">
         <div class="hero-content text-center">
           <div class="max-w-md">
-            <%= image_tag "DT_logo.png", class: "mx-auto h-24 w-auto object-contain", alt: "ロゴ" %>
+
+            <!-- ロゴ -->
+            <div 
+                      class="bg-primary mx-auto h-24 w-24 object-contain" 
+                      style="
+                        -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
+                        mask-image: url('<%= asset_path("DT_logo.png") %>');
+                        -webkit-mask-size: contain;
+                        mask-size: contain;
+                        -webkit-mask-repeat: no-repeat;
+                        mask-repeat: no-repeat;
+                        -webkit-mask-position: center;
+                        mask-position: center;
+                      "
+                    ></div>
           </div>
         </div>
       </div>
@@ -37,13 +63,13 @@
 
 
     <!-- メイン画面の内容 -->
-    <div class="app-content loading flex flex-col h-screen">
-      <%# --- ヘッダーの呼び出し --- %>
+    <div class="app-content loading flex flex-col h-screen text-base-content">
+      <!-- ヘッダーの呼び出し -->
       <%= render "shared/header" %> 
       <main class="overflow-x-hidden flex-grow bg-base-200">
       <%= yield %>
       </main>
-      <%# --- フッターの呼び出し --- %>
+      <!-- フッターの呼び出し -->
       <%= render "shared/footer" %> 
     </div>
 

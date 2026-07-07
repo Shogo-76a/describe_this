@@ -18,15 +18,15 @@ export default class extends Controller {
       // '#' リンクの時は判定をスキップして非アクティブにする
       if (element.getAttribute("href") === "#") {
         element.classList.remove("active", "text-primary", "hover:text-base-content/90", "transition-all")
-        element.classList.add("text-base-content/60")
+        element.classList.add("text-base-content/50")
         return
       }
       // 現在のパスとリンク先のパスが一致するか判定
       if (currentPath === linkPath) {
         element.classList.add("active", "text-primary", "font-black")
-        element.classList.remove("text-base-content/60", "hover:text-base-content/90", "transition-all")
+        element.classList.remove("text-base-content/50", "hover:text-base-content/90", "transition-all")
       } else { 
-        element.classList.add("text-base-content/60", "hover:text-base-content/90", "transition-all")
+        element.classList.add("text-base-content/50", "hover:text-base-content/90", "transition-all")
         element.classList.remove("active", "text-primary", "font-black")
       }
     })

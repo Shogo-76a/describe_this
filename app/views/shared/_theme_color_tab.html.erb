@@ -1,0 +1,81 @@
+<!-- テーマカラー変更 -->
+<div data-controller="theme-select" class="dropdown dropdown-end">
+
+    <!-- メインのボタン（現在適用されているテーマのアイコンを表示する場所）-->
+    <div tabindex="0" role="button" class="btn btn-ghost m-1 gap-1">
+
+        <!-- ここにStimulusコントローラで指定したSVGアイコンが自動挿入されます(connect時に更新) -->
+        <span data-theme-select-target="activeIcon">
+            <!-- connectが動くまでの初期表示として、例えばLightのアイコンを置いておきます -->
+            <%= render 'shared/theme_icon', theme_name: cookies[:theme].presence || 'light' %>
+        </span>
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+
+    </div>
+
+    <!-- ドロップダウンメニューの中身 -->
+    <ul tabindex="0" class="dropdown-content menu bg-base-200 text-base-content rounded-box z-[1] w-48 p-2 shadow-2xl outline-(length:--border) outline-black/5 mt-6 max-h-122 overflow-y-auto flex-nowrap">
+        
+        <!-- テーマのリストを定義してループで回すのがRailsらしい書き方です -->
+        <% themes = [ 
+        { name: 'Light', value: 'light' }, 
+        { name: 'Dark', value: 'dark' }, 
+        { name: 'Cupcake', value: 'cupcake' },
+        { name: 'Bumblebee', value: 'bumblebee' },
+        { name: 'Emerald', value: 'emerald' },
+        { name: 'Corporate', value: 'corporate' },
+        { name: 'Synthwave', value: 'synthwave' },
+        { name: 'Retro', value: 'retro' },
+        { name: 'Cyberpunk', value: 'cyberpunk' },
+        { name: 'Valentine', value: 'valentine' },
+        { name: 'Halloween', value: 'halloween' },
+        { name: 'Garden', value: 'garden' },
+        { name: 'Forest', value: 'forest' },
+        { name: 'Aqua', value: 'aqua' },
+        { name: 'Lofi', value: 'lofi' },
+        { name: 'Pastel', value: 'pastel' },
+        { name: 'Fantasy', value: 'fantasy' },
+        { name: 'Wireframe', value: 'wireframe' },
+        { name: 'Black', value: 'black' },
+        { name: 'Luxury', value: 'luxury' },
+        { name: 'Dracula', value: 'dracula' },
+        { name: 'Cmyk', value: 'cmyk' },
+        { name: 'Autumn', value: 'autumn' },
+        { name: 'Business', value: 'business' },
+        { name: 'Acid', value: 'acid' },
+        { name: 'Lemonade', value: 'lemonade' },
+        { name: 'Night', value: 'night' },
+        { name: 'Coffee', value: 'coffee' },
+        { name: 'Winter', value: 'winter' },
+        { name: 'Dim', value: 'dim' },
+        { name: 'Nord', value: 'nord' },
+        { name: 'Sunset', value: 'sunset' },
+        { name: 'Caramellatte', value: 'caramellatte' },
+        { name: 'Abyss', value: 'abyss' },
+        { name: 'Silk', value: 'silk' }
+        ] %>
+
+        <% themes.each do |theme| %>
+            <li>
+                <button 
+                data-theme-select-target="menuItem" 
+                data-theme-value="<%= theme[:value] %>" 
+                data-action="click->theme-select#select"
+                class="gap-3 grid grid-cols-[auto,1fr,auto] items-center"
+                >
+                    <!-- 各項目のアイコンとしてPartialを呼び出す -->
+                    <%= render 'shared/theme_icon', theme_name: theme[:value] %>
+                    <span><%= theme[:name] %></span>
+                    
+                    <!-- daisyUI公式のように、選択されたテーマにチェックマークを表示する -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current opacity-0 active:opacity-100" viewBox="0 0 20 20">
+                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                    </svg>
+                </button>
+            </li>
+        <% end %>
+    </ul>
+</div>

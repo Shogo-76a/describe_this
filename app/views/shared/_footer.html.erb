@@ -2,7 +2,7 @@
 <% if content_for?(:footer_content) %>
   <%= yield :footer_content %>
 <% else %>
-  <footer class="footer footer-horizontal footer-center flex items-center justify-center bg-base-100 text-neutral-content h-20 pb-8 m-0">
+  <footer class="footer footer-horizontal footer-center flex items-center justify-center bg-base-100 text-base-content h-20 pb-8 m-0">
     <div data-controller="footer-navigation" class="btm-nav flex gap-10">
       <%= link_to root_path, data: { footer_navigation_target: "link" } do %>
           <span class="nav-label w-20 inline-grid place-items-center text-center">

@@ -5,7 +5,6 @@
 #  id              :bigint           not null, primary key
 #  description     :text
 #  feedback        :jsonb
-#  score           :jsonb
 #  theme_image_url :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -15,7 +14,6 @@ FactoryBot.define do
   factory :game do
     description  { 'テストデータテストテスト' }
     feedback { nil }
-    score { nil }
     theme_image_url { "https://res.cloudinary.com/dy8jwyu6v/image/upload/c_fill,f_auto,h_100,q_auto,w_150//main-sample.png" }
 
     # 外部APIとのVCR通信テスト用のトレイト

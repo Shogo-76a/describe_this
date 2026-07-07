@@ -6,7 +6,10 @@ RSpec.describe "画面表示物 の確認", type: :system do
     it "導入画面 が表示される" do
       # このテストはJavaScriptが必要なことが明確
       visit root_path
-      expect(page).to have_selector("img[src*='DT_logo'][alt='ロゴ']")
+      expect(page).to have_css(
+        'div.bg-primary.mx-auto.h-24.w-24.object-contain',
+        style: { 'mask-image' => /DT_logo/ }
+      )
     end
 
     it "ポップアップ が表示される /「とじる」ボタンで ポップアップ が非表示になる" do
@@ -24,18 +27,21 @@ RSpec.describe "画面表示物 の確認", type: :system do
     it "トップページ の要素が すべて 表示される" do
       # このテストはJavaScriptを必要としないことが明確
 
-      # 確認したいテキストのリスト
+      # 確認したいトップページテキストのリスト
       expected_texts = [
-        "説明する練習が楽しく続く",
+        "言語学習に遊びを",
         "あなたの言葉で",
         "AIがお題のイメージを想像",
-        "正確に伝えられるかな？",
-        "「伝わらない」を「伝わる」の自信に。",
-        "ステキな表現を探す旅へ。"
+        "正確に伝わるかな？",
+        "知ってる語彙や文法を出し切って",
+        "新たな表現と出会う旅へ"
       ]
 
       visit root_path
-      expect(page).to have_selector("img[src*='DT_title'][alt='Describe this']", wait: 4)
+      expect(page).to have_css(
+        'div.bg-base-content.w-70.h-16',
+        style: { 'mask-image' => /DT_title/ }, wait: 4
+      )
       expected_texts.each do |text|
         expect(page).to have_content(text)
       end
@@ -55,7 +61,10 @@ RSpec.describe "画面表示物 の確認", type: :system do
 
     it "導入画面が表示されない" do
       # このテストはJavaScriptが必要なことが明確
-      expect(page).not_to have_selector("img[src*='DT_logo'][alt='ロゴ']")
+      expect(page).not_to have_css(
+        'div.bg-primary.mx-auto.h-24.w-24.object-contain',
+        style: { 'mask-image' => /DT_logo/ }
+      )
     end
 
     it "ポップアップ が表示されない" do
@@ -67,15 +76,18 @@ RSpec.describe "画面表示物 の確認", type: :system do
       # このテストはJavaScriptを必要としないことが明確
       # 確認したいテキストのリスト
       expected_texts = [
-        "説明する練習が楽しく続く",
+        "言語学習に遊びを",
         "あなたの言葉で",
         "AIがお題のイメージを想像",
-        "正確に伝えられるかな？",
-        "「伝わらない」を「伝わる」の自信に。",
-        "ステキな表現を探す旅へ。"
+        "正確に伝わるかな？",
+        "知ってる語彙や文法を出し切って",
+        "新たな表現と出会う旅へ"
       ]
 
-      expect(page).to have_selector("img[src*='DT_title'][alt='Describe this']")
+      expect(page).to have_css(
+        'div.bg-base-content.w-70.h-16',
+        style: { 'mask-image' => /DT_title/ }, wait: 4
+      )
       expected_texts.each do |text|
         expect(page).to have_content(text)
       end
@@ -105,14 +117,15 @@ RSpec.describe "画面表示物 の確認", type: :system do
       visit new_game_path
       click_button 'つぎへ'
       expect(page).to have_css('img')
-      expect(page).to have_button("採点", disabled: true)
-      expect(page).to have_content("どんなイメージか教えてください")
-      expect(page).to have_button("送信")
+      expect(page).to have_button("お題を説明してください", disabled: true)
+      expect(page).to have_css('svg.size-6 path[d^="M6 12"]') # 送信ボタン
 
       fill_in 'game_description', with: '机の上のコーヒーカップとノートパソコン。' # VCRのカセット使用条件に影響。
-      click_button '送信'
-      expect(page).to have_button("送信", disabled: true)
-      expect(page).to have_css('button.btn-primary[disabled] span.loading-spinner', wait: 10)
+      find('button.btn-primary.d-inline-flex').click # 送信ボタン
+      expect(page).to have_css('button[data-chat-form-target="submitButton"][disabled]') # 送信ボタンの非アクティブを確認
+      expect(page).to have_css(
+        'button[data-collapsible-image-target="submitButton"]:disabled span.loading-spinner', wait: 10 # 採点ボタンのローディング表示
+      ) # 採点ボタンのローディング表示
 
       expect(page).to have_button("採点", disabled: false, wait: 60)
       expect(page).not_to have_button('採点', disabled: true) # 採点ボタンが確実に無効状態でなくなった事を確認。

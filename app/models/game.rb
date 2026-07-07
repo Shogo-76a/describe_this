@@ -5,7 +5,6 @@
 #  id              :bigint           not null, primary key
 #  description     :text
 #  feedback        :jsonb
-#  score           :jsonb
 #  theme_image_url :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
