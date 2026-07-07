@@ -71,14 +71,14 @@ class FeedbackJob < ApplicationJob
           {
               role: "user",
               content: [
-              { 
-                  type: "text", 
-                  text: "Please evaluate this explanation '#{game.description}' as the original_text based on the system instructions." 
+              {
+                  type: "text",
+                  text: "Please evaluate this explanation '#{game.description}' as the original_text based on the system instructions."
               },
               # 1つ目の画像のアナウンス
-              { 
-                  type: "text", 
-                  text: "Below is the 'Model Image' (お題) referenced in the system instructions:" 
+              {
+                  type: "text",
+                  text: "Below is the 'Model Image' (お題) referenced in the system instructions:"
               },
               # お題のイメージ
               {
@@ -86,9 +86,9 @@ class FeedbackJob < ApplicationJob
                   image_url: { url: "data:image/jpeg;base64,#{base64_theme_image}" }
               },
               # 2つ目の画像のアナウンス
-              { 
-                  type: "text", 
-                  text: "Below is the 'AI's Image' (AI画像) referenced in the system instructions:" 
+              {
+                  type: "text",
+                  text: "Below is the 'AI's Image' (AI画像) referenced in the system instructions:"
               },
               # AIのイメージ
               {
