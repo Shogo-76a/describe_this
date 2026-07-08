@@ -1,28 +1,49 @@
 
 <!-- ページごとに書き換わるエリア -->
 <% if content_for?(:header_content) %>
+    <!-- 両端にホーム用ボタン と テーマボタン があるヘッダー -->
     <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
+        <%= link_to root_path, class: "inline-block" do %>
+            <div 
+                class="bg-base-content/75 w-11 h-11" 
+                style="
+                -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
+                mask-image: url('<%= asset_path("DT_logo.png") %>');
+                -webkit-mask-size: contain;
+                mask-size: contain;
+                -webkit-mask-repeat: no-repeat;
+                mask-repeat: no-repeat;
+                -webkit-mask-position: center;
+                mask-position: center;
+                "
+            >
+            </div>
+        <% end %>
         <%= yield :header_content %>
         <%= render 'shared/theme_color_tab', theme_name: 'light' %>
     </header>
+<% elsif content_for?(:header_content_2) %>
+    <!-- 完全カスタマイズしたいときのヘッダー -->
+    <%= yield :header_content_2 %>
 <% else %>
     <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
         <!-- どのページでも設定されていない場合のデフォルト表示 -->
-            <!-- ロゴ -->
-        <div 
+        <%= link_to root_path, class: "inline-block" do %>
+            <div 
                 class="bg-base-content/75 w-11 h-11" 
                 style="
-                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    -webkit-mask-size: contain;
-                    mask-size: contain;
-                    -webkit-mask-repeat: no-repeat;
-                    mask-repeat: no-repeat;
-                    -webkit-mask-position: center;
-                    mask-position: center;
+                -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
+                mask-image: url('<%= asset_path("DT_logo.png") %>');
+                -webkit-mask-size: contain;
+                mask-size: contain;
+                -webkit-mask-repeat: no-repeat;
+                mask-repeat: no-repeat;
+                -webkit-mask-position: center;
+                mask-position: center;
                 "
-                >
-        </div>
+            >
+            </div>
+        <% end %>
         <%= render 'shared/theme_color_tab', theme_name: 'light' %>
     </header>
 <% end %>

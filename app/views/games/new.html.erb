@@ -1,12 +1,7 @@
-<!-- ヘッダーの内容変更 -->
-<% provide(:header_content) do %>
-    <%= link_to "＜", root_path, class: "text-2xl font-bold bg-transparent border-none p-0 cursor-pointer inline-block" %>
-<% end %>
-
 <div class="pt-10">
     <div class="flex flex-col items-center justify-center gap-3 text-center">
         <p class="text-4xl">お題</p>
-        <p>このイメージを言葉で伝えてください。</p>
+        <p>このイメージを 英語 で伝えてください。</p>
         <%= image_tag @game.theme_image_url, 
             id: "gacha-image", 
             alt: "お題イメージ", 

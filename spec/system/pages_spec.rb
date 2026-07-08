@@ -15,7 +15,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
     it "ポップアップ が表示される /「とじる」ボタンで ポップアップ が非表示になる" do
       visit root_path
       expect(page).to have_css(".modal", visible: true, wait: 4)
-      expect(page).to have_content("① 見たままを言葉にする")
+      expect(page).to have_content("① 見たままを英語にする")
       click_button 'つぎへ'
       expect(page).to have_content("② AIがイメージして採点")
       click_button 'つぎへ'
@@ -29,8 +29,8 @@ RSpec.describe "画面表示物 の確認", type: :system do
 
       # 確認したいトップページテキストのリスト
       expected_texts = [
-        "言語学習に遊びを",
-        "あなたの言葉で",
+        "英語 学習に遊びを",
+        "あなたの 英語 で",
         "AIがお題のイメージを想像",
         "正確に伝わるかな？",
         "知ってる語彙や文法を出し切って",
@@ -69,15 +69,15 @@ RSpec.describe "画面表示物 の確認", type: :system do
 
     it "ポップアップ が表示されない" do
       expect(page).not_to have_css(".modal", visible: true)
-      expect(page).not_to have_content("① 見たままを言葉にする")
+      expect(page).not_to have_content("① 見たままを英語にする")
     end
 
     it "トップページ の要素が すべて 表示される" do
       # このテストはJavaScriptを必要としないことが明確
       # 確認したいテキストのリスト
       expected_texts = [
-        "言語学習に遊びを",
-        "あなたの言葉で",
+        "英語 学習に遊びを",
+        "あなたの 英語 で",
         "AIがお題のイメージを想像",
         "正確に伝わるかな？",
         "知ってる語彙や文法を出し切って",
@@ -107,7 +107,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
     it "ゲーム導入ページの要素が すべて 表示される" do
       visit new_game_path
       expect(page).to have_content("お題")
-      expect(page).to have_content("このイメージを言葉で伝えてください。")
+      expect(page).to have_content("このイメージを 英語 で伝えてください。")
       expect(page).to have_css('img')
       expect(page).to have_css('button[onclick="window.location.reload();"] svg')
       expect(page).to have_button("つぎへ")
@@ -117,7 +117,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
       visit new_game_path
       click_button 'つぎへ'
       expect(page).to have_css('img')
-      expect(page).to have_button("お題を説明してください", disabled: true)
+      expect(page).to have_button("お題を 英語で 説明してください", disabled: true)
       expect(page).to have_css('svg.size-6 path[d^="M6 12"]') # 送信ボタン
 
       fill_in 'game_description', with: '机の上のコーヒーカップとノートパソコン。' # VCRのカセット使用条件に影響。
