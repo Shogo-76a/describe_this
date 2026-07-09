@@ -1,9 +1,9 @@
 
 <!-- ページごとに書き換わるエリア -->
 <% if content_for?(:header_content) %>
-    <!-- 両端にホーム用ボタン と テーマボタン があるヘッダー -->
+    <!-- 両端にホーム用ボタン(レコード削除機能) と テーマボタン があるヘッダー -->
     <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
-        <%= link_to root_path, class: "inline-block" do %>
+        <%= button_to game_path(@game), method: :delete, class: "inline-block" do %>
             <div 
                 class="bg-base-content/75 w-11 h-11" 
                 style="

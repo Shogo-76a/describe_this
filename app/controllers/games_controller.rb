@@ -145,7 +145,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @game.destroy
 
-    redirect_to new_game_path, status: :see_other
+    redirect_to root_path, status: :see_other
   end
 
 private

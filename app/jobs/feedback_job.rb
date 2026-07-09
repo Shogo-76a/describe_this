@@ -30,8 +30,7 @@ class FeedbackJob < ApplicationJob
 
     # Rules
     1. Instead of nitpicking minor grammar, provide one clear, actionable takeaway in "next_step_advice" based on the overall feedback to help the user describe images better next time.
-    2. Identify up to 5 spelling errors. If none, return an empty array `[]`. [CRUCIAL ALGORITHM: When correcting a spelling error, you MUST look at the Model Image to infer the user's intended word. (e.g., if the user wrote "caw" but the image shows a "canoe", correct it to "canoe", not "cow").]
-
+    2. Identify up to 5 unique spelling errors. If none, return an empty array `[]`. Ignore capitalization/punctuation errors. [CRUCIAL ALGORITHM: 1. When correcting a spelling error, you MUST look at the Model Image to infer the user's intended word (e.g., if the user wrote "caw" but the image shows a "canoe", correct it to "canoe", not "cow"). 2. Do not include the same misspelled word multiple times; each identified error must be unique.]
     # Output Format
     Output ONLY a valid JSON object. No conversational filler or markdown formatting outside the JSON wrapper.
     {
@@ -42,6 +41,7 @@ class FeedbackJob < ApplicationJob
       "rewritten_text": "An upgraded, native-level #{target_lang} version of the user's text. While preserving the user's original intent, you MUST actively add as many missing descriptive elements from the Model Image as possible (e.g., specific colors, background details, spatial relationships) to bridge the gap between the AI's Image and the Model Image. It must serve as the ultimate model answer to fully recreate the target image. [CRUCIAL: Output `null` ONLY IF the user's text is 100% grammatically flawless AND already perfectly covers all necessary details of the Model Image. Do NOT include the bonus_phrase here.]",
     #{'  '}
       "spelling_errors": [
+        // Max 5 unique errors. Ignore capitalization/punctuation. Return [] if none. No duplicates.
         {
           "error": "Misspelled word",
           "correction": "Correct spelling inferred strictly from the Model Image's context."
