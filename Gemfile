@@ -4,10 +4,6 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-
-# 本番環境（Render）で非同期処理とキャッシュ用のデータベースとして使用。
-gem "sqlite3", ">= 1.4"
-
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
