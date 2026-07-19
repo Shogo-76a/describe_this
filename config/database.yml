@@ -92,13 +92,17 @@ production:
     username: app
     password: <%= ENV["APP_DATABASE_PASSWORD"] %>
     url: <%= ENV["DATABASE_URL"] %>
-  cache:
-    <<: *primary_production
-    database: app_production_solid_stack
-    url: <%= ENV['SOLID_STACK_DATABASE_URL'] %> # Render内部DBのURL（Internal URL）
-    migrations_paths: db/cache_migrate
+
+  # 非同期ジョブ：SQLite
   queue:
-    <<: *primary_production
-    database: app_production_solid_stack
-    url: <%= ENV['SOLID_STACK_DATABASE_URL'] %> # Render内部DBのURL（Internal URL）
-    migrations_paths: db/queue_migrate
+    adapter: sqlite3
+    database: /tmp/solid_queue_production.sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+
+  # キャッシュ：SQLite
+  cache:
+    adapter: sqlite3
+    database: /tmp/solid_cache_production.sqlite3 
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
