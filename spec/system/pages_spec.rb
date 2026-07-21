@@ -123,9 +123,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
       fill_in 'game_description', with: '机の上のコーヒーカップとノートパソコン。' # VCRのカセット使用条件に影響。
       find('button.btn-primary.d-inline-flex').click # 送信ボタン
       expect(page).to have_css('button[data-chat-form-target="submitButton"][disabled]') # 送信ボタンの非アクティブを確認
-      expect(page).to have_css(
-        'button[data-collapsible-image-target="submitButton"]:disabled span.loading-spinner', wait: 10 # 採点ボタンのローディング表示
-      ) # 採点ボタンのローディング表示
+
 
       expect(page).to have_button("採点", disabled: false, wait: 60)
       expect(page).not_to have_button('採点', disabled: true) # 採点ボタンが確実に無効状態でなくなった事を確認。

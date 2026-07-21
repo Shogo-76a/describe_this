@@ -36,7 +36,7 @@ export default class extends Controller {
       if (this.attempts >= this.maxAttemptsValue) {
         console.log("タイムアウトしました。");
         this.stopPolling()
-        this.handleFailure()
+        this.element.innerHTML = "<p class='text-error'>採点表示のタイムアウトが発生しました。再試行してください。</p>"
       } else {
         console.log("まだ採点中です。数秒後に再確認します。");
         this.timeoutId = setTimeout(() => this.checkRecord(), this.intervalValue)
@@ -47,16 +47,12 @@ export default class extends Controller {
     else {
       console.error("予期せぬエラーが発生しました:", response.statusCode);
       this.stopPolling()
+      this.element.innerHTML = "<p class='flex items-center justify-center text-error'>予期せぬエラーが発生しました。<br>数分後にアプリを再起動してください。</p>"
     }
   }
 
   stopPolling() {
     if (this.timeoutId) clearTimeout(this.timeoutId)
-  }
-
-  handleFailure() {
-    // 例外処理：エラーメッセージへの差し替えなど
-    this.element.innerHTML = "<p class='text-error'>採点表示のタイムアウトが発生しました。再試行してください。</p>"
   }
 }
 

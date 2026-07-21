@@ -11,11 +11,18 @@ export default class extends Controller {
 
   connect() {
     this.attempts = 0
-    this.checkRecord()
+    // connect時は checkRecord() を呼ばない
+    // 画像生成ページで テキスト送信後にポーリング開始
+    this.element.addEventListener("turbo:submit-end", () => this.startPolling())
   }
 
   disconnect() {
     this.stopPolling()
+  }
+
+  startPolling() {
+    // フォーム送信完了後、ポーリング開始
+    this.checkRecord()
   }
 
   async checkRecord() {
@@ -36,7 +43,7 @@ export default class extends Controller {
       if (this.attempts >= this.maxAttemptsValue) {
         console.log("タイムアウトしました。");
         this.stopPolling()
-        this.handleFailure()
+        this.element.innerHTML = "<p class='text-error'>画像生成タイムアウトが発生しました。再試行してください。</p>"
       } else {
         console.log("画像はまだ未添付です。数秒後に再確認します。");
         this.timeoutId = setTimeout(() => this.checkRecord(), this.intervalValue + 4000)
@@ -47,15 +54,11 @@ export default class extends Controller {
     else {
       console.error("予期せぬエラーが発生しました:", response.statusCode);
       this.stopPolling()
+      this.element.innerHTML = "<p class='flex items-center justify-center text-error'>予期せぬエラーが発生しました。<br>数分後にアプリを再起動してください。</p>"
     }
   }
 
   stopPolling() {
     if (this.timeoutId) clearTimeout(this.timeoutId)
-  }
-
-  handleFailure() {
-    // 例外処理：エラーメッセージへの差し替えなど
-    this.element.innerHTML = "<p class='text-error'>画像生成タイムアウトが発生しました。再試行してください。</p>"
   }
 }
