@@ -11,11 +11,18 @@ export default class extends Controller {
 
   connect() {
     this.attempts = 0
-    this.checkRecord()
+    // connect時は checkRecord() を呼ばない
+    // 画像生成ページで テキスト送信後にポーリング開始
+    this.element.addEventListener("turbo:submit-end", () => this.startPolling())
   }
 
   disconnect() {
     this.stopPolling()
+  }
+
+  startPolling() {
+    // フォーム送信完了後、ポーリング開始
+    this.checkRecord()
   }
 
   async checkRecord() {
