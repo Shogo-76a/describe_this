@@ -120,7 +120,7 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).to have_button("お題を 英語で 説明してください", disabled: true)
       expect(page).to have_css('svg.size-6 path[d^="M6 12"]') # 送信ボタン
 
-      fill_in 'game_description', with: '机の上のコーヒーカップとノートパソコン。' # VCRのカセット使用条件に影響。
+      fill_in 'game_description', with: 'a coffee cup on a table' # VCRのカセット使用条件に影響。
       find('button.btn-primary.d-inline-flex').click # 送信ボタン
       expect(page).to have_css('button[data-chat-form-target="submitButton"][disabled]') # 送信ボタンの非アクティブを確認
 
@@ -129,15 +129,27 @@ RSpec.describe "画面表示物 の確認", type: :system do
       expect(page).not_to have_button('採点', disabled: true) # 採点ボタンが確実に無効状態でなくなった事を確認。
     end
 
-    # 採点ページのテスト用ダミーデータ
+    # 採点ページ と フィードバックページ のテスト用ダミーデータ
     let(:game_dummy) { create(:game, :with_generated_image) }
-    it "採点ページの要素が 表示される", vcr: true do
+    it "採点ページ と フィードバックページ の要素が 表示される", vcr: true do
       visit score_game_path(game_dummy)
       expect(page).to have_content("採点結果")
       expect(page).to have_content("イメージ")
       expect(page).to have_content("シンクロ率")
       expect(page).to have_selector('.radial-progress', visible: true)
       expect(page).to have_button("つぎへ")
+
+
+      visit feedback_game_path(game_dummy)
+      expect(page).to have_content("フィードバック")
+      expect(page).to have_css('span.loading.loading-dots.loading-sm')
+      expect(page).to have_content("総評", wait: 5)
+      expect(page).to have_content("スペルミス")
+      expect(page).to have_content("自然な言い回し")
+      expect(page).to have_content("関連フレーズ")
+      expect(page).to have_content("まとめ")
+      expect(page).to have_link("リトライ")
+      expect(page).to have_button("やめる")
     end
   end
 end
