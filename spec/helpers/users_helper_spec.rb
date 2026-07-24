@@ -1,3 +1,12 @@
+require 'simplecov'
+SimpleCov.start do
+  group "Controllers", "app/controllers"
+  group "Models", "app/models"
+  group "Views", "app/views"
+  group "avo", "app/avo"
+  enable_coverage :eval
+end
+
 require 'rails_helper'
 
 # Specs in this file have access to a helper object that includes

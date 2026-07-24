@@ -62,10 +62,10 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # [https://github.com/rspec/rspec-rails]
-  gem "rspec-rails", "~> 8.0.0"
+  gem "rspec-rails", "~> 8.0.0", require: false
 
   gem "factory_bot_rails"
-  gem "faker"
+  gem "faker", require: false
 end
 
 group :development do
@@ -78,9 +78,11 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "webmock"
-  gem "vcr"
+  gem "capybara", require: false
+  gem "selenium-webdriver", require: false
+  gem "webmock", require: false
+  gem "vcr", require: false
+  gem 'simplecov', require: false
 end
+
 gem "avo", ">= 3.32.1"

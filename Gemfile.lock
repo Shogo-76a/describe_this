@@ -381,6 +381,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    simplecov (1.0.2)
     solid_cache (1.0.10)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -470,6 +471,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   ruby-openai
   selenium-webdriver
+  simplecov
   solid_cache
   solid_queue
   stimulus-rails
