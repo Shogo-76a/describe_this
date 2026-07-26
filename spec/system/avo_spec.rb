@@ -6,7 +6,7 @@ RSpec.describe "管理画面(Avo)", type: :system do
     before do
       visit "/avo/resources/games"
     end
-    
+
     it "テーブル 一覧が 表示される" do
       expect(page).to have_content("Games")
     end

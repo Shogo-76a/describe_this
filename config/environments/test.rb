@@ -52,5 +52,5 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Rails 8でSeleniumコンテナ（外部ホスト名「web」）からのアクセスを許可する
-  config.hosts += ["web", "127.0.0.1", "www.example.com"]
+  config.hosts += [ "web", "127.0.0.1", "www.example.com" ]
 end

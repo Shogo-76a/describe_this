@@ -82,7 +82,7 @@ group :test do
   gem "selenium-webdriver", require: false
   gem "webmock", require: false
   gem "vcr", require: false
-  gem 'simplecov', require: false
+  gem "simplecov", require: false
 end
 
 gem "avo", ">= 3.32.1"

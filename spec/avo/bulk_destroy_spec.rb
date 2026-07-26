@@ -6,7 +6,7 @@ RSpec.describe Avo::Actions::BulkDestroy do
   describe 'BulkDestroyの handle メソッド動作確認' do
     let!(:game1) { create(:game) } # プロジェクトのモデルに合わせて調整してください
     let!(:game2) { create(:game) }
-    let(:query) { Game.where(id: [game1.id, game2.id]) }
+    let(:query) { Game.where(id: [ game1.id, game2.id ]) }
 
     context '正常に削除できる場合' do
       it 'レコードを削除すること' do
