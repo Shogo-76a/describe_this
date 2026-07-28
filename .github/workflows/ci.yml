@@ -39,7 +39,7 @@ jobs:
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
-  lint:
+  rubocop:
     runs-on: ubuntu-latest
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
@@ -64,6 +64,24 @@ jobs:
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
+
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24' # プロジェクトの Node.js バージョンに合わせる
+          cache: 'npm' # npm のキャッシュを有効化
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
 
   test:
     runs-on: ubuntu-latest
