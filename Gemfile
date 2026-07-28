@@ -74,6 +74,9 @@ group :development do
 
   # A Ruby Gem that adds annotations to your Rails models and route files. [https://github.com/drwl/annotaterb]
   gem "annotaterb"
+
+  # Bullet: N+1 や未使用 eager_load を検出する開発用ツール
+  gem "bullet"
 end
 
 group :test do
