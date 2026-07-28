@@ -2,6 +2,7 @@ class GamesController < ApplicationController
   def top
   end
 
+
   def new
     if params[:image_url].present?
       @game = Game.new(theme_image_url: params[:image_url])
