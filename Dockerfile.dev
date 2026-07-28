@@ -12,6 +12,11 @@ ENV RAILS_ENV=development
 RUN apt-get update -qq && apt-get install -y \
   ca-certificates curl gnupg postgresql-client vim nano
 
+# Node.js と npm をインストール
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    && apt-get update -qq \
+    && apt-get install -y build-essential nodejs
+
 # コンテナ内の作業ディレクトリを指定
 WORKDIR /app
 

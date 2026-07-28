@@ -38,3 +38,9 @@
 !/app/assets/builds/.keep
 
 /coverage 
+
+# Node.js 関連
+node_modules/
+
+# npm のキャッシュ
+.npm/
