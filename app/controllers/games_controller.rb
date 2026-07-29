@@ -1,45 +1,17 @@
 class GamesController < ApplicationController
-  def top
-  end
+  before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
+
+  def top; end
 
   def new
     if params[:image_url].present?
       @game = Game.new(theme_image_url: params[:image_url])
     else
-      # ここでお題画像のseed値を決定
-      current_seed = SecureRandom.uuid
-      seed_integer = current_seed.hash
-
-      begin
-        # Cloudinaryから画像リストを取得
-        images = CloudinaryFolderService.fetch_images_from_folder("describe_this/theme_images")
-
-        if images.any?
-          random_generator = Random.new(seed_integer)
-          selected_id = images.sample(random: random_generator)
-
-          # cl_image_tagの代わりに、通常のimage_tagで使えるCloudinaryのURLを生成
-          image_url = Cloudinary::Utils.cloudinary_url(
-                        selected_id,
-                        width: 600, height: 400, crop: :fill, fetch_format: :auto, quality: :auto
-                      )
-        else
-          # フォルダが空だった場合のフォールバック（assets内のデフォルト画像）
-          image_url = "placeholder_gray.png"
-        end
-
-      rescue => e
-        # Cloudinaryでエラーが起きたときの処理
-        Rails.logger.error "Cloudinary Error: #{e.message}"
-
-        # Active Storageの仕組みやローカルのassets画像に逃がす
-        image_url = "placeholder_white.png"
-      end
-
+      picker = ThemeImagePicker.new
+      image_url = picker.call
       @game = Game.new(theme_image_url: image_url)
     end
   end
-
 
   def create
     @game = Game.new(game_params)
@@ -51,35 +23,24 @@ class GamesController < ApplicationController
     end
   end
 
-  def show
-    @game = Game.find(params[:id])
-  end
+  def show; end
 
   def update
-    @game = Game.find(params[:id])
-    # ユーザーメッセージの保存処理（例: @user_message = ...）
-    if @game.update(game_params)
+    updater = GameUpdater.new(@game, game_params)
+    success, errors, system_replies = updater.call
+
+    if success
       respond_to do |format|
         format.turbo_stream do
-          # 返答したいテキストの配列をインスタンス変数にセット
-          # 自動的に app/views/games/update.turbo_stream.erb が呼ばれます
-          @system_replies = [
-            GameForm.new(feedback: "MVP版は2回目以降送信できません"),
-            GameForm.new(feedback: "うーん...(想像中)")
-          ]
-
-          # 画像生成のJobを実行
-          GenerateImageJob.perform_later(@game, "English") # 引数（レコード, 学習言語）
+          @system_replies = system_replies
         end
       end
     else
-      # 失敗した時は、newではなく現在のチャット画面（show）のデータを再準備して返す
       render :show, status: :unprocessable_entity
     end
   end
 
   def check_generated_image
-    @game = Game.find(params[:id])
     @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
 
     if @game.generated_image.attached?
@@ -114,16 +75,12 @@ class GamesController < ApplicationController
   end
 
   def check_score
-    @game = Game.find(params[:id])
-
     if @game.feedback.present?
       render turbo_stream: turbo_stream.update(
           "resulting_score",
           partial: "shared/resulting_score",
           locals: { game: @game }
         )
-
-
     else
       # まだレコードがない場合は「204 No Content」を返し、Stimulus側に継続させる
       head :no_content
@@ -131,23 +88,24 @@ class GamesController < ApplicationController
   end
 
   def score
-    @game = Game.find(params[:id])
     # 採点のJobを実行
     FeedbackJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
   end
 
   def feedback
-    @game = Game.find(params[:id])
   end
 
   def destroy
-    @game = Game.find(params[:id])
     @game.destroy
 
     redirect_to root_path, status: :see_other
   end
 
 private
+  def set_game
+    @game = Game.find(params[:id])
+  end
+
   def game_params
     params.require(:game).permit(:description, :generated_image, :theme_image_url)
   end
