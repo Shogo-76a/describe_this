@@ -13,9 +13,9 @@ class GameUpdater
         GameForm.new(feedback: "MVP版は2回目以降送信できません"),
         GameForm.new(feedback: "うーん...(想像中)")
       ]
-      [true, nil, system_replies]
+      [ true, nil, system_replies ]
     else
-      [false, @game.errors, nil]
+      [ false, @game.errors, nil ]
     end
   end
 end
