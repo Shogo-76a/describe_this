@@ -43,7 +43,7 @@ RSpec.describe "Games", type: :request do
           allow(CloudinaryFolderService).to receive(:fetch_images_from_folder).and_raise(StandardError.new("Test API Error"))
 
           # ログが出力されることを期待
-          expect(Rails.logger).to receive(:error).with(/Cloudinary Error: Test API Error/)
+          expect(Rails.logger).to receive(:error).with("ThemeImagePicker Error: Test API Error")
 
           get new_game_path
           expect(response.body).to include("placeholder_white.png")
