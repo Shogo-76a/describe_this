@@ -12,7 +12,7 @@
 #
 FactoryBot.define do
   factory :game do
-    description  { 'A girl wears a pink jacket holds a tiny dog and is smiling at this way.' }
+    description  { 'A girl wears a pink jaket holds a tiney dog and is smiling at this way.' } # 意図的にスペルミスを含む（jaket:jacket, tiney:tiny)
     feedback { nil }
     theme_image_url { "https://res.cloudinary.com/dy8jwyu6v/image/upload/c_fill,f_auto,h_100,q_auto,w_150//main-sample.png" }
 
