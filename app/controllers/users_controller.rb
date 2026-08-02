@@ -4,4 +4,7 @@ class UsersController < ApplicationController
       # MVP では仮ページを表示
       # 本リリース ではユーザーテーブルからユーザーIDを渡す
     end
+
+    def privacy_policy; end
+    def terms; end
 end
