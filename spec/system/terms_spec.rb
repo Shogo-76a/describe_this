@@ -14,7 +14,7 @@ RSpec.describe '利用規約ページ (Terms of Service)', type: :system do
 
     it '各セクションの見出しが正しく表示されていること' do
       expect(page).to have_content('1. 利用規約への同意')
-      expect(page).to have_content('2. 機能についておよび外部AIの利用')
+      expect(page).to have_content('2. 機能および外部AIの利用について')
       expect(page).to have_content('3. アカウント管理および責任')
       expect(page).to have_content('4. 禁止事項')
       expect(page).to have_content('5. ユーザーコンテンツと知的財産権')
