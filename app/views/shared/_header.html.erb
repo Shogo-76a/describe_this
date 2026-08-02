@@ -22,9 +22,20 @@
         <%= yield :header_content %>
         <%= render 'shared/theme_color_tab', theme_name: 'light' %>
     </header>
-<% elsif content_for?(:header_content_2) %>
+<% elsif content_for?(:documents) %>
+    <!-- 両端にホーム用ボタン(レコード削除機能なし) と テーマボタン があるヘッダー -->
+    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
+        <%= button_to user_path, method: :get, class: "inline-block" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+        <% end %>
+        <%= yield :documents %>
+        <%= render 'shared/theme_color_tab', theme_name: 'light' %>
+    </header>
+<% elsif content_for?(:custom) %>
     <!-- 完全カスタマイズしたいときのヘッダー -->
-    <%= yield :header_content_2 %>
+    <%= yield :custom %>
 <% else %>
     <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
         <!-- どのページでも設定されていない場合のデフォルト表示 -->

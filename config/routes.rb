@@ -10,5 +10,10 @@ Rails.application.routes.draw do
       get :check_score
     end
   end
-  resources :users, only: [ :show ]
+  resources :users, only: [ :show ] do
+    member do
+      get :privacy_policy
+      get :terms
+    end
+  end
 end
