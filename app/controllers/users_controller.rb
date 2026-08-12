@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  # allow_unauthenticated_access 全アクションで認証無効化
+
     def show
       # プロフィールページ
       # MVP では仮ページを表示
