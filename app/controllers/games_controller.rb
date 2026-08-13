@@ -1,8 +1,9 @@
 class GamesController < ApplicationController
   before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
-  # allow_unauthenticated_access only: [:top] topアクションだけ認証無効化
 
-  def top; end
+  def top
+    @user = Current.user
+  end
 
   def new
     if params[:image_url].present?

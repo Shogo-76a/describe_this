@@ -1,0 +1,40 @@
+<% if @user.errors.any? %>
+  <div style="color: red;">
+    <h2><%= pluralize(@user.errors.count, "error") %> により登録できませんでした:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1>新規会員登録</h1>
+
+<%= form_with model: @new_user, url: registrations_path do |form| %>
+  <div>
+    <%= form.label :name, "ユーザー名" %><br>
+    <%= form.text_field :name, autofocus: true, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :email_address, "メールアドレス" %><br>
+    <%= form.email_field :email_address, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :password, "パスワード" %><br>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, "パスワード（確認用）" %><br>
+    <%= form.password_field :password_confirmation, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "登録する" %>
+  </div>
+<% end %>
+
+
