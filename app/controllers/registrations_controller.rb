@@ -11,7 +11,7 @@ class RegistrationsController < ApplicationController
       # 登録成功時にセッションを開始してログイン状態にする (Rails 8標準機能)
       session_record = @user.sessions.create!
       cookies.signed.permanent[:session_id] = session_record.id
-      
+
       redirect_to root_path, notice: "会員登録が完了しました。"
     else
       render :new, status: :unprocessable_entity
@@ -24,4 +24,3 @@ class RegistrationsController < ApplicationController
     params.expect(user: [ :name, :email_address, :password, :password_confirmation ])
   end
 end
-

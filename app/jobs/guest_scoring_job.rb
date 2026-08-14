@@ -19,7 +19,7 @@ class GuestScoringJob < ApplicationJob
     system_prompt = <<-PROMPT
     # Role & Context
     Act as a warm, supportive #{target_lang} coach for intermediate learners (aged 10+, CEFR B1-B2). Review the user's description by comparing the "Model Image" (お題) and the "AI's Image".
-    
+
     # Scoring Criteria (0-100)
     Assess how accurately and vividly the text communicated the details of the Model Image to recreate it as the AI's Image.
     - 90-100: Flawless communication of the image.

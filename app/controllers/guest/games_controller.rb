@@ -95,15 +95,15 @@ module Guest
 
     def feedback
       # サンプル表示用
-      @game.feedback.merge!( "bonus_phrase" => {
-        "phrase" => "sample sample sample", 
-        "example" => "sample sample samplesample sample samplesample sample sample.", 
-        "meaning" => "sample sample sample", 
-        "example_translation" => "sample sample samplesample sample sample"}, 
-        "original_text" => "sample sample samplesample sample samplesample sample samplesample sample sample", 
-        "image_analysis" => "sample sample samplesample sample samplesample sample sample", 
-        "rewritten_text" => "sample sample samplesample sample sample", 
-        "spelling_errors" => ["error" =>"samplesample", "correction" =>"sample"], 
+      @game.feedback.merge!("bonus_phrase" => {
+        "phrase" => "sample sample sample",
+        "example" => "sample sample samplesample sample samplesample sample sample.",
+        "meaning" => "sample sample sample",
+        "example_translation" => "sample sample samplesample sample sample" },
+        "original_text" => "sample sample samplesample sample samplesample sample samplesample sample sample",
+        "image_analysis" => "sample sample samplesample sample samplesample sample sample",
+        "rewritten_text" => "sample sample samplesample sample sample",
+        "spelling_errors" => [ "error" =>"samplesample", "correction" =>"sample" ],
         "next_step_advice" => "sample sample samplesamplesample sample samplesample")
     end
 
