@@ -1,11 +1,37 @@
 Rails.application.routes.draw do
+
+  # ゲストルート
+  namespace :guest do
+    root "games#top"
+    resources :games, only: [ :new, :create, :show, :update, :destroy ] do
+      member do
+        get :score
+        get :feedback
+        get :check_generated_image
+        get :check_score
+      end
+    end
+
+    resources :users, only: [ :show ] do
+      member do
+        get :privacy_policy
+        get :terms
+      end
+    end
+  end
+
+  # 管理画面
+  mount_avo
+
+  # 認証関連
   get "registrations/new"
   get "registrations/create"
   resource :session
   resources :passwords, param: :token
-  mount_avo
-  root "games#top"
+  resources :registrations, only: [ :new, :create ] # ユーザー登録画面
 
+  # 認証ルート
+  root "games#top"
   resources :games, only: [ :new, :create, :show, :update, :destroy ] do
     member do
       get :score
@@ -21,8 +47,4 @@ Rails.application.routes.draw do
       get :terms
     end
   end
-
-  # ユーザー登録画面
-  resources :registrations, only: [ :new, :create ]
-
 end

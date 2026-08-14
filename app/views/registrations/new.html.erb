@@ -11,7 +11,7 @@
 
 <h1>新規会員登録</h1>
 
-<%= form_with model: @new_user, url: registrations_path do |form| %>
+<%= form_with model: @user, url: registrations_path do |form| %>
   <div>
     <%= form.label :name, "ユーザー名" %><br>
     <%= form.text_field :name, autofocus: true, required: true %>
