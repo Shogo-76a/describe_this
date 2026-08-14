@@ -8,8 +8,7 @@ module Guest
     private
     
     def redirect_if_authenticated
-      redirect_to games_path if authenticated?
-      Rails.logger.debug "これは authenticated?: #{authenticated?}"
+      redirect_to root_path if authenticated?
     end
   end
 end
