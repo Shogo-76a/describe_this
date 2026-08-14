@@ -6,12 +6,12 @@
 <% end %>
 <div class="pt-10">
     <!-- コントローラー名を chat-feedback と定義 -->
-    <div data-controller="chat-feedback" class ="flex flex-col max-w-xs landscape:max-w-3xl mx-auto">
+    <div class ="relative flex flex-col max-w-xs landscape:max-w-3xl mx-auto">
         
-        <div class="chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4"> 
+        <div class="absolute chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4 blur-sm"> 
             
             <!-- 総評 -->
-            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
+            <div class="chat-bubble bg-base-100 flex flex-col">
                 <!-- 太字で強調 -->
                 <p class="text-lg opacity-75">📄総評 :</p>
                 <div class="ml-8">
@@ -23,7 +23,7 @@
 
             <!-- スペルミス指摘 -->
             <% if @game.feedback["spelling_errors"].present? %>
-                <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100"> 
+                <div class="chat-bubble bg-base-100"> 
                     <p class="text-lg opacity-75">✒️スペルミス :</p>
                     <% check = @game.feedback["spelling_errors"].uniq %>
 
@@ -52,7 +52,7 @@
 
 
             <!-- 説明文比較 -->
-            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100"> 
+            <div class="chat-bubble bg-base-100"> 
                 <p class="text-lg opacity-75">🌷自然な言い回し :</p>           
                 <% if @game.feedback["rewritten_text"].present? %>
                     <div class="ml-4 flex flex-col">
@@ -90,7 +90,7 @@
             </div>
 
             <!-- 関連フレーズ -->
-            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
+            <div class="chat-bubble bg-base-100 flex flex-col">
                 <p class="text-lg opacity-75">🎁関連フレーズ</p>
                 <div class="ml-4">
                     <p class="text-lg">・<%= @game.feedback["bonus_phrase"]["phrase"] %></p>
@@ -111,7 +111,7 @@
             </div>
 
             <!-- まとめ -->
-            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col">
+            <div class="chat-bubble bg-base-100 flex flex-col">
                 <p class="text-lg opacity-75">🎗️まとめ</p>
                 <div class="ml-8">
                     <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
@@ -123,13 +123,11 @@
                     ※フィードバックは直接点数に影響しないですが、説明方法にお役立てください。
                 </p>
             </div>
-
-            <!-- 書き込み中表示 -->
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100"><span class="loading loading-dots loading-sm"></span></div>
         </div>
 
 
-        <div data-chat-feedback-target="button" class="hidden mb-20 flex justify-center gap-15 landscape:gap-25"> 
+        
+        <div class="relative z-10 mb-20 flex justify-center gap-15 landscape:gap-25"> 
             <%=link_to "リトライ", new_guest_game_path(image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 rounded-2xl" %>
             <%=button_to "やめる", guest_root_path, method: :get, class: "btn btn-lg btn-neutral h-12 rounded-2xl" %>
         </div> 

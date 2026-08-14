@@ -90,10 +90,21 @@ module Guest
 
     def score
       # 採点のJobを実行
-      FeedbackJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+      GuestScoringJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
     end
 
     def feedback
+      # サンプル表示用
+      @game.feedback.merge!( "bonus_phrase" => {
+        "phrase" => "sample sample sample", 
+        "example" => "sample sample samplesample sample samplesample sample sample.", 
+        "meaning" => "sample sample sample", 
+        "example_translation" => "sample sample samplesample sample sample"}, 
+        "original_text" => "sample sample samplesample sample samplesample sample samplesample sample sample", 
+        "image_analysis" => "sample sample samplesample sample samplesample sample sample", 
+        "rewritten_text" => "sample sample samplesample sample sample", 
+        "spelling_errors" => ["error" =>"samplesample", "correction" =>"sample"], 
+        "next_step_advice" => "sample sample samplesamplesample sample samplesample")
     end
 
     def destroy
