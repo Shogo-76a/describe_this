@@ -8,7 +8,7 @@
     <!-- コントローラー名を chat-feedback と定義 -->
     <div class ="relative flex flex-col max-w-xs landscape:max-w-3xl mx-auto">
         
-        <div class="absolute chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4 blur-sm"> 
+        <div class="absolute chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4 blur-sm opacity-50"> 
             
             <!-- 総評 -->
             <div class="chat-bubble bg-base-100 flex flex-col">
@@ -50,7 +50,6 @@
                 </div>
             <% end %>
 
-
             <!-- 説明文比較 -->
             <div class="chat-bubble bg-base-100"> 
                 <p class="text-lg opacity-75">🌷自然な言い回し :</p>           
@@ -86,50 +85,26 @@
                         </p>
                     </div>
                 <% end %>
-
-            </div>
-
-            <!-- 関連フレーズ -->
-            <div class="chat-bubble bg-base-100 flex flex-col">
-                <p class="text-lg opacity-75">🎁関連フレーズ</p>
-                <div class="ml-4">
-                    <p class="text-lg">・<%= @game.feedback["bonus_phrase"]["phrase"] %></p>
-                    <p class="ml-4 mt-2 mb-2 text-sm tracking-wide"><%= @game.feedback["bonus_phrase"]["meaning"] %></p>
-
-                    <p class="ml-4 border-b-2 border-base-content/10"></p>
-                    
-                    <p class="mt-2">・<%= @game.feedback["bonus_phrase"]["example"] %></p>
-                </div>
-                <div class="ml-8">
-                    <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
-
-
-                        <!-- 翻訳は説明言語と学習言語が同じ場合、非表示にすること -->
-                        <p class="pl-4"><%= @game.feedback["bonus_phrase"]["example_translation"] %></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- まとめ -->
-            <div class="chat-bubble bg-base-100 flex flex-col">
-                <p class="text-lg opacity-75">🎗️まとめ</p>
-                <div class="ml-8">
-                    <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
-                        <p class="pl-4"><%= @game.feedback["next_step_advice"] %></p>
-                    </div>
-                </div>
-                <p class="flex justify-end mt-2 text-xs text-base-content/25">
-                    ※AIに判定基準を設定してますが、フィードバックと違う結果になる事があります。<br>
-                    ※フィードバックは直接点数に影響しないですが、説明方法にお役立てください。
-                </p>
             </div>
         </div>
 
+        <div class="relative z-10 flex flex-col mt-50 landscape:mt-40">
+            <div class="flex flex-col gap-20">
+                <div class="flex flex-col text-center gap-2 text-lg">
+                    <p>ゲスト版ではご利用いただけません。</p>
+                    <p>
+                        <%=link_to "新規登録", registrations_new_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+                        または
+                        <%=link_to "ログイン", new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+                    </p>
+                    <p>してください。</p>
+                </div>
 
-        
-        <div class="relative z-10 mb-20 flex justify-center gap-15 landscape:gap-25"> 
-            <%=link_to "リトライ", new_guest_game_path(image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 rounded-2xl" %>
-            <%=button_to "やめる", guest_root_path, method: :get, class: "btn btn-lg btn-neutral h-12 rounded-2xl" %>
+                <div class="mb-20 flex justify-center gap-15 landscape:gap-25"> 
+                    <%=link_to "リトライ", new_guest_game_path(image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
+                    <%=button_to "やめる", guest_root_path, method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
+                </div> 
+            </div>
         </div> 
     </div>
 </div>
