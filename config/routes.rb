@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # ドキュメント
+  get "documents/privacy_policy"
+  get "documents/terms"
 
   # ゲストルート
   namespace :guest do
@@ -12,12 +15,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: [ :show ] do
-      member do
-        get :privacy_policy
-        get :terms
-      end
-    end
+    resources :users, only: [ :show ]
   end
 
   # 管理画面
@@ -41,10 +39,5 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [ :show ] do
-    member do
-      get :privacy_policy
-      get :terms
-    end
-  end
+  resources :users, only: [ :show ]
 end
