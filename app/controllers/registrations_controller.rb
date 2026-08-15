@@ -12,7 +12,7 @@ class RegistrationsController < ApplicationController
       session_record = @user.sessions.create!
       cookies.signed.permanent[:session_id] = session_record.id
 
-      redirect_to root_path, notice: "会員登録が完了しました。"
+      redirect_to root_path
     else
       render :new, status: :unprocessable_entity
     end
