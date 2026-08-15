@@ -16,27 +16,27 @@
     </ul>
   </div>
 <% end %>
-<div class="flex flex-col items-center mt-10">
+<div class="flex flex-col items-center max-w-sm mx-auto mt-10">
   <div class="flex flex-col items-center justify-center">
     <%= form_with model: @user, url: registrations_path, class: "flex flex-col items-center justify-center gap-3" do |form| %>
       <div class="w-full">
         <%= form.label :name, "ユーザー名" %>
-        <%= form.text_field :name, required: true, class: "items-center justify-center input input-bordered rounded-full w-full" %>
+        <%= form.text_field :name, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
       </div>
 
       <div class="w-full">
         <%= form.label :email_address, "メールアドレス" %>
-        <%= form.email_field :email_address, required: true, class: "items-center justify-center input input-bordered rounded-full w-full" %>
+        <%= form.email_field :email_address, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
       </div>
 
       <div class="w-full">
         <%= form.label :password, "パスワード" %>
-        <%= form.password_field :password, required: true, class: "items-center justify-center input input-bordered rounded-full w-full" %>
+        <%= form.password_field :password, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
       </div>
 
       <div class="w-full">
         <%= form.label :password_confirmation, "パスワード（確認用）" %>
-        <%= form.password_field :password_confirmation, required: true, class: "items-center justify-center input input-bordered rounded-full w-full" %>
+        <%= form.password_field :password_confirmation, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
       </div>
 
       <div class="w-full my-4">
@@ -53,10 +53,30 @@
         <%= form.submit "登録する" %>
       </div>
 
-      <div class="w-full my-4 divider">
+      <div class="w-full my-2 divider">
           <p class="w-50 text-sm text-center text-base-content/50">
             または
           </p>
+      </div>
+
+      <div class="flex flex-row gap-5">
+        <div class="border-1 rounded-2xl w-10 h-10 text-center">
+          <p>G</p>
+        </div>
+
+        <div class="border-1 rounded-2xl w-10 h-10 text-center">
+          <p>X</p>
+        </div>
+
+        <div class="border-1 rounded-2xl w-10 h-10 text-center">
+          <p>LINE</p>
+        </div>
+      </div>
+
+      <div class="py-2">
+        <p class="pb-2 w-full text-sm text-center text-base-content/50">
+          ご登録済みの方はこちら：<%=link_to "ログイン", new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+        </p>
       </div>
     <% end %>
   </div>
