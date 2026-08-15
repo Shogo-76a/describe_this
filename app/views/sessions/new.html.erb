@@ -1,3 +1,11 @@
+<!-- ヘッダーの内容変更 -->
+<% provide(:sign_up) do %>
+    <div class="flex items-end gap-0">
+        <p class="text-2xl font-normal opacity-75">ログイン</p>
+    </div>
+<% end %>
+
+
 <div class="mx-auto md:w-2/3 w-full">
   <% if alert = flash[:alert] %>
     <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
@@ -6,8 +14,6 @@
   <% if notice = flash[:notice] %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-
-  <h1 class="font-bold text-4xl">Sign in</h1>
 
   <%= form_with url: session_url, class: "contents" do |form| %>
     <div class="my-5">
