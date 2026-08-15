@@ -16,32 +16,49 @@
     </ul>
   </div>
 <% end %>
+<div class="flex flex-col items-center mt-10">
+  <div class="flex flex-col items-center justify-center">
+    <%= form_with model: @user, url: registrations_path, class: "flex flex-col items-center justify-center gap-3" do |form| %>
+      <div class="w-full">
+        <%= form.label :name, "ユーザー名" %>
+        <%= form.text_field :name, required: true, class: "items-center justify-center input input-bordered rounded-full w-full" %>
+      </div>
 
+      <div class="w-full">
+        <%= form.label :email_address, "メールアドレス" %>
+        <%= form.email_field :email_address, required: true, class: "items-center justify-center input input-bordered rounded-full w-full" %>
+      </div>
 
-<%= form_with model: @user, url: registrations_path do |form| %>
-  <div>
-    <%= form.label :name, "ユーザー名" %><br>
-    <%= form.text_field :name, autofocus: true, required: true %>
+      <div class="w-full">
+        <%= form.label :password, "パスワード" %>
+        <%= form.password_field :password, required: true, class: "items-center justify-center input input-bordered rounded-full w-full" %>
+      </div>
+
+      <div class="w-full">
+        <%= form.label :password_confirmation, "パスワード（確認用）" %>
+        <%= form.password_field :password_confirmation, required: true, class: "items-center justify-center input input-bordered rounded-full w-full" %>
+      </div>
+
+      <div class="w-full my-4">
+          <p class="text-sm text-base-content/50">
+            アカウント登録により
+            <%=link_to "利用規約", documents_terms_path, method: :get, class: "text-primary" %>
+            、
+            <%=link_to "プライバシーポリシー", documents_privacy_policy_path, method: :get, class: "text-primary" %>
+            に同意したとみなされます。
+          </p>
+      </div>
+
+      <div class="btn btn-primary btn-text-primary w-40 rounded-full ">
+        <%= form.submit "登録する" %>
+      </div>
+
+      <div class="w-full my-4 divider">
+          <p class="w-50 text-sm text-center text-base-content/50">
+            または
+          </p>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.label :email_address, "メールアドレス" %><br>
-    <%= form.email_field :email_address, required: true %>
-  </div>
-
-  <div>
-    <%= form.label :password, "パスワード" %><br>
-    <%= form.password_field :password, required: true %>
-  </div>
-
-  <div>
-    <%= form.label :password_confirmation, "パスワード（確認用）" %><br>
-    <%= form.password_field :password_confirmation, required: true %>
-  </div>
-
-  <div>
-    <%= form.submit "登録する" %>
-  </div>
-<% end %>
-
+</div>
 
