@@ -39,7 +39,7 @@
       <%= form.password_field :password_confirmation, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
     </div>
 
-    <div class="w-full my-4">
+    <div class="w-full my-4 landscape:my-2">
         <p class="text-sm text-base-content/50">
           アカウント登録により
           <%=link_to "利用規約", documents_terms_path, method: :get, target: :_blank, rel: "noopener", class: "text-primary" %>
@@ -52,32 +52,37 @@
     <div class="btn btn-primary btn-text-primary w-40 rounded-full">
       <%= form.submit "登録する" %>
     </div>
+  <% end %>
 
-    <div class="w-full my-2 divider">
-        <p class="w-50 text-sm text-center text-base-content/50">
-          または
-        </p>
-    </div>
+  <div class="w-full my-10 landscape:my-5 divider">
+      <p class="w-50 text-sm text-center text-base-content/50">
+        または
+      </p>
+  </div>
 
+  <div class="flex flex-col items-center justify-center gap-3">
     <div class="flex flex-row gap-5">
-      <div class="flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center">
-        <i class="fa-brands fa-google"></i>
-      </div>
-
-      <div class="flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center">
+      <%= button_to "/auth/twitter2", data: { pjax: false, turbo: false }, method: :post,
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
         <i class="fa-brands fa-x-twitter"></i>
-      </div>
+      <% end %>
 
-      <div class="flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center">
+      <%= button_to "/auth/google_oauth2", data: { pjax: false, turbo: false }, method: :post,
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
+        <i class="fa-brands fa-google"></i>
+      <% end %>
+
+      <%= button_to "/auth/line", data: { pjax: false, turbo: false }, method: :post, 
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
         <p class="font-bold">LINE</p>
-      </div>
+      <% end %>
     </div>
 
-    <div class="py-2">
-      <p class="pb-2 w-full text-sm text-center text-base-content/50">
+    <div class="my-5 landscape:my-3">
+      <p class="mb-2 w-full text-sm text-center text-base-content/50">
         ご登録済みの方はこちら：<%=link_to "ログイン", new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
       </p>
     </div>
-  <% end %>
+  </div>
 </div>
 
