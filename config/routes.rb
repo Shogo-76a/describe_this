@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "omniauth_callbacks/create"
+  get "omniauth_callbacks/failure"
   # ドキュメント
   get "documents/privacy_policy"
   get "documents/terms"
@@ -22,6 +24,11 @@ Rails.application.routes.draw do
   mount_avo
 
   # 認証関連
+
+  # OmniAuth 専用のコールバックURL
+  get "/auth/:provider/callback", to: "omniauth_callbacks#create"
+  get "/auth/failure", to: "omniauth_callbacks#failure"
+
   get "registrations/new"
   get "registrations/create"
   resource :session

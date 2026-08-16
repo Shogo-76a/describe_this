@@ -28,34 +28,39 @@
 
     <%= form.submit "ログイン", class: "mt-3 btn btn-primary btn-text-primary w-40 rounded-full" %>
 
-    <div class="text-sm text-base-content/50">
+    <div class="mt-5 text-sm text-base-content/50">
       <%= link_to "パスワードを忘れた場合", new_password_path, class: "text-base-content/50 underline hover:no-underline" %>
     </div>
+  <% end %>
 
-    <div class="w-full my-2 divider">
-        <p class="w-50 text-sm text-center text-base-content/50">
-          または
-        </p>
-    </div>
+  <div class="w-full my-10 divider">
+      <p class="w-50 text-sm text-center text-base-content/50">
+        または
+      </p>
+  </div>
 
+  <div class="flex flex-col items-center justify-center gap-3">
     <div class="flex flex-row gap-5">
-      <div class="flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center">
-        <i class="fa-brands fa-google"></i>
-      </div>
-
-      <div class="flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center">
+      <%= button_to "/auth/twitter2", data: { pjax: false, turbo: false }, method: :post,
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
         <i class="fa-brands fa-x-twitter"></i>
-      </div>
+      <% end %>
 
-      <div class="flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center">
+      <%= button_to "/auth/google_oauth2", data: { pjax: false, turbo: false }, method: :post,
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
+        <i class="fa-brands fa-google"></i>
+      <% end %>
+
+      <%= button_to "/auth/line", data: { pjax: false, turbo: false }, method: :post, 
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
         <p class="font-bold">LINE</p>
-      </div>
+      <% end %>
     </div>
 
-    <div class="py-2">
-      <p class="pb-2 w-full text-sm text-center text-base-content/50">
+    <div class="my-5">
+      <p class="mb-2 w-full text-sm text-center text-base-content/50">
         ご登録がまだの方はこちら：<%=link_to "新規登録", registrations_new_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
       </p>
     </div>
-  <% end %>
+  </div>
 </div>

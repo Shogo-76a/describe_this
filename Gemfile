@@ -48,6 +48,14 @@ gem "ruby-openai"
 # Cloud media management services for websites and apps [https://console.cloudinary.com/app/product-explorer]
 gem "cloudinary"
 
+# a library that standardizes multi-provider authentication for web applications [https://github.com/omniauth/omniauth/tree/v2.1.4]
+gem 'omniauth'
+gem "omniauth-rails_csrf_protection"
+  # omniauthの各プロバイダ用のストラテジー
+gem "omniauth-google-oauth2"
+gem "omniauth-line"
+gem "omniauth-twitter2"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -66,6 +74,8 @@ group :development, :test do
 
   gem "factory_bot_rails"
   gem "faker", require: false
+
+  gem "dotenv-rails"
 end
 
 group :development do
