@@ -45,7 +45,7 @@ class User < ApplicationRecord
         u.uid = auth.uid
         u.email_address = auth.info.email
         u.password = SecureRandom.hex(16) # パスワードをランダム生成してバリデーションを回避
-        u.name = auth.info.name なども追加
+        u.name = auth.info.name
       end
     end
 
