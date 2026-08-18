@@ -50,10 +50,10 @@ gem "cloudinary"
 
 # a library that standardizes multi-provider authentication for web applications [https://github.com/omniauth/omniauth/tree/v2.1.4]
 gem 'omniauth-oauth2'
-gem "omniauth-rails_csrf_protection"
-  # omniauthの各プロバイダ用のストラテジー
+gem "omniauth-rails_csrf_protection" # omniauthの各プロバイダ用のストラテジー
+  
 gem "omniauth-google-oauth2"
-gem 'omniauth-line-v2_1', '>= 1.2'
+gem "omniauth-line"
 gem "omniauth-twitter2"
 
 group :development, :test do

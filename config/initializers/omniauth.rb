@@ -6,8 +6,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   }
 
   # LINEの設定
-  provider :line_v2_1, ENV["LINE_CHANNEL_ID"], ENV["LINE_CHANNEL_SECRET"],{
-    scope: 'profile openid email'
+  provider :line_v2_1, ENV["LINE_CHANNEL_ID"], ENV["LINE_CHANNEL_SECRET"], {
+    scope: "profile openid email"
   }
 
   # X (Twitter OAuth 2.0) の設定
@@ -15,3 +15,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     scope: "users.read tweet.read"
   }
 end
+
+# Railsのセッション管理とOmniAuthの競合を防ぐための設定
+OmniAuth.config.allowed_request_methods = [:post]
