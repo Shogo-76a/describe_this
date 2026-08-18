@@ -12,13 +12,13 @@ class OmniauthCallbacksController < ApplicationController
     if user.persisted?
       # Rails 8標準認証のセッション開始メソッド
       start_new_session_for user 
-      redirect_to root_path, notice: "#{auth.provider.capitalize}で認証しました"
+      redirect_to root_path
     else
       redirect_to new_session_path, alert: "アカウントの登録に失敗しました"
     end
   end
 
   def failure
-    redirect_to new_session_path, alert: "認証がキャンセルされたか、エラーが発生しました"
+    redirect_to new_session_path, alert: "認証がキャンセルされたか、エラーが発生しました。"
   end
 end
