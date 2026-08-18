@@ -48,7 +48,6 @@ gem "ruby-openai"
 # Cloud media management services for websites and apps [https://console.cloudinary.com/app/product-explorer]
 gem "cloudinary"
 
-# a library that standardizes multi-provider authentication for web applications [https://github.com/omniauth/omniauth/tree/v2.1.4]
 gem 'omniauth-oauth2'
 gem "omniauth-rails_csrf_protection" # omniauthの各プロバイダ用のストラテジー
   

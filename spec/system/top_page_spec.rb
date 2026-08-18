@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'ログイン後 トップページ', type: :system do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
   before do
     sign_in(user) # 共通化した登録処理を呼び出し
   end

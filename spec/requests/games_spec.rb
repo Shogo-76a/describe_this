@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Games", type: :request do
   let(:game) { create(:game, :with_generated_image) }
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
 
   before do
     sign_in(user)

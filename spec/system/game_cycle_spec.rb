@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system do
   # ゲーム開始から画像生成・更新までの一連を1カセットにまとめる想定
 
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
   before do
     sign_in(user) # 共通化した登録処理を呼び出し
     find('.modal').send_keys(:escape) # ポップアップを消す

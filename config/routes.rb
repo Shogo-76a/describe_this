@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get "/auth/failure", to: "omniauth_callbacks#failure"
 
   get "registrations/new"
-  get "registrations/create"
+  post "registrations/create"
   resource :session
   resources :passwords, param: :token
   resources :registrations, only: [ :new, :create ] # ユーザー登録画面
