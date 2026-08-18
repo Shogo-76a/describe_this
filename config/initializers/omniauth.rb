@@ -13,7 +13,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 
   # X (Twitter OAuth 2.0) の設定
   provider :twitter2, ENV["X_CLIENT_ID"], ENV["X_CLIENT_SECRET"], {
-    scope: "users.read tweet.read"
+    scope: "users.read tweet.read users.email"
   }
 end
 
