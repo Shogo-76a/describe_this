@@ -1,11 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'ログイン後 導入ポップアップ', type: :system, js: true do
-  before do
-    sign_up(user) # 共通化した登録処理を呼び出し
-  end
-
+RSpec.describe 'ゲスト', type: :system, js: true do
   it 'ポップアップ が表示される / 「とじる」ボタンで ポップアップ が非表示になる' do
+    visit guest_root_path
     expect(page).to have_css(".modal", visible: true, wait: 4)
     expect(page).to have_content("① 見たままを英語にする")
     click_button 'つぎへ'

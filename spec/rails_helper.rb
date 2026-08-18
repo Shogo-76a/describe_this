@@ -92,6 +92,9 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
@@ -131,6 +134,9 @@ RSpec.configure do |config|
   # FactoryBotのメソッドを省略して書けるようにする
   config.include FactoryBot::Syntax::Methods
 
+  # 自作したモジュールをSystem Specで使えるようにする
+  config.include SignupSupport, type: :system
+
   # Jobを同期実行に変更
   config.around(:each, type: :system) do |example|
     # System Specの時だけ、バックグラウンドJobを同期実行
@@ -153,6 +159,24 @@ RSpec.configure do |config|
   # テストが終わったら元に戻す（副作用を防ぐため）
   #  ActionCable.server.config.cable = { "adapter" => "test" }
   # end
-end
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+  # テスト全体の開始時にDBをまっさらにする
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  # 各テストの開始前に削除方法を決める
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  # JavaScriptを使うテスト（System Specなど）は truncation（全削除）に切り替える
+  config.before(:each, type: :system) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  # 各テストの開始と終了時に実行する
+  config.before(:each) { DatabaseCleaner.start }
+  config.after(:each)  { DatabaseCleaner.clean }
+end

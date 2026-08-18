@@ -141,6 +141,10 @@ GEM
       bigdecimal
       rexml
     crass (1.0.7)
+    database_cleaner-active_record (2.2.2)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0)
+    database_cleaner-core (2.1.0)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -516,6 +520,7 @@ DEPENDENCIES
   bundler-audit
   capybara
   cloudinary
+  database_cleaner-active_record
   debug
   dotenv-rails
   factory_bot_rails

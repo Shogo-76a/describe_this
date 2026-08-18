@@ -96,6 +96,7 @@ group :test do
   gem "webmock", require: false
   gem "vcr", require: false
   gem "simplecov", require: false
+  gem 'database_cleaner-active_record'
 end
 
 gem "avo", ">= 3.32.1"

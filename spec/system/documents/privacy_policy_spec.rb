@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'プライバシーポリシーページ (Privacy Policy)', type: :system do
   before do
     # 利用規約ページへ遷移
-    visit privacy_policy_user_path(9999)
+    visit documents_privacy_policy_path
     page.refresh # 導入画面をスキップする
   end
 

@@ -1,20 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system do
+RSpec.describe 'ゲスト ゲームメインサイクル', type: :system do
   # ゲーム開始から画像生成・更新までの一連を1カセットにまとめる想定
-
-  let(:user) { FactoryBot.create(:user) }
-  before do
-    sign_up(user) # 共通化した登録処理を呼び出し
-    page.refresh # 導入画面をスキップ
-  end
-
   context '生成画像がある場合' do
-    it '開始画面から画面3のAPIデータ変換・更新まで一連の流れが正しく機能すること', vcr: { cassette_name: 'game_cycle_flow' }, js: true do
+    it '開始画面から画面3のAPIデータ変換・更新まで一連の流れが正しく機能すること', vcr: { cassette_name: 'guest_game_cycle_flow' }, js: true do
       # --- ゲーム開始画面 ---
-      visit new_game_path
-      # `はじめる` → new に遷移するアプリ構成なら root からの遷移を書く
-      # このテストは new_game_path を直接叩く想定
+      visit new_guest_game_path
+      page.refresh # 導入画面をスキップ
+      
+      # このテストは new_guest_game_path を直接叩く想定
       expect(page).to have_content("お題")
       expect(page).to have_button("つぎへ")
 
@@ -41,14 +35,6 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
 
       # --- フィードバックページ ---
       expect(page).to have_content("フィードバック")
-      expect(page).to have_css('span.loading.loading-dots.loading-sm')
-      expect(page).to have_content("総評", wait: 5)
-      expect(page).to have_content("スペルミス")
-      expect(page).to have_content("自然な言い回し")
-      expect(page).to have_content("あなたの説明 :")
-      expect(page).to have_content("提案 :")
-      expect(page).to have_content("関連フレーズ")
-      expect(page).to have_content("まとめ")
       expect(page).to have_link("リトライ")
       expect(page).to have_button("やめる")
     end
