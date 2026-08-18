@@ -7,7 +7,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 
   # LINEの設定
   provider :line_v2_1, ENV["LINE_CHANNEL_ID"], ENV["LINE_CHANNEL_SECRET"], {
-    scope: "profile openid email"
+    scope: "profile openid email",
+    open_in_browser: false
   }
 
   # X (Twitter OAuth 2.0) の設定
