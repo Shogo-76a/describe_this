@@ -51,7 +51,7 @@
         <i class="fa-brands fa-google"></i>
       <% end %>
 
-      <%= button_to "/auth/line_v2_1", data: { pjax: false, turbo: false }, method: :post, 
+      <%= button_to "/auth/line_v2_1", authenticity_token: true, data: { pjax: false, turbo: false }, method: :post, 
       class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
         <p class="font-bold">LINE</p>
       <% end %>
