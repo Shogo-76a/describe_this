@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'ログイン後', type: :system do
-  let(:user) { create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   before do
-    sign_up(user) # 共通化した登録処理を呼び出し
+    sign_in(user) # 共通化した登録処理を呼び出し
     find('.modal').send_keys(:escape) # ポップアップを消す
   end
 

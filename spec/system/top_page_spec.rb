@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'ログイン後 トップページ', type: :system do
   let(:user) { FactoryBot.create(:user) }
   before do
-    sign_up(user) # 共通化した登録処理を呼び出し
+    sign_in(user) # 共通化した登録処理を呼び出し
   end
 
   it 'トップページ の要素が すべて 表示される' do

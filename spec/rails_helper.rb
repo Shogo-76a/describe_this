@@ -135,7 +135,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   # 自作したモジュールをSystem Specで使えるようにする
-  config.include SignupSupport, type: :system
+  config.include LoginSupport, type: :system
 
   # Jobを同期実行に変更
   config.around(:each, type: :system) do |example|

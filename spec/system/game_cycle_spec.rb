@@ -5,8 +5,8 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
 
   let(:user) { FactoryBot.create(:user) }
   before do
-    sign_up(user) # 共通化した登録処理を呼び出し
-    page.refresh # 導入画面をスキップ
+    sign_in(user) # 共通化した登録処理を呼び出し
+    find('.modal').send_keys(:escape) # ポップアップを消す
   end
 
   context '生成画像がある場合' do
