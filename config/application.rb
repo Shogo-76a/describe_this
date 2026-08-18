@@ -28,8 +28,5 @@ module App
     config.generators do |g|
       g.test_framework :rspec
     end
-
-    # CookieのSameSite属性をLaxに明示し、かつHTTPS通信時はSecure属性を必須にする。iPhoneでのLINE認証エラー対応。
-    config.action_dispatch.cookies_same_site_protection = :lax
   end
 end
