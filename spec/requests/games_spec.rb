@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "Games", type: :request do
   let(:game) { create(:game, :with_generated_image) }
+  let(:user) { FactoryBot.create(:user) }
+
+  before do
+    sign_in(user)
+  end
 
   describe "GET /top" do
     it "正常にレスポンスを返すこと" do

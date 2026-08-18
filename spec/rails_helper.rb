@@ -137,6 +137,9 @@ RSpec.configure do |config|
   # 自作したモジュールをSystem Specで使えるようにする
   config.include LoginSupport, type: :system
 
+  # 自作したモジュールをRequest Specで使えるようにする
+  config.include RequestLoginSupport, type: :request
+  
   # Jobを同期実行に変更
   config.around(:each, type: :system) do |example|
     # System Specの時だけ、バックグラウンドJobを同期実行
