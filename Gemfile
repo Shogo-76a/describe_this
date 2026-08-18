@@ -49,7 +49,7 @@ gem "ruby-openai"
 gem "cloudinary"
 
 # a library that standardizes multi-provider authentication for web applications [https://github.com/omniauth/omniauth/tree/v2.1.4]
-gem 'omniauth'
+gem 'omniauth-oauth2'
 gem "omniauth-rails_csrf_protection"
   # omniauthの各プロバイダ用のストラテジー
 gem "omniauth-google-oauth2"

@@ -524,9 +524,9 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
-  omniauth
   omniauth-google-oauth2
   omniauth-line
+  omniauth-oauth2
   omniauth-rails_csrf_protection
   omniauth-twitter2
   pg (~> 1.1)
