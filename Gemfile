@@ -53,7 +53,7 @@ gem 'omniauth-oauth2'
 gem "omniauth-rails_csrf_protection" # omniauthの各プロバイダ用のストラテジー
   
 gem "omniauth-google-oauth2"
-gem "omniauth-line"
+gem 'omniauth-line-v2_1', '>= 1.2'
 gem "omniauth-twitter2"
 
 group :development, :test do
