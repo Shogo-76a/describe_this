@@ -1,0 +1,116 @@
+<!-- ヘッダーの内容変更 -->
+<% provide(:in_game) do %>
+    <div class="flex items-end gap-0 text-2xl opacity-75">
+        <p>フィードバック</p>
+    </div>
+<% end %>
+<div class="pt-10">
+    <!-- コントローラー名を chat-feedback と定義 -->
+    <div class ="relative flex flex-col max-w-xs landscape:max-w-3xl mx-auto">
+        
+        <div class="absolute chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4 blur-sm opacity-50"> 
+            
+            <!-- 総評 -->
+            <div class="chat-bubble bg-base-100 flex flex-col">
+                <!-- 太字で強調 -->
+                <p class="text-lg opacity-75">📄総評 :</p>
+                <div class="ml-8">
+                    <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
+                        <p class="pl-4"><%= @game.feedback["image_analysis"] %></p>
+                    </div>
+                </div>
+            </div>            
+
+            <!-- スペルミス指摘 -->
+            <% if @game.feedback["spelling_errors"].present? %>
+                <div class="chat-bubble bg-base-100"> 
+                    <p class="text-lg opacity-75">✒️スペルミス :</p>
+                    <% check = @game.feedback["spelling_errors"].uniq %>
+
+                    <% check.each_with_index do |spelling_error, index| %>
+                        <div class="flex flex-row">
+                            <p class="ml-8 flex items-center text-lg opacity-15"><%= index + 1 %>. </p>
+                            <div class="ml-4 flex flex-col">
+                                <div class="my-3 flex flex-col">
+                                    <p class="pt-1 text-base font-mono opacity-50 border-b border-base-content/10">
+                                        ✕ <%= spelling_error["error"] %>
+                                    </p>
+                                    
+                                    <p class="pt-1 text-base font-mono font-black text-success ">
+                                        ◯ <%= spelling_error["correction"] %>
+                                    </p>
+                                </div>
+                                <!-- uniq 後の配列の長さ（check.length）と比較して最後の要素か判定 -->
+                                <p class="<%= index + 1 == check.length ? '' : 'border-b-2 border-base-content/20' %> "></p>
+                            </div>
+                        </div>
+                    <% end %>
+                    <!-- 薄い色で補足 -->
+                    <p class="flex justify-end mt-2 text-xs text-base-content/25">※最大5つまで表示</p>
+                </div>
+            <% end %>
+
+            <!-- 説明文比較 -->
+            <div class="chat-bubble bg-base-100"> 
+                <p class="text-lg opacity-75">🌷自然な言い回し :</p>           
+                <% if @game.feedback["rewritten_text"].present? %>
+                    <div class="ml-4 flex flex-col">
+                        <!-- 上段：原文 -->
+                        <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
+
+                        <p class="ml-8 pt-1 pb-2 text-base font-mono opacity-50 border-b border-base-content/10">
+                            <%= @game.feedback["original_text"] %>
+                        </p>
+                        
+                        <!-- 下段：修正後 -->
+                        <p class="flex justify-start mt-2 text-xs text-base-content/50">提案 :</p>
+                        <p class="ml-8 pt-1 text-base font-mono font-black text-success">
+                            <%= @game.feedback["rewritten_text"] %>
+                        </p>
+                    </div>
+                    <p class="flex justify-end mt-2 text-xs text-base-content/25">
+                        ※ゲーム内容からできる限りの要素を書き出した例文になります。<br>
+                        ※例文を使って満点にすることはできません。
+                    </p>
+                <% else %>
+                    <div class="ml-4 flex flex-col">
+                        <p class="flex justify-start mt-2 text-sm">
+                        すでに自然な言い回しで、提案の必要がありませんでした。<br>
+                        素晴らしいです！</p>
+                        <!-- 上段：原文 -->
+                        <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明 :</p>
+
+                        <p class="ml-8 pt-1 text-base font-mono font-black text-success">
+                            <%= @game.feedback["original_text"] %>
+                        </p>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+
+        <div class="relative z-10 flex flex-col mt-50 landscape:mt-40">
+            <div class="flex flex-col gap-20">
+                <div class="flex flex-col text-center gap-2 text-lg">
+                    <p>ゲストモードではご利用いただけません。</p>
+                    <p>
+                        <%=link_to "新規登録", registrations_new_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+                        または
+                        <%=link_to "ログイン", new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+                    </p>
+                    <p>してください。</p>
+                </div>
+
+                <div class="mb-20 flex justify-center gap-15 landscape:gap-25"> 
+                    <%=link_to "リトライ", new_guest_game_path(image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
+                    <%=button_to "やめる", guest_root_path, method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
+                </div> 
+            </div>
+        </div> 
+    </div>
+</div>
+
+
+<!-- フッターの内容変更 -->
+<% provide(:footer_content) do %>
+    <!-- 空欄 -->
+<% end %>

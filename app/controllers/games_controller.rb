@@ -1,7 +1,13 @@
 class GamesController < ApplicationController
   before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
-
-  def top; end
+  allow_unauthenticated_access only: %i[top]
+  def top
+    if Current.user.present?
+      @user = Current.user
+    else
+      redirect_to guest_root_path
+    end
+  end
 
   def new
     if params[:image_url].present?

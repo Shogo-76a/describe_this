@@ -1,0 +1,88 @@
+<!-- ヘッダーの内容変更 -->
+<% provide(:sign_up) do %>
+    <div class="flex items-end gap-0">
+        <p class="text-2xl font-normal opacity-75">新規登録</p>
+    </div>
+<% end %>
+
+<!-- エラーハンドリング -->
+<% if @user.errors.any? %>
+  <div style="color: red;">
+    <h2><%= pluralize(@user.errors.count, "error") %> により登録できませんでした:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="min-h-[calc(100vh-15rem)] flex flex-col justify-center items-center max-w-sm mx-auto mt-10">
+  <%= form_with model: @user, url: registrations_path, class: "flex flex-col items-center justify-center gap-3" do |form| %>
+    <div class="w-full">
+      <%= form.label :name, "ユーザー名" %>
+      <%= form.text_field :name, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
+    </div>
+
+    <div class="w-full">
+      <%= form.label :email_address, "メールアドレス" %>
+      <%= form.email_field :email_address, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
+    </div>
+
+    <div class="w-full">
+      <%= form.label :password, "パスワード" %>
+      <%= form.password_field :password, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
+    </div>
+
+    <div class="w-full">
+      <%= form.label :password_confirmation, "パスワード（確認用）" %>
+      <%= form.password_field :password_confirmation, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
+    </div>
+
+    <div class="w-full my-4 landscape:my-2">
+        <p class="text-sm text-base-content/50">
+          アカウント登録により
+          <%=link_to "利用規約", documents_terms_path, method: :get, target: :_blank, rel: "noopener", class: "text-primary" %>
+          、
+          <%=link_to "プライバシーポリシー", documents_privacy_policy_path, method: :get, target: :_blank, rel: "noopener", class: "text-primary" %>
+          に同意したとみなされます。
+        </p>
+    </div>
+
+    <div class="btn btn-primary btn-text-primary w-40 rounded-full">
+      <%= form.submit "登録する" %>
+    </div>
+  <% end %>
+
+  <div class="w-full my-10 landscape:my-5 divider">
+      <p class="w-50 text-sm text-center text-base-content/50">
+        または
+      </p>
+  </div>
+
+  <div class="flex flex-col items-center justify-center gap-3">
+    <div class="flex flex-row gap-5">
+      <%= button_to "/auth/twitter2", data: { pjax: false, turbo: false }, method: :post,
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
+        <i class="fa-brands fa-x-twitter"></i>
+      <% end %>
+
+      <%= button_to "/auth/google_oauth2", data: { pjax: false, turbo: false }, method: :post,
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
+        <i class="fa-brands fa-google"></i>
+      <% end %>
+
+      <%= button_to "/auth/line_v2_1", authenticity_token: true, data: { pjax: false, turbo: false }, method: :post, 
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
+        <p class="font-bold">LINE</p>
+      <% end %>
+    </div>
+
+    <div class="my-5 landscape:my-3">
+      <p class="mb-2 w-full text-sm text-center text-base-content/50">
+        ご登録済みの方はこちら：<%=link_to "ログイン", new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+      </p>
+    </div>
+  </div>
+</div>
+

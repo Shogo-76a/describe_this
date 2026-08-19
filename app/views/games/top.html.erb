@@ -1,8 +1,7 @@
-<div class="pt-10">
-  <div class="hero">
-    <div class="hero-content flex flex-col items-center w-full">
-      <div class="grid flex flex-col place-items-center text-center w-full">
-
+<div class="min-h-[calc(100vh-15rem)] hero mt-10">
+  <div class="hero-content flex flex-col items-center w-full">
+    <div class="grid flex flex-col place-items-center text-center w-full gap-5">
+      <div>
         <!-- タイトルロゴ -->
         <div 
                   class="bg-base-content w-70 h-16" 
@@ -20,67 +19,66 @@
         <div class="text-base-content/50">
           <p>バージョン：<%= APP_VERSION %></p>
         </div>
-        <p class="my-6">
-          英語 学習に遊びを
-        </p>
-        <div class="text-xs mb-10 flex flex-col gap-1">
-          <p>あなたの 英語 で</p>
-          <p>AIがお題のイメージを想像 </p>
-          <p>正確に伝わるかな？</p>
-        </div>
-        <div class="text-xm my-5">
-          <p>知ってる語彙や文法を出し切って</p>
-          <p>新たな表現と出会う旅へ</p>
-        </div>
-        <div class="flex mt-10">
-          <%=button_to "はじめる", new_game_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+      </div>
+      <p class="my-6">
+        こんにちは！<br>
+        <%= @user.name %> さん！
+      </p>
+      <div class="flex flex-col">
+        <div class="text-xm">
+          <p>単語1つでも大歓迎！<br>
+          僕のAI脳をフル回転させて<br>
+          全力で受け止めるよ〜！</p>
         </div>
       </div>
+      <div class="flex flex-col mt-15">
+        <%=button_to "はじめる", new_game_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+      </div>
+    </div>
 
-      <!-- 遊び方モーダルの内容 -->
-      <div data-controller="splash-modal" >
-        <dialog data-splash-modal-target="dialog" id="swipe_modal" class="modal" data-controller="swipe-modal">
-          <div class="modal-box py-3 max-w-sm rounded-2xl overflow-hidden bg-base-100 flex flex-col items-center">
-            <div class="text-3xl">遊び方</div>
-            <div 
-              class="carousel focus:outline-none w-full snap-x snap-mandatory overflow-x-auto scroll-smooth"
-              data-swipe-modal-target="carousel"
-              data-action="scroll->swipe-modal#handleScroll"
-            >
-              <div id="slide1" class="carousel-item w-full flex-col">
-                <%= render "shared/splash_modal/modal_01" %>
-              </div>
-              <div id="slide2" class="carousel-item w-full flex-col">
-                <%= render "shared/splash_modal/modal_02" %>
-              </div>
-              <div id="slide3" class="carousel-item w-full flex-col">
-                <%= render "shared/splash_modal/modal_03" %>
-              </div>
+    <!-- 遊び方モーダルの内容 -->
+    <div data-controller="splash-modal" >
+      <dialog data-splash-modal-target="dialog" id="swipe_modal" class="modal" data-controller="swipe-modal">
+        <div class="modal-box py-3 max-w-sm rounded-2xl overflow-hidden bg-base-100 flex flex-col items-center">
+          <div class="text-3xl">遊び方</div>
+          <div 
+            class="carousel focus:outline-none w-full snap-x snap-mandatory overflow-x-auto scroll-smooth"
+            data-swipe-modal-target="carousel"
+            data-action="scroll->swipe-modal#handleScroll"
+          >
+            <div id="slide1" class="carousel-item w-full flex-col">
+              <%= render "shared/splash_modal/modal_01" %>
             </div>
-              
-            <div class="flex gap-1.5 py-2">
-              <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
-              <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
-              <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
+            <div id="slide2" class="carousel-item w-full flex-col">
+              <%= render "shared/splash_modal/modal_02" %>
             </div>
-                
-            <button 
-              class="btn btn-sm px-6 btn-primary w-70 h-12 rounded-2xl"
-              data-swipe-modal-target="actionBtn"
-              data-action="click->swipe-modal#nextOrClose"
-            >
-              つぎへ
-            </button>
+            <div id="slide3" class="carousel-item w-full flex-col">
+              <%= render "shared/splash_modal/modal_03" %>
+            </div>
           </div>
+            
+          <div class="flex gap-1.5 py-2">
+            <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
+            <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
+            <span class="h-2.5 w-2.5 rounded-full" data-swipe-modal-target="dot"></span>
+          </div>
+              
+          <button 
+            class="btn btn-sm px-6 btn-primary w-70 h-12 rounded-2xl"
+            data-swipe-modal-target="actionBtn"
+            data-action="click->swipe-modal#nextOrClose"
+          >
+            つぎへ
+          </button>
+        </div>
 
 
-          <!-- 背景をクリックしても閉じられるようにする設定（不要なら削除OK） -->
-          <form method="dialog" class="modal-backdrop">
-            <button>close</button>
-          </form>
-        </dialog>
+        <!-- 背景をクリックしても閉じられるようにする設定（不要なら削除OK） -->
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
 
-      </div>
     </div>
   </div>
 </div>

@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
-    def show
-      # プロフィールページ
-      # MVP では仮ページを表示
-      # 本リリース ではユーザーテーブルからユーザーIDを渡す
-    end
+  def show
+    @user = Current.user
+  end
 
-    def privacy_policy; end
-    def terms; end
+  def privacy_policy; end
+  def terms; end
 end

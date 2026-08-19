@@ -1,0 +1,66 @@
+<!-- ヘッダーの内容変更 -->
+<% provide(:sign_up) do %>
+    <div class="flex items-end gap-0">
+        <p class="text-2xl font-normal opacity-75">ログイン</p>
+    </div>
+<% end %>
+
+
+<div class="min-h-[calc(100vh-15rem)] flex flex-col justify-center items-center max-w-sm mx-auto mt-10">
+  <% if alert = flash[:alert] %>
+    <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
+  <% end %>
+  <% if notice = flash[:notice] %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <%= form_with url: session_url, class: "flex flex-col items-center justify-center gap-3" do |form| %>
+    <div class="w-full">
+      <%= form.label :email_address, "メールアドレス" %>
+      <%= form.email_field :email_address, required: true, autocomplete: "username", value: params[:email_address], 
+      class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
+    </div>
+
+    <div class="w-full">
+      <%= form.label :password, "パスワード" %>
+      <%= form.password_field :password, required: true, autocomplete: "current-password", maxlength: 72, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
+    </div>
+
+    <%= form.submit "ログイン", class: "mt-3 btn btn-primary btn-text-primary w-40 rounded-full" %>
+
+    <div class="mt-5 text-sm text-base-content/50">
+      <%= link_to "パスワードを忘れた場合", new_password_path, class: "text-base-content/50 underline hover:no-underline" %>
+    </div>
+  <% end %>
+
+  <div class="w-full my-10 divider">
+      <p class="w-50 text-sm text-center text-base-content/50">
+        または
+      </p>
+  </div>
+
+  <div class="flex flex-col items-center justify-center gap-3">
+    <div class="flex flex-row gap-5">
+      <%= button_to "/auth/twitter2", data: { pjax: false, turbo: false }, method: :post,
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
+        <i class="fa-brands fa-x-twitter"></i>
+      <% end %>
+
+      <%= button_to "/auth/google_oauth2", data: { pjax: false, turbo: false }, method: :post,
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
+        <i class="fa-brands fa-google"></i>
+      <% end %>
+
+      <%= button_to "/auth/line_v2_1", authenticity_token: true, data: { pjax: false, turbo: false }, method: :post, 
+      class: "flex justify-center items-center border-2 rounded-2xl w-12 h-12 text-center" do %>
+        <p class="font-bold">LINE</p>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <p class="mb-2 w-full text-sm text-center text-base-content/50">
+        ご登録がまだの方はこちら：<%=link_to "新規登録", registrations_new_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+      </p>
+    </div>
+  </div>
+</div>

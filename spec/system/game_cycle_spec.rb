@@ -1,12 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe 'ゲームメインサイクル', type: :system do
+RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system do
   # ゲーム開始から画像生成・更新までの一連を1カセットにまとめる想定
+
+  let(:user) { create(:user) }
+  before do
+    sign_in(user) # 共通化した登録処理を呼び出し
+    find('.modal').send_keys(:escape) # ポップアップを消す
+  end
+
   context '生成画像がある場合' do
     it '開始画面から画面3のAPIデータ変換・更新まで一連の流れが正しく機能すること', vcr: { cassette_name: 'game_cycle_flow' }, js: true do
       # --- ゲーム開始画面 ---
       visit new_game_path
-      page.refresh # 導入画面をスキップする
       # `はじめる` → new に遷移するアプリ構成なら root からの遷移を書く
       # このテストは new_game_path を直接叩く想定
       expect(page).to have_content("お題")
@@ -16,7 +22,7 @@ RSpec.describe 'ゲームメインサイクル', type: :system do
       expect(page).to have_css('img')
 
       # --- 画像生成ページで説明文を入力して送信（update に相当） ---
-      expect(page).to have_button("お題を 英語で 説明してください", disabled: true)
+      expect(page).to have_button("お題を 英語で 説明してください", disabled: true, wait: 10)
       fill_in 'game_description', with: 'a coffe cup on a tablu and the warm soft light is spot these items through a window in front of the table.' # スペルミスを意図的に含む coffe:coffee, tablu:table
       find('button.btn-primary.d-inline-flex').click # 送信ボタン
       expect(page).to have_css('button[data-chat-form-target="submitButton"][disabled]')

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe '利用規約ページ (Terms of Service)', type: :system do
   before do
     # 利用規約ページへ遷移
-    visit terms_user_path(9999)
+    visit documents_terms_path
     page.refresh # 導入画面をスキップする
   end
 

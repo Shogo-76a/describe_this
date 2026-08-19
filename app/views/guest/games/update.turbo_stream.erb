@@ -1,0 +1,20 @@
+<!-- # すでに作ったパーシャル(_message)に、今保存された @game を流し込む -->
+<% if @game.description.present? || @game.feedback.present? %>
+    <%= turbo_stream.append "chat_messages_container" do %>
+        <!-- # すでに作ったパーシャル(_message)に、今保存された @game を流し込む -->
+        <!-- # 最初の読み込み時は @game の中身（1件ならobject、複数ならcollection）を描画 -->
+        <%= render partial: 'shared/message', object: @game, as: :message %>
+
+        <!-- # アプリ側のメッセージ @system_repliesを流し込む-->
+        <%= render partial: 'shared/message', collection: @system_replies, as: :message %>
+    <% end %>
+    
+    <%= turbo_stream.update "scoring_button" do %>
+        <%= button_to "#", 
+            class: "btn btn-lg bg-neutral/50 text-neutral-content/50 w-70 h-12 rounded-2xl", 
+            disabled: true, 
+            data: { collapsible_image_target: "submitButton" } do %>
+            <span class="loading loading-spinner loading-md"></span>
+        <% end %>
+    <% end %>
+<% end %>

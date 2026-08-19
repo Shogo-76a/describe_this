@@ -23,5 +23,10 @@ module App
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Minitest 用ファイルの自動生成を無効化し、RSpec を優先する
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end

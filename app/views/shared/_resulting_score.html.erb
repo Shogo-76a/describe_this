@@ -21,11 +21,21 @@
             </div>
         </div>
 
-        <div class="flex justify-center mt-20">
-            <%=button_to "つぎへ", feedback_game_path(game),
-                method: :get, 
-                class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
-                disabled: false %>
-        </div>
+        <!--ログイン分岐-->
+        <% if authenticated? %>
+            <div class="flex justify-center mt-20">
+                <%=button_to "つぎへ", feedback_game_path(game),
+                    method: :get, 
+                    class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+                    disabled: false %>
+            </div>
+        <% else %>
+            <div class="flex justify-center mt-20">
+                <%=button_to "つぎへ", feedback_guest_game_path(game),
+                    method: :get, 
+                    class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+                    disabled: false %>
+            </div>
+        <% end %>
     </div>
 </div>

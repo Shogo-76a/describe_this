@@ -33,6 +33,7 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/2f0174ba73.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -67,7 +68,7 @@
       <!-- ヘッダーの呼び出し -->
       <%= render "shared/header" %> 
       <main class="overflow-x-hidden flex-grow bg-base-200">
-      <%= yield %>
+        <%= yield %>
       </main>
       <!-- フッターの呼び出し -->
       <%= render "shared/footer" %> 
