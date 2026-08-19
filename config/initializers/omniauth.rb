@@ -18,4 +18,4 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 
 # Railsのセッション管理とOmniAuthの競合を防ぐための設定
-OmniAuth.config.allowed_request_methods = [:post]
+OmniAuth.config.allowed_request_methods = [ :post ]

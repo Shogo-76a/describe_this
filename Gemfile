@@ -48,11 +48,11 @@ gem "ruby-openai"
 # Cloud media management services for websites and apps [https://console.cloudinary.com/app/product-explorer]
 gem "cloudinary"
 
-gem 'omniauth-oauth2'
+gem "omniauth-oauth2"
 gem "omniauth-rails_csrf_protection" # omniauthの各プロバイダ用のストラテジー
-  
+
 gem "omniauth-google-oauth2"
-gem 'omniauth-line-v2_1', '>= 1.2'
+gem "omniauth-line-v2_1", ">= 1.2"
 gem "omniauth-twitter2"
 
 group :development, :test do
@@ -95,7 +95,7 @@ group :test do
   gem "webmock", require: false
   gem "vcr", require: false
   gem "simplecov", require: false
-  gem 'database_cleaner-active_record'
+  gem "database_cleaner-active_record"
 end
 
 gem "avo", ">= 3.32.1"

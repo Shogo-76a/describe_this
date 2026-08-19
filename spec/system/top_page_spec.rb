@@ -9,7 +9,7 @@ RSpec.describe 'ログイン後 トップページ', type: :system do
   it 'トップページ の要素が すべて 表示される' do
     expected_texts = [
       "こんにちは！",
-      "#{user.name} さん！",
+      "#{user.name} さん！"
     ]
 
     expect(page).to have_css(

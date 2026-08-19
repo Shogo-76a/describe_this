@@ -7,7 +7,7 @@ RSpec.describe 'ゲスト ゲームメインサイクル', type: :system do
       # --- ゲーム開始画面 ---
       visit new_guest_game_path
       page.refresh # 導入画面をスキップ
-      
+
       # このテストは new_guest_game_path を直接叩く想定
       expect(page).to have_content("お題")
       expect(page).to have_button("つぎへ")

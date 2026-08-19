@@ -31,7 +31,7 @@ class User < ApplicationRecord
     # 2. SNSアカウントが見つからない場合、今度は「同じメールアドレス」のユーザーがいないか探す
     if user.nil? && auth.info.email.present?
       user = find_by(email_address: auth.info.email.downcase.strip)
-      
+
       # メールアドレスで見つかった場合、その既存ユーザーにSNS情報を紐付ける
       if user
         user.update!(provider: auth.provider, uid: auth.uid)

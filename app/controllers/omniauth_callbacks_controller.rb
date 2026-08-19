@@ -5,13 +5,13 @@ class OmniauthCallbacksController < ApplicationController
   def create
     # 外部サービスから返ってきた認証情報を取得
     auth = request.env["omniauth.auth"]
-    
+
     # 認証情報を元にユーザーを検索、または新規作成
     user = User.from_omniauth(auth)
 
     if user.persisted?
       # Rails 8標準認証のセッション開始メソッド
-      start_new_session_for user 
+      start_new_session_for user
       redirect_to root_path
     else
       redirect_to new_session_path, alert: "アカウントの登録に失敗しました"
