@@ -1,27 +1,35 @@
 require 'rails_helper'
 
-RSpec.describe "Googleログイン", type: :request do
+RSpec.describe 'Googleログイン', type: :request do
   before do
-    # 1. テストモードを有効化
+    # 1. OmniAuthをテストモードに設定
     OmniAuth.config.test_mode = true
 
-    # 2. モックデータを作成
+    # 2. モックデータの作成（emailが含まれているか確認）
     mock_hash = OmniAuth::AuthHash.new({
       provider: 'google_oauth2',
       uid: '123456',
       info: {
-        name: 'Google太郎',
-        email_address: 'google_user@example.com'
+        name: 'テストユーザー',
+        email: 'user@example.com' # ← ここが nil になっていないか確認
       }
     })
 
-    # 3. コントローラーが読み込めるように、Rails環境にモックを直接セットする
-    Rails.application.env_config["omniauth.auth"] = mock_hash
+    # 3. OmniAuthのデフォルトモックに設定
+    OmniAuth.config.mock_auth[:google_oauth2] = mock_hash
+
+    # 4. Request Spec用に Rails の env_config に直接セットする（★最重要）
+    Rails.application.env_config['omniauth.auth'] = mock_hash
   end
 
-  it "新規ユーザーが作成されること" do
+  after do
+    OmniAuth.config.test_mode = false
+    OmniAuth.config.mock_auth[:google_oauth2] = nil
+  end
+
+  it 'ユーザーが作成されること' do
     expect {
-      get "/auth/google_oauth2/callback"
+      get '/auth/google_oauth2/callback'
     }.to change(User, :count).by(1)
   end
 end
