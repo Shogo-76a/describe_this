@@ -49,36 +49,69 @@ class GamesController < ApplicationController
   def check_generated_image
     @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
 
+    # クライアント側（Stimulus）から送られた基準時刻(sinceパラメータ)がある場合、それ以降に添付された画像だけを有効とする
+    since_time = if params[:since].present?
+      begin
+        Time.zone.parse(params[:since]) # params[:since] をサーバー側の Time オブジェクトに変換
+      rescue
+        nil
+      end
+    end
+
     if @game.generated_image.attached?
-      # 配列に入れて、1回の render turbo_stream: でまとめて返却する
-      render turbo_stream: [
-        # 画像プレースホルダーを置き換える (id="generated-image" の要素を置換)
-        turbo_stream.replace(
-          "generated-image",
-          partial: "shared/generated_image",
-          locals: { game: @game }
-        ),
+      if since_time.present?
+        attachment_time = @game.generated_image.attachment.created_at
+        if attachment_time >= since_time  # attachment_timeの方が古い 又は 同じ場合に 新しい画像と判断 -> turbo_stream を返す（200）
+          render turbo_stream: [
+            turbo_stream.update(
+              "generated-image",
+              partial: "shared/generated_image",
+              locals: { game: @game }
+            ),
 
-        # チャットコンテナの末尾にメッセージを追加 (id="chat_messages_container" の末尾に追加)
-        turbo_stream.append(
-          "chat_messages_container",
-          partial: "shared/message",
-          locals: { message: @system_replies }
-        ),
+            turbo_stream.append(
+              "chat_messages_container",
+              partial: "shared/message",
+              locals: { message: @system_replies }
+            ),
 
-        # 採点ボタンを更新して有効化 (id="scoring_button" の中身を更新)
-        # ※ game を @game に修正しています
-        turbo_stream.update(
-          "scoring_button",
-          partial: "shared/scoring_button",
-          locals: { game: @game }
-        )
-      ]
+            turbo_stream.update(
+              "scoring_button",
+              partial: "shared/scoring_button",
+              locals: { game: @game }
+            )
+          ]
+        else
+          head :no_content
+        end
+      else
+        # since パラメータがない場合は従来通り添付の有無だけで判定
+        render turbo_stream: [
+          turbo_stream.update(
+            "generated-image",
+            partial: "shared/generated_image",
+            locals: { game: @game }
+          ),
+
+          turbo_stream.append(
+            "chat_messages_container",
+            partial: "shared/message",
+            locals: { message: @system_replies }
+          ),
+
+          turbo_stream.update(
+            "scoring_button",
+            partial: "shared/scoring_button",
+            locals: { game: @game }
+          )
+        ]
+      end
     else
       # まだレコードがない場合は「204 No Content」を返し、Stimulus側に継続させる
       head :no_content
     end
   end
+
 
   def check_score
     if @game.feedback.present?

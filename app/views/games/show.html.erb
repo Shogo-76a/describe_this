@@ -54,7 +54,7 @@
             <%= form_with(model: @game, 
                         data: { 
                             controller: "chat-form", 
-                            chat_form_limit_value: 1, 
+                            chat_form_limit_value: 3, 
                             action: "
                                     submit->chat-form#validateForm 
                                     keydown->chat-form#handleKeydown 

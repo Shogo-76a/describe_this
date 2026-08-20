@@ -11,11 +11,18 @@ export default class extends Controller {
 
   connect() {
     this.attempts = 0;
+    this.timeoutId = null;
+    this.since = null;
     // connect時は checkRecord() を呼ばない
     // 画像生成ページで テキスト送信後にポーリング開始
-    this.element.addEventListener('turbo:submit-end', () =>
-      this.startPolling(),
-    );
+    this.element.addEventListener('turbo:submit-end', () => {
+      // 送信が完了した時点のタイムスタンプを発行する（since変数）
+      // サーバー側（games_controller）で添付画像の作成時刻とsinceを比較し、sinceが新しければポーリングを実行する。
+      this.since = new Date().toISOString();
+      this.attempts = 0; // 再送時は試行回数をリセット
+      this.stopPolling(); // 既存のタイマーがあればクリア
+      this.startPolling();
+    });
   }
 
   disconnect() {
@@ -32,7 +39,9 @@ export default class extends Controller {
     console.log(`ポーリング中... 回数: ${this.attempts}`);
 
     // サーバーへリクエストを送信
-    const response = await get(this.urlValue, { responseKind: 'turbo-stream' });
+    // Stimulus側で this.since をセットして GET リクエストの URL に ?since=... を付けているので、Rails 側では params[:since] として受け取れる。
+    const url = this.since ? `${this.urlValue}?since=${encodeURIComponent(this.since)}` : this.urlValue;
+    const response = await get(url, { responseKind: 'turbo-stream' });
 
     // 200 OK（画像が添付されていて、Turbo Stream が返ってきた場合）
     if (response.statusCode === 200) {
@@ -53,7 +62,7 @@ export default class extends Controller {
         console.log('画像はまだ未添付です。数秒後に再確認します。');
         this.timeoutId = setTimeout(
           () => this.checkRecord(),
-          this.intervalValue + 4000,
+          this.intervalValue,
         );
       }
     }
@@ -69,5 +78,6 @@ export default class extends Controller {
 
   stopPolling() {
     if (this.timeoutId) clearTimeout(this.timeoutId);
+    this.timeoutId = null;
   }
 }
