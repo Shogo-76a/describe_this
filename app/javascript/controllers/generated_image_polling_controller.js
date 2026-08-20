@@ -34,13 +34,39 @@ export default class extends Controller {
     this.checkRecord();
   }
 
+  stopPolling() {
+    if (this.timeoutId) clearTimeout(this.timeoutId);
+    this.timeoutId = null;
+  }
+
+  checkImageSelection(img) {
+    if (img.naturalWidth === 0) {
+      console.log("画像が表示されず、altテキストが表示されています");
+      this.startPolling();
+    }
+    else {
+      console.log("画像が正常に表示されています");
+    }
+  }
+
   async checkRecord() {
     this.attempts++;
     console.log(`ポーリング中... 回数: ${this.attempts}`);
 
-    // サーバーへリクエストを送信
+    //URLパラメータを作成。サーバーコントローラーに渡す。
+    // 1. ベースとなるURLオブジェクトを作成
+    const urlObj = new URL(this.urlValue, window.location.origin);
+    // 2. attempts（試行回数）パラメータを常に追加
+    urlObj.searchParams.set("attempts", this.attempts);
+    // 3. since パラメータが存在する場合のみ追加
     // Stimulus側で this.since をセットして GET リクエストの URL に ?since=... を付けているので、Rails 側では params[:since] として受け取れる。
-    const url = this.since ? `${this.urlValue}?since=${encodeURIComponent(this.since)}` : this.urlValue;
+    if (this.since) {
+      urlObj.searchParams.set("since", this.since); // URLSearchParamsが自動でURLエンコードしてくれます
+    }
+    // 4. 完成したURLを文字列として取得
+    const url = urlObj.toString();
+
+
     const response = await get(url, { responseKind: 'turbo-stream' });
 
     // 200 OK（画像が添付されていて、Turbo Stream が返ってきた場合）
@@ -49,6 +75,16 @@ export default class extends Controller {
         '画像が生成されました！画面を更新し、ポーリングを停止します。',
       );
       this.stopPolling(); // ここでループを終了
+
+      // 画像が表示されてることを確認
+      setTimeout(() => {
+        const imgElement = document.getElementById('checking_image_shown');
+        if (imgElement) {
+          this.checkImageSelection(imgElement);
+        } else {
+          console.error("要素 '#checking_image_shown' が見つかりませんでした。");
+        }
+      }, 1000); // 1秒ほど待ってから実行
     }
 
     // 204 No Content（レコードはあるが、画像はまだ生成中の場合）
@@ -74,10 +110,5 @@ export default class extends Controller {
       this.element.innerHTML =
         "<p class='flex items-center justify-center text-error'>予期せぬエラーが発生しました。<br>数分後にアプリを再起動してください。</p>";
     }
-  }
-
-  stopPolling() {
-    if (this.timeoutId) clearTimeout(this.timeoutId);
-    this.timeoutId = null;
   }
 }
