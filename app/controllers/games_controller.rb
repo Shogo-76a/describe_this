@@ -50,7 +50,7 @@ class GamesController < ApplicationController
     @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
 
     # クライアント側（Stimulus）から送られた基準時刻(sinceパラメータ)がある場合、それ以降に添付された画像だけを有効とする
-    since_time = 
+    since_time =
     if params[:since].present?
       Time.zone.parse(params[:since]) rescue nil
     end
