@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
   static values = { limit: { type: Number, default: 1 } };
-  static targets = ['textarea', 'submitButton'];
+  static targets = ['textarea', 'submitButton', 'submitCountDown'];
 
   initialize() {
     this.submitCount = 0;
@@ -16,6 +16,9 @@ export default class extends Controller {
 
     // 実際に送信が成功したので、ここで初めてカウントを＋1する
     this.submitCount++;
+
+    // 送信成功後に、ポップの残り回数を 1 減らす
+    this.submitCountDownTarget.textContent--;
 
     // フォームを空にして高さを戻す（既存の処理）
     this.element.reset();
