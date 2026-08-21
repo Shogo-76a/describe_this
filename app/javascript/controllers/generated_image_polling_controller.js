@@ -10,7 +10,8 @@ export default class extends Controller {
   };
 
   connect() {
-    this.attempts = 0;
+    this.attempts = 0; // ポーリングの回数をカウント
+    this.image_success = 0; // 表示成功を判定。成功時は"1"
     this.timeoutId = null;
     this.since = null;
     // connect時は checkRecord() を呼ばない
@@ -20,6 +21,7 @@ export default class extends Controller {
       // サーバー側（games_controller）で添付画像の作成時刻とsinceを比較し、sinceが新しければポーリングを実行する。
       this.since = new Date().toISOString();
       this.attempts = 0; // 再送時は試行回数をリセット
+      this.image_success = 0; // 表示判定をリセット
       this.stopPolling(); // 既存のタイマーがあればクリア
       this.startPolling();
     });
@@ -39,13 +41,13 @@ export default class extends Controller {
     this.timeoutId = null;
   }
 
-  checkImageSelection(img) {
+  checkImageShown(img) {
     if (img.naturalWidth === 0) {
-      console.log("画像が表示されず、altテキストが表示されています");
+      console.log('画像が表示されず、altテキストが表示されています');
       this.startPolling();
     }
     else {
-      console.log("画像が正常に表示されています");
+      console.log('画像が正常に表示されています');
     }
   }
 
@@ -54,18 +56,17 @@ export default class extends Controller {
     console.log(`ポーリング中... 回数: ${this.attempts}`);
 
     //URLパラメータを作成。サーバーコントローラーに渡す。
-    // 1. ベースとなるURLオブジェクトを作成
+    // ベースとなるURLオブジェクトを作成
     const urlObj = new URL(this.urlValue, window.location.origin);
-    // 2. attempts（試行回数）パラメータを常に追加
-    urlObj.searchParams.set("attempts", this.attempts);
-    // 3. since パラメータが存在する場合のみ追加
+    // image_success（画像生成完了）パラメータを追加。ブーリアンをストリングに変換しておく。
+    urlObj.searchParams.set('image_success', this.image_success);
+    // since パラメータが存在する場合のみ追加
     // Stimulus側で this.since をセットして GET リクエストの URL に ?since=... を付けているので、Rails 側では params[:since] として受け取れる。
     if (this.since) {
-      urlObj.searchParams.set("since", this.since); // URLSearchParamsが自動でURLエンコードしてくれます
+      urlObj.searchParams.set('since', this.since); // URLSearchParamsが自動でURLエンコードしてくれます
     }
-    // 4. 完成したURLを文字列として取得
+    // 完成したURLを文字列として取得
     const url = urlObj.toString();
-
 
     const response = await get(url, { responseKind: 'turbo-stream' });
 
@@ -76,11 +77,14 @@ export default class extends Controller {
       );
       this.stopPolling(); // ここでループを終了
 
+      this.image_success = 1; // 画像表示成功時に'1'を代入。
+      console.log('画像生成完了');
+
       // 画像が表示されてることを確認
       setTimeout(() => {
         const imgElement = document.getElementById('checking_image_shown');
         if (imgElement) {
-          this.checkImageSelection(imgElement);
+          this.checkImageShown(imgElement);
         } else {
           console.error("要素 '#checking_image_shown' が見つかりませんでした。");
         }

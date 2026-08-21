@@ -55,7 +55,7 @@ class GamesController < ApplicationController
       Time.zone.parse(params[:since]) rescue nil
     end
 
-    attempts_count = params[:attempts].to_i
+    image_success = params[:image_success].to_i
 
     # 1. 画像が添付されていない場合は 204 を返して終了
     unless @game.generated_image.attached?
@@ -65,7 +65,7 @@ class GamesController < ApplicationController
     if since_time.present?
       attachment_time = @game.generated_image.attachment.created_at
       if attachment_time >= since_time  # attachment_timeの方が古い 又は 同じ場合に 新しい画像と判断 -> turbo_stream を返す（200）
-        if attempts_count <= 1
+        if image_success < 1
           render turbo_stream: [
             turbo_stream.update(
               "generated-image",
