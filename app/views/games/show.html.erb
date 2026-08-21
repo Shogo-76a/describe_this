@@ -41,7 +41,7 @@
             </div>
         </div>
         
-        <div id="scoring_button", class="absolute -bottom-[-72] -right-[-83] landscape:right-auto">
+        <div id="scoring_button", class="flex justify-center mt-5">
             <%=button_to "お題を 英語で 説明してください", "#", 
                 method: :get, 
                 class: "btn btn-lg bg-neutral/50 text-neutral-content/50 font-normal text-sm w-70 h-12 rounded-2xl", 
@@ -50,7 +50,7 @@
         </div>
 
         <!-- テキスト入力欄 -->
-        <div class="max-w-2xl mx-auto w-full mt-20">
+        <div class="max-w-2xl mx-auto w-full mt-5">
             <%= form_with(model: @game, 
                         data: { 
                             controller: "chat-form", 
