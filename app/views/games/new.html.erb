@@ -2,7 +2,7 @@
     <p class="text-4xl">お題</p>
     <div>
         <p>このイメージを 英語 で伝えてください。</p>
-        <p><span class="font-bold text-primary text-lg">３回まで</span> 説明できます。</p>
+        <p><span class="font-bold text-primary text-lg"><%= @message_limit %>回まで</span> 説明できます。</p>
     </div>
     <%= image_tag @game.theme_image_url, 
         id: "gacha-image", 

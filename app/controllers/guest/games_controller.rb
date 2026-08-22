@@ -1,6 +1,10 @@
 module Guest
   class GamesController < Guest::BaseController
+    # @game = Game.find(params[:id]) をまとめてます。
     before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
+    
+    # @message_limit = 3 をまとめてます。
+    before_action :set_message_limit, only: %i[new show]
 
     def top; end
 
@@ -24,7 +28,9 @@ module Guest
       end
     end
 
-    def show; end
+    def show; 
+      @message_limit = 1
+    end
 
     def update
       updater = GameUpdater.new(@game, game_params)
@@ -126,8 +132,14 @@ module Guest
     end
 
   private
+    # 該当のゲームテーブル取得
     def set_game
       @game = Game.find(params[:id])
+    end
+
+    # メッセージ送信可能回数。ゲストモードは 1回に設定。
+    def set_message_limit
+      @message_limit = 1
     end
 
     def game_params
