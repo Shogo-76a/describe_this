@@ -45,7 +45,6 @@ export default class extends Controller {
     this.isPollingActive = false; // 停止時にポーリングのフラグをOFF（以降の通信をブロック）
     if (this.timeoutId) clearTimeout(this.timeoutId);
     this.timeoutId = null;
-    console.log('stopPollingが実行されました。ポーリングを停止します。');
   }
 
   checkImageShown(img) {
@@ -63,7 +62,6 @@ export default class extends Controller {
 
   // 画像が表示されてるか判定
   verifyImage(img) {
-    if (!this.isPollingActive) return; // 既にポーリングが停止されていれば何もしない
 
     if (img.naturalWidth === 0) {
       console.log('画像が壊れているか、表示されずaltテキストが表示されています');
@@ -77,7 +75,6 @@ export default class extends Controller {
   }
 
   async checkRecord() {
-    if (!this.isPollingActive) return; // 実行直前にポーリングフラグをチェックし、停止指示が出ていれば強制終了
 
     this.attempts++;
     console.log(`ポーリング中... 回数: ${this.attempts}`);
@@ -109,7 +106,7 @@ export default class extends Controller {
 
       // 画像が表示されてることをチェックするポーリング。
       setTimeout(() => {
-        const imgElement = document.getElementById('checking_image_shown');
+        const imgElement = this.element.querySelector('#checking_image_shown');
         if (imgElement) {
           this.checkImageShown(imgElement);
         } else {
