@@ -64,5 +64,14 @@ class GenerateImageJob < ApplicationJob
     filename: "describethisimage_#{Time.current.to_i}.png",
     content_type: "image/png"
     )
+
+    # array_contextカラムに文脈を追加する。
+    current_array = game.array_context || []
+    current_array << game.description
+    current_array << response_gpt["instructions"]
+    updated_array = current_array
+    game.array_context = updated_array
+    game.save
+
   end
 end
