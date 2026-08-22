@@ -14,7 +14,8 @@ export default class extends Controller {
     this.image_success = 0; // 表示成功を判定。成功時は"1"
     this.timeoutId = null;
     this.since = null;
-    // connect時は checkRecord() を呼ばない
+    this.isPollingActive = false; // ポーリングの稼働状態を管理するフラグ
+
     // 画像生成ページで テキスト送信後にポーリング開始
     this.element.addEventListener('turbo:submit-end', () => {
       // 送信が完了した時点のタイムスタンプを発行する（since変数）
@@ -28,30 +29,56 @@ export default class extends Controller {
   }
 
   disconnect() {
+    // コントローラー破棄時にイベントリスナーを解除
+    this.element.removeEventListener('turbo:submit-end', this.handleSubmitEnd);
     this.stopPolling();
   }
 
   startPolling() {
+    this.isPollingActive = true; // ポーリング開始時にフラグをON
+
     // フォーム送信完了後、ポーリング開始
     this.checkRecord();
   }
 
   stopPolling() {
+    this.isPollingActive = false; // 停止時にポーリングのフラグをOFF（以降の通信をブロック）
     if (this.timeoutId) clearTimeout(this.timeoutId);
     this.timeoutId = null;
+    console.log('stopPollingが実行されました。ポーリングを停止します。');
   }
 
   checkImageShown(img) {
-    if (img.naturalWidth === 0) {
-      console.log('画像が表示されず、altテキストが表示されています');
-      this.startPolling();
+    // 既に読み込みが完了しているかチェック
+    if (img.complete) {
+      this.verifyImage(img);
+    } else {
+      // 完了していない場合は、load / error イベントで待機する
+      img.addEventListener('load', () => this.verifyImage(img));
+      img.addEventListener('error', () => {
+        console.error('画像の読み込みに失敗（404など）しました');
+      });
     }
-    else {
+  }
+
+  // 画像が表示されてるか判定
+  verifyImage(img) {
+    if (!this.isPollingActive) return; // 既にポーリングが停止されていれば何もしない
+
+    if (img.naturalWidth === 0) {
+      console.log('画像が壊れているか、表示されずaltテキストが表示されています');
+      // ※ここで再度 startPolling() を呼ぶと無限ループの危険があります。
+      // もしクラウドストレージの反映遅延などで再度ポーリングしたい場合は、
+      this.timeoutId = setTimeout(() => this.checkRecord(), this.intervalValue);
+      // のようにインターバルを設け、試行回数(attempts)の上限で止まるようにしてください。
+    } else {
       console.log('画像が正常に表示されています');
     }
   }
 
   async checkRecord() {
+    if (!this.isPollingActive) return; // 実行直前にポーリングフラグをチェックし、停止指示が出ていれば強制終了
+
     this.attempts++;
     console.log(`ポーリング中... 回数: ${this.attempts}`);
 
@@ -80,7 +107,7 @@ export default class extends Controller {
       this.image_success = 1; // 画像表示成功時に'1'を代入。
       console.log('画像生成完了');
 
-      // 画像が表示されてることを確認
+      // 画像が表示されてることをチェックするポーリング。
       setTimeout(() => {
         const imgElement = document.getElementById('checking_image_shown');
         if (imgElement) {
@@ -88,7 +115,7 @@ export default class extends Controller {
         } else {
           console.error("要素 '#checking_image_shown' が見つかりませんでした。");
         }
-      }, 1000); // 1秒ほど待ってから実行
+      }, this.intervalValue); // 少し待ってから実行
     }
 
     // 204 No Content（レコードはあるが、画像はまだ生成中の場合）
