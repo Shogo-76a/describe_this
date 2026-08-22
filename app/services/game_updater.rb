@@ -6,7 +6,15 @@ class GameUpdater
 
   # returns [success, errors, system_replies]
   def call
-    if @game.update(@params)
+
+    @game.description = @params[:description]
+
+    # 配列に説明を追加する。
+    current_array = @game.array_description || []
+    updated_array = current_array << @game.description
+    @game.array_description = updated_array
+
+    if @game.save
       # enqueue job
       GenerateImageJob.perform_later(@game, "English")
       if Current.user.present?
