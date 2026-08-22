@@ -3,7 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
   static values = { limit: { type: Number, default: 1 } };
-  static targets = ['textarea', 'submitButton', 'submitCountDown'];
+  static targets = ['textarea', 'sendButton', 'submitCountDown'];
 
   initialize() {
     this.submitCount = 0;
@@ -26,8 +26,8 @@ export default class extends Controller {
 
     // 成功回数が制限に達したら、ボタンを無効化する
     if (this.submitCount >= this.limitValue) {
-      this.submitButtonTarget.disabled = true;
-      this.submitButtonTarget.classList.add('btn-disabled');
+      this.sendButtonTarget.disabled = true;
+      this.sendButtonTarget.classList.add('btn-disabled');
     }
   }
 
@@ -53,7 +53,7 @@ export default class extends Controller {
 
   // キーボードが押されたときに発火するメソッド
   handleKeydown(event) {
-    if (this.submitButtonTarget.disabled) {
+    if (this.sendButtonTarget.disabled) {
       // もし無効化中にEnterを押された場合、改行すらさせずに完全に無視したいなら preventDefault() を有効にします
       // 改行だけは許すなら、単に「return」にするだけでOKです
       if (event.key === 'Enter' && !event.shiftKey) {

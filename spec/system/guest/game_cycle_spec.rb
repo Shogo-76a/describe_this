@@ -19,7 +19,7 @@ RSpec.describe 'ゲスト ゲームメインサイクル', type: :system do
       expect(page).to have_button("お題を 英語で 説明してください", disabled: true)
       fill_in 'game_description', with: 'a coffe cup on a tablu and the warm soft light is spot these items through a window in front of the table.' # スペルミスを意図的に含む coffe:coffee, tablu:table
       find('button.btn-primary.d-inline-flex').click # 送信ボタン
-      expect(page).to have_css('button[data-chat-form-target="submitButton"][disabled]')
+      expect(page).to have_css('button[data-guest--chat-form-target="sendButton"][disabled]')
 
       # 送信後、採点ボタンが有効になることを確認（画像生成/ジョブ結果をVCRで再生）
       expect(page).to have_button("採点", disabled: false, wait: 60)
