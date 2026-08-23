@@ -108,7 +108,7 @@ module Guest
 
     def score
       # 採点のJobを実行
-      GuestScoringJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+      Guest::ScoringJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
     end
 
     def feedback
