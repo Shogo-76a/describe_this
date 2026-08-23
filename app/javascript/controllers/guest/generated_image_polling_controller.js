@@ -15,13 +15,15 @@ export default class extends Controller {
     this.timeoutId = null;
     this.isPollingActive = false; // ポーリングの稼働状態を管理するフラグ
 
-    // 画像生成ページで テキスト送信後にポーリング開始
-    this.element.addEventListener('turbo:submit-end', () => {
+    this.handleSubmitEnd = () => {
       this.attempts = 0; // 再送時は試行回数をリセット
       this.image_success = 0; // 表示判定をリセット
       this.stopPolling(); // 既存のタイマーがあればクリア
       this.startPolling();
-    });
+    };
+
+    // 画像生成ページで テキスト送信後にポーリング開始
+    this.element.addEventListener('turbo:submit-end', this.handleSubmitEnd);
   }
 
   disconnect() {
@@ -72,6 +74,9 @@ export default class extends Controller {
 
   async checkRecord() {
 
+    // 実行直前にチェック（すでに停止中なら動かさない）
+    if (!this.isPollingActive) return;
+
     this.attempts++;
     console.log(`ポーリング中... 回数: ${this.attempts}`);
 
@@ -84,6 +89,9 @@ export default class extends Controller {
     const url = urlObj.toString();
 
     const response = await get(url, { responseKind: 'turbo-stream' });
+
+    // 通信完了直後にチェック（通信中に画面遷移して停止フラグが立っていたら中断）
+    if (!this.isPollingActive) return;
 
     // 200 OK（画像が添付されていて、Turbo Stream が返ってきた場合）
     if (response.statusCode === 200) {
