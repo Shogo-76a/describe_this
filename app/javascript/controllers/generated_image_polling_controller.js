@@ -33,6 +33,7 @@ export default class extends Controller {
   disconnect() {
     // コントローラー破棄時にイベントリスナーを解除
     this.element.removeEventListener('turbo:submit-end', this.handleSubmitEnd);
+    this.isPollingActive = false; // 停止時にポーリングのフラグをOFF（以降の通信をブロック）
     this.stopPolling();
   }
 
@@ -44,7 +45,6 @@ export default class extends Controller {
   }
 
   stopPolling() {
-    this.isPollingActive = false; // 停止時にポーリングのフラグをOFF（以降の通信をブロック）
     if (this.timeoutId) clearTimeout(this.timeoutId);
     this.timeoutId = null;
   }
@@ -73,6 +73,7 @@ export default class extends Controller {
       // のようにインターバルを設け、試行回数(attempts)の上限で止まるようにしてください。
     } else {
       console.log('画像が正常に表示されています');
+      this.isPollingActive = false; // 停止時にポーリングのフラグをOFF（以降の通信をブロック）
     }
   }
 
