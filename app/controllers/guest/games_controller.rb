@@ -1,6 +1,10 @@
 module Guest
   class GamesController < Guest::BaseController
+    # @game = Game.find(params[:id]) をまとめてます。
     before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
+
+    # @message_limit = 3 をまとめてます。
+    before_action :set_message_limit, only: %i[new show]
 
     def top; end
 
@@ -24,7 +28,9 @@ module Guest
       end
     end
 
-    def show; end
+    def show
+      @message_limit = 1
+    end
 
     def update
       updater = GameUpdater.new(@game, game_params)
@@ -43,32 +49,44 @@ module Guest
 
     def check_generated_image
       @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
+      image_success = params[:image_success].to_i
 
       if @game.generated_image.attached?
-        # 配列に入れて、1回の render turbo_stream: でまとめて返却する
-        render turbo_stream: [
-          # 画像プレースホルダーを置き換える (id="generated-image" の要素を置換)
-          turbo_stream.replace(
-            "generated-image",
-            partial: "shared/generated_image",
-            locals: { game: @game }
-          ),
+        if image_success < 1
+          render turbo_stream: [
+            turbo_stream.update(
+              "generated-image",
+              partial: "shared/generated_image",
+              locals: { game: @game }
+            ),
 
-          # チャットコンテナの末尾にメッセージを追加 (id="chat_messages_container" の末尾に追加)
-          turbo_stream.append(
-            "chat_messages_container",
-            partial: "shared/message",
-            locals: { message: @system_replies }
-          ),
+            turbo_stream.append(
+              "chat_messages_container",
+              partial: "shared/message",
+              locals: { message: @system_replies }
+            ),
 
-          # 採点ボタンを更新して有効化 (id="scoring_button" の中身を更新)
-          # ※ game を @game に修正しています
-          turbo_stream.update(
-            "scoring_button",
-            partial: "shared/scoring_button",
-            locals: { game: @game }
-          )
-        ]
+            turbo_stream.update(
+              "scoring_button",
+              partial: "shared/scoring_button",
+              locals: { game: @game }
+            )
+          ]
+        else
+          render turbo_stream: [
+            turbo_stream.update(
+              "generated-image",
+              partial: "shared/generated_image",
+              locals: { game: @game }
+            ),
+
+            turbo_stream.update(
+              "scoring_button",
+              partial: "shared/scoring_button",
+              locals: { game: @game }
+            )
+          ]
+        end
       else
         # まだレコードがない場合は「204 No Content」を返し、Stimulus側に継続させる
         head :no_content
@@ -90,7 +108,7 @@ module Guest
 
     def score
       # 採点のJobを実行
-      GuestScoringJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+      Guest::ScoringJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
     end
 
     def feedback
@@ -114,8 +132,14 @@ module Guest
     end
 
   private
+    # 該当のゲームテーブル取得
     def set_game
       @game = Game.find(params[:id])
+    end
+
+    # メッセージ送信可能回数。ゲストモードは 1回に設定。
+    def set_message_limit
+      @message_limit = 1
     end
 
     def game_params

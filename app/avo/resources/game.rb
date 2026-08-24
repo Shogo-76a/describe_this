@@ -9,6 +9,7 @@ class Avo::Resources::Game < Avo::BaseResource
     field :id, as: :id
     field :session_id, as: :text
     field :description, as: :textarea
+    field :array_context, as: :tags
     field :theme_image_url, as: :text
     field :feedback, as: :code
     field :generated_image, as: :file

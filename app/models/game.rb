@@ -3,8 +3,11 @@
 # Table name: games
 #
 #  id              :bigint           not null, primary key
+#  array_context   :string           default([]), is an Array
 #  description     :text
 #  feedback        :jsonb
+#  image_seq       :integer          default(0), not null
+#  message_seq     :integer          default(0), not null
 #  theme_image_url :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

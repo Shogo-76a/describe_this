@@ -13,13 +13,9 @@ export default class extends Controller {
     this.attempts = 0; // ポーリングの回数をカウント
     this.image_success = 0; // 表示成功を判定。成功時は"1"
     this.timeoutId = null;
-    this.since = null;
     this.isPollingActive = false; // ポーリングの稼働状態を管理するフラグ
 
     this.handleSubmitEnd = () => {
-      // 送信が完了した時点のタイムスタンプを発行する（since変数）
-      // サーバー側（games_controller）で添付画像の作成時刻とsinceを比較し、sinceが新しければポーリングを実行する。
-      this.since = new Date().toISOString();
       this.attempts = 0; // 再送時は試行回数をリセット
       this.image_success = 0; // 表示判定をリセット
       this.stopPolling(); // 既存のタイマーがあればクリア
@@ -45,6 +41,7 @@ export default class extends Controller {
   }
 
   stopPolling() {
+    this.isPollingActive = false; // 停止時にポーリングのフラグをOFF（以降の通信をブロック）
     if (this.timeoutId) clearTimeout(this.timeoutId);
     this.timeoutId = null;
   }
@@ -90,11 +87,6 @@ export default class extends Controller {
     const urlObj = new URL(this.urlValue, window.location.origin);
     // image_success（画像生成完了）パラメータを追加。ブーリアンをストリングに変換しておく。
     urlObj.searchParams.set('image_success', this.image_success);
-    // since パラメータが存在する場合のみ追加
-    // Stimulus側で this.since をセットして GET リクエストの URL に ?since=... を付けているので、Rails 側では params[:since] として受け取れる。
-    if (this.since) {
-      urlObj.searchParams.set('since', this.since); // URLSearchParamsが自動でURLエンコードしてくれます
-    }
     // 完成したURLを文字列として取得
     const url = urlObj.toString();
 

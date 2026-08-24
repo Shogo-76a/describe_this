@@ -2,32 +2,68 @@ class GenerateImageJob < ApplicationJob
   queue_as :default
 
   def perform(game, language)
-    Rails.logger.info "ジョブが実行されました: #{game}"
+    Rails.logger.info "画像生成ジョブが実行されました: #{game}"
 
-    # gptへの指示（プロンプト）を作成する。今回はJSON形式での出力を厳密に指示する。
-    prompt = <<-PROMPT
-    Read the user's description "#{game.description}" as a #{language} native speaker, and create an English image generation prompt for the "FLUX.1 Schnell" API.
+    if game.array_context?
+      Rails.logger.info "コンテキストが読み込まれました"
+      # gptへの指示（プロンプト）を作成する。今回はJSON形式での出力を厳密に指示する。
+      prompt = <<-PROMPT
+      Act as a #{language} native speaker and an expert prompt engineer.
+      Read the user's latest description "#{game.description}", and create an English image generation prompt for the "FLUX.1 Schnell" API.
 
-    Following a 4-stage psychological and cognitive linguistic process of image elaboration, apply "appropriate and natural elaboration" while keeping the user's exact words as the main focus.
+      [Conversation History]
+      Below is the history of the previous turns, provided as an array alternating between the User's descriptions and your generated prompts:
+      #{game.array_context}
 
-    [The 4-Stage Elaboration Rules]
-    1. Literal: You must rigidly include all specific elements (nouns, verbs, adjectives) explicitly stated in the description and place them at the center of the image.
-    2. Experiential: Fill in the natural, implicit details required for the situation to realistically exist (e.g., if it's a person, add clothes/hair; if it's an object, add texture or placement).
-    3. Associative: Supplement the scene with an associated natural background (setting), time of day, lighting, and atmosphere. If no setting is specified by the user, provide a natural, generic background.
-    4. Artistic (SUPPRESS): Unless explicitly stated by the user, do NOT add excessive metaphors, surreal art styles, or extreme compositions. Maintain a clean, high-resolution, photorealistic style.
+      CRUCIAL: Treat the user's latest description as a continuation, modification, or refinement of this history. You must maintain continuity with the previously established scene (subjects, setting, atmosphere) while seamlessly integrating the new details requested by the user. If the history is empty, treat this as a brand new image.
 
-    Use the [Subject + Setting + Lighting] syntax below as a reference for your description:
-    Example: A macro photo of a single rain droplet on a neon-green leaf, sunset light reflecting inside the water, sharp focus, cinematic bokeh.
+      Following a 4-stage psychological and cognitive linguistic process of image elaboration, apply "appropriate and natural elaboration" while keeping the user's exact words as the main focus.
 
-    Respond STRICTLY in the following JSON format, keeping the exact keys and value types:
+      [The 4-Stage Elaboration Rules]
+      1. Literal: You must rigidly include all specific elements (nouns, verbs, adjectives) explicitly stated in the latest description (and carried over from the history) and place them at the center of the image.
+      2. Experiential: Fill in the natural, implicit details required for the situation to realistically exist (e.g., if it's a person, add clothes/hair; if it's an object, add texture or placement).
+      3. Associative: Supplement the scene with an associated natural background (setting), time of day, lighting, and atmosphere. If no setting is specified, provide a natural, generic background.
+      4. Artistic (SUPPRESS): Unless explicitly stated by the user, do NOT add excessive metaphors, surreal art styles, or extreme compositions. Maintain a clean, high-resolution, photorealistic style.
 
-    {
-        "Subject": "The main subject including [Literal] and [Experiential] elements (e.g., A single rain droplet)",
-        "Setting": "The background or location supplemented by [Associative] elaboration (e.g., On a neon-green leaf)",
-        "Lighting": "The lighting or time of day supplemented by [Associative] elaboration (e.g., Sunset light reflecting inside the water)",
-        "instructions": "The final prompt for FLUX.1 Schnell combining the Subject, Setting, and Lighting above into a single, natural English sentence."
-    }
-    PROMPT
+      Use the [Subject + Setting + Lighting] syntax below as a reference for your description:
+      Example: A macro photo of a single rain droplet on a neon-green leaf, sunset light reflecting inside the water, sharp focus, cinematic bokeh.
+
+      Respond STRICTLY in the following JSON format, keeping the exact keys and value types:
+
+      {
+          "Subject": "The main subject including [Literal] and [Experiential] elements (e.g., A single rain droplet)",
+          "Setting": "The background or location supplemented by [Associative] elaboration (e.g., On a neon-green leaf)",
+          "Lighting": "The lighting or time of day supplemented by [Associative] elaboration (e.g., Sunset light reflecting inside the water)",
+          "instructions": "The final prompt for FLUX.1 Schnell combining the Subject, Setting, and Lighting above into a single, natural English sentence."
+      }
+      PROMPT
+    else
+      Rails.logger.info "初回の生成プロンプトを作成します"
+      # gptへの指示（プロンプト）を作成する。今回はJSON形式での出力を厳密に指示する。
+      prompt = <<-PROMPT
+      Read the user's description "#{game.description}" as a #{language} native speaker, and create an English image generation prompt for the "FLUX.1 Schnell" API.
+
+      Following a 4-stage psychological and cognitive linguistic process of image elaboration, apply "appropriate and natural elaboration" while keeping the user's exact words as the main focus.
+
+      [The 4-Stage Elaboration Rules]
+      1. Literal: You must rigidly include all specific elements (nouns, verbs, adjectives) explicitly stated in the description and place them at the center of the image.
+      2. Experiential: Fill in the natural, implicit details required for the situation to realistically exist (e.g., if it's a person, add clothes/hair; if it's an object, add texture or placement).
+      3. Associative: Supplement the scene with an associated natural background (setting), time of day, lighting, and atmosphere. If no setting is specified by the user, provide a natural, generic background.
+      4. Artistic (SUPPRESS): Unless explicitly stated by the user, do NOT add excessive metaphors, surreal art styles, or extreme compositions. Maintain a clean, high-resolution, photorealistic style.
+
+      Use the [Subject + Setting + Lighting] syntax below as a reference for your description:
+      Example: A macro photo of a single rain droplet on a neon-green leaf, sunset light reflecting inside the water, sharp focus, cinematic bokeh.
+
+      Respond STRICTLY in the following JSON format, keeping the exact keys and value types:
+
+      {
+          "Subject": "The main subject including [Literal] and [Experiential] elements (e.g., A single rain droplet)",
+          "Setting": "The background or location supplemented by [Associative] elaboration (e.g., On a neon-green leaf)",
+          "Lighting": "The lighting or time of day supplemented by [Associative] elaboration (e.g., Sunset light reflecting inside the water)",
+          "instructions": "The final prompt for FLUX.1 Schnell combining the Subject, Setting, and Lighting above into a single, natural English sentence."
+      }
+      PROMPT
+    end
 
     # OpenAI APIクライアントを初期化する
     client = OpenAI::Client.new
@@ -64,5 +100,13 @@ class GenerateImageJob < ApplicationJob
     filename: "describethisimage_#{Time.current.to_i}.png",
     content_type: "image/png"
     )
+
+    # array_contextカラムに文脈を追加する。
+    current_array = game.array_context || []
+    current_array << game.description
+    current_array << response_gpt["instructions"]
+    updated_array = current_array
+    game.array_context = updated_array
+    game.save
   end
 end
