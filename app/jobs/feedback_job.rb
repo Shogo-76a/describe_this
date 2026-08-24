@@ -36,7 +36,7 @@ class FeedbackJob < ApplicationJob
     Output ONLY a valid JSON object. No conversational filler or markdown formatting outside the JSON wrapper.
     {
       "overall": (integer, 0-100 based on scoring criteria),
-      "image_analysis": "Explain in #{explanation_lang} how well the descriptions conveyed the image to the other party. Include what was successfully communicated, what didn't quite come across, and specific tips/phrases to convey a more specific image to the AI next time. [CRUCIAL: If score < 40, NEVER use this disclaimer; explain why the main image failed to come across in the AI's Image].",
+      "image_analysis": "Evaluate in #{explanation_lang} how well the descriptions conveyed the image. Include successes, missing details, and specific tips. [CRUCIAL: Use `\\n\\n` to separate logical paragraphs (Overall, Successes, Tips). If score < 40, skip disclaimers and strictly explain why the core image failed.]",
       "proposals": [
         {
           "original_text": "One of the exact texts provided by the user from the input array.",
