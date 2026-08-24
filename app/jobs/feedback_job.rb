@@ -75,8 +75,8 @@ class FeedbackJob < ApplicationJob
           {
               role: "user",
               content: [
-              { 
-                type: "text", 
+              {
+                type: "text",
                 text: "Here are the descriptions the user tried:\n#{user_messages}\n\nPlease evaluate them based on the system instructions."
               },
               # 1つ目の画像のアナウンス

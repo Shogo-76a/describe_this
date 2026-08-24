@@ -2,7 +2,7 @@ module Guest
   class GamesController < Guest::BaseController
     # @game = Game.find(params[:id]) をまとめてます。
     before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
-    
+
     # @message_limit = 3 をまとめてます。
     before_action :set_message_limit, only: %i[new show]
 
@@ -28,7 +28,7 @@ module Guest
       end
     end
 
-    def show; 
+    def show
       @message_limit = 1
     end
 

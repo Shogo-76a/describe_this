@@ -108,6 +108,5 @@ class GenerateImageJob < ApplicationJob
     updated_array = current_array
     game.array_context = updated_array
     game.save
-
   end
 end
