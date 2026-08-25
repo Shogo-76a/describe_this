@@ -140,14 +140,7 @@ RSpec.configure do |config|
   # 自作したモジュールをRequest Specで使えるようにする
   config.include RequestLoginSupport, type: :request
 
-  # Jobを同期実行に変更
-  config.around(:each, type: :system) do |example|
-    # System Specの時だけ、バックグラウンドJobを同期実行
-    original_adapter = ActiveJob::Base.queue_adapter
-    ActiveJob::Base.queue_adapter = :inline
-    example.run
-    ActiveJob::Base.queue_adapter = original_adapter
-  end
+  config.include CurrentAttributesSupport, type: :system
 
   # System Specの時だけ、アダプタを変更するときに。
   # config.before(:each, type: :system) do

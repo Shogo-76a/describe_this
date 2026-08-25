@@ -70,7 +70,18 @@ class GamesController < ApplicationController
 
     if since_time.present?
       attachment_time = @game.generated_image.attachment.created_at
+
+      # 🔍 デバッグログ
+      Rails.logger.info "📊 Polling check:"
+      Rails.logger.info "  since_time: #{since_time.inspect}"
+      Rails.logger.info "  attachment_time: #{attachment_time.inspect}"
+      Rails.logger.info "  attachment_time >= since_time? #{attachment_time >= since_time}"
+
+
       if attachment_time >= since_time  # attachment_timeの方が古い 又は 同じ場合に 新しい画像と判断 -> turbo_stream を返す（200）
+        
+        Rails.logger.info "✅ Image is newer, returning turbo_stream"
+
         if image_success < 1
           render turbo_stream: [
             turbo_stream.update(
@@ -107,9 +118,11 @@ class GamesController < ApplicationController
           ]
         end
       else
+        Rails.logger.info "❌ Image is older, returning 204"
         head :no_content
       end
     else
+      Rails.logger.info "⚠️ since_time is nil, using else branch"
       # since パラメータがない場合は従来通り添付の有無だけで判定
       render turbo_stream: [
         turbo_stream.update(
