@@ -38,7 +38,6 @@ class GamesController < ApplicationController
   def show; end
 
   def update
-
     # ユーザーのメッセージ送信回数。check_generated_imageアクションで画面更新する要素を分岐する
     @game.message_seq += 1
 
@@ -67,7 +66,7 @@ class GamesController < ApplicationController
     end
 
     if @game.message_seq.present?
-      if @game.message_seq <= @game.image_seq 
+      if @game.message_seq <= @game.image_seq
         if image_success < 1
           render turbo_stream: [
             turbo_stream.update(
