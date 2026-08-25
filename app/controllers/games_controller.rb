@@ -38,6 +38,9 @@ class GamesController < ApplicationController
   def show; end
 
   def update
+    # ユーザーのメッセージ送信回数。check_generated_imageアクションで画面更新する要素を分岐する
+    @game.message_seq += 1
+
     updater = GameUpdater.new(@game, game_params)
     success, errors, system_replies = updater.call
 
@@ -55,12 +58,6 @@ class GamesController < ApplicationController
   def check_generated_image
     @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
 
-    # クライアント側（Stimulus）から送られた基準時刻(sinceパラメータ)がある場合、それ以降に添付された画像だけを有効とする
-    since_time =
-    if params[:since].present?
-      Time.zone.parse(params[:since]) rescue nil
-    end
-
     image_success = params[:image_success].to_i
 
     # 1. 画像が添付されていない場合は 204 を返して終了
@@ -68,9 +65,8 @@ class GamesController < ApplicationController
       return head :no_content
     end
 
-    if since_time.present?
-      attachment_time = @game.generated_image.attachment.created_at
-      if attachment_time >= since_time  # attachment_timeの方が古い 又は 同じ場合に 新しい画像と判断 -> turbo_stream を返す（200）
+    if @game.message_seq.present?
+      if @game.message_seq <= @game.image_seq
         if image_success < 1
           render turbo_stream: [
             turbo_stream.update(
@@ -110,7 +106,6 @@ class GamesController < ApplicationController
         head :no_content
       end
     else
-      # since パラメータがない場合は従来通り添付の有無だけで判定
       render turbo_stream: [
         turbo_stream.update(
           "generated-image",
