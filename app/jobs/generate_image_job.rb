@@ -101,6 +101,9 @@ class GenerateImageJob < ApplicationJob
     content_type: "image/png"
     )
 
+    # 生成画像がアタッチされた回数。gamesコントローラで画面更新する要素を分岐する
+    game.image_seq += 1
+
     # array_contextカラムに文脈を追加する。
     current_array = game.array_context || []
     current_array << game.description

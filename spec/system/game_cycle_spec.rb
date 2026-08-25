@@ -5,14 +5,7 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
 
   let(:user) { create(:user) }
   before do
-    #sign_in(user) # 共通化した登録処理を呼び出し
-
-    visit new_session_path # ログインページのパス
-    page.refresh # 導入画面をスキップ
-    fill_in "email_address", with: user.email_address
-    fill_in "password", with: user.password
-    click_button "ログイン"
-
+    sign_in(user) # 共通化した登録処理を呼び出し
     find('.modal').send_keys(:escape) # ポップアップを消す
   end
 
