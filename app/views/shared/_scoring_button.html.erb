@@ -1,6 +1,6 @@
 <!--ログイン分岐-->
 <% if authenticated? %>
-    <%=button_to "採点", score_user_game_path(current_user, game),
+    <%=button_to "採点", score_user_game_path(game.user_id, game),
         method: :get, 
         class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
         disabled: false, 

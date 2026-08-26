@@ -7,7 +7,7 @@
 
 <div 
   data-controller="score-polling"
-  data-score-polling-url-value="<%= check_score_user_game_path(current_user, @game) %>"
+  data-score-polling-url-value="<%= check_score_user_game_path(@game.user_id, @game) %>"
   data-score-polling-max-attempts-value="60"
   data-score-polling-interval-value="2000"
 >

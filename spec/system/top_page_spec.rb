@@ -21,7 +21,7 @@ RSpec.describe 'ログイン後 トップページ', type: :system do
     end
     expect(page).to have_button("はじめる")
     expect(page).to have_link("ホーム", href: root_path)
-    expect(page).to have_link("プレイ履歴", href: "#")
+    expect(page).to have_link("プレイ履歴", href: user_games_path(user.id))
     expect(page).to have_link("プロフィール", href: user_path(user.id))
   end
 end

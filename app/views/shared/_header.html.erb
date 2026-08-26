@@ -45,7 +45,7 @@
     <!-- 両端にホーム用ボタン(レコード削除機能) と テーマボタン があるヘッダー -->
     <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
         <% if authenticated? %>
-            <%= button_to user_game_path(current_user, @game), method: :delete, class: "inline-block" do %>
+            <%= button_to user_game_path(@game.user_id, @game), method: :delete, class: "inline-block" do %>
                 <div 
                     class="bg-base-content/75 w-11 h-11" 
                     style="
