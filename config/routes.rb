@@ -19,8 +19,8 @@ Rails.application.routes.draw do
   resources :registrations, only: [ :new, :create ] # ユーザー登録画面
 
   # ゲストルート
+  root "guest/games#top"
   namespace :guest do
-    root "games#top"
     resources :games, only: [ :new, :create, :show, :update, :destroy ] do
       member do
         get :score
@@ -29,21 +29,19 @@ Rails.application.routes.draw do
         get :check_score
       end
     end
-
     resources :users, only: [ :show ]
   end
 
   # 認証ルート
-  root "games#top"
-  resources :games, only: [ :new, :create, :show, :update, :destroy ] do
-    member do
-      get :top
-      get :score
-      get :feedback
-      get :check_generated_image
-      get :check_score
+  resources :users, only: [ :show ] do
+    resources :games, only: [ :new, :create, :show, :update, :destroy ] do
+      member do
+        get :top
+        get :score
+        get :feedback
+        get :check_generated_image
+        get :check_score
+      end
     end
   end
-
-  resources :users, only: [ :show ]
 end
