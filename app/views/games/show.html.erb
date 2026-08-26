@@ -6,7 +6,7 @@
 <% end %>
 <div 
   data-controller="generated-image-polling"
-  data-generated-image-polling-url-value="<%= check_generated_image_game_path(@game) %>"
+  data-generated-image-polling-url-value="<%= check_generated_image_user_game_path(@game) %>"
   data-generated-image-polling-max-attempts-value="300"
   data-generated-image-polling-interval-value="2000"
   class="bg-base-300 min-h-full flex flex-col pt-0 z-10"
@@ -49,7 +49,7 @@
 
         <!-- テキスト入力欄 -->
         <div class="max-w-2xl mx-auto w-full mt-5">
-            <%= form_with(model: @game, 
+            <%= form_with(url: user_game_path(current_user, @game), model: @game, 
                         data: { 
                             controller: "chat-form", 
                             chat_form_limit_value: @message_limit, 

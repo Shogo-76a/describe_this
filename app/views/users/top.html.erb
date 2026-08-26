@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="flex flex-col mt-15">
-        <%=button_to "はじめる", new_game_path(@user), method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+        <%=button_to "はじめる", new_user_game_path(@user.id), method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
       </div>
     </div>
 

@@ -12,10 +12,22 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  session_id      :string
+#  user_id         :bigint           not null
+#
+# Indexes
+#
+#  index_games_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 class Game < ApplicationRecord
     has_one_attached :generated_image
+    belongs_to :user
+
     validates :description, presence: true, on: :update
+    
     # description カラムに文字が入っていれば、ユーザーからのメッセージと判定する
     def from_user?
         self.description.present?

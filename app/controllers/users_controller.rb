@@ -1,5 +1,14 @@
 class UsersController < ApplicationController
   include Authentication
+
+  def top
+    if authenticated?
+      @user = current_user
+    else
+      redirect_to root_path
+    end
+  end
+
   def show
     @user = current_user
   end

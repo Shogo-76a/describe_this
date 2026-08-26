@@ -6,31 +6,21 @@ class GamesController < ApplicationController
   # @message_limit = 3 をまとめてます。
   before_action :set_message_limit, only: %i[new show]
 
-  allow_unauthenticated_access only: %i[top]
-
-  def top
-    if authenticated?
-      @user = current_user
-    else
-      redirect_to root_path
-    end
-  end
-
   def new
     if params[:image_url].present?
-      @game = Game.new(theme_image_url: params[:image_url])
+      @game = current_user.games.build(theme_image_url: params[:image_url])
     else
       picker = ThemeImagePicker.new
       image_url = picker.call
-      @game = Game.new(theme_image_url: image_url)
+      @game = current_user.games.build(theme_image_url: image_url)
     end
   end
 
   def create
-    @game = Game.new(game_params)
+    @game = current_user.games.build(game_params)
 
     if @game.save
-      redirect_to @game
+      redirect_to user_game_path(current_user, @game)
     else
       render :new, status: :unprocessable_entity
     end
@@ -160,7 +150,7 @@ class GamesController < ApplicationController
 private
   # 該当のゲームテーブル取得
   def set_game
-    @game = Game.find(params[:id])
+    @game = current_user.games.find(params[:id])
   end
 
   # メッセージ送信可能回数
