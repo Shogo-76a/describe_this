@@ -35,6 +35,7 @@ class FeedbackJob < ApplicationJob
     # Output Format
     Output ONLY a valid JSON object. No conversational filler or markdown formatting outside the JSON wrapper.
     {
+      "title_for_history": "A short, atmospheric, and stylish title (1-4 words) in #{target_lang} based on the user's description. Make it sound like a music album or track title—poetic, evocative, and cinematic (e.g., '朝の静けさと水色の湖' or 'Silent Waters at Dawn' instead of 'カヌーに乗る女性').",
       "overall": (integer, 0-100 based on scoring criteria),
       "image_analysis": "Evaluate in #{explanation_lang} how well the descriptions conveyed the image. Include successes, missing details, and specific tips. [CRUCIAL: Use `\\n\\n` to separate logical paragraphs (Overall, Successes, Tips). If score < 40, skip disclaimers and strictly explain why the core image failed.]",
       "proposals": [

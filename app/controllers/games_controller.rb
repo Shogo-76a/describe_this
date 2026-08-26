@@ -7,7 +7,7 @@ class GamesController < ApplicationController
   before_action :set_message_limit, only: %i[new show]
 
   def index
-    @game = current_user.games.all
+    @games = current_user.games.all.order(created_at: :desc).includes([:generated_image_attachment])
   end
 
   def new
