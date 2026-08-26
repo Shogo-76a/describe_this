@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  include Authentication
   # @game = Game.find(params[:id]) をまとめてます。
   before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
 
@@ -8,10 +9,10 @@ class GamesController < ApplicationController
   allow_unauthenticated_access only: %i[top]
 
   def top
-    if Current.user.present?
-      @user = Current.user
+    if authenticated?
+      @user = current_user
     else
-      redirect_to guest_root_path
+      redirect_to root_path
     end
   end
 
@@ -170,4 +171,11 @@ private
   def game_params
     params.require(:game).permit(:description, :generated_image, :theme_image_url)
   end
+
+
+  def current_user
+    Current.session&.user
+  end
+  helper_method :current_user
+
 end

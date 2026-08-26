@@ -8,7 +8,7 @@ module Guest
     private
 
     def redirect_if_authenticated
-      redirect_to root_path if authenticated?
+      redirect_to top_game_path(Current.user.id) if authenticated?
     end
   end
 end
