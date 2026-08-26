@@ -5,12 +5,12 @@ RSpec.describe "Games", type: :request do
   let(:user) { create(:user) }
 
   before do
-    sign_in(user)
+    sign_in_request(user)
   end
 
   describe "GET /top" do
     it "正常にレスポンスを返すこと" do
-      get root_path
+      get top_user_path(user.id)
       expect(response).to have_http_status(:success)
     end
   end
@@ -18,7 +18,7 @@ RSpec.describe "Games", type: :request do
   describe "GET /new" do
     context "params[:image_url] が存在する場合" do
       it "指定された image_url を持つ Game オブジェクトが割り当てられること" do
-        get new_game_path, params: { image_url: "http://example.com/custom.png" }
+        get new_user_game_path(user.id), params: { image_url: "http://example.com/custom.png" }
         expect(response).to have_http_status(:success)
         # 画面上に該当URLが表示されるか等で検証できます
         expect(response.body).to include("http://example.com/custom.png")
@@ -29,7 +29,7 @@ RSpec.describe "Games", type: :request do
       context "Cloudinary から画像が取得できた場合" do
         it "ランダムな画像が選択されて割り当てられること" do
           allow(CloudinaryFolderService).to receive(:fetch_images_from_folder).and_return([ "image1", "image2" ])
-          get new_game_path
+          get new_user_game_path(user.id)
           expect(response).to have_http_status(:success)
         end
       end
@@ -37,7 +37,7 @@ RSpec.describe "Games", type: :request do
       context "Cloudinary のフォルダが空の場合" do
         it "デフォルトのプレースホルダー画像 (placeholder_gray.png) が割り当てられること" do
           allow(CloudinaryFolderService).to receive(:fetch_images_from_folder).and_return([])
-          get new_game_path
+          get new_user_game_path(user.id)
           expect(response.body).to include("placeholder_gray.png")
         end
       end
@@ -50,7 +50,7 @@ RSpec.describe "Games", type: :request do
           # ログが出力されることを期待
           expect(Rails.logger).to receive(:error).with("ThemeImagePicker Error: Test API Error")
 
-          get new_game_path
+          get new_user_game_path(user.id)
           expect(response.body).to include("placeholder_white.png")
         end
       end
@@ -61,9 +61,9 @@ RSpec.describe "Games", type: :request do
     context "保存に成功する場合" do
       it "新しい Game を作成し、show アクションへリダイレクトすること" do
         expect {
-          post games_path, params: { game: { theme_image_url: "test.png", description: "test desc" } }
+          post user_games_path(user_id: user.id), params: { game: { theme_image_url: "test.png", description: "test desc" } }
         }.to change(Game, :count).by(1)
-        expect(response).to redirect_to(Game.last)
+        expect(response).to redirect_to(user_game_path(user_id: user.id, id: Game.last))
       end
     end
 
@@ -73,7 +73,7 @@ RSpec.describe "Games", type: :request do
         allow_any_instance_of(Game).to receive(:save).and_return(false)
 
         expect {
-          post games_path, params: { game: { theme_image_url: "" } }
+          post user_games_path(user_id: user.id), params: { game: { theme_image_url: "" } }
         }.not_to change(Game, :count)
 
         expect(response).to have_http_status(:unprocessable_content)
@@ -83,7 +83,7 @@ RSpec.describe "Games", type: :request do
 
   describe "GET /games/:id" do
     it "正常にレスポンスを返すこと" do
-      get game_path(game)
+      get user_game_path(user_id: user.id, id: game.id)
       expect(response).to have_http_status(:success)
     end
   end
@@ -92,7 +92,7 @@ RSpec.describe "Games", type: :request do
     context "更新に成功する場合" do
       it "Turbo Stream でレスポンスを返し、GenerateImageJob をエンキューすること" do
         expect {
-          patch game_path(game), params: { game: { description: "updated text" } }, as: :turbo_stream
+          patch user_game_path(user_id: user.id, id: game.id), params: { game: { description: "updated text" } }, as: :turbo_stream
         }.to have_enqueued_job(GenerateImageJob).with(game, "English")
 
         expect(response.media_type).to eq Mime[:turbo_stream]
@@ -104,7 +104,7 @@ RSpec.describe "Games", type: :request do
       it "show テンプレートをレンダリング (unprocessable_content) すること" do
         allow_any_instance_of(Game).to receive(:update).and_return(false)
 
-        patch game_path(game), params: { game: { description: "updated text" } }
+        patch user_game_path(user.id, game), params: { game: { user_id: user.id, description: "updated text" } }
         expect(response).to have_http_status(:unprocessable_content)
       end
     end
@@ -161,10 +161,10 @@ RSpec.describe "Games", type: :request do
 
     it "レコードを削除し、root_path にリダイレクトすること" do
       expect {
-        delete game_path(game_to_delete)
+        delete user_game_path(user.id, game_to_delete)
       }.to change(Game, :count).by(-1)
 
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(top_user_path(user.id))
     end
   end
 end
