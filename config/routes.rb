@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     member do
       get :top
     end
-    resources :games, only: [ :new, :create, :show, :update, :destroy ] do
+    resources :games, only: [ :index, :new, :create, :show, :update, :destroy ] do
       member do
         get :score
         get :feedback

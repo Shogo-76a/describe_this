@@ -6,6 +6,10 @@ class GamesController < ApplicationController
   # @message_limit = 3 をまとめてます。
   before_action :set_message_limit, only: %i[new show]
 
+  def index
+    @game = current_user.games.all
+  end
+
   def new
     if params[:image_url].present?
       @game = current_user.games.build(theme_image_url: params[:image_url])
