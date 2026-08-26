@@ -33,15 +33,14 @@ Rails.application.routes.draw do
   end
 
   # 認証ルート
-  resources :users, only: [ :show ] do
-    resources :games, only: [ :new, :create, :show, :update, :destroy ] do
-      member do
-        get :top
-        get :score
-        get :feedback
-        get :check_generated_image
-        get :check_score
-      end
+  resources :games, only: [ :new, :create, :show, :update, :destroy ] do
+    member do
+      get :top
+      get :score
+      get :feedback
+      get :check_generated_image
+      get :check_score
     end
   end
+  resources :users, only: [ :show ]
 end
