@@ -23,6 +23,7 @@ class GamesController < ApplicationController
       redirect_to user_game_path(current_user, @game)
     else
       render :new, status: :unprocessable_entity
+      Rails.logger.info "Gameレコードの作成に失敗しました。"
     end
   end
 

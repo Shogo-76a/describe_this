@@ -41,7 +41,6 @@ export default class extends Controller {
   }
 
   stopPolling() {
-    this.isPollingActive = false; // 停止時にポーリングのフラグをOFF（以降の通信をブロック）
     if (this.timeoutId) clearTimeout(this.timeoutId);
     this.timeoutId = null;
   }

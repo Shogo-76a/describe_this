@@ -12,7 +12,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  session_id      :string
-#  user_id         :bigint           not null
+#  user_id         :bigint
 #
 # Indexes
 #
@@ -24,7 +24,7 @@
 #
 class Game < ApplicationRecord
     has_one_attached :generated_image
-    belongs_to :user
+    belongs_to :user, optional: true # ゲストユーザーの場合は user_id つかないため、nullでも作成できるよう optional に設定。
 
     validates :description, presence: true, on: :update
     

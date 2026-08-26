@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'ゲスト', type: :system, js: true do
   it 'ポップアップ が表示される / 「とじる」ボタンで ポップアップ が非表示になる' do
-    visit guest_root_path
+    visit root_path
     expect(page).to have_css(".modal", visible: true, wait: 4)
     expect(page).to have_content("① 見たままを英語にする")
     click_button 'つぎへ'
