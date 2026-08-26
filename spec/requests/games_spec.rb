@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Games", type: :request do
-  let(:game) { create(:game, :with_generated_image) }
   let(:user) { create(:user) }
+  let(:game) { create(:game, :with_generated_image, user: user) }
 
   before do
     sign_in_request(user)
@@ -61,9 +61,9 @@ RSpec.describe "Games", type: :request do
     context "保存に成功する場合" do
       it "新しい Game を作成し、show アクションへリダイレクトすること" do
         expect {
-          post user_games_path(user_id: user.id), params: { game: { theme_image_url: "test.png", description: "test desc" } }
+          post user_games_path, params: { game: { theme_image_url: "test.png", description: "test desc" } }
         }.to change(Game, :count).by(1)
-        expect(response).to redirect_to(user_game_path(user_id: user.id, id: Game.last))
+        expect(response).to redirect_to(Game.last)
       end
     end
 
@@ -73,7 +73,7 @@ RSpec.describe "Games", type: :request do
         allow_any_instance_of(Game).to receive(:save).and_return(false)
 
         expect {
-          post user_games_path(user_id: user.id), params: { game: { theme_image_url: "" } }
+          post user_games_path, params: { game: { theme_image_url: "" } }
         }.not_to change(Game, :count)
 
         expect(response).to have_http_status(:unprocessable_content)
@@ -81,18 +81,18 @@ RSpec.describe "Games", type: :request do
     end
   end
 
-  describe "GET /games/:id" do
+  describe "GET /users/:user_id/games/:id" do
     it "正常にレスポンスを返すこと" do
-      get user_game_path(user_id: user.id, id: game.id)
+      get user_game_path(game.user_id, game.id)
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "PATCH /games/:id" do
+  describe "PATCH /users/:user_id/games/:id" do
     context "更新に成功する場合" do
       it "Turbo Stream でレスポンスを返し、GenerateImageJob をエンキューすること" do
         expect {
-          patch user_game_path(user_id: user.id, id: game.id), params: { game: { description: "updated text" } }, as: :turbo_stream
+          patch user_game_path(game.user_id, game.id), params: { game: { description: "updated text" } }, as: :turbo_stream
         }.to have_enqueued_job(GenerateImageJob).with(game, "English")
 
         expect(response.media_type).to eq Mime[:turbo_stream]
@@ -104,7 +104,7 @@ RSpec.describe "Games", type: :request do
       it "show テンプレートをレンダリング (unprocessable_content) すること" do
         allow_any_instance_of(Game).to receive(:update).and_return(false)
 
-        patch user_game_path(user.id, game), params: { game: { user_id: user.id, description: "updated text" } }
+        patch user_game_path(game.user_id, game.id), params: { game: { user_id: user.id, description: "updated text" } }
         expect(response).to have_http_status(:unprocessable_content)
       end
     end
@@ -115,7 +115,7 @@ RSpec.describe "Games", type: :request do
       it "204 No Content を返すこと" do
         allow_any_instance_of(Game).to receive_message_chain(:generated_image, :attached?).and_return(false)
 
-        get check_generated_image_game_path(game)
+        get check_generated_image_user_game_path(game.user_id, game.id)
         expect(response).to have_http_status(:no_content)
       end
     end
@@ -128,7 +128,7 @@ RSpec.describe "Games", type: :request do
       end
 
       it "Turbo Stream レスポンスを返すこと" do
-        get check_score_game_path(game), as: :turbo_stream
+        get check_score_user_game_path(game.user_id, game.id), as: :turbo_stream
         expect(response.media_type).to eq Mime[:turbo_stream]
         expect(response).to have_http_status(:success)
       end
@@ -140,7 +140,7 @@ RSpec.describe "Games", type: :request do
       end
 
       it "204 No Content を返すこと" do
-        get check_score_game_path(game)
+        get check_score_user_game_path(game.user_id, game.id)
         expect(response).to have_http_status(:no_content)
       end
     end
@@ -149,7 +149,7 @@ RSpec.describe "Games", type: :request do
   describe "GET /games/:id/score" do
     it "FeedbackJob をエンキューし、正常にレスポンスを返すこと" do
       expect {
-        get score_game_path(game)
+        get score_user_game_path(game.user_id, game.id)
       }.to have_enqueued_job(FeedbackJob).with(game, "English", "Japanese")
 
       expect(response).to have_http_status(:success)
@@ -157,11 +157,11 @@ RSpec.describe "Games", type: :request do
   end
 
   describe "DELETE /games/:id" do
-    let!(:game_to_delete) { create(:game) }
+    let!(:game_to_delete) { create(:game, user: user) }
 
     it "レコードを削除し、root_path にリダイレクトすること" do
       expect {
-        delete user_game_path(user.id, game_to_delete)
+        delete user_game_path(game_to_delete.user_id, game_to_delete.id)
       }.to change(Game, :count).by(-1)
 
       expect(response).to redirect_to(top_user_path(user.id))
