@@ -61,9 +61,11 @@ RSpec.describe "Games", type: :request do
     context "保存に成功する場合" do
       it "新しい Game を作成し、show アクションへリダイレクトすること" do
         expect {
-          post user_games_path, params: { game: { theme_image_url: "test.png", description: "test desc" } }
+          post user_games_path(user.id), params: { game: { theme_image_url: "test.png", description: "test desc" } }
         }.to change(Game, :count).by(1)
-        expect(response).to redirect_to(Game.last)
+
+        created_game = Game.last
+        expect(response).to redirect_to(user_game_path(user.id, created_game))
       end
     end
 
@@ -73,7 +75,7 @@ RSpec.describe "Games", type: :request do
         allow_any_instance_of(Game).to receive(:save).and_return(false)
 
         expect {
-          post user_games_path, params: { game: { theme_image_url: "" } }
+          post user_games_path(user.id), params: { game: { theme_image_url: "" } }
         }.not_to change(Game, :count)
 
         expect(response).to have_http_status(:unprocessable_content)
@@ -156,7 +158,7 @@ RSpec.describe "Games", type: :request do
     end
   end
 
-  describe "DELETE /games/:id" do
+  describe "DELETE /users/:user_id/games/:id" do
     let!(:game_to_delete) { create(:game, user: user) }
 
     it "レコードを削除し、root_path にリダイレクトすること" do

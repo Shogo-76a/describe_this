@@ -145,7 +145,7 @@ class GamesController < ApplicationController
   def destroy
     @game.destroy
 
-    redirect_to root_path, status: :see_other
+    redirect_to top_user_path(current_user), status: :see_other
   end
 
 private
