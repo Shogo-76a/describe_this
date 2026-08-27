@@ -1,148 +1,23 @@
 
 <!-- ページごとに書き換わるエリア -->
 <% if content_for?(:sign_up) %>
-    <!-- 両端にホーム用ボタン(レコード削除機能) と テーマボタン があるヘッダー -->
-    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
-        <% if authenticated? %>
-            <%= button_to root_path, method: :get, class: "inline-block" do %>
-                <div 
-                    class="bg-base-content/75 w-11 h-11" 
-                    style="
-                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    -webkit-mask-size: contain;
-                    mask-size: contain;
-                    -webkit-mask-repeat: no-repeat;
-                    mask-repeat: no-repeat;
-                    -webkit-mask-position: center;
-                    mask-position: center;
-                    "
-                >
-                </div>
-            <% end %>
-        <% elsif %>
-            <%= button_to root_path, method: :get, class: "inline-block" do %>
-                <div 
-                    class="bg-base-content/75 w-11 h-11" 
-                    style="
-                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    -webkit-mask-size: contain;
-                    mask-size: contain;
-                    -webkit-mask-repeat: no-repeat;
-                    mask-repeat: no-repeat;
-                    -webkit-mask-position: center;
-                    mask-position: center;
-                    "
-                >
-                </div>
-            <% end %>
-        <% end %>
-        <%= yield :sign_up %>
-        <%= render 'shared/theme_color_tab', theme_name: 'light' %>
-    </header>
+    <%= render partial: "shared/header_partial/sign_up"%>
+
 <% elsif content_for?(:in_game) %>
-    <!-- 両端にホーム用ボタン(レコード削除機能) と テーマボタン があるヘッダー -->
-    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
-        <% if authenticated? %>
-            <%= button_to user_game_path(@game.user_id, @game), method: :delete, class: "inline-block" do %>
-                <div 
-                    class="bg-base-content/75 w-11 h-11" 
-                    style="
-                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    -webkit-mask-size: contain;
-                    mask-size: contain;
-                    -webkit-mask-repeat: no-repeat;
-                    mask-repeat: no-repeat;
-                    -webkit-mask-position: center;
-                    mask-position: center;
-                    "
-                >
-                </div>
-            <% end %>
-        <% elsif %>
-            <%= button_to guest_game_path(@game), method: :delete, class: "inline-block" do %>
-                <div 
-                    class="bg-base-content/75 w-11 h-11" 
-                    style="
-                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    -webkit-mask-size: contain;
-                    mask-size: contain;
-                    -webkit-mask-repeat: no-repeat;
-                    mask-repeat: no-repeat;
-                    -webkit-mask-position: center;
-                    mask-position: center;
-                    "
-                >
-                </div>
-            <% end %>
-        <% end %>
-        <%= yield :in_game %>
-        <%= render 'shared/theme_color_tab', theme_name: 'light' %>
-    </header>
-<% elsif content_for?(:documents) %>
-    <!-- 両端にホーム用ボタン(レコード削除機能なし) と テーマボタン があるヘッダー -->
-    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
-        <% if authenticated? %>
-            <%= button_to user_path(@user.id), method: :get, class: "inline-block" do %>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                </svg>
-            <% end %>
-        <% elsif %>
-            <%= button_to guest_user_path(0), method: :get, class: "inline-block" do %>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                </svg>
-            <% end %>
-        <% end %>
-        <%= yield :documents %>
-        <%= render 'shared/theme_color_tab', theme_name: 'light' %>
-    </header>
+    <%= render partial: "shared/header_partial/in_game"%>
+
+<% elsif content_for?(:document) %>
+    <%= render partial: "shared/header_partial/document"%>
+
+<% elsif content_for?(:history_record) %>
+    <%= render partial: "shared/header_partial/history_record"%>
+
 <% elsif content_for?(:custom) %>
     <!-- 完全カスタマイズしたいときのヘッダー -->
     <%= yield :custom %>
+
 <% else %>
-    <header class="flex justify-between items-center navbar bg-base-100 text-base-content p-2">
-        <!-- どのページでも設定されていない場合のデフォルト表示 -->
-        <% if authenticated? %>
-            <%= button_to root_path, method: :get, class: "inline-block" do %>
-                <div 
-                    class="bg-base-content/75 w-11 h-11" 
-                    style="
-                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    -webkit-mask-size: contain;
-                    mask-size: contain;
-                    -webkit-mask-repeat: no-repeat;
-                    mask-repeat: no-repeat;
-                    -webkit-mask-position: center;
-                    mask-position: center;
-                    "
-                >
-                </div>
-            <% end %>
-        <% else %>
-            <%= button_to root_path, method: :get, class: "inline-block" do %>
-                <div 
-                    class="bg-base-content/75 w-11 h-11" 
-                    style="
-                    -webkit-mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    mask-image: url('<%= asset_path("DT_logo.png") %>');
-                    -webkit-mask-size: contain;
-                    mask-size: contain;
-                    -webkit-mask-repeat: no-repeat;
-                    mask-repeat: no-repeat;
-                    -webkit-mask-position: center;
-                    mask-position: center;
-                    "
-                >
-                </div>
-            <% end %>
-        <% end %>
-        <%= render 'shared/theme_color_tab', theme_name: 'light' %>
-    </header>
+    <!-- デフォルト表示 -->
+    <%= render partial: "shared/header_partial/default"%>
 <% end %>
 

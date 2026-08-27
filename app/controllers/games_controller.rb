@@ -139,11 +139,21 @@ class GamesController < ApplicationController
   end
 
   def score
-    # 採点のJobを実行
-    FeedbackJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+    if params[:history_mode].present? # 履歴ページからの遷移を判定する
+      @history_mode = params[:history_mode].to_i
+    else
+      @history_mode = 0
+      # 採点のJobを実行
+      FeedbackJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+    end
   end
 
   def feedback
+    if params[:history_mode].present? # 履歴ページからの遷移を判定する
+      @history_mode = params[:history_mode].to_i
+    else
+      @history_mode = 0
+    end
   end
 
   def destroy

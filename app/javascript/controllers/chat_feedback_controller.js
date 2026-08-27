@@ -7,7 +7,7 @@ export default class extends Controller {
   connect() {
     setTimeout(() => {
       this.removeHiddenOneByOne();
-    }, 2000);
+    }, 1000);
   }
 
   removeHiddenOneByOne() {
@@ -21,7 +21,7 @@ export default class extends Controller {
         if (index === lastIndex) {
           this.afterAllMessagesShown(message);
         }
-      }, index * 1000);
+      }, index * 500);
     });
   }
 

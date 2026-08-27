@@ -1,31 +1,79 @@
 <!-- ヘッダーの内容変更 -->
-<% provide(:in_game) do %>
-    <div class="flex items-end gap-0">
-        <p class="text-2xl font-normal opacity-75">採点結果</p>
-    </div>
+<% if @history_mode == 1 %>
+  <!-- 履歴用のヘッダー -->
+  <% provide(:history_record) do %>
+      <div class="flex items-end gap-0 text-2xl opacity-75">
+          <p>採点結果</p>
+      </div>
+  <% end %>
+<% else %>
+  <% provide(:in_game) do %>
+      <div class="flex items-end gap-0 text-2xl opacity-75">
+          <p>採点結果</p>
+      </div>
+  <% end %>
 <% end %>
 
-<div 
-  data-controller="score-polling"
-  data-score-polling-url-value="<%= check_score_user_game_path(@game.user_id, @game) %>"
-  data-score-polling-max-attempts-value="60"
-  data-score-polling-interval-value="2000"
->
-  <div id="resulting_score">
-      <div class="splash-overlay">
-        <div class="hero-content text-center">
-          <div class="grid place-items-center text-center w-full">
-            <p class="text-2xl">
-              採点中
-            </p>
-            <div class="text-xm my-5">
-              <span class="loading loading-spinner loading-md"></span>
+
+
+<% if @history_mode == 1 && authenticated? %>
+  <!-- 履歴からの遷移はこちらを使う。パーシャルの処理を直書きしてるのは、@history_modeの受け渡しが容易なため。 -->
+  <div class="min-h-full flex flex-col">
+    <div class="bg-base-200 p-4 flex flex-col text-center hero gap-5">
+      <div class="flex flex-col base-content text-2xl">
+        <p>イメージ</p>
+        <p>シンクロ率</p>
+      </div>
+
+      <!-- progress_controllerと紐付け -->
+      <div 
+        data-controller="progress" 
+        data-progress-overall-value="<%= @game.feedback["overall"] %>"
+        class="radial-progress text-primary" 
+        style="--value: 0; --size:12rem; 2rem;" 
+        role="progressbar"
+      >
+        <div 
+          data-progress-target="progressNum"
+          class="text-5xl font-bold transition-opacity duration-500 opacity-0 hidden"><%= @game.feedback["overall"] %>
+        </div>
+      </div>
+
+      <div class="flex justify-center mt-20">
+        <%=button_to "つぎへ", feedback_user_game_path(@game.user_id, @game),
+          params: { history_mode: @history_mode },
+          method: :get, 
+          class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+          disabled: false %>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <!-- ゲーム中の処理はこちらを使う。 -->
+  <div 
+    data-controller="score-polling"
+    data-score-polling-url-value="<%= check_score_user_game_path(@game.user_id, @game) %>"
+    data-score-polling-max-attempts-value="60"
+    data-score-polling-interval-value="2000"
+  >
+    <div id="resulting_score">
+        <div class="splash-overlay">
+          <div class="hero-content text-center">
+            <div class="grid place-items-center text-center w-full">
+              <p class="text-2xl">
+                採点中
+              </p>
+              <div class="text-xm my-5">
+                <span class="loading loading-spinner loading-md"></span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+    </div>
   </div>
-</div>
+<% end %>
+
 
 <!-- フッターの内容変更 -->
 <% provide(:footer_content) do %>

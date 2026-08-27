@@ -1,114 +1,120 @@
 <!-- ヘッダーの内容変更 -->
-<% provide(:in_game) do %>
+<% if @history_mode == 1 %>
+  <% provide(:history_record) do %>
     <div class="flex items-end gap-0 text-2xl opacity-75">
-        <p>フィードバック</p>
+      <p>フィードバック</p>
     </div>
+  <% end %>
+<% else %>
+  <% provide(:in_game) do %>
+    <div class="flex items-end gap-0 text-2xl opacity-75">
+      <p>フィードバック</p>
+    </div>
+  <% end %>
 <% end %>
+
 <div class="pt-10">
-    <!-- コントローラー名を chat-feedback と定義 -->
-    <div data-controller="chat-feedback" class ="flex flex-col w-full">
-        
-        <div class="chat chat-start w-full mx-auto p-5 flex flex-col max-w-md landscape:max-w-5xl mx-auto gap-5"> 
-            
-            <!-- 画像比較 -->
-            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
-                <p class="text-sm opacity-25">🖼️イメージ比較 :</p>
-                <div class="flex flex-col landscape:flex-row gap-4 landscape:gap-8 justify-center items-center m-4">
-                    <div class="flex flex-col gap-2">
-                        <p class="text-sm opacity-75 w-full">お題:</p>
-                        <div class="w-full landscape:w-[350px] h-full landscape:h-auto p-0.5">
-                            <img
-                                id="theme-image-imgtag"
-                                src="<%= @game.theme_image_url %>"
-                                alt="お題イメージ"
-                                class="w-full h-full landscape:h-auto object-cover object-left rounded-4xl">
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <p class="text-sm opacity-75 w-full">説明からできたイメージ:</p>
-                        <div class="w-full landscape:w-[350px] h-full landscape:h-auto bg-primary p-0.5 rounded-4xl">
-                            <% if @game.generated_image.attached? %>
-                                <img src="<%= url_for(@game.generated_image) %>" alt="AIのイメージ" class="w-full h-full landscape:h-auto object-cover object-left aspect-[600/400] rounded-4xl">
-                            <% else %>
-                                <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[600/400] bg-base-100 rounded-4xl"></div>
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
-            </div>  
+  <!-- コントローラー名を chat-feedback と定義 -->
+  <div data-controller="chat-feedback" class ="flex flex-col w-full">
+    <div class="chat chat-start w-full mx-auto p-5 flex flex-col max-w-md landscape:max-w-5xl mx-auto gap-5"> 
 
-
-            <!-- 総評 -->
-            <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
-                <p class="text-xs opacity-25">📄総評 :</p>
-                <div class="ml-2">
-                    <div class="flex flex-col gap-0.5 my-1">
-                        <p class="pl-4 text-sm"><%= simple_format(@game.feedback["image_analysis"]) %></p>
-                    </div>
-                </div>
-            </div>            
-
-            <!-- 説明文比較 -->
-            <% if @game.feedback["proposals"].present? %>
-                <% @game.feedback["proposals"].each_with_index do |proposal, idx| %>
-
-                    <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 w-full h-auto"> 
-                        <div class="ml-2 flex flex-col">
-                            <!-- 上段：原文 -->
-                            <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明_<span class="text-md font-bold"><%= idx+1 %></span></p>
-
-                            <p class="ml-4 pt-1 pb-2 text-base font-mono opacity-50 border-b border-base-content/10">
-                                <%= proposal["original_text"] %>
-                            </p>
-                            
-                            <!-- 下段：修正後 -->
-                            <p class="flex justify-start mt-2 text-xs text-base-content/50">提案</p>
-                            <p class="ml-4 pt-1 text-lg font-mono font-black text-success">
-                                <%= proposal["rewritten_text"] %>
-                            </p>
-                        </div>
-                        <p class="flex justify-end mt-2 text-xs text-base-content/25">
-                            ※例文を使って満点にすることはできません。
-                        </p>
-                    </div>
-
-                    <!-- 関連フレーズ -->
-                    <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
-                        <p class="text-xs opacity-25">🎁フレーズ_<span class="text-md font-bold"><%= idx+1 %></span></p>
-                        <div class="ml-4">
-                            <p class="text-md">・<%= proposal["bonus_phrase"]["phrase"] %></p>
-                            <p class="ml-4 mt-2 mb-2 text-xs tracking-wide text-base-content/50"><%= proposal["bonus_phrase"]["meaning"] %></p>
-
-                            <p class="ml-4 border-b-2 border-base-content/10"></p>
-                            
-                            <p class="mt-2">・<%= proposal["bonus_phrase"]["example"] %></p>
-                        </div>
-                        <div class="ml-8">
-                            <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
-                                <!-- 翻訳は説明言語と学習言語が同じ場合、非表示にすること -->
-                                <p class="pl-4 text-xs text-base-content/50"><%= proposal["bonus_phrase"]["example_translation"] %></p>
-                            </div>
-                        </div>
-                    </div>
-                <% end %>
-            <% end %>
-            
-
-
-            <!-- 書き込み中表示 -->
-            <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100"><span class="loading loading-dots loading-sm"></span></div>
+      <!-- 画像比較 -->
+      <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
+        <p class="text-sm opacity-25">🖼️イメージ比較 :</p>
+        <div class="flex flex-col landscape:flex-row gap-4 landscape:gap-8 justify-center items-center m-4">
+          <div class="flex flex-col gap-2">
+            <p class="text-sm opacity-75 w-full">お題:</p>
+            <div class="w-full landscape:w-[350px] h-full landscape:h-auto p-0.5">
+              <img
+                  id="theme-image-imgtag"
+                  src="<%= @game.theme_image_url %>"
+                  alt="お題イメージ"
+                  class="w-full h-full landscape:h-auto object-cover object-left rounded-4xl">
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <p class="text-sm opacity-75 w-full">説明からできたイメージ:</p>
+            <div class="w-full landscape:w-[350px] h-full landscape:h-auto bg-primary p-0.5 rounded-4xl">
+              <% if @game.generated_image.attached? %>
+                <img src="<%= url_for(@game.generated_image) %>" alt="AIのイメージ" class="w-full h-full landscape:h-auto object-cover object-left aspect-[600/400] rounded-4xl">
+              <% else %>
+                <div class="w-full h-full landscape:h-auto object-cover object-right aspect-[600/400] bg-base-100 rounded-4xl"></div>
+              <% end %>
+            </div>
+          </div>
         </div>
+      </div>  
+
+      <!-- 総評 -->
+      <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
+          <p class="text-xs opacity-25">📄総評 :</p>
+          <div class="ml-2">
+              <div class="flex flex-col gap-0.5 my-1">
+                  <p class="pl-4 text-sm"><%= simple_format(@game.feedback["image_analysis"]) %></p>
+              </div>
+          </div>
+      </div>            
+
+      <!-- 説明文比較 -->
+      <% if @game.feedback["proposals"].present? %>
+        <% @game.feedback["proposals"].each_with_index do |proposal, idx| %>
+
+          <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 w-full h-auto"> 
+            <div class="ml-2 flex flex-col">
+              <!-- 上段：原文 -->
+              <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明_<span class="text-md font-bold"><%= idx+1 %></span></p>
+
+              <p class="ml-4 pt-1 pb-2 text-base font-mono opacity-50 border-b border-base-content/10">
+                <%= proposal["original_text"] %>
+              </p>
+              
+              <!-- 下段：修正後 -->
+              <p class="flex justify-start mt-2 text-xs text-base-content/50">提案</p>
+              <p class="ml-4 pt-1 text-lg font-mono font-black text-success">
+                <%= proposal["rewritten_text"] %>
+              </p>
+            </div>
+            <p class="flex justify-end mt-2 text-xs text-base-content/25">
+                ※例文を使って満点にすることはできません。
+            </p>
+          </div>
+
+          <!-- 関連フレーズ -->
+          <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
+            <p class="text-xs opacity-25">🎁フレーズ_<span class="text-md font-bold"><%= idx+1 %></span></p>
+            <div class="ml-4">
+              <p class="text-md">・<%= proposal["bonus_phrase"]["phrase"] %></p>
+              <p class="ml-4 mt-2 mb-2 text-xs tracking-wide text-base-content/50"><%= proposal["bonus_phrase"]["meaning"] %></p>
+
+              <p class="ml-4 border-b-2 border-base-content/10"></p>
+              
+              <p class="mt-2">・<%= proposal["bonus_phrase"]["example"] %></p>
+            </div>
+            <div class="ml-8">
+              <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
+                <!-- 翻訳は説明言語と学習言語が同じ場合、非表示にすること -->
+                <p class="pl-4 text-xs text-base-content/50"><%= proposal["bonus_phrase"]["example_translation"] %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
 
 
-        <div data-chat-feedback-target="button" class="hidden mb-20 flex justify-center gap-15 landscape:gap-25"> 
-            <%=link_to "リトライ", new_user_game_path(@game.user_id, image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
-            <%=button_to "やめる", top_user_path(@game.user_id), method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
-        </div> 
+      <!-- 書き込み中表示 -->
+      <div data-chat-feedback-target="message" class="chat-bubble whitespace-pre-wrap bg-base-100"><span class="loading loading-dots loading-sm"></span></div>
     </div>
+
+
+    <div data-chat-feedback-target="button" class="hidden mb-20 flex justify-center gap-15 landscape:gap-25"> 
+      <%=link_to "リトライ", new_user_game_path(@game.user_id, image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
+      <%=button_to "やめる", top_user_path(@game.user_id), method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
+    </div> 
+  </div>
 </div>
 
 
 <!-- フッターの内容変更 -->
 <% provide(:footer_content) do %>
-    <!-- 空欄 -->
+  <!-- 空欄 -->
 <% end %>
