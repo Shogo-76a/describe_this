@@ -7,17 +7,18 @@ class GamesController < ApplicationController
   before_action :set_message_limit, only: %i[new show]
 
   def index
-    @query = params[:query]
 
+    # ワード検索
+    @query = params[:query]
     if @query.present?
 
-      # 1. 全角・半角スペースで文字列を分割し、空の要素を除外
+      # 全角・半角スペースで文字列を分割し、空の要素を除外
       keywords = @query.split(/[[:space:]]+/).reject(&:blank?)
 
       # 初期スコープを current_user.games に設定
       @games = current_user.games
 
-      # 2. 分割した単語ごとにループを回して、AND条件（.where）を重ねていく
+      # 分割した単語ごとにループを回して、AND条件（.where）を重ねていく
       keywords.each do |keyword|
         escaped_keyword = ".*#{Regexp.escape(keyword)}.*"
 
@@ -40,7 +41,7 @@ class GamesController < ApplicationController
           rewritten_path:  "$.proposals[*].rewritten_text ? (@ like_regex \"#{escaped_keyword}\" flag \"i\")"
         }
 
-        # 3. 単語が数字（整数）の場合は数値検索条件を AND で追加
+        # 単語が数字（整数）の場合は数値検索条件を AND で追加
         if keyword.match?(/\A\d+\z/) # 文章やフレーズの中に単語が含まれているか？という条件。
           sql_conditions << "(feedback ->> 'overall')::integer = :score" # overall の点数が :score と一致するか？」という条件をsql_conditions配列に追加します。
           query_params[:score] = keyword.to_i # 検索された数値をintegerに変換してquery_paramsハッシュに追加します。

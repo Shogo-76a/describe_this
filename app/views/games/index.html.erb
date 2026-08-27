@@ -4,14 +4,17 @@
         <p class="text-2xl font-normal opacity-75">プレイ履歴</p>
     </div>
 <% end %>
-
-<%= form_with url: user_games_path(current_user), method: :get, local: true do |f| %>
-  <%= f.text_field :query, value: @query %>
-  <%= f.submit "検索" %>
-<% end %>
-
+<div class="flex flex-col justify-center items-center max-w-xs landscape:max-w-md mx-auto py-10">
+    <!-- ボタン無しフォーム -->
+    <%= form_with url: user_games_path(current_user),
+         method: :get,
+         local: true,
+         class: "flex flex-col justify-center items-center w-full h-auto" do |f| %>
+        <%= f.text_field :query, value: @query, placeholder: "ワード検索", class: "flex flex-col justify-center items-center w-full h-auto textarea textarea-bordered resize-none min-h-[40px] h-[40px] rounded-2xl"%>
+    <% end %>
+</div>
 <% if @games.present? %>
-    <div class="flex flex-col max-w-sm landscape:max-w-3xl mx-auto pt-10 gap-5">
+    <div class="flex flex-col max-w-sm landscape:max-w-3xl mx-auto gap-5">
         <%= render partial: "shared/history_bar", collection: @games, as: :game %>
     </div>
 <% else %>
