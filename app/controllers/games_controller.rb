@@ -7,7 +7,6 @@ class GamesController < ApplicationController
   before_action :set_message_limit, only: %i[new show]
 
   def index
-
     # ワード検索
     @query = params[:query]
     if @query.present?
@@ -24,11 +23,11 @@ class GamesController < ApplicationController
 
         # 各単語ごとのPostgreSQL条件（テキスト用）
         sql_conditions = [
-          "jsonb_path_exists(feedback, :phrase_path) OR 
-          jsonb_path_exists(feedback, :example_path) OR 
-          jsonb_path_exists(feedback, :meaning_path) OR 
-          jsonb_path_exists(feedback, :trans_path) OR 
-          jsonb_path_exists(feedback, :original_path) OR 
+          "jsonb_path_exists(feedback, :phrase_path) OR
+          jsonb_path_exists(feedback, :example_path) OR
+          jsonb_path_exists(feedback, :meaning_path) OR
+          jsonb_path_exists(feedback, :trans_path) OR
+          jsonb_path_exists(feedback, :original_path) OR
           jsonb_path_exists(feedback, :rewritten_path)"
         ]
 
@@ -49,13 +48,13 @@ class GamesController < ApplicationController
 
         # ループ全体として「すべての単語にマッチすること (.where の連続による AND検索)」を実行
         # where検索にかけると同時に、sql_conditionsのキーワードに query_paramsの対応する値を結合する。
-        @games = @games.where(sql_conditions.join(" OR "), query_params).order(created_at: :desc).includes([:generated_image_attachment])
+        @games = @games.where(sql_conditions.join(" OR "), query_params).order(created_at: :desc).includes([ :generated_image_attachment ])
 
         # 検索分の基本形。参考に。
         # @posts = Post.where("title LIKE ?", "%#{@query}%")
       end
     else
-      @games = current_user.games.all.order(created_at: :desc).includes([:generated_image_attachment])
+      @games = current_user.games.all.order(created_at: :desc).includes([ :generated_image_attachment ])
     end
   end
 
@@ -231,5 +230,4 @@ private
     Current.session&.user
   end
   helper_method :current_user
-
 end

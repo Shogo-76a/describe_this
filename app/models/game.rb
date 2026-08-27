@@ -27,7 +27,7 @@ class Game < ApplicationRecord
     belongs_to :user, optional: true # ゲストユーザーの場合は user_id つかないため、nullでも作成できるよう optional に設定。
 
     validates :description, presence: true, on: :update
-    
+
     # description カラムに文字が入っていれば、ユーザーからのメッセージと判定する
     def from_user?
         self.description.present?

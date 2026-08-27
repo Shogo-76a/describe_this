@@ -16,6 +16,5 @@ module Guest
       Current.session&.user
     end
     helper_method :current_user
-
   end
 end
