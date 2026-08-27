@@ -3,7 +3,7 @@
         <img src="<%= url_for(game.generated_image) %>" alt="レコードイメージ" class="w-20 h-20 mask mask-circle object-cover">
         <div class="flex flex-col justify-center items-start gap-2">
             <p class="text-lg"><%= game.feedback["title_for_history"] %></p>
-            <p class="text-xs text-base-content/50"><%= game.created_at %></p>
+            <p class="text-xs text-base-content/50"><%= game.created_at.strftime("%b %d, %Y") %></p>
         </div>
     </div>
 <% end %>
