@@ -67,10 +67,10 @@
                         rows: 1,
                         class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
                         placeholder: "メッセージを入力..." %>
-                    <div class="tooltip tooltip-open tooltip-secondary">
-                        <div class="tooltip-content">
-                            <div class="text-sm flex flex-col justify-center items-center text-secondary-content">
-                                <p class="text-md">x <span data-chat-form-target="submitCountDown" class="font-bold text-2xl"><%= @message_limit %></span></p>
+                    <div class="tooltip tooltip-open tooltip-primary">
+                        <div class="tooltip-content bg-transparent shadow-none">
+                            <div class="text-sm flex flex-col justify-center items-center text-primary font-bold">
+                                <p class="text-md">x <span data-chat-form-target="submitCountDown" class="text-4xl"><%= @message_limit %></span></p>
                             </div>
                         </div>
                         <%= f.button type: :submit, data: { chat_form_target: "sendButton" }, class: "btn btn-primary d-inline-flex align-items-center gap-2 rounded-full" do %>
