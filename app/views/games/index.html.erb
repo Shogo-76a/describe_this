@@ -5,7 +5,7 @@
     </div>
 <% end %>
 
-<%= form_with url: search_user_games_path(current_user), method: :get, local: true do |f| %>
+<%= form_with url: user_games_path(current_user), method: :get, local: true do |f| %>
   <%= f.text_field :query, value: @query %>
   <%= f.submit "検索" %>
 <% end %>

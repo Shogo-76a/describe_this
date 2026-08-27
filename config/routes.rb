@@ -38,9 +38,6 @@ Rails.application.routes.draw do
       get :top
     end
     resources :games, only: [ :index, :new, :create, :show, :update, :destroy ] do
-      collection do
-        get :search
-      end
       member do
         get :score
         get :feedback

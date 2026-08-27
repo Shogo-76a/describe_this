@@ -7,10 +7,6 @@ class GamesController < ApplicationController
   before_action :set_message_limit, only: %i[new show]
 
   def index
-    @games = current_user.games.all.order(created_at: :desc).includes([:generated_image_attachment])
-  end
-
-  def search
     @query = params[:query]
 
     if @query.present?
