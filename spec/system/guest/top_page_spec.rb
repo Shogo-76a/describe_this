@@ -11,7 +11,7 @@ RSpec.describe 'ゲスト', type: :system do
       "新たな表現と出会う旅へ"
     ]
 
-    visit guest_root_path
+    visit root_path
     expect(page).to have_css(
       'div.bg-base-content.w-70.h-16',
       style: { 'mask-image' => /DT_title/ }, wait: 4
@@ -20,13 +20,13 @@ RSpec.describe 'ゲスト', type: :system do
       expect(page).to have_content(text)
     end
     expect(page).to have_button("はじめる")
-    expect(page).to have_link("ホーム", href: guest_root_path)
+    expect(page).to have_link("ホーム", href: root_path)
     expect(page).to have_link("プレイ履歴", href: "#")
     expect(page).to have_link("プロフィール", href: guest_user_path(0))
   end
 
   it 'トップロゴのマスクが表示される（非JS）' do
-    visit guest_root_path
+    visit root_path
     expect(page).to have_css(
       'div.bg-primary.mx-auto.h-24.w-24.object-contain',
       style: { 'mask-image' => /DT_logo/ }

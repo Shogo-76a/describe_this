@@ -25,6 +25,7 @@ module Guest
         redirect_to guest_game_path(@game)
       else
         render :new, status: :unprocessable_entity
+        Rails.logger.info "Gameレコードの作成に失敗しました。"
       end
     end
 
@@ -128,7 +129,7 @@ module Guest
     def destroy
       @game.destroy
 
-      redirect_to guest_root_path, status: :see_other
+      redirect_to root_path, status: :see_other
     end
 
   private

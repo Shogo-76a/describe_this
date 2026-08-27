@@ -7,6 +7,7 @@ class Avo::Resources::Game < Avo::BaseResource
 
   def fields
     field :id, as: :id
+    field :user_id, as: :id
     field :session_id, as: :text
     field :description, as: :textarea
     field :array_context, as: :tags
