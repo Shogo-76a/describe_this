@@ -15,11 +15,10 @@
 <% end %>
 
 
-
 <% if @history_mode == 1 && authenticated? %>
   <!-- 履歴からの遷移はこちらを使う。パーシャルの処理を直書きしてるのは、@history_modeの受け渡しが容易なため。 -->
   <div class="min-h-full flex flex-col">
-    <div class="bg-base-200 p-4 flex flex-col text-center hero gap-5">
+    <div class="p-4 flex flex-col text-center hero gap-5">
       <div class="flex flex-col base-content text-2xl">
         <p>イメージ</p>
         <p>シンクロ率</p>
