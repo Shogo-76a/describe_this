@@ -47,6 +47,7 @@ export default class extends Controller {
       } else {
         // ループ完了時の処理
         this.progressNumTarget.classList.remove('hidden');
+        this.progressNumTarget.classList.remove('loading');
         //hidden 削除後に requestAnimationFrame で透明度を切り替えることで、フェードアニメーションを有効化。
         requestAnimationFrame(() => {
           this.progressNumTarget.classList.remove('opacity-0');
