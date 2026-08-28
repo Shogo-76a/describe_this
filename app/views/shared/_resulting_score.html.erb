@@ -1,41 +1,66 @@
-<div class="min-h-full flex flex-col">
-    <div class="bg-base-200 p-4 flex flex-col text-center hero gap-5">
-        <div class="flex flex-col base-content text-2xl">
-            <p>イメージ</p>
-            <p>シンクロ率</p>
-        </div>
+  <div data-controller="evaluation"
+    class="flex flex-col justify-center items-center gap-15 py-10">
+    <div class="flex flex-col text-center gap-5">
+      <div class="flex flex-col text-2xl">
+        <p>イメージ</p>
+        <p>シンクロ率</p>
+      </div>
 
-
-        <!-- progress_controllerと紐付け -->
-        <%= turbo_stream_from "submission_#{game.id}" %>
+      <!-- progress_controllerと紐付け -->
+      <div 
+        data-controller="progress"
+        data-progress-overall-value="<%= @game.feedback["overall"] %>"
+        class="radial-progress text-primary" 
+        style="--value: 0; --size:12rem; 2rem;" 
+        role="progressbar"
+      >
         <div 
-            data-controller="progress" 
-            data-progress-overall-value="<%= game.feedback["overall"] %>"
-            class="radial-progress text-primary" 
-            style="--value: 0; --size:12rem; 2rem;" 
-            role="progressbar"
-        >
-            <div 
-                data-progress-target="progressNum"
-                class="text-5xl font-bold transition-opacity duration-500 opacity-0 hidden"><%= game.feedback["overall"] %>
-            </div>
+          id="checking_score_shown"
+          data-progress-target="progressNum"
+          class="text-5xl font-bold transition-opacity duration-500 opacity-0 hidden loading"><%= @game.feedback["overall"] %>
         </div>
-
-        <!--ログイン分岐-->
-        <% if authenticated? %>
-            <div class="flex justify-center mt-20">
-                <%=button_to "つぎへ", feedback_user_game_path(game.user_id, game),
-                    method: :get, 
-                    class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
-                    disabled: false %>
-            </div>
-        <% else %>
-            <div class="flex justify-center mt-20">
-                <%=button_to "つぎへ", feedback_guest_game_path(game),
-                    method: :get, 
-                    class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
-                    disabled: false %>
-            </div>
-        <% end %>
+      </div>
     </div>
-</div>
+
+    <div 
+      data-evaluation-target="text"
+      class="flex flex-col gap-3 transition-opacity duration-500 opacity-0"
+    >
+      <%= render_score_badge(@game.feedback["overall"]) %>
+      
+      <button class="flex flex-row justify-center items-center text-xs text-base-content/30 cursor-pointer" onclick="modal_01.showModal()" do>
+        判定基準について
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+        </svg>
+      </button>
+      <dialog id="modal_01" class="modal">
+        <div class="modal-box">
+          <%= render partial: "shared/evidence_of_evaluation" %>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+    </div>
+
+
+
+    <!--ログイン分岐-->
+    <% if authenticated? %>
+        <div class="flex justify-center mt-20">
+            <%=button_to "つぎへ", feedback_user_game_path(game.user_id, game),
+                method: :get, 
+                class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+                disabled: false %>
+        </div>
+    <% else %>
+        <div class="flex justify-center mt-20">
+            <%=button_to "つぎへ", feedback_guest_game_path(game),
+                method: :get, 
+                class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
+                disabled: false %>
+        </div>
+    <% end %>
+    
+  </div>

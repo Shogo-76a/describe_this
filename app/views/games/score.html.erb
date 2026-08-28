@@ -47,17 +47,15 @@
     >
       <%= render_score_badge(@game.feedback["overall"]) %>
       
-      <!-- Open the modal using ID.showModal() method -->
       <button class="flex flex-row justify-center items-center text-xs text-base-content/30 cursor-pointer" onclick="modal_01.showModal()" do>
-        判定基準について
+        評価基準について
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
           <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
         </svg>
       </button>
       <dialog id="modal_01" class="modal">
         <div class="modal-box">
-          <h3 class="text-lg font-bold">Hello!</h3>
-          <p class="py-4">Press ESC key or click outside to close</p>
+          <%= render partial: "shared/evidence_of_evaluation" %>
         </div>
         <form method="dialog" class="modal-backdrop">
           <button>close</button>
