@@ -28,7 +28,16 @@ RSpec.describe 'ゲスト ゲームメインサイクル', type: :system do
       expect(page).to have_content("採点結果", wait: 60)
       expect(page).to have_content("イメージ")
       expect(page).to have_content("シンクロ率")
-      expect(page).to have_selector('.radial-progress', visible: true)
+      expect(page).to have_selector('.radial-progress', visible: true) # スコア
+      expect(page).to have_css('[data-evaluation-target="text"]') # 判定テキスト
+      expect(page).to have_content("判定基準について")
+      click_button '判定基準について'
+      
+      # モーダルを確認
+      expect(page).to have_css(".modal", visible: true)
+      expect(page).to have_content("Great（とても良い）")
+      find('.modal').send_keys(:escape) # モーダルを消す
+
       expect(page).to have_button("つぎへ")
       click_button 'つぎへ' # score -> feedback の遷移をトリガ
 
