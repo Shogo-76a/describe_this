@@ -18,7 +18,7 @@
 <% if @history_mode == 1 && authenticated? %>
   <!-- 履歴からの遷移はこちらを使う。パーシャルの処理を直書きしてるのは、@history_modeの受け渡しが容易なため。 -->
   <div data-controller="evaluation"
-    class="flex flex-col justify-center items-center gap-15 py-10">
+    class="flex flex-col justify-center items-center gap-10 py-10">
     <div class="flex flex-col text-center gap-5">
       <div class="flex flex-col text-2xl">
         <p>イメージ</p>
@@ -41,9 +41,10 @@
       </div>
     </div>
 
+    <!-- 評価テキスト -->
     <div 
       data-evaluation-target="text"
-      class="flex flex-col gap-3 transition-opacity duration-500 opacity-0"
+      class="flex flex-col gap-3 transition-opacity duration-500 opacity-0 pb-4"
     >
       <%= render_score_badge(@game.feedback["overall"]) %>
       
@@ -54,7 +55,7 @@
         </svg>
       </button>
       <dialog id="modal_01" class="modal">
-        <div class="modal-box">
+        <div class="modal-box w-[340] landscape:w-auto h-[660] rounded-2xl">
           <%= render partial: "shared/evidence_of_evaluation" %>
         </div>
         <form method="dialog" class="modal-backdrop">

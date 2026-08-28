@@ -1,11 +1,15 @@
 <%= button_to score_user_game_path(game.user_id, game), 
     method: :get, params: { history_mode: 1 }, 
-    class:"flex flex-col w-full h-auto bg-base-200/50 rounded-2xl p-5 hover:bg-base-100 transition-colors duration-200 cursor-pointer" do %>
+    class:"flex flex-col w-full h-auto bg-base-200/50 rounded-2xl py-2 px-5 hover:bg-base-100 transition-colors duration-200 cursor-pointer" do %>
     <div class="flex flex-row gap-5">
-        <img src="<%= url_for(game.generated_image) %>" alt="レコードイメージ" class="w-20 h-20 mask mask-circle object-cover">
+        <img src="<%= url_for(game.generated_image) %>" alt="レコードイメージ" class="w-20 landscape:w-12 h-auto mask mask-circle object-cover">
         <div class="flex flex-col justify-center items-start gap-2">
             <p class="text-lg"><%= game.feedback["title_for_history"] %></p>
-            <p class="text-xs text-base-content/50"><%= game.created_at.strftime("%b %d, %Y") %></p>
+            <div class="flex flex-row justify-center items-start gap-2">
+                <div class="contents text-xs text-base-content/50">
+                    <p><%= game.created_at.strftime("%b %d, %Y") %></p>
+                </div>
+            </div>
         </div>
     </div>
 <% end %>
