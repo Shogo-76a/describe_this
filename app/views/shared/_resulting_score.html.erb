@@ -22,9 +22,10 @@
       </div>
     </div>
 
+    <!-- 評価テキスト -->
     <div 
       data-evaluation-target="text"
-      class="flex flex-col gap-3 transition-opacity duration-500 opacity-0"
+      class="flex flex-col gap-3 transition-opacity duration-500 opacity-0 pb-4"
     >
       <%= render_score_badge(@game.feedback["overall"]) %>
       
@@ -35,7 +36,7 @@
         </svg>
       </button>
       <dialog id="modal_01" class="modal">
-        <div class="modal-box">
+        <div class="modal-box w-[340] landscape:w-auto h-[660] rounded-2xl">
           <%= render partial: "shared/evidence_of_evaluation" %>
         </div>
         <form method="dialog" class="modal-backdrop">
