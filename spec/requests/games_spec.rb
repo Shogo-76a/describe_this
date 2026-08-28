@@ -8,14 +8,14 @@ RSpec.describe "Games", type: :request do
     sign_in_request(user)
   end
 
-  describe "GET /top" do
+  describe "GET /users/:id/top" do
     it "正常にレスポンスを返すこと" do
       get top_user_path(user.id)
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET /new" do
+  describe "GET /users/:user_id/games/new" do
     context "params[:image_url] が存在する場合" do
       it "指定された image_url を持つ Game オブジェクトが割り当てられること" do
         get new_user_game_path(user.id), params: { image_url: "http://example.com/custom.png" }

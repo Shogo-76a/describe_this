@@ -1,4 +1,6 @@
-<%= button_to score_user_game_path(game.user_id, game), method: :get, params: { history_mode: 1 }, class:"flex flex-col w-full h-auto bg-base-100 rounded-2xl p-5" do %>
+<%= button_to score_user_game_path(game.user_id, game), 
+    method: :get, params: { history_mode: 1 }, 
+    class:"flex flex-col w-full h-auto bg-base-200/50 rounded-2xl p-5 hover:bg-base-100 transition-colors duration-200 cursor-pointer" do %>
     <div class="flex flex-row gap-5">
         <img src="<%= url_for(game.generated_image) %>" alt="レコードイメージ" class="w-20 h-20 mask mask-circle object-cover">
         <div class="flex flex-col justify-center items-start gap-2">
