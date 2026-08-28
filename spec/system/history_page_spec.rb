@@ -18,7 +18,7 @@ RSpec.describe 'プレイ履歴ページ', type: :system do
   end
 
   context '履歴が ある場合' do
-    let!(:game) { create(:game, :with_generated_image, :with_feedback, user_id: user.id, ) }
+    let!(:game) { create(:game, :with_generated_image, :with_feedback, user_id: user.id,) }
     it '要素が正しく表示される', js: true do
       visit user_games_path(user.id)
       expect(page).to have_field(placeholder: '🔍ワード検索', with: @query)
