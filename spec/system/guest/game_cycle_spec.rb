@@ -32,7 +32,7 @@ RSpec.describe 'ゲスト ゲームメインサイクル', type: :system do
       expect(page).to have_css('[data-evaluation-target="text"]') # 判定テキスト
       expect(page).to have_content("判定基準について")
       click_button '判定基準について'
-      
+
       # モーダルを確認
       expect(page).to have_css(".modal", visible: true)
       expect(page).to have_content("Great（とても良い）")
