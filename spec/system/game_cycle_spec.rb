@@ -52,6 +52,11 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
       expect(page).to have_content("あなたの説明")
       expect(page).to have_content("提案")
       expect(page).to have_content("フレーズ")
+
+      # クリップボード
+      expect(page).to have_css('[data-clipboard-target="button"]') 
+      all('button[data-clipboard-target="button"]')[0].click 
+
       expect(page).to have_link("リトライ")
       expect(page).to have_button("やめる")
     end
