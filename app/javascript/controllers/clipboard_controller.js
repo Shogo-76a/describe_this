@@ -9,7 +9,7 @@ export default class extends Controller {
     // 元の要素はそのまま残し、複製を作る
     const clone = this.sourceTarget.cloneNode(true);
     // 複製の中から、除外したい要素だけをすべて削除
-    clone.querySelectorAll(".no-copy").forEach((el) => el.remove());
+    clone.querySelectorAll('.no-copy').forEach((el) => el.remove());
     // 加工後の複製からテキストを取得してコピー
     navigator.clipboard.writeText(clone.innerText);
 
