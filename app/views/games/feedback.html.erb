@@ -6,7 +6,7 @@
     </div>
   <% end %>
 <% else %>
-  <% provide(:in_game) do %>
+  <% provide(:page_name) do %>
     <div class="flex items-end gap-0 text-2xl opacity-75">
       <p>フィードバック</p>
     </div>
@@ -15,11 +15,19 @@
 
 <div class="pt-10">
   <!-- コントローラー名を chat-feedback と定義 -->
-  <div data-controller="chat-feedback" class ="flex flex-col w-full">
+  <div 
+    data-controller="chat-feedback" 
+    class ="flex flex-col w-full"
+    >
+
     <div class="chat chat-start w-full mx-auto p-5 flex flex-col max-w-md landscape:max-w-5xl mx-auto gap-5"> 
 
       <!-- 画像比較 -->
-      <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
+      <div 
+        data-chat-feedback-target="message" 
+        class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto"
+        >
+
         <p class="text-sm opacity-25">🖼️イメージ比較 :</p>
         <div class="flex flex-col landscape:flex-row gap-4 landscape:gap-8 justify-center items-center m-4">
           <div class="flex flex-col gap-2">
@@ -46,56 +54,92 @@
       </div>  
 
       <!-- 総評 -->
-      <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
-          <p class="text-xs opacity-25">📄総評 :</p>
-          <div class="ml-2">
-              <div class="flex flex-col gap-0.5 my-1">
-                  <p class="pl-4 text-sm"><%= simple_format(@game.feedback["image_analysis"]) %></p>
-              </div>
+      <div  
+        data-chat-feedback-target="message" 
+        class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto"
+        >
+        <p class="text-xs opacity-25">📄総評 :</p>
+        <div class="ml-2">
+          <div class="flex flex-col gap-0.5 my-1 opacity-75">
+            <p class="pl-4 text-sm"><%= simple_format(@game.feedback["image_analysis"]) %></p>
           </div>
-      </div>            
+        </div>
+      </div>     
+      
 
-      <!-- 説明文比較 -->
+      <!-- 文比較 -->
       <% if @game.feedback["proposals"].present? %>
         <% @game.feedback["proposals"].each_with_index do |proposal, idx| %>
 
-          <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 w-full h-auto"> 
-            <div class="ml-2 flex flex-col">
-              <!-- 上段：原文 -->
-              <p class="flex justify-start mt-2 text-xs text-base-content/50">あなたの説明_<span class="text-md font-bold"><%= idx+1 %></span></p>
+          <div 
+            data-controller="clipboard"
+            data-chat-feedback-target="message" 
+            class="chat-bubble hidden bg-base-100 flex flex-col items-center w-full h-auto"
+            > 
 
-              <p class="ml-4 pt-1 pb-2 text-base font-mono opacity-50 border-b border-base-content/10">
-                <%= proposal["original_text"] %>
-              </p>
-              
-              <!-- 下段：修正後 -->
-              <p class="flex justify-start mt-2 text-xs text-base-content/50">提案</p>
-              <p class="ml-4 pt-1 text-lg font-mono font-black text-success">
-                <%= proposal["rewritten_text"] %>
+            <div 
+              data-clipboard-target="source" 
+              class="content w-full h-auto pb-2 border-b-4 border-base-300"
+              >
+
+              <div class="ml-2 flex flex-col">
+                  <!-- 上段：原文 -->
+                  <p class="flex justify-start mt-2 text-xs text-base-content/25">あなたの説明 <span class="text-md font-bold"><%= idx+1 %></span></p>
+
+                  <p class="ml-4 pt-1 pb-2 text-base font-mono opacity-75 border-b border-base-content/10">
+                      <%= proposal["original_text"] %>
+                  </p>
+                  
+                  <!-- 下段：修正後 -->
+                  <p class="flex justify-start mt-2 text-xs text-base-content/25">提案</p>
+                  <p class="ml-4 pt-1 text-lg font-mono font-black text-success">
+                      <%= proposal["rewritten_text"] %>
+                  </p>
+              </div>
+              <p class="no-copy flex justify-end mt-2 text-xs text-base-content/25">
+                  ※例文を使って満点にすることはできません。
               </p>
             </div>
-            <p class="flex justify-end mt-2 text-xs text-base-content/25">
-                ※例文を使って満点にすることはできません。
-            </p>
+
+            <button data-clipboard-target="button" data-action="clipboard#copy" class="py-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 opacity-50">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+              </svg>
+            </button> 
           </div>
 
-          <!-- 関連フレーズ -->
-          <div data-chat-feedback-target="message" class="chat-bubble hidden bg-base-100 flex flex-col w-full h-auto">
-            <p class="text-xs opacity-25">🎁フレーズ_<span class="text-md font-bold"><%= idx+1 %></span></p>
-            <div class="ml-4">
-              <p class="text-md">・<%= proposal["bonus_phrase"]["phrase"] %></p>
-              <p class="ml-4 mt-2 mb-2 text-xs tracking-wide text-base-content/50"><%= proposal["bonus_phrase"]["meaning"] %></p>
+          <!-- フレーズ -->
+          <div 
+            data-controller="clipboard"
+            data-chat-feedback-target="message" 
+            class="chat-bubble hidden bg-base-100 flex flex-col items-center w-full h-auto"
+            >
+            <div 
+              data-clipboard-target="source" 
+              class="content w-full h-auto pb-2 border-b-4 border-base-300"
+              >
+              <p class="text-xs opacity-25">🎁フレーズ <span class="text-md font-bold"><%= idx+1 %></span></p>
+              <div class="ml-4">
+                <p class="ml-4 text-lg"><%= proposal["bonus_phrase"]["phrase"] %></p>
+                <p class="ml-4 mb-2 text-xs tracking-wide text-base-content/50"><%= proposal["bonus_phrase"]["meaning"] %></p>
 
-              <p class="ml-4 border-b-2 border-base-content/10"></p>
-              
-              <p class="mt-2">・<%= proposal["bonus_phrase"]["example"] %></p>
-            </div>
-            <div class="ml-8">
-              <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
-                <!-- 翻訳は説明言語と学習言語が同じ場合、非表示にすること -->
-                <p class="pl-4 text-xs text-base-content/50"><%= proposal["bonus_phrase"]["example_translation"] %></p>
+                <p class="ml-4 border-b-2 border-base-content/10"></p>
+                
+                <p>・<%= proposal["bonus_phrase"]["example"] %></p>
+              </div>
+              <div class="ml-8">
+                <div class="border-l-2 border-base-content/20 flex flex-col gap-0.5 my-1">
+                  <!-- 翻訳は説明言語と学習言語が同じ場合、非表示にすること -->
+                  <p class="pl-4 text-xs text-base-content/50"><%= proposal["bonus_phrase"]["example_translation"] %></p>
+                </div>
               </div>
             </div>
+
+            <button data-clipboard-target="button" data-action="clipboard#copy" class="py-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 opacity-50">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+              </svg>
+            </button> 
           </div>
         <% end %>
       <% end %>

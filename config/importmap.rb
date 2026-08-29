@@ -7,3 +7,4 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.13
 pin "theme-change" # @3.0.4
+pin "turndown" # @7.2.4

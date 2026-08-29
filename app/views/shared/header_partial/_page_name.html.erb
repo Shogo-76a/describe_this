@@ -1,4 +1,4 @@
-<!-- 両端にホーム用ボタン(レコード削除機能) と テーマボタン があるヘッダー -->
+<!-- ページ名と 両端にホーム用ボタン と テーマボタン があるヘッダー -->
 <header class="flex justify-between items-center navbar bg-base-200 text-base-content p-2">
     <% if authenticated? %>
         <%= button_to root_path, method: :get, class: "inline-block" do %>
@@ -35,6 +35,6 @@
             </div>
         <% end %>
     <% end %>
-    <%= yield :sign_up %>
+    <%= yield :page_name %>
     <%= render 'shared/theme_color_tab', theme_name: 'light' %>
 </header>

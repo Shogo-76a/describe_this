@@ -1,7 +1,7 @@
 
 <!-- ページごとに書き換わるエリア -->
-<% if content_for?(:sign_up) %>
-    <%= render partial: "shared/header_partial/sign_up"%>
+<% if content_for?(:page_name) %>
+    <%= render partial: "shared/header_partial/page_name"%>
 
 <% elsif content_for?(:in_game) %>
     <%= render partial: "shared/header_partial/in_game"%>
