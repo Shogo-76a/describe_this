@@ -5,8 +5,17 @@ export default class extends Controller {
   static targets = ['source', 'button'];
 
   copy() {
+    // コピーしたくない要素を取り除く処理
+    // 元の要素はそのまま残し、複製を作る
+    const clone = this.sourceTarget.cloneNode(true);
+    // 複製の中から、除外したい要素だけをすべて削除
+    clone.querySelectorAll(".no-copy").forEach((el) => el.remove());
+    // 加工後の複製からテキストを取得してコピー
+    navigator.clipboard.writeText(clone.innerText);
+
+    // マークダウンに変換する処理
     const turndownService = new TurndownService();
-    const markdown = turndownService.turndown(this.sourceTarget.innerHTML);
+    const markdown = turndownService.turndown(clone.innerHTML);
 
     navigator.clipboard.writeText(markdown).then(() => {
       this.showCopied();
