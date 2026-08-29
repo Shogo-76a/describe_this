@@ -21,16 +21,19 @@ Avo.configure do |config|
 
   # 1. Avoにカレントユーザーの取得方法を指定
   config.current_user_method do
-    Current.user # もしくは Current.session&.user
+    # 💡 ここでもクッキーからセッションを復元するようにします
+    Current.session ||= Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+    Current.user
   end
 
   # 2. 認証と管理者チェックのロジック
   config.authenticate_with do
-    # Avoコントローラ内でもクッキーからセッションを復元する（※重要）
+    # (念のためここにも残しておいて問題ありません)
     Current.session ||= Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
 
     # 未ログイン、または管理者フラグ（admin）が false の場合はログイン画面に飛ばす
-    if Current.user.nil? || !Current.user.admin?
+    # 💡 メソッド呼び出し（admin?）ではなく、カラム参照（admin）の場合は修正してください
+    if Current.user.nil? || !Current.user.admin
       redirect_to main_app.new_session_path, alert: "管理者権限が必要です。"
     end
   end

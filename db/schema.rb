@@ -43,7 +43,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_29_092909) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.string "array_context", default: [], array: true
+    t.text "array_context", default: [], array: true
     t.datetime "created_at", null: false
     t.text "description"
     t.jsonb "feedback"
@@ -76,6 +76,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_29_092909) do
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
