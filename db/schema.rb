@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_26_033934) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_29_092909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,7 +43,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_033934) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.string "array_context", default: [], array: true
+    t.text "array_context", default: [], array: true
     t.datetime "created_at", null: false
     t.text "description"
     t.jsonb "feedback"
@@ -66,6 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_033934) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.string "email_address", null: false
     t.string "name"
@@ -75,6 +76,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_033934) do
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

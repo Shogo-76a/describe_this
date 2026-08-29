@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "documents/terms"
 
   # 管理画面
-  mount_avo
+  mount Avo::Engine, at: Avo.configuration.root_path
 
   # 認証関連
 

@@ -7,3 +7,11 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+admin_credentials = Rails.application.credentials.admin
+if admin_credentials.present?
+  User.find_or_create_by!(name: admin_credentials[:name], email_address: admin_credentials[:email_address]) do |user|
+    user.password = admin_credentials[:password]
+    user.admin = true # 最初から管理者に設定
+  end
+end

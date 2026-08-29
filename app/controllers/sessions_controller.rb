@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  include Authentication
   allow_unauthenticated_access only: %i[ new create ]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_path, alert: "後で再度お試しください。" }
 
@@ -18,4 +19,12 @@ class SessionsController < ApplicationController
     terminate_session
     redirect_to new_session_path, status: :see_other
   end
+
+
+private
+
+  def current_user
+    Current.session&.user
+  end
+  helper_method :current_user
 end
