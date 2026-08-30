@@ -4,7 +4,7 @@ import { Controller } from '@hotwired/stimulus';
 
 // Connects to data-controller="transcription"
 export default class extends Controller {
-  static targets = ['recordButton', 'stopButton', 'loadButton', 'status', 'transcript'];
+  static targets = ['recordButton', 'stopButton', 'status', 'transcript'];
 
   connect() {
     this.mediaRecorder = null;
@@ -76,7 +76,6 @@ export default class extends Controller {
     this.mediaRecorder = null;
   }
 
-  // 音データを受け取って、transcriptコントローラのcreateアクション実行。ページのtranscriptTargetへテキスト挿入する。
   async uploadFile(file) {
     this.clearTranscript();
     this.statusTarget.textContent = 'アップロード中...';
@@ -100,7 +99,7 @@ export default class extends Controller {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
 
-      document.querySelector('#transcript_id').value = data.text || '';
+      this.transcriptTarget.textContent = data.text || '';
       this.statusTarget.textContent = '文字起こしが完了しました';
     } catch (err) {
       this.showError(`エラーが発生しました: ${err.message}`);
