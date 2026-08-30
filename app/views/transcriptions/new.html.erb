@@ -1,0 +1,103 @@
+<!-- app/views/transcriptions/new.html.erb -->
+<div class="transcription-container">
+  <h1>音声文字起こし</h1>
+  
+  <div class="controls" style="margin-bottom: 20px;">
+    <button id="start-btn">🎤 録音開始</button>
+    <button id="stop-btn" disabled>🛑 録音停止・文字起こし</button>
+    <span id="status" style="margin-left: 10px; color: gray;">停止中</span>
+  </div>
+
+  <div class="result-area">
+    <label for="result-text">文字起こし結果:</label><br>
+    <textarea id="result-text" rows="10" cols="50" placeholder="ここにテキストが表示されます..."></textarea>
+  </div>
+</div>
+
+<script>
+  let mediaRecorder;
+  let audioChunks = [];
+
+  const startBtn = document.getElementById('start-btn');
+  const stopBtn = document.getElementById('stop-btn');
+  const statusSpan = document.getElementById('status');
+  const resultText = document.getElementById('result-text');
+
+  // 1. 録音開始ボタンの処理
+  startBtn.addEventListener('click', async () => {
+    audioChunks = []; // 過去のデータをクリア
+    
+    // スマホのマイクへのアクセスを要求
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    
+    // iPhone(Safari)やAndroidでも汎用的に動くwebm、またはmp4/wav形式で録音
+    mediaRecorder = new MediaRecorder(stream);
+    
+    mediaRecorder.ondataavailable = (event) => {
+      audioChunks.push(event.data);
+    };
+
+    mediaRecorder.onstop = async () => {
+      statusSpan.innerText = "文字起こし処理中...";
+      
+
+      // 音声データが正しく取得できているか確認
+      if (audioChunks.length === 0) {
+        statusSpan.innerText = "録音データがありません";
+        return;
+      }
+
+      
+      // 録音データを1つのファイル（Blob）にまとめる
+      const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+
+      // 【デバッグ用】コンソールでファイルサイズ（byte）を確認（0なら失敗している）
+      console.log("Audio size:", audioBlob.size); 
+
+      
+      // Railsへ送るためのフォームデータを作成
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'recording.wav');
+
+      try {
+        // Railsのコントローラへ送信
+        const response = await fetch('/transcriptions', {
+          method: 'POST',
+          headers: {
+            // Rails 8のCSRFトークンをヘッダーに付与
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: formData
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+          resultText.value = data.text; // テキスト欄に結果を反映
+          statusSpan.innerText = "完了！";
+        } else {
+          statusSpan.innerText = "エラーが発生しました";
+          alert(data.error);
+        }
+      } catch (error) {
+        statusSpan.innerText = "通信エラー";
+        console.error(error);
+      }
+    };
+
+    mediaRecorder.start();
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+    statusSpan.innerText = "録音中...";
+  });
+
+  // 2. 録音停止ボタンの処理
+  stopBtn.addEventListener('click', () => {
+    mediaRecorder.stop();
+    // マイクのストリームを完全に停止して、スマホの「録音中マーク」を消す
+    mediaRecorder.stream.getTracks().forEach(track => track.stop());
+    
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+  });
+</script>
