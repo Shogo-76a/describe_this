@@ -17,6 +17,7 @@
 <script>
   let mediaRecorder;
   let audioChunks = [];
+  let recordingTimer; // 30秒タイマー用
 
   const startBtn = document.getElementById('start-btn');
   const stopBtn = document.getElementById('stop-btn');
@@ -89,6 +90,18 @@
     startBtn.disabled = true;
     stopBtn.disabled = false;
     statusSpan.innerText = "録音中...";
+
+    // ★ 【重要】30秒（30000ミリ秒）後に自動でストップさせるタイマーを起動
+    recordingTimer = setTimeout(() => {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+        console.log("30秒制限に達したため、自動的に録音を終了して送信します。");
+      }
+    }, 30000);
+
   });
 
   // 2. 録音停止ボタンの処理
