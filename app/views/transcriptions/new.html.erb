@@ -91,7 +91,7 @@
     stopBtn.disabled = false;
     statusSpan.innerText = "録音中...";
 
-    // ★ 【重要】30秒（30000ミリ秒）後に自動でストップさせるタイマーを起動
+    // 30秒（30000ミリ秒）後に自動でストップさせるタイマーを起動
     recordingTimer = setTimeout(() => {
       if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop();
