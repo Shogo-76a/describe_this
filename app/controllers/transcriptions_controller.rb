@@ -10,7 +10,7 @@ class TranscriptionsController < ApplicationController
 
     service = TranscribeService.new(
       audio_file: audio_file,
-      prompt: "不要な『えーと』や『あの』などのケバ取りを行い、自然な日本語に修正してください。",
+      prompt: "不要な『えーと』や『あの』などのケバ取りを行い、自然な日本語に修正してください。無音やノイズのみの場合は何も出力しないでください。",
       language: "ja"
     )
 

@@ -3,15 +3,13 @@ class TranscribeService
   class ValidationError < Error; end
   class OpenAIError < Error; end
 
-  DEFAULT_MODEL = "whisper-1".freeze
-  DEFAULT_LANGUAGE = "ja".freeze
-
-  def initialize(audio_file:, prompt: nil, language: DEFAULT_LANGUAGE, client: nil, model: DEFAULT_MODEL)
+  def initialize(audio_file:, prompt: nil, language: "ja", client: nil, model: "whisper-1", temperature: 0.0)
     @audio_file = audio_file
     @prompt = prompt
     @language = language
     @model = model
     @client = client || OpenAI::Client.new
+    @temperature = temperature
   end
 
   # 実行して文字列を返す。失敗時は例外を投げる。
@@ -23,7 +21,8 @@ class TranscribeService
         model: @model,
         file: @audio_file.tempfile,
         language: @language,
-        prompt: @prompt
+        prompt: @prompt,
+        temperature: @temperature
       }
     )
 
