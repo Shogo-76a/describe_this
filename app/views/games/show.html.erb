@@ -50,15 +50,15 @@
         <!-- テキスト入力欄 -->
         <div class="max-w-2xl mx-auto w-full mt-5">
             <%= form_with(url: user_game_path(@game.user_id, @game), model: @game, 
-                        data: { 
-                            controller: "chat-form", 
-                            chat_form_limit_value: @message_limit, 
-                            action: "
-                                    submit->chat-form#validateForm 
-                                    keydown->chat-form#handleKeydown 
-                                    turbo:submit-end->chat-form#clear
-                                    " 
-                        }) do |f| %>
+                data: { 
+                    controller: "chat-form", 
+                    chat_form_limit_value: @message_limit, 
+                    action: "
+                            submit->chat-form#validateForm 
+                            keydown->chat-form#handleKeydown 
+                            turbo:submit-end->chat-form#clear
+                            " 
+                }) do |f| %>
 
                 <div class="flex gap-2 items-end">
                     <%= f.text_area :description, 

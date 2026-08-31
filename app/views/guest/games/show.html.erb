@@ -5,8 +5,7 @@
     </div>
 <% end %>
 <div 
-  data-controller="transcription"
-  data-controller="guest--generated-image-polling"
+  data-controller="guest--generated-image-polling transcription"
   data-guest--generated-image-polling-url-value="<%= check_generated_image_guest_game_path(@game) %>"
   data-guest--generated-image-polling-max-attempts-value="300"
   data-guest--generated-image-polling-interval-value="2000"
@@ -51,16 +50,17 @@
 
         <!-- テキスト入力欄 -->
         <div class="max-w-2xl mx-auto w-full mt-5">
-            <%= form_with(url: guest_game_path, model: @game,
-                        data: { 
-                            controller: "guest--chat-form", 
-                            guest__chat_form_limit_value: @message_limit, 
-                            action: "
-                                    submit->guest--chat-form#validateForm 
-                                    keydown->guest--chat-form#handleKeydown 
-                                    turbo:submit-end->guest--chat-form#clear
-                                    " 
-                        }) do |f| %>
+            <%= form_with(
+                url: guest_game_path, model: @game,
+                data: { 
+                    controller: "guest--chat-form", 
+                    guest__chat_form_limit_value: @message_limit, 
+                    action: "
+                            submit->guest--chat-form#validateForm 
+                            keydown->guest--chat-form#handleKeydown 
+                            turbo:submit-end->guest--chat-form#clear
+                            " 
+                }) do |f| %>
 
                 <div class="flex gap-2 items-end">
                     <%= f.text_area :description, 
