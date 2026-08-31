@@ -10,11 +10,13 @@ class TranscriptionsController < ApplicationController
 
     service = TranscribeService.new(
       audio_file: audio_file,
-      prompt: "不要な『えーと』や『あの』などのケバ取りを行い、自然な日本語に修正してください。無音やノイズのみの場合は何も出力しないでください。",
-      language: "ja"
+      prompt: "Hello, this is a clear, articulate, and natural English transcript without any filler words like um or uh.",
+      language: "en"
     )
 
     text = service.call
+
+    # Stimulusコントローラが値を受け取る　app/javascript/controllers/transcription_controller.js
     render json: { text: text }
   rescue TranscribeService::ValidationError => e
     render json: { error: e.message }, status: :bad_request

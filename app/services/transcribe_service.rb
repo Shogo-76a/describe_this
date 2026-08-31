@@ -31,9 +31,26 @@ class TranscribeService
       raise OpenAIError, response["error"]["message"]
     end
 
-    # 正常系: API が返す text を返す
-    # ※ ruby-openai の返却フォーマットに合わせて必要なら調整してください
-    response.fetch("text")
+
+    # Whisper-1のハルシネーション定型文を確認。あれば削除して、空を返す。
+    striped_response = (response["text"] || "").strip
+    hallucinations = [
+      /\Athank\s?you\.?\!?\z/i,                     # "Thank you." "thank you" "thank you!"
+      /\Athank\s?you\sfor\swatching\.?\!?\z/i,      # "Thank you for watching." "Thank you for watching!"
+      /\Athanks?\sfor\swatching\.?\!?\z/i,          # "Thanks for watching." "Thanks for watching!"
+      /\Ayou\.?\z/i,                             # "You." "You"
+      /subtitles\sby\samara\.org/i              # 字幕サイトのハルシネーション（これだけは部分一致でも安全）
+    ]
+    
+    if striped_response.blank? || hallucinations.any? { |regexp| striped_response.match?(regexp) } # regexp(正規表現)
+      # 無音・ノイズとして処理し、何も出力しない
+      return ""
+    else
+      # ハルシネーションではない場合にデータを返す。
+      striped_response
+    end
+
+
   rescue OpenAIError
     raise
   rescue => e

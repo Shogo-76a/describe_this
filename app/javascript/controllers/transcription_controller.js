@@ -76,10 +76,10 @@ export default class extends Controller {
     this.mediaRecorder = null;
   }
 
-  // 音データを受け取って、transcriptコントローラのcreateアクション実行。ページのtranscriptTargetへテキスト挿入する。
+  // 音データを受け取って、transcriptコントローラのcreateアクション実行。ページのtranscript_idを持つ要素へテキスト挿入する。
   async uploadFile(file) {
     this.clearTranscript();
-    this.statusTarget.textContent = 'アップロード中...';
+    this.statusTarget.textContent = 'UP中';
     this.disableControls(true);
 
     const form = new FormData();
@@ -97,9 +97,10 @@ export default class extends Controller {
 
       if (!res.ok) throw new Error(`サーバーエラー: ${res.status}`);
 
+      // -- transcriptコントローラのcreateアクションからtextデータを受ける --
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-
+      // transcript_idのvalueにテキスト挿入。
       document.querySelector('#transcript_id').value = data.text || '';
       this.statusTarget.textContent = '文字起こしが完了しました';
     } catch (err) {
@@ -112,19 +113,32 @@ export default class extends Controller {
   // --- UI ヘルパー ---
   setRecordingState() {
     this.recordButtonTarget.disabled = true;
+    this.recordButtonTarget.classList.add('hidden');
+
     this.stopButtonTarget.disabled = false;
+    this.stopButtonTarget.classList.remove('hidden');
+
     this.statusTarget.textContent = '録音中...';
   }
 
   setUploadingState() {
     this.recordButtonTarget.disabled = true;
+    this.stopButtonTarget.classList.add('hidden');
+
     this.stopButtonTarget.disabled = true;
-    this.statusTarget.textContent = 'アップロード中...';
+    this.stopButtonTarget.classList.add('hidden');
+
+    this.loadButtonTarget.classList.remove('hidden');
+    this.statusTarget.textContent = 'UP中...';
   }
 
   setIdleState() {
     this.recordButtonTarget.disabled = false;
+    this.recordButtonTarget.classList.remove('hidden');
+
     if (this.stopButtonTarget) this.stopButtonTarget.disabled = true;
+    this.stopButtonTarget.classList.add('hidden');
+    this.loadButtonTarget.classList.add('hidden');
     this.statusTarget.textContent = '準備完了';
   }
 
