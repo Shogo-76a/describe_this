@@ -35,11 +35,12 @@ class TranscribeService
     # Whisper-1のハルシネーション定型文を確認。あれば削除して、空を返す。
     striped_response = (response["text"] || "").strip
     hallucinations = [
-      /\Athank\s?you\.?\!?\z/i,                     # "Thank you." "thank you" "thank you!"
-      /\Athank\s?you\sfor\swatching\.?\!?\z/i,      # "Thank you for watching." "Thank you for watching!"
-      /\Athanks?\sfor\swatching\.?\!?\z/i,          # "Thanks for watching." "Thanks for watching!"
-      /\Ayou\.?\z/i,                             # "You." "You"
-      /subtitles\sby\samara\.org/i              # 字幕サイトのハルシネーション（これだけは部分一致でも安全）
+      /\Athank\s?you[\.!\?]?\z/i,                     # "Thank you." "thank you" "thank you!"
+      /\Athank\s?you\sfor\swatching[\.!\?]?\z/i,      # "Thank you for watching." "Thank you for watching!"
+      /\Athanks?\sfor\swatching[\.!\?]?\z/i,          # "Thanks for watching." "Thanks for watching!"
+      /\Ayou[\.!\?]?\z/i,                             # "You." "You"
+      /subtitles\sby\samara\.org/i,              # 字幕サイトのハルシネーション（これだけは部分一致でも安全）
+      /\AI'm going to try to make this as clear as I possibly can[\.!\?]?\z/i # "I'm going to try to make this as clear as I possibly can."
     ]
     
     if striped_response.blank? || hallucinations.any? { |regexp| striped_response.match?(regexp) } # regexp(正規表現)
