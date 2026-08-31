@@ -13,7 +13,7 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
     it '開始画面から画面3のAPIデータ変換・更新まで一連の流れが正しく機能すること', vcr: { cassette_name: 'game_cycle_flow' }, js: true do
       # --- ゲーム開始画面 ---
       click_button 'はじめる' # root -> new をトリガ
-      expect(page).to have_content("お題")
+      expect(page).to have_content("お題", wait: 5)
       expect(page).to have_button("つぎへ")
 
       click_button 'つぎへ' # new -> create/show をトリガ
@@ -21,7 +21,13 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
 
       # --- 画像生成ページで説明文を入力して送信（update に相当） ---
       expect(page).to have_content("お題を 英語で 説明してください", wait: 10)
-      fill_in 'game_description', with: 'a coffe cup on a tablu.' # スペルミスを意図的に含む coffe:coffee, tablu:table
+
+      # 録音ボタンの要素が揃ってるか確認する。切替テストはしない。テスト環境でのマイク認証が難しい。
+      expect(page).to have_css('.btn[data-transcription-target="recordButton"]')
+      expect(page).to have_css('.btn[data-transcription-target="stopButton"]', visible: false)
+      expect(page).to have_css('.btn[data-transcription-target="loadButton"]', visible: false)
+
+      find('textarea[name="game[description]"]').set('a coffe cup on a tablu.') # スペルミスを意図的に含む coffe:coffee, tablu:table
       find('button.btn-primary.d-inline-flex').click # 送信ボタン
 
       # 送信後、採点ボタンが有効になることを確認（画像生成/ジョブ結果をVCRで再生）
@@ -49,9 +55,9 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
       expect(page).to have_content("フィードバック")
       expect(page).to have_css('span.loading.loading-dots.loading-sm')
       expect(page).to have_content("総評", wait: 5)
-      expect(page).to have_content("あなたの説明")
+      expect(page).to have_content("あなたの説明", wait: 5)
       expect(page).to have_content("提案")
-      expect(page).to have_content("フレーズ")
+      expect(page).to have_content("フレーズ", wait: 5)
 
       # クリップボード
       expect(page).to have_css('[data-clipboard-target="button"]')

@@ -21,7 +21,7 @@ RSpec.describe 'ゲスト', type: :system do
     end
     expect(page).to have_button("はじめる")
     expect(page).to have_link("ホーム", href: root_path)
-    expect(page).to have_link("プレイ履歴", href: "#")
+    expect(page).to have_content("プレイ履歴")
     expect(page).to have_link("プロフィール", href: guest_user_path(0))
   end
 

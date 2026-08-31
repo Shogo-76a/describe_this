@@ -19,21 +19,10 @@ RSpec.configure do |config|
     else
 
       # --- ローカル環境（Docker Compose等）用の設定 ---
-      Capybara.register_driver :remote_chrome do |app|
-        options = Selenium::WebDriver::Chrome::Options.new
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--window-size=1400,1400")
-
-        Capybara::Selenium::Driver.new(
-          app,
-          browser: :remote,
-          url: "http://chrome:4444/wd/hub",
-          capabilities: options
-        )
-      end
-
-      driven_by :remote_chrome
+      driven_by :selenium, using: :chrome, options: {
+        browser: :remote,
+        url: "http://chrome:4444/wd/hub"
+      }
 
       Capybara.server_host = "web"
       Capybara.server_port = 3001
