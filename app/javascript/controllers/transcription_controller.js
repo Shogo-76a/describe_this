@@ -4,7 +4,7 @@ import { Controller } from '@hotwired/stimulus';
 
 // Connects to data-controller="transcription"
 export default class extends Controller {
-  static targets = ['recordButton', 'stopButton', 'loadButton', 'status', 'transcript'];
+  static targets = ['recordButton', 'stopButton', 'loadButton', 'transcript'];
 
   connect() {
     this.mediaRecorder = null;
@@ -41,7 +41,6 @@ export default class extends Controller {
       // 30秒後に自動でストップメソッドを呼ぶ
       this.recordingTimeout = setTimeout(() => {
         this.stop();
-        this.statusTarget.textContent = '30秒経過したため、録音を自動停止しました...';
       }, 30000);
 
     } catch (err) {
@@ -79,7 +78,6 @@ export default class extends Controller {
   // 音データを受け取って、transcriptコントローラのcreateアクション実行。ページのtranscript_idを持つ要素へテキスト挿入する。
   async uploadFile(file) {
     this.clearTranscript();
-    this.statusTarget.textContent = 'UP中';
     this.disableControls(true);
 
     const form = new FormData();
@@ -102,7 +100,6 @@ export default class extends Controller {
       if (data.error) throw new Error(data.error);
       // transcript_idのvalueにテキスト挿入。
       document.querySelector('#transcript_id').value = data.text || '';
-      this.statusTarget.textContent = '文字起こしが完了しました';
     } catch (err) {
       this.showError(`エラーが発生しました: ${err.message}`);
     } finally {
@@ -117,8 +114,6 @@ export default class extends Controller {
 
     this.stopButtonTarget.disabled = false;
     this.stopButtonTarget.classList.remove('hidden');
-
-    this.statusTarget.textContent = '録音中...';
   }
 
   setUploadingState() {
@@ -129,7 +124,6 @@ export default class extends Controller {
     this.stopButtonTarget.classList.add('hidden');
 
     this.loadButtonTarget.classList.remove('hidden');
-    this.statusTarget.textContent = 'UP中...';
   }
 
   setIdleState() {
@@ -139,7 +133,6 @@ export default class extends Controller {
     if (this.stopButtonTarget) this.stopButtonTarget.disabled = true;
     this.stopButtonTarget.classList.add('hidden');
     this.loadButtonTarget.classList.add('hidden');
-    this.statusTarget.textContent = '準備完了';
   }
 
   disableControls(flag) {
@@ -148,7 +141,6 @@ export default class extends Controller {
   }
 
   showError(message) {
-    this.statusTarget.textContent = message;
     console.error(message);
   }
 
