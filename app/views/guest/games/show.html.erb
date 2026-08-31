@@ -93,8 +93,9 @@
     <!-- チャット欄 -->
     <div class="relative bg-base-300">
 
-
+        <!-- 録音ボタン -->
         <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[9999] opacity-75 hover:opacity-90 active:opacity-100 duration-100 ">
+            <!-- 開始 -->
             <button 
                 data-action="click->transcription#start"
                 data-transcription-target="recordButton"
@@ -105,6 +106,7 @@
                 </svg>
             </button>
 
+            <!-- 停止 -->
             <button 
                 data-action="click->transcription#stop"
                 data-transcription-target="stopButton"
@@ -116,6 +118,7 @@
                 </svg>
             </button>
 
+            <!-- ローディング -->
             <div 
                 data-transcription-target="loadButton"
                 class="btn btn-secondary rounded-full w-25 landscape:w-20 h-25 landscape:h-20 opacity-95 hidden" 
@@ -123,7 +126,6 @@
             >
                 <span class="loading loading-spinner loading-md"></span>
             </div>
-
 
         </div>
 
