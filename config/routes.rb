@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-
   # 音声認識
-  resources :transcriptions, only: [:new, :create]
+  resources :transcriptions, only: [ :new, :create ]
 
   # ドキュメント
   get "documents/privacy_policy"

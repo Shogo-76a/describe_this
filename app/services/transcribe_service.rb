@@ -42,10 +42,10 @@ class TranscribeService
       /subtitles\sby\samara\.org/i,              # 字幕サイトのハルシネーション（これだけは部分一致でも安全）
       /\AI'm going to try to make this as clear as I possibly can[\.!\?]?\z/i # "I'm going to try to make this as clear as I possibly can."
     ]
-    
+
     if striped_response.blank? || hallucinations.any? { |regexp| striped_response.match?(regexp) } # regexp(正規表現)
       # 無音・ノイズとして処理し、何も出力しない
-      return ""
+      ""
     else
       # ハルシネーションではない場合にデータを返す。
       striped_response

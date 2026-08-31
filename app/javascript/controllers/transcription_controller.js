@@ -103,7 +103,7 @@ export default class extends Controller {
       document.querySelector('#transcript_id').value = data.text || '';
 
       // 手動で input イベントを発火（これで chat-form#resize が動いて入力欄が行に合わせて伸縮）
-      this.transcriptTarget.dispatchEvent(new Event("input", { bubbles: true }));
+      this.transcriptTarget.dispatchEvent(new Event('input', { bubbles: true }));
     } catch (err) {
       this.showError(`エラーが発生しました: ${err.message}`);
     } finally {
