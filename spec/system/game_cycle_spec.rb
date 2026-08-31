@@ -21,6 +21,12 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
 
       # --- 画像生成ページで説明文を入力して送信（update に相当） ---
       expect(page).to have_content("お題を 英語で 説明してください", wait: 10)
+
+      # 録音ボタンの要素が揃ってるか確認する。切替テストはしない。テスト環境でのマイク認証が難しい。
+      expect(page).to have_css('.btn[data-transcription-target="recordButton"]')
+      expect(page).to have_css('.btn[data-transcription-target="stopButton"]', visible: false)
+      expect(page).to have_css('.btn[data-transcription-target="loadButton"]', visible: false)
+
       find('textarea[name="game[description]"]').set('a coffe cup on a tablu.') # スペルミスを意図的に含む coffe:coffee, tablu:table
       find('button.btn-primary.d-inline-flex').click # 送信ボタン
 
