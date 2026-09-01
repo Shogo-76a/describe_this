@@ -1,21 +1,32 @@
 en:
-  hello: "Hello"
   language:
     Japanese: "Japanese"
     English: "English"
   guest:
+    games:
+      top:
+        modal_theme: "How to Play"
+
+        catchphrase_html: "Bring fun to English learning"
+        description_part1_html: "AI visualizes your prompt in English.<br>Can you get your message across clearly?"
+        description_part2_html: "Put your vocabulary to the test<br>and discover new expressions."
+
+        signup: "Sign Up"
+        login: "Log In"
+        start_game: "Start"
+
     users:
       show:
         guest_user_name: "Guest"
         terms: "Terms of Service"
         privacy: "Privacy Policy"
-        language_setting: "Language"
+        language_setting: "Language Settings"
   shared:
     footer:
       home: "Home"
-      history: "Play History"
+      history: "History"
       profile: "Profile"
-      require_login: "Login required"
+      require_login: "Login Required"
 
 
 

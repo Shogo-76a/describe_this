@@ -1,9 +1,20 @@
 ja:
-  hello: "こんにちは"
   language:
     Japanese: "日本語"
     English: "英語"
   guest:
+    games:
+      top:
+        modal_theme: "遊び方"
+
+        catchphrase_html: "英語 学習に遊びを"
+        description_part1_html: "あなたの 英語 で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
+        description_part2_html: "知ってる語彙や文法を出し切って<br>新たな表現と出会う旅へ"
+
+        signup: "新規登録"
+        login: "ログイン"
+        start_game: "はじめる"
+
     users:
       show:
         guest_user_name: "ゲスト"

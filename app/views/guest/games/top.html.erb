@@ -16,25 +16,23 @@
                 "
               ></div>
       <p class="my-6">
-        英語 学習に遊びを
+        <%= t('.catchphrase_html') %>
       </p>
+
       <div class="flex flex-col gap-5 mb-10">
-        <div class="text-sm flex flex-col gap-1">
-          <p>あなたの 英語 で</p>
-          <p>AIがお題のイメージを想像 </p>
-          <p>正確に伝わるかな？</p>
-        </div>
-        <div class="text-sm">
-          <p>知ってる語彙や文法を出し切って</p>
-          <p>新たな表現と出会う旅へ</p>
-        </div>
+        <p class="text-sm">
+          <%= t('.description_part1_html') %>
+        </p>
+        <p class="text-sm">
+          <%= t('.description_part2_html') %>
+        </p>
       </div>
       <div class="flex flex-col gap-10">
         <div class="flex flex-row justify-center gap-5">
-          <%=button_to "新規登録", registrations_new_path, method: :get, class: "btn btn-md btn-primary w-30 h-10 rounded-2xl" %>
-          <%=button_to "ログイン", new_session_path, method: :get, class: "btn btn-md btn-primary w-30 h-10 rounded-2xl" %>
+          <%=button_to t('.signup'), registrations_new_path, method: :get, class: "btn btn-md btn-primary w-30 h-10 rounded-2xl" %>
+          <%=button_to t('.login'), new_session_path, method: :get, class: "btn btn-md btn-primary w-30 h-10 rounded-2xl" %>
         </div>
-        <%=button_to "はじめる", new_guest_game_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+        <%=button_to t('.start_game'), new_guest_game_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
       </div>
     </div>
 
