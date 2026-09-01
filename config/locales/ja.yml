@@ -1,12 +1,15 @@
 ja:
   hello: "こんにちは"
+  language:
+    Japanese: "日本語"
+    English: "英語"
   guest:
     users:
       show:
         guest_user_name: "ゲスト"
         terms: "利用規約"
         privacy: "プライバシーポリシー"
-        language: "言語設定"
+        language_setting: "言語設定"
   shared:
     footer:
       home: "ホーム"

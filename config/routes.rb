@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "locales/update"
 
   # 言語設定
-  resource :locale, only: [:update]
+  resource :locale, only: [ :update ]
 
   # 音声認識
   resources :transcriptions, only: [ :new, :create ]

@@ -39,22 +39,21 @@
         <!-- 言語設定 -->
         <div class="text-xm flex flex-col gap-3 bg-base-100 rounded-2xl p-2">
             <div class="flex flex-row items-center gap-2">
-
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
             </svg>
-                <p><%=t(".language")%></p>
+                <p><%=t(".language_setting")%></p>
                 <div class="dropdown w-30 ml-5">
                     <!-- 言語リスト -->
                     <% languages = [ 
-                        { local: 'ja', text: '日本語' }, 
-                        { local: 'en', text: '英語' }, 
+                        { local: 'ja', text: t('language.Japanese') }, 
+                        { local: 'en', text: t('language.English') }, 
                     ] %>
 
                     <!-- ボタン（表示部分） -->
                     <div tabindex="0" role="button" class="btn-sm select m-1">
                         <% current_language = languages.find { |lang| lang[:local] == I18n.locale.to_s } %>
-                        <%= current_language ? current_language[:text] : "日本語" %>
+                        <%= current_language ? current_language[:text] : t(".language.Japanese") %>
                     </div>
 
                     <!-- メニュー一覧（クリック領域を100%確保） -->
