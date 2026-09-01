@@ -34,10 +34,9 @@ en:
           chat_placeholder: "Type a message..."
 
       score:
-          scoring: "Scoring..."
-          score_results: "Score Results"
-          gauge_name_html: "Image<br> Match Rate"
-          evaluation_criterion: "Evaluation Criteria"
+        scoring: "Scoring..."
+        score_results: "Score Results"
+        gauge_name_html: "Image<br> Match Rate"
 
     users:
       show:
@@ -62,6 +61,38 @@ en:
 
     resulting_score:
       gauge_name_html: "Image<br> Match Rate"
+
+    evidence_of_evaluation:
+      title: "Evaluation Criteria"
+      labels:
+        score: "Score:"
+        rationale: "Rationale:"
+      perfect:
+        label: "Perfect"
+        score: "95–100%"
+        description: "All elements—including subject, background, action, lighting, and mood—were perfectly conveyed to the AI. This top rating shows high descriptive ability and vocabulary equivalent to or exceeding a native speaker."
+      amazing:
+        label: "Amazing"
+        score: "85–94%"
+        description: "Both core elements and background details align almost completely. Slight discrepancies exist only in subtle nuances or shades that are extremely difficult to express in words (e.g., 'the shade of blue of the lake' or 'distance from the back seat'). The accuracy of shared imagery remains exceptionally high."
+      great:
+        label: "Great"
+        score: "75–84%"
+        description: "The main subject and context are communicated with high accuracy. Minor details may be missing or generalized (e.g., omitting the time of day like 'early morning' or treating 'pretty' as a generic background). Still, the listener gains a clear enough image to warrant a 'Great' rating."
+      good:
+        label: "Good"
+        score: "70–74%"
+        description: "Despite noticeable omitted details or grammatical slips, the core message—who, where, and what—reaches the listener correctly. This fully meets the foundational goal of English learning: sharing images effectively in daily life."
+      okay:
+        label: "Okay"
+        score: "50–69%"
+        description: "While intent is conveyed using known words, only about half of the message gets across. For example, the word 'canoe' is understood, but the action 'a woman is rowing' is lost, resulting in an empty canoe. The AI generates a distinctly different scene, equivalent to a real-life conversation where someone asks, 'Do you mean this?'"
+      needs_work:
+        label: "Needs Work"
+        score: "0–49%"
+        description: "Only one or two words were picked up, or broken grammar led to an entirely different scene being conveyed. The image was not successfully shared, leaving the listener unable to understand. Reviewing basic vocabulary and grammar is recommended."
+
+
 
 
 # Files in the config/locales directory are used for internationalization and
