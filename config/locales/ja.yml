@@ -7,6 +7,8 @@ ja:
   common:
     next_page: "つぎへ"
     evaluation_criterion: "評価基準について"
+    signup: "新規登録"
+    login: "ログイン"
 
   system_message_1: "メッセージを確認中..."
 
@@ -18,8 +20,6 @@ ja:
         catchphrase_html: "英語 学習に遊びを"
         description_part1_html: "あなたの 英語 で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
         description_part2_html: "知ってる語彙や文法を出し切って<br>新たな表現と出会う旅へ"
-        signup: "新規登録"
-        login: "ログイン"
         start_game: "はじめる"
 
       check_generated_image: 
@@ -43,8 +43,6 @@ ja:
         feedback: "フィードバック"
         not_available: "ゲストモードではご利用いただけません。"
         action_html: "%{signup_link} または %{login_link} してください。"
-        signup: "新規登録"
-        login: "ログイン"
         retry: "リトライ"
         end: "やめる"
         
@@ -55,6 +53,9 @@ ja:
         terms: "利用規約"
         privacy: "プライバシーポリシー"
         language_setting: "言語設定"
+
+
+  sessions:
 
 
   shared:

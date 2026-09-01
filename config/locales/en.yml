@@ -6,6 +6,8 @@ en:
     theme: "Prompt"
   common:
     next_page: "Next"
+    signup: "Sign Up"
+    login: "Log In"
 
   system_message_1: "Checking message..."
 
@@ -17,8 +19,6 @@ en:
         catchphrase_html: "Bring fun to English learning"
         description_part1_html: "AI visualizes your prompt in English.<br>Can you get your message across clearly?"
         description_part2_html: "Put your vocabulary to the test<br>and discover new expressions."
-        signup: "Sign Up"
-        login: "Log In"
         start_game: "Start"
 
       check_generated_image:
@@ -42,8 +42,6 @@ en:
           feedback: "Feedback"
           not_available: "Not available in guest mode."
           action_html: "Please %{signup_link} or %{login_link}."
-          signup: "Sign Up"
-          login: "Log In"
           retry: "Retry"
           end: "End" 
 

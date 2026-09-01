@@ -1,7 +1,7 @@
 <!-- ヘッダーの内容変更 -->
 <% provide(:in_game) do %>
     <div class="flex items-end gap-0 text-2xl opacity-75">
-        <p>フィードバック</p>
+        <p><%= t(".feedback") %></p>
     </div>
 <% end %>
 <div class="pt-10">
@@ -96,8 +96,8 @@
                     <p><%= t(".not_available") %></p>
                     <p>
                         <%= t(".action_html",
-                            signup_link: link_to(t(".signup"), registrations_new_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary"),
-                            login_link: link_to(t(".login"), new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary")
+                            signup_link: link_to(t("common.signup"), registrations_new_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary"),
+                            login_link: link_to(t("common.login"), new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary")
                             ) %>
                     </p>
                 </div>
