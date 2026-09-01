@@ -12,5 +12,6 @@ ja:
       home: "ホーム"
       history: "プレイ履歴"
       profile: "プロフィール"
+      require_login: ログイン必須
 
 

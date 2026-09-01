@@ -12,6 +12,7 @@ en:
       home: "Home"
       history: "Play History"
       profile: "Profile"
+      require_login: "Login required"
 
 
 
