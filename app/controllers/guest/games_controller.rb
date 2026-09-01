@@ -35,12 +35,12 @@ module Guest
 
     def update
       updater = GameUpdater.new(@game, game_params)
-      success, errors, system_replies = updater.call
+      success, errors, system_reply = updater.call
 
       if success
         respond_to do |format|
           format.turbo_stream do
-            @system_replies = system_replies
+            @system_reply = system_reply
           end
         end
       else
@@ -49,7 +49,7 @@ module Guest
     end
 
     def check_generated_image
-      @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
+      @system_reply = GameForm.new(feedback: t('.system_message_1'))
       image_success = params[:image_success].to_i
 
       if @game.generated_image.attached?
@@ -64,7 +64,7 @@ module Guest
             turbo_stream.append(
               "chat_messages_container",
               partial: "shared/message",
-              locals: { message: @system_replies }
+              locals: { message: @system_reply }
             ),
 
             turbo_stream.update(

@@ -5,6 +5,10 @@ ja:
   img_src:
     theme: "お題"
 
+
+  system_message_1: "メッセージを確認中..."
+
+
   guest:
     games:
       top:
@@ -15,6 +19,9 @@ ja:
         signup: "新規登録"
         login: "ログイン"
         start_game: "はじめる"
+
+      check_generated_image: 
+        system_message_1: "こんな感じでしょうか？"
 
       new:
         title: "お題"
@@ -33,11 +40,18 @@ ja:
         terms: "利用規約"
         privacy: "プライバシーポリシー"
         language_setting: "言語設定"
+
+
   shared:
     footer:
       home: "ホーム"
       history: "プレイ履歴"
       profile: "プロフィール"
       require_login: ログイン必須
+      
+    scoring_button:
+      scoring: "採点"
 
+    generated_image:
+      loading: "読み込み中..."
 

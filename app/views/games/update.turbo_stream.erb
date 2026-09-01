@@ -5,8 +5,8 @@
         <!-- # 最初の読み込み時は @game の中身（1件ならobject、複数ならcollection）を描画 -->
         <%= render partial: 'shared/message', object: @game, as: :message %>
 
-        <!-- # アプリ側のメッセージ @system_repliesを流し込む-->
-        <%= render partial: 'shared/message', collection: @system_replies, as: :message %>
+        <!-- # アプリ側のメッセージ @system_replyを流し込む-->
+        <%= render partial: 'shared/message', collection: @system_reply, as: :message %>
     <% end %>
     
     <%= turbo_stream.update "scoring_button" do %>

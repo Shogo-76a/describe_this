@@ -5,6 +5,10 @@ en:
   img_src:
     theme: "Prompt"
 
+
+  system_message_1: "Checking message..."
+
+
   guest:
     games:
       top:
@@ -15,6 +19,9 @@ en:
         signup: "Sign Up"
         login: "Log In"
         start_game: "Start"
+
+      check_generated_image:
+        system_message_1: "How does this look?"
       
       new:
         title: "Prompt"
@@ -32,6 +39,8 @@ en:
         terms: "Terms of Service"
         privacy: "Privacy Policy"
         language_setting: "Language Settings"
+
+
   shared:
     footer:
       home: "Home"
@@ -39,7 +48,11 @@ en:
       profile: "Profile"
       require_login: "Login Required"
 
+    scoring_button:
+        scoring: "Score"
 
+    generated_image:
+        loading: "Loading..."
 
 
 # Files in the config/locales directory are used for internationalization and
