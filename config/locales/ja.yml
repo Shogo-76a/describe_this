@@ -4,7 +4,8 @@ ja:
     English: "英語"
   img_src:
     theme: "お題"
-
+  common:
+    next_page: "つぎへ"
 
   system_message_1: "メッセージを確認中..."
 
@@ -27,12 +28,16 @@ ja:
         title: "お題"
         instruction: "このイメージを英語で伝えてください。"
         guest_limit_html: 'ゲストモードは<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
-        next_page: "つぎへ"
 
       show: 
         instruction_html: "お題を 英語で 説明してください"
         chat_placeholder: "メッセージを入力..."
 
+      score:
+        scoring: "採点中"
+        score_results: "採点結果"
+        gauge_name_html: "イメージ<br>シンクロ率"
+        evaluation_criterion: "評価基準について"
 
     users:
       show:
@@ -55,3 +60,5 @@ ja:
     generated_image:
       loading: "読み込み中..."
 
+    resulting_score:
+      gauge_name_html: "イメージ<br>シンクロ率"

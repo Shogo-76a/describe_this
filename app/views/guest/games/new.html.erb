@@ -17,7 +17,7 @@
     </button>
     <%= form_with url: guest_games_path, model: @game, data: { turbo: false } do |f| %>
         <%= f.hidden_field :theme_image_url %>
-        <%= f.submit t('.next_page'), class: "flex btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+        <%= f.submit t('common.next_page'), class: "flex btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
     <% end %>
 </div>
 

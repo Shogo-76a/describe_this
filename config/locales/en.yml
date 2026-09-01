@@ -4,7 +4,8 @@ en:
     English: "English"
   img_src:
     theme: "Prompt"
-
+  common:
+    next_page: "Next"
 
   system_message_1: "Checking message..."
 
@@ -27,11 +28,16 @@ en:
         title: "Prompt"
         instruction: "Describe the prompt in English."
         guest_limit_html: 'In Guest Mode, you can describe up to <span class="font-bold text-primary text-lg"> %{count} times</span>.'
-        next_page: "Next"
 
       show:
           instruction_html: "Describe the prompt in English"
           chat_placeholder: "Type a message..."
+
+      score:
+          scoring: "Scoring..."
+          score_results: "Score Results"
+          gauge_name_html: "Image<br> Match Rate"
+          evaluation_criterion: "Evaluation Criteria"
 
     users:
       show:
@@ -53,6 +59,9 @@ en:
 
     generated_image:
         loading: "Loading..."
+
+    resulting_score:
+      gauge_name_html: "Image<br> Match Rate"
 
 
 # Files in the config/locales directory are used for internationalization and
