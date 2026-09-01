@@ -39,6 +39,16 @@ ja:
         score_results: "採点結果"
         gauge_name_html: "イメージ<br>シンクロ率"
 
+      feedback:
+        feedback: "フィードバック"
+        not_available: "ゲストモードではご利用いただけません。"
+        action_html: "%{signup_link} または %{login_link} してください。"
+        signup: "新規登録"
+        login: "ログイン"
+        retry: "リトライ"
+        end: "やめる"
+        
+
     users:
       show:
         guest_user_name: "ゲスト"

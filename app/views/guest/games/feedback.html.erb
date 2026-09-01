@@ -8,8 +8,8 @@
     <!-- コントローラー名を chat-feedback と定義 -->
     <div class ="relative flex flex-col max-w-xs landscape:max-w-3xl mx-auto">
         
+        <!-- ぼかし範囲 -->
         <div class="absolute chat chat-start w-full max-w-xl mx-auto px-4 py-5 flex flex-col gap-4 blur-sm opacity-50"> 
-            
             <!-- 総評 -->
             <div class="chat-bubble bg-base-100 flex flex-col">
                 <!-- 太字で強調 -->
@@ -87,22 +87,24 @@
                 <% end %>
             </div>
         </div>
+        <!-- ぼかし範囲// -->
+
 
         <div class="relative z-10 flex flex-col mt-50 landscape:mt-40">
             <div class="flex flex-col gap-20">
                 <div class="flex flex-col text-center gap-2 text-lg">
-                    <p>ゲストモードではご利用いただけません。</p>
+                    <p><%= t(".not_available") %></p>
                     <p>
-                        <%=link_to "新規登録", registrations_new_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
-                        または
-                        <%=link_to "ログイン", new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+                        <%= t(".action_html",
+                            signup_link: link_to(t(".signup"), registrations_new_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary"),
+                            login_link: link_to(t(".login"), new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary")
+                            ) %>
                     </p>
-                    <p>してください。</p>
                 </div>
 
                 <div class="mb-20 flex justify-center gap-15 landscape:gap-25"> 
-                    <%=link_to "リトライ", new_guest_game_path(image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
-                    <%=button_to "やめる", root_path, method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
+                    <%=link_to t(".retry"), new_guest_game_path(image_url: @game.theme_image_url), method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
+                    <%=button_to t(".end"), root_path, method: :get, class: "btn btn-lg btn-neutral h-12 w-30 rounded-2xl" %>
                 </div> 
             </div>
         </div> 

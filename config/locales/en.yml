@@ -38,6 +38,16 @@ en:
         score_results: "Score Results"
         gauge_name_html: "Image<br> Match Rate"
 
+      feedback:
+          feedback: "Feedback"
+          not_available: "Not available in guest mode."
+          action_html: "Please %{signup_link} or %{login_link}."
+          signup: "Sign Up"
+          login: "Log In"
+          retry: "Retry"
+          end: "End" 
+
+
     users:
       show:
         guest_user_name: "Guest"
