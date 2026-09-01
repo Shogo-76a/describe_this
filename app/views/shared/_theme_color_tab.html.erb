@@ -6,7 +6,7 @@
 
         <!-- ここにStimulusコントローラで指定したSVGアイコンが自動挿入されます(connect時に更新) -->
         <span data-theme-select-target="activeIcon">
-            <!-- connectが動くまでの初期表示として、例えばLightのアイコンを置いておきます -->
+            <!-- connectが動くまでの初期表示として、Lightのテーマアイコンを置いておきます -->
             <%= render 'shared/theme_icon', theme_name: cookies[:theme].presence || 'light' %>
         </span>
 
@@ -15,7 +15,7 @@
     <!-- ドロップダウンメニューの中身 -->
     <ul tabindex="0" class="dropdown-content menu bg-base-200 text-base-content rounded-box z-20 w-48 p-2 shadow-2xl outline-(length:--border) outline-black/5 mt-6 max-h-122 overflow-y-auto flex-nowrap">
         
-        <!-- テーマのリストを定義してループで回すのがRailsらしい書き方です -->
+        <!-- テーマのリストを定義してループで回す -->
         <% themes = [ 
         { name: 'Light', value: 'light' }, 
         { name: 'Dark', value: 'dark' }, 
