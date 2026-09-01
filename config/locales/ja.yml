@@ -1,2 +1,16 @@
 ja:
   hello: "こんにちは"
+  guest:
+    users:
+      show:
+        guest_user_name: "ゲスト"
+        terms: "利用規約"
+        privacy: "プライバシーポリシー"
+        language: "言語設定"
+  shared:
+    footer:
+      home: "ホーム"
+      history: "プレイ履歴"
+      profile: "プロフィール"
+
+
