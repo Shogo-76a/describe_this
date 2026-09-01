@@ -25,7 +25,7 @@
                     <img
                         id="theme-image-imgtag"
                         src="<%= @game.theme_image_url %>"
-                        alt="お題イメージ"
+                        alt="<%= t('img_src.theme') %>"
                         class="w-full h-full landscape:h-auto object-cover object-left rounded-4xl">
                 </div>
             </div>
@@ -43,7 +43,7 @@
         
         <div id="scoring_button", class="flex justify-center mt-5">
             <p class="btn btn-lg bg-neutral/50 text-neutral-content/50 font-normal text-sm w-70 h-12 rounded-2xl">
-                お題を 英語で 説明してください
+                <%= t('.instruction_html') %>
             </p>
         </div>
 
@@ -72,7 +72,7 @@
                         },
                         rows: 1,
                         class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
-                        placeholder: "メッセージを入力..." %>
+                        placeholder: t('.chat_placeholder') %>
                     <div class="tooltip tooltip-open tooltip-primary">
                         <div class="tooltip-content bg-transparent shadow-none">
                             <div class="text-sm flex flex-col justify-center items-center text-primary font-bold">

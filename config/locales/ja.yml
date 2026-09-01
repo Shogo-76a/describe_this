@@ -2,7 +2,9 @@ ja:
   language:
     Japanese: "日本語"
     English: "英語"
-    
+  img_src:
+    theme: "お題"
+
   guest:
     games:
       top:
@@ -19,6 +21,11 @@ ja:
         instruction: "このイメージを英語で伝えてください。"
         guest_limit_html: 'ゲストモードは<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
         next_page: "つぎへ"
+
+      show: 
+        instruction_html: "お題を 英語で 説明してください"
+        chat_placeholder: "メッセージを入力..."
+
 
     users:
       show:

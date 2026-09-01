@@ -2,6 +2,9 @@ en:
   language:
     Japanese: "Japanese"
     English: "English"
+  img_src:
+    theme: "Prompt"
+
   guest:
     games:
       top:
@@ -14,10 +17,14 @@ en:
         start_game: "Start"
       
       new:
-        title: "Topic"
-        instruction: "Describe this image in English."
+        title: "Prompt"
+        instruction: "Describe the prompt in English."
         guest_limit_html: 'In Guest Mode, you can describe up to <span class="font-bold text-primary text-lg"> %{count} times</span>.'
         next_page: "Next"
+
+      show:
+          instruction_html: "Describe the prompt in English"
+          chat_placeholder: "Type a message..."
 
     users:
       show:
