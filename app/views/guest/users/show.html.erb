@@ -45,25 +45,34 @@
             </svg>
 
                 <p>言語設定</p>
-                <select class="select select-sm w-30 ml-10">
+                <div class="dropdown w-30">
+                    <!-- 言語リスト -->
                     <% languages = [ 
-                    { local: 'ja', text: '日本語' }, 
-                    { local: 'en', text: '英語' }, 
+                        { local: 'ja', text: '日本語' }, 
+                        { local: 'en', text: '英語' }, 
                     ] %>
 
-                    <% languages.each do |lang| %>
-                        <option>
-                            <span class="opacity-50 mr-5"><%= lang[:local].upcase %></span>
-                            <%= lang[:text] %>
-                        </option>
-                    <% end %>
-                </select>
+                    <!-- ボタン（表示部分） -->
+                    <div tabindex="0" role="button" class="btn-sm select m-1">
+                        <% current_language = languages.find { |lang| lang[:local] == I18n.locale.to_s } %>
+                        <%= current_language ? current_language[:text] : "日本語" %>
+                    </div>
 
-                <%= link_to "日本語", url_for(request.query_parameters.merge(locale: "ja")), class: "locale-link" %>
-                <%= link_to "English", url_for(request.query_parameters.merge(locale: "en")), class: "locale-link" %>
-
+                    <!-- メニュー一覧（クリック領域を100%確保） -->
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                        <% languages.each do |lang| %>
+                            <li>
+                                <%= link_to url_for(request.query_parameters.merge(locale: lang[:local])), class: "w-full h-full block" do %>
+                                <span class="opacity-50 mr-5"><%= lang[:local].upcase %></span> <%= lang[:text] %>
+                                <% end %>
+                            </li>
+                        <% end %>
+                    </ul>
+                </div>
             </div>
         </div>
+
+
         <div class="flex flex-col gap-3">
             <%= t("hello") %>
             <%= t("home.index.title") %>
