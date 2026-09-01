@@ -6,14 +6,18 @@ en:
     games:
       top:
         modal_theme: "How to Play"
-
         catchphrase_html: "Bring fun to English learning"
         description_part1_html: "AI visualizes your prompt in English.<br>Can you get your message across clearly?"
         description_part2_html: "Put your vocabulary to the test<br>and discover new expressions."
-
         signup: "Sign Up"
         login: "Log In"
         start_game: "Start"
+      
+      new:
+        title: "Topic"
+        instruction: "Describe this image in English."
+        guest_limit_html: 'In Guest Mode, you can describe up to <span class="font-bold text-primary text-lg"> %{count} times</span>.'
+        next_page: "Next"
 
     users:
       show:

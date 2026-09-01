@@ -2,18 +2,23 @@ ja:
   language:
     Japanese: "日本語"
     English: "英語"
+    
   guest:
     games:
       top:
         modal_theme: "遊び方"
-
         catchphrase_html: "英語 学習に遊びを"
         description_part1_html: "あなたの 英語 で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
         description_part2_html: "知ってる語彙や文法を出し切って<br>新たな表現と出会う旅へ"
-
         signup: "新規登録"
         login: "ログイン"
         start_game: "はじめる"
+
+      new:
+        title: "お題"
+        instruction: "このイメージを英語で伝えてください。"
+        guest_limit_html: 'ゲストモードは<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
+        next_page: "つぎへ"
 
     users:
       show:
