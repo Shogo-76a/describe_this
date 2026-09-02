@@ -17,6 +17,10 @@ ja:
     start_game: "はじめる"
     gauge_name_html: "イメージ<br>シンクロ率"
 
+  time:
+      formats:
+        short_date: "%Y年%-m月%-d日"
+
   system_message_1: "メッセージを確認中..." # app/services/game_updater.rb 用
 
   documents:
@@ -148,6 +152,10 @@ ja:
       retry: "リトライ"
       end: "やめる"
       copy: "コピーしました"
+
+    index:
+      search_placeholder: "🔍ワード検索"
+      nothing: "プレイ履歴がありません。"
 
   users:
     top:

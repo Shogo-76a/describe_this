@@ -17,6 +17,10 @@ en:
     start_game: "Start"
     gauge_name_html: "Image<br> Match Rate"
 
+  time:
+      formats:
+        short_date: "%b %d, %Y"
+
   system_message_1: "Checking message..." # app/services/game_updater.rb 用
 
   documents:
@@ -152,6 +156,10 @@ en:
         retry: "Retry"
         end: "End" 
         copy: "Copied !"
+
+    index:
+          search_placeholder: "🔍 Search by word..."
+          nothing: "No play history found."
 
 
   users:
