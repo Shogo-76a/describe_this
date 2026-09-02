@@ -151,6 +151,7 @@ en:
         phrase: "🎁 Phrases "
         retry: "Retry"
         end: "End" 
+        copy: "Copied !"
 
 
   users:
