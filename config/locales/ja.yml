@@ -55,6 +55,20 @@ ja:
         privacy: "プライバシーポリシー"
         language_setting: "言語設定"
 
+  passwords:
+    new:
+      pass_reset: "パスワードリセット"
+      email: "メールアドレス"
+      submit: "リセットのメールを送信" 
+    create:
+      flash_sent_mail: "ご記載のメールアドレスへパスワードリセットのメールを送信しました。"
+    update:
+      flash_changed_pass: "パスワードが変更されました。"
+      alert_pass_mismatched: "パスワードが一致しません。"
+    set_user_by_token:
+      alert_link_expired: "パスワードリセットのリンクの有効期限が切れています。"
+    alert_try_again: "後で再度お試しください。"
+
 
   sessions:
     new: # 個別にキー設定が必要

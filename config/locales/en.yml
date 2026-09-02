@@ -56,6 +56,21 @@ en:
         language_setting: "Language Settings"
 
 
+  passwords:
+    new:
+      pass_reset: "Reset Password"
+      email: "Email"
+      submit: "Send Reset Link"
+    create:
+      flash_sent_mail: "A password reset link has been sent to your email address."
+    update:
+      flash_changed_pass: "Your password has been successfully updated."
+      alert_pass_mismatched: "Passwords do not match."
+    set_user_by_token:
+      alert_link_expired: "The password reset link has expired."
+    alert_try_again: "Please try again later."
+
+
   sessions:
     new: # 個別にキー設定が必要
       email: "Email"
