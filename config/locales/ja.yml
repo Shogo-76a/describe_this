@@ -10,7 +10,8 @@ ja:
     signup: "新規登録"
     login: "ログイン"
 
-  system_message_1: "メッセージを確認中..."
+
+  system_message_1: "メッセージを確認中..." # app/services/game_updater.rb 用
 
 
   guest:
@@ -56,6 +57,14 @@ ja:
 
 
   sessions:
+    new: # 個別にキー設定が必要
+      email: "メールアドレス"
+      password: "パスワード"
+      submit: "ログイン" 
+      signup: "新規登録"
+      forgot_pass: "パスワードを忘れた場合"
+      or: "または"
+      message_1: "ご登録がまだの方はこちら："
 
 
   shared:
@@ -75,7 +84,6 @@ ja:
       gauge_name_html: "イメージ<br>シンクロ率"
 
     evidence_of_evaluation:
-      title: "評価基準について"
       labels:
         score: "スコア:"
         rationale: "根拠:"

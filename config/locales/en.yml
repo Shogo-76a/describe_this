@@ -6,10 +6,12 @@ en:
     theme: "Prompt"
   common:
     next_page: "Next"
+    evaluation_criterion: "Evaluation Criteria"
     signup: "Sign Up"
     login: "Log In"
 
-  system_message_1: "Checking message..."
+    
+  system_message_1: "Checking message..." # app/services/game_updater.rb 用
 
 
   guest:
@@ -54,6 +56,17 @@ en:
         language_setting: "Language Settings"
 
 
+  sessions:
+    new: # 個別にキー設定が必要
+      email: "Email"
+      password: "Password"
+      submit: "Log In"
+      signup: "Sign Up"
+      forgot_pass: "Forgot your password?"
+      or: "or"
+      message_1: "Not registered yet? "
+
+
   shared:
     footer:
       home: "Home"
@@ -71,7 +84,6 @@ en:
       gauge_name_html: "Image<br> Match Rate"
 
     evidence_of_evaluation:
-      title: "Evaluation Criteria"
       labels:
         score: "Score:"
         rationale: "Rationale:"
