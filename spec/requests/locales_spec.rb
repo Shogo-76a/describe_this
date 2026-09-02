@@ -4,7 +4,9 @@ RSpec.describe "Locales", type: :request do
   describe "GET /update" do
     it "returns http success" do
       get "/locales/update"
-      expect(response).to have_http_status(:success)
+
+      # localesコントローラのupdateアクションがredirect_backのため、statusを:redirectに設定。
+      expect(response).to have_http_status(:redirect) 
     end
   end
 end
