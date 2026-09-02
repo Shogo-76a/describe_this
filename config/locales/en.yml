@@ -15,6 +15,7 @@ en:
     or: "or"
     how_to_play: "How to Play"
     start_game: "Start"
+    gauge_name_html: "Image<br> Match Rate"
 
   system_message_1: "Checking message..." # app/services/game_updater.rb 用
 
@@ -137,7 +138,6 @@ en:
     score:
       page_title: "Score Results"
       scoring: "Scoring..."
-      gauge_name_html: "Image<br> Match Rate"
 
     feedback:
         page_title: "Feedback"
@@ -184,7 +184,6 @@ en:
       score:
         page_title: "Score Results"
         scoring: "Scoring..."
-        gauge_name_html: "Image<br> Match Rate"
 
       feedback:
           page_title: "Feedback"
@@ -263,9 +262,6 @@ en:
 
     generated_image:
         loading: "Loading..."
-
-    resulting_score:
-      gauge_name_html: "Image<br> Match Rate"
 
     evidence_of_evaluation:
       labels:

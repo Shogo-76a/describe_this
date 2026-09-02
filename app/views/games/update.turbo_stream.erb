@@ -6,7 +6,7 @@
         <%= render partial: 'shared/message', object: @game, as: :message %>
 
         <!-- # アプリ側のメッセージ @system_replyを流し込む-->
-        <%= render partial: 'shared/message', collection: @system_reply, as: :message %>
+        <%= render partial: 'shared/message', object: @system_reply, as: :message %>
     <% end %>
     
     <%= turbo_stream.update "scoring_button" do %>
