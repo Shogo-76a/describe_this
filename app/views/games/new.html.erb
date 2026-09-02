@@ -1,12 +1,12 @@
 <div class="min-h-[calc(100vh-15rem)] flex flex-col items-center justify-center gap-3 text-center">
-    <p class="text-4xl">お題</p>
+    <p class="text-4xl"><%= t('.title') %></p>
     <div>
-        <p>このイメージを 英語 で伝えてください。</p>
-        <p><span class="font-bold text-primary text-lg"><%= @message_limit %>回まで</span> 説明できます。</p>
+        <p><%= t('.instruction') %></p>
+        <p><%= t('.limit_html', count: @message_limit) %></p>
     </div>
     <%= image_tag @game.theme_image_url, 
         id: "gacha-image", 
-        alt: "お題イメージ", 
+        alt: t('img_src.theme'), 
         class: "rounded-4xl p-4 landscape:w-2/5" %>
     <button
         class="text-primary/50 hover:text-base-content transition-colors duration-200 cursor-pointer focus:outline-none"
@@ -17,7 +17,7 @@
     </button>
     <%= form_with url: user_games_path, model: @game, data: { turbo: false } do |f| %>
         <%= f.hidden_field :theme_image_url %>
-        <%= f.submit "つぎへ", class: "flex btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+        <%= f.submit t('common.next_page'), class: "flex btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
     <% end %>
 </div>
 

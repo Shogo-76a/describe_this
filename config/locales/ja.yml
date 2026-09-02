@@ -124,7 +124,7 @@ ja:
     new:
       title: "お題"
       instruction: "このイメージを英語で伝えてください。"
-      guest_limit_html: 'ゲストモードは<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
+      limit_html: '<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
 
     show: 
       instruction_html: "お題を 英語で 説明してください"
