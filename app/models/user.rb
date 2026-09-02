@@ -14,8 +14,9 @@
 #
 # Indexes
 #
-#  index_users_on_email_address  (email_address) UNIQUE
-#  index_users_on_name           (name) UNIQUE
+#  index_users_on_email_address     (email_address) UNIQUE
+#  index_users_on_name              (name) UNIQUE
+#  index_users_on_provider_and_uid  (provider,uid) UNIQUE
 #
 class User < ApplicationRecord
   has_secure_password validations: false # 外部認証時はパスワード入力を必須にしない場合

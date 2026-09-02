@@ -10,11 +10,11 @@ module Guest
 
     def new
       if params[:image_url].present?
-        @game = Game.new(theme_image_url: params[:image_url])
+        @game = Game.new(theme_image_url: params[:image_url], locale_ingame: cookies[:job_param])
       else
         picker = ThemeImagePicker.new
         image_url = picker.call
-        @game = Game.new(theme_image_url: image_url)
+        @game = Game.new(theme_image_url: image_url, locale_ingame: cookies[:job_param])
       end
     end
 
