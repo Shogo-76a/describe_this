@@ -5,76 +5,76 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
             </svg>
-            <p>利用規約</p>
+            <p><%= t(".page_title") %></p>
         </div>
     </div>
 <% end %>
 
 <div class="prose pb-10 max-w-xs landscape:max-w-3xl mx-auto">
-
   <section>
-    <h3>1. 利用規約への同意</h3>
-    <p>「Describe This」（以下「本アプリ」）をご利用いただくことで、ユーザーは本利用規約およびプライバシーポリシーに同意したものとみなします。同意いただけない場合は、本アプリの利用をお控えください。</p>
+    <h3><%= t(".sections.section1.title") %></h3>
+    <p><%= t(".sections.section1.content") %></p>
   </section>
 
   <section>
-    <h3>2. 機能および外部AIの利用について</h3>
+    <h3><%= t(".sections.section2.title") %></h3>
     <ol>
-      <li>本アプリは、伝言ゲーム形式を通じて英語学習を支援するサービスです。</li>
-      <li>本アプリでは、英語表現の添削や翻訳等の機能提供のため、外部のAI（人工知能）サービスを利用しています。</li>
-      <li>AIが生成・出力する内容は、必ずしも正確性、完全性、または有用性を保証するものではありません。ユーザーは自身の責任において内容をご確認ください。</li>
-      <li>外部AIサービスの障害や仕様変更、提供停止等に伴い、本アプリの機能の一部または全部が制限・停止される場合があり、これによって生じた損害について開発者は責任を負いかねます。</li>
+      <% t(".sections.section2.items").each do |item| %>
+        <li><%= item %></li>
+      <% end %>
     </ol>
   </section>
 
   <section>
-    <h3>3. アカウント管理および責任</h3>
+    <h3><%= t(".sections.section3.title") %></h3>
     <ol>
-      <li>アカウント情報の管理はユーザーの責任において行うものとします。</li>
-      <li>アカウント情報の管理不足、パスワードの漏洩、または第三者による不正利用等によって生じたあらゆる損害について、開発者は一切の責任を負いかねます。</li>
-      <li>ユーザーが本アプリを通じて入力・送信したコンテンツ（文章や翻訳等）については、ユーザー自身がすべての責任を負うものとします。</li>
+      <% t(".sections.section3.items").each do |item| %>
+        <li><%= item %></li>
+      <% end %>
     </ol>
   </section>
 
   <section>
-    <h3>4. 禁止事項</h3>
-    <p>本アプリの利用にあたり、以下の行為を禁止します。</p>
+    <h3><%= t(".sections.section4.title") %></h3>
+    <p><%= t(".sections.section4.description") %></p>
     <ul>
-      <li>法令または公序良俗に反する行為、または違法コンテンツの投稿</li>
-      <li>他のユーザーや第三者へのハラスメント、脅迫、迷惑行為</li>
-      <li>本アプリのセキュリティ機能の回避や不正な操作、運営を妨げる行為</li>
-      <li>他のユーザーの知的財産権等の権利を侵害する行為</li>
-      <li>その他、開発者が不適切と判断する行為</li>
+      <% t(".sections.section4.items").each do |item| %>
+        <li><%= item %></li>
+      <% end %>
     </ul>
   </section>
 
   <section>
-    <h3>5. ユーザーコンテンツと知的財産権</h3>
+    <h3><%= t(".sections.section5.title") %></h3>
     <ol>
-      <li>本アプリに関するデザイン、テキスト、ロゴ等の権利は、開発者または正当な権利者に帰属します。</li>
-      <li>ユーザーが本アプリ内に投稿したコンテンツについて、開発者はサービスの提供、改善、または教育・PR目的の範囲内で無償で使用・複製・修正できるものとします。</li>
+      <% t(".sections.section5.items").each do |item| %>
+        <li><%= item %></li>
+      <% end %>
     </ol>
   </section>
 
   <section>
-    <h3>6. 免責事項・アカウント停止</h3>
+    <h3><%= t(".sections.section6.title") %></h3>
     <ol>
-      <li>本アプリの利用によってユーザーに生じたあらゆる損害について、開発者に故意または重大な過失がある場合を除き、開発者は一切の責任を負いません。</li>
-      <li>ユーザーが本規約に違反した場合や不適切と判断された場合、開発者は事前通知なしにアカウントの停止または削除を行うことができるものとします。</li>
+      <% t(".sections.section6.items").each do |item| %>
+        <li><%= item %></li>
+      <% end %>
     </ol>
   </section>
 
   <section>
-    <h3>7. サービスの変更・規約の変更</h3>
-    <p>開発者は、必要に応じてサービス内容や本利用規約を変更・停止することがあります。変更後の利用規約は、本アプリ上に掲載した時点で効力を生じるものとし、変更後も利用を継続した場合、変更後の規約に同意したものとみなします。</p>
+    <h3><%= t(".sections.section7.title") %></h3>
+    <p><%= t(".sections.section7.content") %></p>
   </section>
 
   <section>
-    <h3>8. 準拠法および管轄裁判所</h3>
-    <p>本利用規約は日本法に基づいて解釈されます。本アプリに関して紛争が生じた場合は、開発者の所在地を管轄する裁判所を専属的合意管轄裁判所とします。</p>
+    <h3><%= t(".sections.section8.title") %></h3>
+    <p><%= t(".sections.section8.content") %></p>
   </section>
 
-  <p class="text-base-content/50">最終更新日：2026年8月2日</p>
+  <p class="text-base-content/50">
+    <%= t(".last_updated", date: (I18n.locale == :ja ? "2026年8月2日" : "August 2, 2026")) %>
+  </p>
 </div>
 
 <!-- フッターの内容変更 -->

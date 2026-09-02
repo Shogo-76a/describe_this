@@ -69,6 +69,55 @@ en:
           description: "For questions or inquiries regarding this Privacy Policy, please contact us at:"
           contact_label: "Contact: %{email}"
       last_updated: "Last updated: %{date}"
+    terms:
+      page_title: "Terms of Service"
+      sections:
+        section1:
+          title: "1. Agreement to Terms"
+          content: >
+            By using "Describe This" (hereinafter referred to as "the App"), users agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please refrain from using the App.
+        section2:
+          title: "2. Features and Use of External AI Services"
+          items:
+            - "The App is a service designed to support English learning through a telephone game format."
+            - "The App utilizes third-party AI (Artificial Intelligence) services to provide features such as English proofreading and translation."
+            - "The accuracy, completeness, or usefulness of AI-generated content is not guaranteed. Users should verify all information at their own responsibility."
+            - "In the event of service disruptions, specification changes, or suspension of third-party AI services, some or all functionality of the App may be limited or suspended. The developer assumes no liability for any damages resulting therefrom."
+        section3:
+          title: "3. Account Management and Responsibility"
+          items:
+            - "Users are responsible for managing their account credentials."
+            - "The developer shall not be held liable for any damages arising from poor credential management, password leaks, or unauthorized access by third parties."
+            - "Users bear full responsibility for all content (texts, translations, etc.) they input or transmit through the App."
+        section4:
+          title: "4. Prohibited Conduct"
+          description: "When using the App, the following activities are strictly prohibited:"
+          items:
+            - "Actions that violate laws or public order and morals, or posting illegal content"
+            - "Harassment, threats, or causing nuisance to other users or third parties"
+            - "Bypassing security features, unauthorized manipulation, or interfering with operation of the App"
+            - "Infringing upon the intellectual property or other rights of third parties"
+            - "Any other conduct deemed inappropriate by the developer"
+        section5:
+          title: "5. User Content and Intellectual Property Rights"
+          items:
+            - "All rights to design, text, logos, and other assets related to the App belong to the developer or rightful owners."
+            - "Regarding content posted by users within the App, the developer may use, reproduce, or modify it free of charge within the scope necessary for service provision, improvement, or educational/promotional purposes."
+        section6:
+          title: "6. Disclaimer and Account Suspension"
+          items:
+            - "The developer shall not be held liable for any damages incurred by users arising from the use of the App, except in cases of intentional misconduct or gross negligence by the developer."
+            - "In the event of a violation of these Terms or inappropriate conduct, the developer reserves the right to suspend or delete the account without prior notice."
+        section7:
+          title: "7. Modifications to Service and Terms"
+          content: >
+            The developer may modify or suspend the service content or these Terms of Service at any time as needed. The modified Terms shall take effect as soon as they are posted on the App. Continued use of the App after changes constitutes acceptance of the modified Terms.
+        section8:
+          title: "8. Governing Law and Jurisdiction"
+          content: >
+            These Terms of Service shall be governed by and construed in accordance with the laws of Japan. Any disputes arising in connection with the App shall be subject to the exclusive jurisdiction of the court having jurisdiction over the location of the developer.
+      last_updated: "Last updated: %{date}"
+
 
   guest:
     games:
