@@ -141,8 +141,14 @@ en:
 
     feedback:
         page_title: "Feedback"
-        not_available: "Not available in guest mode."
-        action_html: "Please %{signup_link} or %{login_link}."
+        img_comparison: "🖼️ Image Comparison :"
+        prompt: "Topic :"
+        generated_image: "Generated Image :"
+        general_review: "📄 Overall Review :"
+        your_description: "Your Description "
+        proposal: "Suggestions"
+        note: "*You cannot get a perfect score using sample sentences."
+        phrase: "🎁 Phrases "
         retry: "Retry"
         end: "End" 
 

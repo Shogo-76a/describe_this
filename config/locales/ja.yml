@@ -137,11 +137,16 @@ ja:
 
     feedback:
       page_title: "フィードバック"
-      not_available: "ゲストモードではご利用いただけません。"
-      action_html: "%{signup_link} または %{login_link} してください。"
+      img_comparison: "🖼️イメージ比較 :"
+      prompt: "お題 :"
+      generated_image: "説明からできたイメージ :"
+      general_review: "📄総評 :"
+      your_description: "あなたの説明 "
+      proposal: "提案"
+      note: "※例文を使って満点にすることはできません。"
+      phrase: "🎁フレーズ "
       retry: "リトライ"
       end: "やめる"
-
 
   users:
     top:
@@ -154,6 +159,7 @@ ja:
       contacts: "お問い合わせ"
       language_setting: "言語設定"
       logout: "ログアウト"
+
 
   guest:
     games:

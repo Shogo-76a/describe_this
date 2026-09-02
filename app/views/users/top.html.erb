@@ -44,7 +44,7 @@
         class="modal"
         >
         <div class="modal-box py-3 max-w-sm rounded-2xl overflow-hidden bg-base-100 flex flex-col items-center">
-          <div class="text-3xl">t("common.how_to_play")</div>
+          <div class="text-3xl"><%= t("common.how_to_play") %></div>
           <div 
             class="carousel focus:outline-none w-full snap-x snap-mandatory overflow-x-auto scroll-smooth"
             data-swipe-modal-target="carousel"
@@ -68,7 +68,7 @@
           </div>
               
           <button 
-            class="btn btn-sm px-6 btn-primary w-70 h-12 rounded-2xl"
+            class="btn btn-sm px-6 btn-primary w-70 h-12 rounded-2xl text-lg"
             data-swipe-modal-target="actionBtn"
             data-swipe-modal-next-message-value="<%= t('common.next_page') %>"
             data-swipe-modal-close-message-value="<%= t('common.close_page') %>"
