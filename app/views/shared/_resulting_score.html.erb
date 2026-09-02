@@ -49,7 +49,7 @@
     <!--ログイン分岐-->
     <% if authenticated? %>
         <div class="flex justify-center mt-20">
-            <%=button_to t('.next_page'), feedback_user_game_path(game.user_id, game),
+            <%=button_to t('common.next_page'), feedback_user_game_path(game.user_id, game),
                 method: :get, 
                 class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
                 disabled: false %>

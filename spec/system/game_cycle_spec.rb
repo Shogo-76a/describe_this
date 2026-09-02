@@ -39,16 +39,16 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
       expect(page).to have_content("イメージ")
       expect(page).to have_content("シンクロ率")
       expect(page).to have_selector('.radial-progress', visible: true) # スコア
-      expect(page).to have_css('[data-evaluation-target="text"]') # 判定テキスト
-      expect(page).to have_content("判定基準について")
-      click_button '判定基準について'
+      expect(page).to have_css('[data-evaluation-target="text"]') # 評価テキスト
+      expect(page).to have_content("評価基準について")
+      click_button '評価基準について'
 
       # モーダルを確認
       expect(page).to have_css(".modal", visible: true)
       expect(page).to have_content("Great（とても良い）")
       find('.modal').send_keys(:escape) # モーダルを消す
 
-      expect(page).to have_button("つぎへ")
+      expect(page).to have_button("つぎへ", wait: 5)
       click_button 'つぎへ' # score -> feedback の遷移をトリガ
 
       # --- フィードバックページ ---
