@@ -211,7 +211,8 @@ en:
     users:
       show:
         guest_user_name: "Guest"
-        language_setting: "Language Settings"
+        locale_outgame: "Menu Language"
+        locale_ingame: "In-Game Language"
 
 
   passwords:

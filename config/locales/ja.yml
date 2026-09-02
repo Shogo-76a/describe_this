@@ -206,7 +206,8 @@ ja:
     users:
       show:
         guest_user_name: "ゲスト"
-        language_setting: "言語設定"
+        locale_outgame: "メニューの言語"
+        locale_ingame: "ゲームで使う言語"
 
   passwords:
     new:

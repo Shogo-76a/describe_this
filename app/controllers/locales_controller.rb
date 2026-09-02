@@ -5,4 +5,10 @@ class LocalesController < ApplicationController
     cookies[:locale] = params[:locale]
     redirect_back fallback_location: root_path
   end
+
+  def update_locale_in_game
+    cookies[:locale_in] = params[:locale_in]
+    redirect_back fallback_location: root_path
+  end
+  
 end
