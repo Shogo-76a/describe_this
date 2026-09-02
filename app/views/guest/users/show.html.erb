@@ -83,12 +83,12 @@
                     <!-- 言語リスト -->
                     <% langs_in_game = [ 
                         { locale: 'ja', text: t('language.Japanese'), job_param: "Japanese" }, 
-                        { locale: 'en', text: t('language.English'), job_param: "English"  }, 
+                        { locale: 'en', text: t('language.English') }, 
                     ] %>
 
                     <!-- ボタン（表示部分） -->
                     <div tabindex="0" role="button" class="btn-sm select m-1">
-                        <% current_lang_in_game = langs_in_game.find { |lang| lang[:job_param] == cookies[:job_param].to_s } %>
+                        <% current_lang_in_game = langs_in_game.find { |lang| lang[:locale] == cookies[:job_param].to_s } %>
                         <%= current_lang_in_game ? current_lang_in_game[:text] : t(".language.Japanese") %>
                     </div>
 
@@ -96,7 +96,7 @@
                     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                         <% langs_in_game.each do |lang| %>
                             <li>
-                                <%= link_to update_locale_in_game_locale_path(job_param: lang[:job_param]), class: "w-full h-full block" do %>
+                                <%= link_to update_locale_in_game_locale_path(job_param: lang[:locale]), class: "w-full h-full block" do %>
                                     <span class="opacity-50 mr-5"><%= lang[:locale].upcase %></span> <%= lang[:text] %>
                                 <% end %>
                             </li>

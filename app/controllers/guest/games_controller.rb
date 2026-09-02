@@ -10,16 +10,17 @@ module Guest
 
     def new
       if params[:image_url].present?
-        @game = Game.new(theme_image_url: params[:image_url], locale_ingame: cookies[:job_param])
+        @game = Game.new(theme_image_url: params[:image_url])
       else
         picker = ThemeImagePicker.new
         image_url = picker.call
-        @game = Game.new(theme_image_url: image_url, locale_ingame: cookies[:job_param])
+        @game = Game.new(theme_image_url: image_url)
       end
     end
 
     def create
       @game = Game.new(game_params)
+      @game.locale_in_game = cookies[:job_param].to_s
 
       if @game.save
         redirect_to guest_game_path(@game)
@@ -144,7 +145,7 @@ module Guest
     end
 
     def game_params
-      params.require(:game).permit(:description, :generated_image, :theme_image_url)
+      params.require(:game).permit(:description, :generated_image, :theme_image_url, :locale_in_game)
     end
   end
 end

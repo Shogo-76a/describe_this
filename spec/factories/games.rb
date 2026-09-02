@@ -7,7 +7,7 @@
 #  description     :text
 #  feedback        :jsonb
 #  image_seq       :integer          default(0), not null
-#  locale_ingame   :string
+#  locale_in_game  :string           default("en"), not null
 #  message_seq     :integer          default(0), not null
 #  theme_image_url :string
 #  created_at      :datetime         not null
