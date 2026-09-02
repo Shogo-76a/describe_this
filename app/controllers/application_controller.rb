@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-  # Cookie読み込んで子コントローラとページに反映する
+  # Cookie読み込んでI18nに反映する
   around_action :switch_locale
 
   private
