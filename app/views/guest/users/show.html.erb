@@ -46,13 +46,13 @@
                 <div class="dropdown w-30 ml-5">
                     <!-- 言語リスト -->
                     <% languages = [ 
-                        { local: 'ja', text: t('language.Japanese') }, 
-                        { local: 'en', text: t('language.English') }, 
+                        { locale: 'ja', text: t('language.Japanese') }, 
+                        { locale: 'en', text: t('language.English') }, 
                     ] %>
 
                     <!-- ボタン（表示部分） -->
                     <div tabindex="0" role="button" class="btn-sm select m-1">
-                        <% current_language = languages.find { |lang| lang[:local] == I18n.locale.to_s } %>
+                        <% current_language = languages.find { |lang| lang[:locale] == I18n.locale.to_s } %>
                         <%= current_language ? current_language[:text] : t(".language.Japanese") %>
                     </div>
 
@@ -60,8 +60,8 @@
                     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                         <% languages.each do |lang| %>
                             <li>
-                                <%= link_to url_for(request.query_parameters.merge(locale: lang[:local])), class: "w-full h-full block" do %>
-                                <span class="opacity-50 mr-5"><%= lang[:local].upcase %></span> <%= lang[:text] %>
+                                <%= link_to url_for(request.query_parameters.merge(locale: lang[:locale])), class: "w-full h-full block" do %>
+                                <span class="opacity-50 mr-5"><%= lang[:locale].upcase %></span> <%= lang[:text] %>
                                 <% end %>
                             </li>
                         <% end %>
