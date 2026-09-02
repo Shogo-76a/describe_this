@@ -16,7 +16,9 @@ en:
     how_to_play: "How to Play"
     start_game: "Start"
     gauge_name_html: "Image<br> Match Rate"
+    locale_in_game: "In-Game Language"
 
+    
   time:
       formats:
         short_date: "%b %d, %Y"
@@ -211,8 +213,7 @@ en:
     users:
       show:
         guest_user_name: "Guest"
-        locale_outgame: "Menu Language"
-        locale_ingame: "In-Game Language"
+        locale_out_game: "Menu Language"
 
 
   passwords:

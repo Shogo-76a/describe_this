@@ -43,7 +43,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
                     </svg>
-                    <p><%=t(".locale_outgame")%></p>
+                    <p><%=t(".locale_out_game")%></p>
                 </div>
                 <div class="dropdown w-30 ml-5">
                     <!-- 言語リスト -->
@@ -70,43 +70,6 @@
                     </ul>
                 </div>
             </div>
-
-
-            <div class="grid grid-cols-[200px_1fr] flex flex-row items-center">
-                <div class="flex flex-row items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
-                    </svg>
-                    <p><%=t(".locale_ingame")%></p>
-                </div>
-                <div class="dropdown w-30 ml-5">
-                    <!-- 言語リスト -->
-                    <% langs_in_game = [ 
-                        { locale: 'ja', text: t('language.Japanese'), job_param: "Japanese" }, 
-                        { locale: 'en', text: t('language.English') }, 
-                    ] %>
-
-                    <!-- ボタン（表示部分） -->
-                    <div tabindex="0" role="button" class="btn-sm select m-1">
-                        <% current_lang_in_game = langs_in_game.find { |lang| lang[:locale] == cookies[:job_param].to_s } %>
-                        <%= current_lang_in_game ? current_lang_in_game[:text] : t(".language.Japanese") %>
-                    </div>
-
-                    <!-- メニュー一覧（クリック領域を100%確保） -->
-                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                        <% langs_in_game.each do |lang| %>
-                            <li>
-                                <%= link_to update_locale_in_game_locale_path(job_param: lang[:locale]), class: "w-full h-full block" do %>
-                                    <span class="opacity-50 mr-5"><%= lang[:locale].upcase %></span> <%= lang[:text] %>
-                                <% end %>
-                            </li>
-                        <% end %>
-                    </ul>
-                </div>
-            </div>
-
-
-
         </div>
     </div>
 </div>

@@ -16,6 +16,8 @@ ja:
     how_to_play: "遊び方"
     start_game: "はじめる"
     gauge_name_html: "イメージ<br>シンクロ率"
+    locale_in_game: "ゲームで使う言語"
+
 
   time:
       formats:
@@ -206,8 +208,7 @@ ja:
     users:
       show:
         guest_user_name: "ゲスト"
-        locale_outgame: "メニューの言語"
-        locale_ingame: "ゲームで使う言語"
+        locale_out_game: "メニューの言語"
 
   passwords:
     new:
