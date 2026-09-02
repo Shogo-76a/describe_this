@@ -1,14 +1,14 @@
 <!-- ヘッダーの内容変更 -->
 <% provide(:page_name) do %>
     <div class="flex items-end gap-0">
-        <p class="text-2xl font-normal opacity-75">新規登録</p>
+        <p class="text-2xl font-normal opacity-75"><%= t(".common.signup") %></p>
     </div>
 <% end %>
 
 <!-- エラーハンドリング -->
 <% if @user.errors.any? %>
   <div style="color: red;">
-    <h2><%= pluralize(@user.errors.count, "error") %> により登録できませんでした:</h2>
+    <h2><%= t("errors.header", count: @user.errors.count) %></h2>
     <ul>
       <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -20,43 +20,42 @@
 <div class="min-h-[calc(100vh-15rem)] flex flex-col justify-center items-center max-w-sm mx-auto mt-10">
   <%= form_with model: @user, url: registrations_path, class: "flex flex-col items-center justify-center gap-3" do |form| %>
     <div class="w-full">
-      <%= form.label :name, "ユーザー名" %>
+      <%= form.label :name, t(".name") %>
       <%= form.text_field :name, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
     </div>
 
     <div class="w-full">
-      <%= form.label :email_address, "メールアドレス" %>
+      <%= form.label :email_address, t(".email") %>
       <%= form.email_field :email_address, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
     </div>
 
     <div class="w-full">
-      <%= form.label :password, "パスワード" %>
+      <%= form.label :password, t(".password") %>
       <%= form.password_field :password, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
     </div>
 
     <div class="w-full">
-      <%= form.label :password_confirmation, "パスワード（確認用）" %>
+      <%= form.label :password_confirmation,  t(".password_confirmation") %>
       <%= form.password_field :password_confirmation, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
     </div>
 
     <div class="w-full my-4 landscape:my-2">
         <p class="text-sm text-base-content/50">
-          アカウント登録により
-          <%=link_to "利用規約", documents_terms_path, method: :get, target: :_blank, rel: "noopener", class: "text-primary" %>
-          、
-          <%=link_to "プライバシーポリシー", documents_privacy_policy_path, method: :get, target: :_blank, rel: "noopener", class: "text-primary" %>
-          に同意したとみなされます。
+          <%= t(".action_html",
+                terms: link_to(t("common.terms"), documents_terms_path, target: :_blank, rel: "noopener", class: "text-primary"),
+                privacy: link_to(t("common.privacy"), documents_privacy_policy_path, target: :_blank, rel: "noopener", class: "text-primary")
+              ) %>
         </p>
     </div>
 
     <div class="btn btn-primary btn-text-primary w-40 rounded-full">
-      <%= form.submit "登録する" %>
+      <%= form.submit t(".submit") %>
     </div>
   <% end %>
 
   <div class="w-full my-10 landscape:my-5 divider">
       <p class="w-50 text-sm text-center text-base-content/50">
-        または
+        <%= t("common.or") %>
       </p>
   </div>
 
@@ -80,7 +79,7 @@
 
     <div class="my-5 landscape:my-3">
       <p class="mb-2 w-full text-sm text-center text-base-content/50">
-        ご登録済みの方はこちら：<%=link_to "ログイン", new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
+        <%= t(".message_1") %><%=link_to t(".login"), new_session_path, method: :get, class: "border-1 border-primary rounded-2xl px-2 font-bold text-primary" %>
       </p>
     </div>
   </div>

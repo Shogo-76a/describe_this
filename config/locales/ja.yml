@@ -9,7 +9,9 @@ ja:
     evaluation_criterion: "評価基準について"
     signup: "新規登録"
     login: "ログイン"
-
+    terms: "利用規約"
+    privacy: "プライバシーポリシー"
+    or: "または"
 
   system_message_1: "メッセージを確認中..." # app/services/game_updater.rb 用
 
@@ -51,8 +53,6 @@ ja:
     users:
       show:
         guest_user_name: "ゲスト"
-        terms: "利用規約"
-        privacy: "プライバシーポリシー"
         language_setting: "言語設定"
 
   passwords:
@@ -77,8 +77,21 @@ ja:
       submit: "ログイン" 
       signup: "新規登録"
       forgot_pass: "パスワードを忘れた場合"
-      or: "または"
       message_1: "ご登録がまだの方はこちら："
+
+
+  registrations:
+    new:
+      errors:
+        header: "%{count}件のエラーが発生したため登録できませんでした:"
+      name: "ユーザー名"
+      email: "メールアドレス"
+      password: "パスワード"
+      password_confirmation: "パスワード（確認用）"
+      submit: "新規登録" 
+      login: "ログイン" 
+      message_1: "ご登録済みの方はこちら："
+      action_html: "アカウント登録により%{terms}、%{privacy} に同意したとみなされます。"
 
 
   shared:
