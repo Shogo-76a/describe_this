@@ -9,7 +9,7 @@ class GameUpdater
     if @game.update(@params)
       # enqueue job
       GenerateImageJob.perform_later(@game, "English")
-      system_reply = GameForm.new(feedback:  I18n.t('.system_message_1'))
+      system_reply = GameForm.new(feedback:  I18n.t(".system_message_1"))
       [ true, nil, system_reply ]
 
     else

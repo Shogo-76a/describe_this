@@ -49,7 +49,7 @@ module Guest
     end
 
     def check_generated_image
-      @system_reply = GameForm.new(feedback: t('.system_message_1'))
+      @system_reply = GameForm.new(feedback: t(".system_message_1"))
       image_success = params[:image_success].to_i
 
       if @game.generated_image.attached?
