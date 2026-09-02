@@ -6,12 +6,14 @@ en:
     theme: "Prompt"
   common:
     next_page: "Next"
+    close_page: "Close"
     evaluation_criterion: "Evaluation Criteria"
     signup: "Sign Up"
     login: "Log In"
     terms: "Terms of Service"
     privacy: "Privacy Policy"
     or: "or"
+    how_to_play: "How to Play"
     start_game: "Start"
 
   system_message_1: "Checking message..." # app/services/game_updater.rb 用
@@ -238,6 +240,18 @@ en:
       action_html: "By creating an account, you agree to our %{terms} and %{privacy}."
 
   shared:
+    splash_modal:
+      modal_01:
+        message_1: "1. Describe What You See"
+        message_2_html: "Describe the random image to the AI<br>using your own English words!"
+      modal_02:
+        message_1: "2. AI Visualizes & Scores"
+        message_2_html: "The AI draws a picture based on your description.<br>See how closely they match!"
+      modal_03:
+        message_1: "3. Get Tips & Level Up"
+        message_2_html: "Learn natural phrasing recommended by AI<br>and expand your vocabulary fast!"
+
+
     footer:
       home: "Home"
       history: "History"

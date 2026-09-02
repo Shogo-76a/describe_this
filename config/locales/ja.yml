@@ -6,12 +6,14 @@ ja:
     theme: "お題"
   common:
     next_page: "つぎへ"
+    close_page: "とじる"
     evaluation_criterion: "評価基準について"
     signup: "新規登録"
     login: "ログイン"
     terms: "利用規約"
     privacy: "プライバシーポリシー"
     or: "または"
+    how_to_play: "遊び方"
     start_game: "はじめる"
 
   system_message_1: "メッセージを確認中..." # app/services/game_updater.rb 用
@@ -232,6 +234,17 @@ ja:
 
 
   shared:
+    splash_modal:
+      modal_01:
+        message_1: "① 見たままを英語にする"
+        message_2_html: "ランダムに表示される画像を<br>自分の英語でAIに説明しよう！"
+      modal_02:
+        message_1: "② AIがイメージして採点"
+        message_2_html: "あなたの説明をAIが絵にする。<br>シンクロ率を判定！"
+      modal_03:
+        message_1: "③ コツを学んでレベルUP"
+        message_2_html: "自然なフレーズをAIが紹介<br>表現力がグングン身につく！"
+
     footer:
       home: "ホーム"
       history: "プレイ履歴"

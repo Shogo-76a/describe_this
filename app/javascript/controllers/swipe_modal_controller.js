@@ -4,6 +4,10 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   // HTML要素をターゲットとして登録
   static targets = ['carousel', 'actionBtn', 'dot'];
+  static values = {
+    nextMessage: String,
+    closeMessage: String,
+  };
 
   connect() {
     this.currentIndex = 0;
@@ -71,9 +75,9 @@ export default class extends Controller {
   updateUI() {
     // ボタンのテキストと見た目の切り替え
     if (this.currentIndex === this.totalSlides - 1) {
-      this.actionBtnTarget.innerText = 'とじる';
+      this.actionBtnTarget.innerText = this.closeMessageValue;
     } else {
-      this.actionBtnTarget.innerText = 'つぎへ';
+      this.actionBtnTarget.innerText = this.nextMessageValue;
     }
 
     // ドットインジケーターのアクティブ状態の切り替え
