@@ -118,6 +118,46 @@ en:
             These Terms of Service shall be governed by and construed in accordance with the laws of Japan. Any disputes arising in connection with the App shall be subject to the exclusive jurisdiction of the court having jurisdiction over the location of the developer.
       last_updated: "Last updated: %{date}"
 
+  games:
+    top:
+      modal_theme: "How to Play"
+      catchphrase_html: "Bring fun to English learning"
+      description_part1_html: "AI visualizes your prompt in English.<br>Can you get your message across clearly?"
+      description_part2_html: "Put your vocabulary to the test<br>and discover new expressions."
+      start_game: "Start"
+
+    check_generated_image:
+      system_message_1: "How does this look?"
+    
+    new:
+      title: "Prompt"
+      instruction: "Describe the prompt in English."
+      guest_limit_html: 'In Guest Mode, you can describe up to <span class="font-bold text-primary text-lg"> %{count} times</span>.'
+
+    show:
+        instruction_html: "Describe the prompt in English"
+        chat_placeholder: "Type a message..."
+
+    score:
+      page_title: "Score Results"
+      scoring: "Scoring..."
+      gauge_name_html: "Image<br> Match Rate"
+
+    feedback:
+        page_title: "Feedback"
+        not_available: "Not available in guest mode."
+        action_html: "Please %{signup_link} or %{login_link}."
+        retry: "Retry"
+        end: "End" 
+
+
+  users:
+    show:
+      user_name: "%{user_name}"
+      contacts: "Contact"
+      language_setting: "Language Settings"
+      logout: "Log Out"
+
 
   guest:
     games:

@@ -114,6 +114,46 @@ ja:
           content: "本利用規約は日本法に基づいて解釈されます。本アプリに関して紛争が生じた場合は、開発者の所在地を管轄する裁判所を専属的合意管轄裁判所とします。"
       last_updated: "最終更新日：%{date}"
 
+  games:
+    top:
+      modal_theme: "遊び方"
+      catchphrase_html: "英語 学習に遊びを"
+      description_part1_html: "あなたの 英語 で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
+      description_part2_html: "知ってる語彙や文法を出し切って<br>新たな表現と出会う旅へ"
+      start_game: "はじめる"
+
+    check_generated_image: 
+      system_message_1: "こんな感じでしょうか？"
+
+    new:
+      title: "お題"
+      instruction: "このイメージを英語で伝えてください。"
+      guest_limit_html: 'ゲストモードは<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
+
+    show: 
+      instruction_html: "お題を 英語で 説明してください"
+      chat_placeholder: "メッセージを入力..."
+
+    score:
+      page_title: "採点結果"
+      scoring: "採点中"
+      gauge_name_html: "イメージ<br>シンクロ率"
+
+    feedback:
+      page_title: "フィードバック"
+      not_available: "ゲストモードではご利用いただけません。"
+      action_html: "%{signup_link} または %{login_link} してください。"
+      retry: "リトライ"
+      end: "やめる"
+
+
+  users:
+    show:
+      user_name: "%{user_name}"
+      contacts: "お問い合わせ"
+      language_setting: "言語設定"
+      logout: "ログアウト"
+
   guest:
     games:
       top:
