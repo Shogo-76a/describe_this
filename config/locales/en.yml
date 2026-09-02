@@ -12,7 +12,8 @@ en:
     terms: "Terms of Service"
     privacy: "Privacy Policy"
     or: "or"
-    
+    start_game: "Start"
+
   system_message_1: "Checking message..." # app/services/game_updater.rb 用
 
   documents:
@@ -119,13 +120,6 @@ en:
       last_updated: "Last updated: %{date}"
 
   games:
-    top:
-      modal_theme: "How to Play"
-      catchphrase_html: "Bring fun to English learning"
-      description_part1_html: "AI visualizes your prompt in English.<br>Can you get your message across clearly?"
-      description_part2_html: "Put your vocabulary to the test<br>and discover new expressions."
-      start_game: "Start"
-
     check_generated_image:
       system_message_1: "How does this look?"
     
@@ -152,6 +146,11 @@ en:
 
 
   users:
+    top:
+      hello_html: "Hi, %{name}!"
+      speech_1: "Even a single word is super welcome!"
+      speech_2_html: "I'll put my AI brain in high gear<br>and do my absolute best for you!"
+
     show:
       user_name: "%{user_name}"
       contacts: "Contact"
@@ -166,7 +165,7 @@ en:
         catchphrase_html: "Bring fun to English learning"
         description_part1_html: "AI visualizes your prompt in English.<br>Can you get your message across clearly?"
         description_part2_html: "Put your vocabulary to the test<br>and discover new expressions."
-        start_game: "Start"
+
 
       check_generated_image:
         system_message_1: "How does this look?"

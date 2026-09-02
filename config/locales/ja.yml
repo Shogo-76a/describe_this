@@ -12,6 +12,7 @@ ja:
     terms: "利用規約"
     privacy: "プライバシーポリシー"
     or: "または"
+    start_game: "はじめる"
 
   system_message_1: "メッセージを確認中..." # app/services/game_updater.rb 用
 
@@ -115,13 +116,6 @@ ja:
       last_updated: "最終更新日：%{date}"
 
   games:
-    top:
-      modal_theme: "遊び方"
-      catchphrase_html: "英語 学習に遊びを"
-      description_part1_html: "あなたの 英語 で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
-      description_part2_html: "知ってる語彙や文法を出し切って<br>新たな表現と出会う旅へ"
-      start_game: "はじめる"
-
     check_generated_image: 
       system_message_1: "こんな感じでしょうか？"
 
@@ -148,6 +142,11 @@ ja:
 
 
   users:
+    top:
+      hello_html: "こんにちは！<br>%{name} さん！"
+      speech_1: "単語1つでも大歓迎！"
+      speech_2_html: "僕のAI脳をフル回転させて<br>全力で受け止めるよ〜！"
+
     show:
       user_name: "%{user_name}"
       contacts: "お問い合わせ"
@@ -161,7 +160,7 @@ ja:
         catchphrase_html: "英語 学習に遊びを"
         description_part1_html: "あなたの 英語 で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
         description_part2_html: "知ってる語彙や文法を出し切って<br>新たな表現と出会う旅へ"
-        start_game: "はじめる"
+
 
       check_generated_image: 
         system_message_1: "こんな感じでしょうか？"

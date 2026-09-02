@@ -18,18 +18,18 @@
                 ></div>
       </div>
       <p class="my-6">
-        こんにちは！<br>
-        <%= @user.name %> さん！
+        <%= t(".hello_html", name: @user.name) %>
       </p>
       <div class="flex flex-col">
         <div class="text-xm">
-          <p>単語1つでも大歓迎！<br>
-          僕のAI脳をフル回転させて<br>
-          全力で受け止めるよ〜！</p>
+          <p>
+            <%= t(".speech_1") %><br>
+            <%= t(".speech_2_html") %>
+          </p>
         </div>
       </div>
       <div class="flex flex-col mt-15">
-        <%=button_to "はじめる", new_user_game_path(@user.id), method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+        <%=button_to t("common.start_game"), new_user_game_path(@user.id), method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
       </div>
     </div>
 
