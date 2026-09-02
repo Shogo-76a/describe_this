@@ -15,6 +15,9 @@ ja:
 
   system_message_1: "メッセージを確認中..." # app/services/game_updater.rb 用
 
+  documents:
+    privacy_policy:
+
 
   guest:
     games:
@@ -38,12 +41,12 @@ ja:
         chat_placeholder: "メッセージを入力..."
 
       score:
+        page_title: "採点結果"
         scoring: "採点中"
-        score_results: "採点結果"
         gauge_name_html: "イメージ<br>シンクロ率"
 
       feedback:
-        feedback: "フィードバック"
+        page_title: "フィードバック"
         not_available: "ゲストモードではご利用いただけません。"
         action_html: "%{signup_link} または %{login_link} してください。"
         retry: "リトライ"

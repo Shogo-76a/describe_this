@@ -38,12 +38,12 @@ en:
           chat_placeholder: "Type a message..."
 
       score:
+        page_title: "Score Results"
         scoring: "Scoring..."
-        score_results: "Score Results"
         gauge_name_html: "Image<br> Match Rate"
 
       feedback:
-          feedback: "Feedback"
+          page_title: "Feedback"
           not_available: "Not available in guest mode."
           action_html: "Please %{signup_link} or %{login_link}."
           retry: "Retry"
