@@ -53,7 +53,7 @@ class FeedbackJob < ApplicationJob
             "phrase": "The exact natural or useful phrase/idiom that you introduced in the 'rewritten_text' above.",
             "meaning": "Meaning explained in #{explanation_lang}.",
             "example": "A short, practical example sentence in #{target_lang} using this phrase.",
-            "example_translation": "The exact translation of the example sentence written in #{explanation_lang}."
+            "example_translation": "#{target_lang == explanation_lang ? 'Return an empty string (\"\")' : "The exact translation of the example sentence written in #{explanation_lang}."}"
           }
         }
       ]
