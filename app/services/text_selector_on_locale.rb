@@ -12,6 +12,13 @@ class TextSelectorOnLocale
     translation_key = LOCALES[target]
     
     # ここでI18nを設定。メソッドで呼び出されたタイミングでI18nを取得する
+      # "language.Japanese"がt()にそのまま入ることで、I18nのキーワードと合致する。
     I18n.t(translation_key) if translation_key
+  end
+
+  def self.call_no_i18n(target_locale)
+    target = target_locale.to_s
+    LOCALES[target] 
+    LOCALES[target].split('.').last  #　AIプロンプト用。"Japanese" などのアルファベット名で返す。I18nをしない。
   end
 end

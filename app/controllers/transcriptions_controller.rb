@@ -1,17 +1,20 @@
 class TranscriptionsController < ApplicationController
   allow_unauthenticated_access only: %i[new create]
-
+  
   def new
     # 録音画面を表示するだけ
   end
 
   def create
     audio_file = params[:audio]
+    @game = Game.find(params[:game_id])
+    
+    in_game_lang = TextSelectorOnLocale.call_no_i18n(@game.locale_in_game) #"English"などのテキスト。ゲーム内言語設定に対応。
 
     service = TranscribeService.new(
       audio_file: audio_file,
-      prompt: "Hello, this is a clear, articulate, and natural English transcript without any filler words like um or uh.",
-      language: "en"
+      prompt: "Hello, this is a clear, articulate, and natural #{in_game_lang} transcript without any filler words like um or uh.",
+      language: @game.locale_in_game #"en"などのゲーム内言語設定。
     )
 
     text = service.call

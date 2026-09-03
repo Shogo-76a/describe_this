@@ -65,14 +65,12 @@ class FeedbackJob < ApplicationJob
 
     # game.context配列から ユーザーのメッセージを抽出した配列を作る。
     array_user_messages = game.array_context.select.with_index { |_, index| index.even? }
-    Rails.logger.info "array_user_messagesの中身！！！: #{array_user_messages}"
 
     # 文字列に変換して、書式を複数の説明文が箇条書きとしてAIに理解させる。
     user_messages = array_user_messages.map.with_index(1) do |desc, i|
       "Description #{i}: #{desc}"
     end.join("\n")
 
-    Rails.logger.info "user_messagesの中身！！！: #{user_messages}"
 
     # APIにリクエストを送信する。JSONモードを有効にする。
     request_gpt = client.chat(

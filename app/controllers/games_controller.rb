@@ -192,8 +192,12 @@ class GamesController < ApplicationController
       @history_mode = params[:history_mode].to_i
     else
       @history_mode = 0
+
+      in_game_lang = TextSelectorOnLocale.call_no_i18n(@game.locale_in_game)
+      out_game_lang = TextSelectorOnLocale.call_no_i18n(cookies[:locale] || I18n.default_locale)
+
       # 採点のJobを実行
-      FeedbackJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+      FeedbackJob.perform_later(@game, in_game_lang, out_game_lang) # 引数[レコード, 学習言語("English"など), 説明言語("Japanese"など)]
     end
   end
 

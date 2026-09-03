@@ -5,7 +5,7 @@
     <h3><%= t(".#{level}.label") %></h3>
     <ul>
       <li><strong><%= t('.labels.score') %></strong> <%= t(".#{level}.score") %></li>
-      <li><strong><%= t('.labels.rationale') %></strong> <%= t(".#{level}.description") %></li>
+      <li><strong><%= t('.labels.rationale') %></strong> <%= t(".#{level}.description_html", locale_in_game: render_locale_name(cookies[:job_param])) %></li>
     </ul>
   <% end %>
 </div>

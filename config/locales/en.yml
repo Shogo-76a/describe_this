@@ -286,56 +286,24 @@ en:
       perfect:
         label: "Perfect"
         score: "95–100%"
-        description: "All elements—including subject, background, action, lighting, and mood—were perfectly conveyed to the AI. This top rating shows high descriptive ability and vocabulary equivalent to or exceeding a native speaker."
+        description_html: "All elements—including subject, background, action, lighting, and mood—were perfectly conveyed to the AI. This top rating shows high descriptive ability and vocabulary equivalent to or exceeding a native speaker."
       amazing:
         label: "Amazing"
         score: "85–94%"
-        description: "Both core elements and background details align almost completely. Slight discrepancies exist only in subtle nuances or shades that are extremely difficult to express in words (e.g., 'the shade of blue of the lake' or 'distance from the back seat'). The accuracy of shared imagery remains exceptionally high."
+        description_html: "Both core elements and background details align almost completely. Slight discrepancies exist only in subtle nuances or shades that are extremely difficult to express in words (e.g., 'the shade of blue of the lake' or 'distance from the back seat'). The accuracy of shared imagery remains exceptionally high."
       great:
         label: "Great"
         score: "75–84%"
-        description: "The main subject and context are communicated with high accuracy. Minor details may be missing or generalized (e.g., omitting the time of day like 'early morning' or treating 'pretty' as a generic background). Still, the listener gains a clear enough image to warrant a 'Great' rating."
+        description_html: "The main subject and context are communicated with high accuracy. Minor details may be missing or generalized (e.g., omitting the time of day like 'early morning' or treating 'pretty' as a generic background). Still, the listener gains a clear enough image to warrant a 'Great' rating."
       good:
         label: "Good"
         score: "70–74%"
-        description: "Despite noticeable omitted details or grammatical slips, the core message—who, where, and what—reaches the listener correctly. This fully meets the foundational goal of English learning: sharing images effectively in daily life."
+        description_html: "Despite noticeable omitted details or grammatical slips, the core message—who, where, and what—reaches the listener correctly. This fully meets the foundational goal of %{locale_in_game} learning: sharing images effectively in daily life."
       okay:
         label: "Okay"
         score: "50–69%"
-        description: "While intent is conveyed using known words, only about half of the message gets across. For example, the word 'canoe' is understood, but the action 'a woman is rowing' is lost, resulting in an empty canoe. The AI generates a distinctly different scene, equivalent to a real-life conversation where someone asks, 'Do you mean this?'"
+        description_html: "While intent is conveyed using known words, only about half of the message gets across. For example, the word 'canoe' is understood, but the action 'a woman is rowing' is lost, resulting in an empty canoe. The AI generates a distinctly different scene, equivalent to a real-life conversation where someone asks, 'Do you mean this?'"
       needs_work:
         label: "Needs Work"
         score: "0–49%"
-        description: "Only one or two words were picked up, or broken grammar led to an entirely different scene being conveyed. The image was not successfully shared, leaving the listener unable to understand. Reviewing basic vocabulary and grammar is recommended."
-
-
-
-
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
+        description_html: "Only one or two words were picked up, or broken grammar led to an entirely different scene being conveyed. The image was not successfully shared, leaving the listener unable to understand. Reviewing basic vocabulary and grammar is recommended."

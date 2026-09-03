@@ -109,8 +109,10 @@ module Guest
     end
 
     def score
+      in_game_lang = TextSelectorOnLocale.call(@game.locale_in_game)
+      out_game_lang = TextSelectorOnLocale.call(cookies[:locale] || I18n.default_locale)
       # 採点のJobを実行
-      Guest::ScoringJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+      Guest::ScoringJob.perform_later(@game, in_game_lang, out_game_lang) # 引数（レコード, 学習言語, 説明言語）
     end
 
     def feedback
