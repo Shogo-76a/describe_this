@@ -43,7 +43,7 @@
         
         <div id="scoring_button", class="flex justify-center mt-5">
             <p class="btn btn-lg bg-neutral/50 text-neutral-content/50 font-normal text-sm w-70 h-12 rounded-2xl">
-                <%= t('.instruction_html') %>
+                <%= t('.instruction_html', locale_in_game: render_locale_name(cookies[:job_param])) %>
             </p>
         </div>
 

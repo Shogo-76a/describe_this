@@ -191,11 +191,11 @@ en:
       
       new:
         title: "Prompt"
-        instruction: "Describe the prompt in English."
+        instruction_html: "Describe the prompt in %{locale_in_game}."
         guest_limit_html: 'In Guest Mode, you can describe up to <span class="font-bold text-primary text-lg"> %{count} times</span>.'
 
       show:
-          instruction_html: "Describe the prompt in English"
+          instruction_html: "Describe the prompt in %{locale_in_game}"
           chat_placeholder: "Type a message..."
 
       score:

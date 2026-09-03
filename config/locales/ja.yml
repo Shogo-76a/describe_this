@@ -186,11 +186,11 @@ ja:
 
       new:
         title: "お題"
-        instruction: "このイメージを英語で伝えてください。"
+        instruction_html: "このイメージを%{locale_in_game}で伝えてください。"
         guest_limit_html: 'ゲストモードは<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
 
       show: 
-        instruction_html: "お題を 英語で 説明してください"
+        instruction_html: "お題を %{locale_in_game}で 説明してください"
         chat_placeholder: "メッセージを入力..."
 
       score:
