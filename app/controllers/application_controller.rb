@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   private
 
   def switch_locale(&action)
+    I18n.default_locale = "ja"
     locale = params[:locale] || cookies[:locale] || I18n.default_locale
     cookies[:locale] = locale if params[:locale].present?
     I18n.with_locale(locale, &action)
