@@ -1,7 +1,7 @@
 <div class="min-h-[calc(100vh-15rem)] flex flex-col items-center justify-center gap-3 text-center">
     <p class="text-4xl"><%= t('.title') %></p>
     <div>
-        <p><%= t('.instruction') %></p>
+        <p><%= t('.instruction_html', locale_in_game: render_locale_name(cookies[:job_param])) %></p>
         <p><%= t('.limit_html', count: @message_limit) %></p>
     </div>
     <%= image_tag @game.theme_image_url, 
