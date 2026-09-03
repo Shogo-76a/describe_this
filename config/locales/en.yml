@@ -39,7 +39,7 @@ en:
             account: "Account Information"
             account_desc: "Username, email address, password, etc."
             user_input: "User Input Data"
-            user_input_desc: "English sentences, translated texts, message content, etc., entered and sent within the telephone game."
+            user_input_desc: "Sentences, translated texts, message content, etc., entered and sent within the telephone game."
             learning_history: "Learning History Data"
             learning_history_desc: "Learning progress, scores, usage history, etc."
             technical_info: "Technical Information"
@@ -50,14 +50,14 @@ en:
           items:
             - "For user registration, identity verification, and authentication"
             - "To provide the telephone game and learning support features"
-            - "For AI-based proofreading of English expressions and answer generation"
+            - "For AI-based proofreading of language expressions and answer generation"
             - "To improve the app, address bugs, and analyze usage patterns"
             - "To deliver important notices and customer support to users"
             - "To prevent and address Terms of Service violations and fraudulent usage"
         section3:
           title: "3. Use of External Services (AI Services, etc.)"
           items:
-            - "The App utilizes APIs from third-party AI services (e.g., OpenAI, Inc.) to provide sentence proofreading and English learning features."
+            - "The App utilizes APIs from third-party AI services (e.g., OpenAI, Inc.) to provide sentence proofreading and language learning features."
             - "To the extent necessary for service provision, a portion of the text data entered and sent by users will be transmitted to the servers of these external services."
             - "Transmitted data is used solely for service processing purposes and is managed in accordance with the terms of service and privacy policies of each external service provider."
         section4:
@@ -90,8 +90,8 @@ en:
         section2:
           title: "2. Features and Use of External AI Services"
           items:
-            - "The App is a service designed to support English learning through a telephone game format."
-            - "The App utilizes third-party AI (Artificial Intelligence) services to provide features such as English proofreading and translation."
+            - "The App is a service designed to support language learning through a telephone game format."
+            - "The App utilizes third-party AI (Artificial Intelligence) services to provide features such as language proofreading and translation."
             - "The accuracy, completeness, or usefulness of AI-generated content is not guaranteed. Users should verify all information at their own responsibility."
             - "In the event of service disruptions, specification changes, or suspension of third-party AI services, some or all functionality of the App may be limited or suspended. The developer assumes no liability for any damages resulting therefrom."
         section3:
