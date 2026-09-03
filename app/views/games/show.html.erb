@@ -6,6 +6,7 @@
 <% end %>
 <div 
   data-controller="generated-image-polling transcription"
+  data-transcription-game-id-value="<%= @game.id %>"
   data-generated-image-polling-url-value="<%= check_generated_image_user_game_path(@game) %>"
   data-generated-image-polling-max-attempts-value="300"
   data-generated-image-polling-interval-value="2000"
