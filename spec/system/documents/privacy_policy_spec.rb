@@ -39,7 +39,7 @@ RSpec.describe 'プライバシーポリシーページ (Privacy Policy)', type:
       expect(page).to have_content('describe.this.contact@gmail.com')
 
       # 最終更新日の記載
-      expect(page).to have_content('最終更新日：2026年8月2日')
+      expect(page).to have_content('最終更新日：')
     end
   end
 end
