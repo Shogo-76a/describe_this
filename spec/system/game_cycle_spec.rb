@@ -12,6 +12,10 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
   context '生成画像がある場合' do
     it '開始画面から画面3のAPIデータ変換・更新まで一連の流れが正しく機能すること', vcr: { cassette_name: 'game_cycle_flow' }, js: true do
       # --- ゲーム開始画面 ---
+      find('.dropdown.w-30').click
+      find('.dropdown-content.menu a', text: '英語').click
+      expect(page).to have_css('.btn-sm.select', text: '英語')
+      
       click_button 'はじめる' # root -> new をトリガ
       expect(page).to have_content("お題", wait: 5)
       expect(page).to have_button("つぎへ")
