@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'ゲスト', type: :system, js: true do
-
   it 'ポップアップ が表示される / 「とじる」ボタンで ポップアップ が非表示になる' do
     visit root_path
     expect(page).to have_css(".modal", visible: true, wait: 4)

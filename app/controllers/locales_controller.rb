@@ -10,5 +10,4 @@ class LocalesController < ApplicationController
     cookies[:job_param] = params[:job_param]
     redirect_back fallback_location: root_path
   end
-  
 end

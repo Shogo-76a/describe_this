@@ -15,7 +15,7 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
       find('.dropdown.w-30').click
       find('.dropdown-content.menu a', text: '英語').click
       expect(page).to have_css('.btn-sm.select', text: '英語')
-      
+
       click_button 'はじめる' # root -> new をトリガ
       expect(page).to have_content("お題", wait: 5)
       expect(page).to have_button("つぎへ")
