@@ -181,8 +181,8 @@ en:
     games:
       top:
         modal_theme: "How to Play"
-        catchphrase_html: "Bring fun to English learning"
-        description_part1_html: "AI visualizes your prompt in English.<br>Can you get your message across clearly?"
+        catchphrase_html: "Bring fun to %{locale_in_game} learning"
+        description_part1_html: "AI visualizes your prompt in %{locale_in_game}.<br>Can you get your message across clearly?"
         description_part2_html: "Put your vocabulary to the test<br>and discover new expressions."
 
 
@@ -259,7 +259,7 @@ en:
     splash_modal:
       modal_01:
         message_1: "1. Describe What You See"
-        message_2_html: "Describe the random image to the AI<br>using your own English words!"
+        message_2_html: "Describe the random image to the AI<br>using your own %{locale_in_game} words!"
       modal_02:
         message_1: "2. AI Visualizes & Scores"
         message_2_html: "The AI draws a picture based on your description.<br>See how closely they match!"

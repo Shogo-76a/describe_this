@@ -176,8 +176,8 @@ ja:
     games:
       top:
         modal_theme: "遊び方"
-        catchphrase_html: "英語 学習に遊びを"
-        description_part1_html: "あなたの 英語 で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
+        catchphrase_html: "%{locale_in_game} 学習に遊びを"
+        description_part1_html: "あなたの %{locale_in_game} で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
         description_part2_html: "知ってる語彙や文法を出し切って<br>新たな表現と出会う旅へ"
 
 
@@ -252,8 +252,8 @@ ja:
   shared:
     splash_modal:
       modal_01:
-        message_1: "① 見たままを英語にする"
-        message_2_html: "ランダムに表示される画像を<br>自分の英語でAIに説明しよう！"
+        message_1: "① 見たままを%{locale_in_game}にする"
+        message_2_html: "ランダムに表示される画像を<br>自分の%{locale_in_game}でAIに説明しよう！"
       modal_02:
         message_1: "② AIがイメージして採点"
         message_2_html: "あなたの説明をAIが絵にする。<br>シンクロ率を判定！"
