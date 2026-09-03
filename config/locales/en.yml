@@ -17,6 +17,7 @@ en:
     start_game: "Start"
     gauge_name_html: "Image<br> Match Rate"
     locale_in_game: "In-Game Language"
+    locale_out_game: "Menu Language"
 
     
   time:
@@ -173,7 +174,6 @@ en:
     show:
       user_name: "%{user_name}"
       contacts: "Contact"
-      language_setting: "Language Settings"
       logout: "Log Out"
 
 
@@ -213,7 +213,6 @@ en:
     users:
       show:
         guest_user_name: "Guest"
-        locale_out_game: "Menu Language"
 
 
   passwords:
