@@ -24,7 +24,9 @@ en:
       formats:
         short_date: "%b %d, %Y"
 
-  system_message_1: "Checking message..." # app/services/game_updater.rb 用
+  services:
+    game_updater:
+      system_message_1: "Checking message..." # app/services/game_updater.rb 用
 
   documents:
     privacy_policy:
@@ -80,6 +82,7 @@ en:
           description: "For questions or inquiries regarding this Privacy Policy, please contact us at:"
           contact_label: "Contact: %{email}"
       last_updated: "Last updated: %{date}"
+
     terms:
       page_title: "Terms of Service"
       sections:
