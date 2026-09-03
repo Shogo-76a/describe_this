@@ -1,5 +1,5 @@
 # ベースとなるOSイメージを指定
-FROM ruby:4
+FROM ruby:3.4
 
 # タイムゾーンや文字コード、開発モードなどの環境変数を設定
 ENV LANG C.UTF-8
@@ -9,10 +9,13 @@ ENV RAILS_ENV=development
 # 必要なシステムライブラリをインストール
 # postgresql-client: RailsからPostgreSQLに接続するために必要
 # vim, nano: コンテナ内でファイルを編集するためのエディタ
+# 【追加】cld3のビルドと実行に必要なプロトコルバッファ関連のパッケージ
 RUN apt-get update -qq && apt-get install -y \
-  ca-certificates curl gnupg postgresql-client vim nano
+  ca-certificates curl gnupg postgresql-client vim nano \
+  protobuf-compiler libprotobuf-dev pkg-config
 
 # Node.js と npm をインストール
+# build-essential は cld3 の C++ 拡張ビルドにも利用されます
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt-get update -qq \
     && apt-get install -y build-essential nodejs

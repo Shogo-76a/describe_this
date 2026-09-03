@@ -130,6 +130,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    cld3 (3.7.0)
     cloudinary (2.4.5)
       faraday (>= 2.0.1, < 3.0.0)
       faraday-follow_redirects (~> 0.5)
@@ -519,6 +520,7 @@ DEPENDENCIES
   bullet
   bundler-audit
   capybara
+  cld3
   cloudinary
   database_cleaner-active_record
   debug
