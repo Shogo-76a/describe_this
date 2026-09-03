@@ -70,6 +70,7 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.build(game_params)
+    @game.locale_in_game = cookies[:job_param].to_s
 
     if @game.save
       redirect_to user_game_path(current_user, @game)
