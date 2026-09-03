@@ -8,7 +8,7 @@ RSpec.describe 'ログイン後 導入ポップアップ', type: :system, js: tr
 
   it 'ポップアップ が表示される / 「とじる」ボタンで ポップアップ が非表示になる' do
     expect(page).to have_css(".modal", visible: true, wait: 4)
-    expect(page).to have_content("① 見たままを英語にする")
+    expect(page).to have_content("① 見たままを")
     click_button 'つぎへ'
     expect(page).to have_content("② AIがイメージして採点")
     click_button 'つぎへ'

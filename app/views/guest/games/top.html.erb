@@ -16,33 +16,71 @@
                 "
               ></div>
       <p class="my-6">
-        英語 学習に遊びを
+        <%= t('.catchphrase_html', locale_in_game: render_locale_name(cookies[:job_param])) %>
       </p>
+
       <div class="flex flex-col gap-5 mb-10">
-        <div class="text-sm flex flex-col gap-1">
-          <p>あなたの 英語 で</p>
-          <p>AIがお題のイメージを想像 </p>
-          <p>正確に伝わるかな？</p>
-        </div>
-        <div class="text-sm">
-          <p>知ってる語彙や文法を出し切って</p>
-          <p>新たな表現と出会う旅へ</p>
-        </div>
+        <p class="text-sm">
+          <%= t('.description_part1_html', locale_in_game: render_locale_name(cookies[:job_param])) %>
+        </p>
+        <p class="text-sm">
+          <%= t('.description_part2_html') %>
+        </p>
       </div>
-      <div class="flex flex-col gap-10">
-        <div class="flex flex-row justify-center gap-5">
-          <%=button_to "新規登録", registrations_new_path, method: :get, class: "btn btn-md btn-primary w-30 h-10 rounded-2xl" %>
-          <%=button_to "ログイン", new_session_path, method: :get, class: "btn btn-md btn-primary w-30 h-10 rounded-2xl" %>
+      <div class="flex flex-col gap-10 w-[300]">
+        <div class="flex flex-row justify-center gap-14">
+          <%=button_to t('common.signup'), registrations_new_path, method: :get, class: "btn btn-md btn-primary w-30 h-10 rounded-2xl" %>
+          <%=button_to t('common.login'), new_session_path, method: :get, class: "btn btn-md btn-primary w-30 h-10 rounded-2xl" %>
         </div>
-        <%=button_to "はじめる", new_guest_game_path, method: :get, class: "btn btn-lg btn-primary w-70 h-12 rounded-2xl" %>
+        <%=button_to t('common.start_game'), new_guest_game_path, method: :get, class: "btn btn-lg btn-primary w-full h-12 rounded-2xl" %>
       </div>
     </div>
 
+
+    <!-- ゲーム内言語設定 -->
+    <div class="grid grid-cols-[150px_1fr] flex flex-row items-center">
+      <div class="flex flex-row items-center gap-2">
+          <%=t("common.locale_in_game")%>
+      </div>
+      <div class="dropdown w-30 ml-5">
+        <!-- 言語リスト -->
+        <% langs_in_game = [ 
+          { locale: 'ja', text: t('language.Japanese'), job_param: "Japanese" }, 
+          { locale: 'en', text: t('language.English') }, 
+        ] %>
+
+        <!-- ボタン（表示部分） -->
+        <div tabindex="0" role="button" class="btn-sm select m-1">
+          <% current_lang_in_game = langs_in_game.find { |lang| lang[:locale] == cookies[:job_param].to_s } %>
+          <%= current_lang_in_game ? current_lang_in_game[:text] : t(".language.Japanese") %>
+        </div>
+
+        <!-- メニュー一覧（クリック領域を100%確保） -->
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+          <% langs_in_game.each do |lang| %>
+            <li>
+              <%= link_to update_locale_in_game_locale_path(job_param: lang[:locale]), class: "w-full h-full block" do %>
+                <span class="opacity-50 mr-5"><%= lang[:locale].upcase %></span> <%= lang[:text] %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+
     <!-- 遊び方モーダルの内容 -->
     <div data-controller="splash-modal" >
-      <dialog data-splash-modal-target="dialog" id="swipe_modal" class="modal" data-controller="swipe-modal">
+      <dialog 
+        data-controller="swipe-modal"
+        data-swipe-modal-next-message-value="<%= t('common.next_page') %>"
+        data-swipe-modal-close-message-value="<%= t('common.close_page') %>"
+        data-splash-modal-target="dialog" 
+        id="swipe_modal" 
+        class="modal"
+        >
         <div class="modal-box py-3 max-w-sm rounded-2xl overflow-hidden bg-base-100 flex flex-col items-center">
-          <div class="text-3xl">遊び方</div>
+          <div class="text-3xl"><%= t("common.how_to_play") %></div>
           <div 
             class="carousel focus:outline-none w-full snap-x snap-mandatory overflow-x-auto scroll-smooth"
             data-swipe-modal-target="carousel"
@@ -66,12 +104,10 @@
           </div>
               
           <button 
-            class="btn btn-sm px-6 btn-primary w-70 h-12 rounded-2xl"
+            class="btn btn-sm px-6 btn-primary w-70 h-12 rounded-2xl text-lg"
             data-swipe-modal-target="actionBtn"
             data-action="click->swipe-modal#nextOrClose"
-          >
-            つぎへ
-          </button>
+          ><%= t('common.next_page') %></button>
         </div>
 
 

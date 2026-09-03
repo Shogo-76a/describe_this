@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  get "locales/update"
+
+  # 言語設定
+  resource :locale, only: [ :update ] do
+    member do
+      get :update_locale_in_game
+    end
+  end
+
   # 音声認識
   resources :transcriptions, only: [ :new, :create ]
 

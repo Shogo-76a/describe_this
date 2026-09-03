@@ -16,7 +16,7 @@ RSpec.describe "管理画面(Avo)", type: :system do
 
     it "Bulk Destroy メソッドが ページ上で正常に動作する" do
       first('input[type="checkbox"]', visible: :all).click
-      click_button 'Actions'
+      click_button 'アクション'
       find_link('Bulk Destroy').click
       expect(page).not_to have_content("td", wait: 10)
     end

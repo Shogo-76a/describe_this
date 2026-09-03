@@ -1,0 +1,307 @@
+ja:
+  language:
+    Japanese: "日本語"
+    English: "英語"
+  img_src:
+    theme: "お題"
+  common:
+    next_page: "つぎへ"
+    close_page: "とじる"
+    evaluation_criterion: "評価基準について"
+    signup: "新規登録"
+    login: "ログイン"
+    terms: "利用規約"
+    privacy: "プライバシーポリシー"
+    or: "または"
+    how_to_play: "遊び方"
+    start_game: "はじめる"
+    gauge_name_html: "イメージ<br>シンクロ率"
+    locale_in_game: "ゲームで使う言語"
+    locale_out_game: "メニューの言語"
+
+
+
+  time:
+      formats:
+        short_date: "%Y年%-m月%-d日"
+  
+  services:
+    game_updater:
+      system_message_1: "メッセージを確認中..." # app/services/game_updater.rb 用
+
+
+  documents:
+    privacy_policy:
+      page_title: "プライバシーポリシー"
+      intro: "「Describe This」（以下「本アプリ」）は、ユーザーの個人情報および入力データを適切に取り扱うため、以下のとおりプライバシーポリシーを定めます。"
+      sections:
+        section1:
+          title: "1. 取得する情報"
+          description: "本アプリでは、サービスの提供および改善のため、以下の情報を取得します。"
+          items:
+            account: "アカウント情報"
+            account_desc: "ユーザー名、メールアドレス、パスワード等"
+            user_input: "ユーザー入力データ"
+            user_input_desc: "伝言ゲーム内で入力・送信された英文、翻訳テキスト、メッセージ内容等"
+            learning_history: "学習履歴データ"
+            learning_history_desc: "学習進捗、スコア、利用履歴等"
+            technical_info: "技術的情報"
+            technical_info_desc: "Cookie、IPアドレス、デバイス情報、アクセスログ等"
+        section2:
+          title: "2. 利用目的"
+          description: "取得した情報は、以下の目的で利用します。"
+          items:
+            - "本アプリへの登録、本人確認および認証のため"
+            - "伝言ゲーム機能および学習支援機能を提供するため"
+            - "AIによる言語表現の添削・回答生成のため"
+            - "アプリの改善、不具合対応、利用状況の分析のため"
+            - "ユーザーへ重要なお知らせやサポート連絡を行うため"
+            - "利用規約違反や不正利用の防止・対応のため"
+        section3:
+          title: "3. 外部サービスの利用（AIサービス等）"
+          items:
+            - "本アプリは、AIによる文章添削や言語学習機能の提供のため、外部のAIサービス（例: OpenAI, Inc. 等）のAPIを利用しています。"
+            - "サービス提供に必要な範囲で、ユーザーが入力・送信したテキストデータの一部が上記外部サービスのサーバーへ送信されます。"
+            - "送信されたデータはサービスの処理目的にのみ使用され、各外部サービス提供事業者の利用規約およびプライバシーポリシーに従って管理されます。"
+        section4:
+          title: "4. 第三者提供および外部委託"
+          content: "法令に基づく場合を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。ただし、アプリの運営およびサービス提供に必要な範囲（ホスティングサービス、AIサービス等）において、外部事業者へデータの取り扱いを委託する場合があります。"
+        section5:
+          title: "5. アクセス解析ツール"
+          content: "本アプリでは、利用状況の分析およびサービス改善のため「Google Analytics」等のアクセス解析ツールを使用する場合があります。これらはCookieを使用して匿名のトラフィックデータを収集しており、個人を特定するものではありません。"
+        section6:
+          title: "6. 安全管理"
+          content: "本アプリは、個人情報の漏えい、紛失、不正アクセス等を防ぐため、SSL/TLS暗号化通信の適用や適切なアクセス管理など、合理的な安全対策を講じます。"
+        section7:
+          title: "7. 個人情報の開示・訂正・削除"
+          content: "ユーザーは、ご自身の登録情報について確認、修正、またはアカウント削除（データの消去）を求めることができます。ご希望の場合は、下記お問い合わせ窓口までご連絡ください。"
+        section8:
+          title: "8. プライバシーポリシーの変更"
+          content: "本アプリは、法令の変更やサービス内容の見直しに伴い、本プライバシーポリシーを変更することがあります。変更後のポリシーは本アプリ上に掲載した時点で効力を生じるものとします。"
+        section9:
+          title: "9. お問い合わせ"
+          description: "本プライバシーポリシーに関するお問い合わせやご相談は、以下の窓口までご連絡ください。"
+          contact_label: "お問い合わせ先: %{email}"
+      last_updated: "最終更新日：%{date}"
+    terms:
+      page_title: "利用規約"
+      sections:
+        section1:
+          title: "1. 利用規約への同意"
+          content: "「Describe This」（以下「本アプリ」）をご利用いただくことで、ユーザーは本利用規約およびプライバシーポリシーに同意したものとみなします。同意いただけない場合は、本アプリの利用をお控えください。"
+        section2:
+          title: "2. 機能および外部AIの利用について"
+          items:
+            - "本アプリは、伝言ゲーム形式を通じて言語学習を支援するサービスです。"
+            - "本アプリでは、言語表現の添削や翻訳等の機能提供のため、外部のAI（人工知能）サービスを利用しています。"
+            - "AIが生成・出力する内容は、必ずしも正確性、完全性、または有用性を保証するものではありません。ユーザーは自身の責任において内容をご確認ください。"
+            - "外部AIサービスの障害や仕様変更、提供停止等に伴い、本アプリの機能の一部または全部が制限・停止される場合があり、これによって生じた損害について開発者は責任を負いかねます。"
+        section3:
+          title: "3. アカウント管理および責任"
+          items:
+            - "アカウント情報の管理はユーザーの責任において行うものとします。"
+            - "アカウント情報の管理不足、パスワードの漏洩、または第三者による不正利用等によって生じたあらゆる損害について、開発者は一切の責任を負いかねます。"
+            - "ユーザーが本アプリを通じて入力・送信したコンテンツ（文章や翻訳等）については、ユーザー自身がすべての責任を負うものとします。"
+        section4:
+          title: "4. 禁止事項"
+          description: "本アプリの利用にあたり、以下の行為を禁止します。"
+          items:
+            - "法令または公序良俗に反する行為、または違法コンテンツの投稿"
+            - "他のユーザーや第三者へのハラスメント、脅迫、迷惑行為"
+            - "本アプリのセキュリティ機能の回避や不正な操作、運営を妨げる行為"
+            - "他のユーザーの知的財産権等の権利を侵害する行為"
+            - "その他、開発者が不適切と判断する行為"
+        section5:
+          title: "5. ユーザーコンテンツと知的財産権"
+          items:
+            - "本アプリに関するデザイン、テキスト、ロゴ等の権利は、開発者または正当な権利者に帰属します。"
+            - "ユーザーが本アプリ内に投稿したコンテンツについて、開発者はサービスの提供、改善、または教育・PR目的の範囲内で無償で使用・複製・修正できるものとします。"
+        section6:
+          title: "6. 免責事項・アカウント停止"
+          items:
+            - "本アプリの利用によってユーザーに生じたあらゆる損害について、開発者に故意または重大な過失がある場合を除き、開発者は一切の責任を負いません。"
+            - "ユーザーが本規約に違反した場合や不適切と判断された場合、開発者は事前通知なしにアカウントの停止または削除を行うことができるものとします。"
+        section7:
+          title: "7. サービスの変更・規約の変更"
+          content: "開発者は、必要に応じてサービス内容や本利用規約を変更・停止することがあります。変更後の利用規約は、本アプリ上に掲載した時点で効力を生じるものとし、変更後も利用を継続した場合、変更後の規約に同意したものとみなします。"
+        section8:
+          title: "8. 準拠法および管轄裁判所"
+          content: "本利用規約は日本法に基づいて解釈されます。本アプリに関して紛争が生じた場合は、開発者の所在地を管轄する裁判所を専属的合意管轄裁判所とします。"
+      last_updated: "最終更新日：%{date}"
+
+  games:
+    check_generated_image: 
+      system_message_1: "こんな感じでしょうか？"
+
+    new:
+      title: "お題"
+      instruction_html: "このイメージを%{locale_in_game}で伝えてください。"
+      limit_html: '<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
+
+    show: 
+      instruction_html: "お題を %{locale_in_game}で 説明してください"
+      chat_placeholder: "メッセージを入力..."
+
+    score:
+      page_title: "採点結果"
+      scoring: "採点中"
+
+    feedback:
+      page_title: "フィードバック"
+      img_comparison: "🖼️イメージ比較 :"
+      prompt: "お題 :"
+      generated_image: "説明からできたイメージ :"
+      general_review: "📄総評 :"
+      your_description: "あなたの説明 "
+      proposal: "提案"
+      note: "※例文を使って満点にすることはできません。"
+      phrase: "🎁フレーズ "
+      retry: "リトライ"
+      end: "やめる"
+      copy: "コピーしました"
+
+    index:
+      search_placeholder: "🔍ワード検索"
+      nothing: "プレイ履歴がありません。"
+
+  users:
+    top:
+      hello_html: "こんにちは！<br>%{name} さん！"
+      speech_1: "単語1つでも大歓迎！"
+      speech_2_html: "僕のAI脳をフル回転させて<br>全力で受け止めるよ〜！"
+
+    show:
+      user_name: "%{user_name}"
+      contacts: "お問い合わせ"
+      logout: "ログアウト"
+
+
+  guest:
+    games:
+      top:
+        modal_theme: "遊び方"
+        catchphrase_html: "%{locale_in_game} 学習に遊びを"
+        description_part1_html: "あなたの %{locale_in_game} で<br>AIがお題のイメージを想像<br>正確に伝わるかな？"
+        description_part2_html: "知ってる語彙や文法を出し切って<br>新たな表現と出会う旅へ"
+
+
+      check_generated_image: 
+        system_message_1: "こんな感じでしょうか？"
+
+      new:
+        title: "お題"
+        instruction_html: "このイメージを%{locale_in_game}で伝えてください。"
+        guest_limit_html: 'ゲストモードは<span class="font-bold text-primary text-lg"> %{count}回まで </span>説明できます。'
+
+      show: 
+        instruction_html: "お題を %{locale_in_game}で 説明してください"
+        chat_placeholder: "メッセージを入力..."
+
+      score:
+        page_title: "採点結果"
+        scoring: "採点中"
+
+      feedback:
+        page_title: "フィードバック"
+        not_available: "ゲストモードではご利用いただけません。"
+        action_html: "%{signup_link} または %{login_link} してください。"
+        retry: "リトライ"
+        end: "やめる"
+        
+
+    users:
+      show:
+        guest_user_name: "ゲスト"
+
+
+  passwords:
+    new:
+      pass_reset: "パスワードリセット"
+      email: "メールアドレス"
+      submit: "リセットのメールを送信" 
+    create:
+      flash_sent_mail: "ご記載のメールアドレスへパスワードリセットのメールを送信しました。"
+    update:
+      flash_changed_pass: "パスワードが変更されました。"
+      alert_pass_mismatched: "パスワードが一致しません。"
+    set_user_by_token:
+      alert_link_expired: "パスワードリセットのリンクの有効期限が切れています。"
+    alert_try_again: "後で再度お試しください。"
+
+
+  sessions:
+    new: # 個別にキー設定が必要
+      email: "メールアドレス"
+      password: "パスワード"
+      submit: "ログイン" 
+      signup: "新規登録"
+      forgot_pass: "パスワードを忘れた場合"
+      message_1: "ご登録がまだの方はこちら："
+
+
+  registrations:
+    new:
+      errors:
+        header: "%{count}件のエラーが発生したため登録できませんでした:"
+      name: "ユーザー名"
+      email: "メールアドレス"
+      password: "パスワード"
+      password_confirmation: "パスワード（確認用）"
+      submit: "新規登録" 
+      login: "ログイン" 
+      message_1: "ご登録済みの方はこちら："
+      action_html: "アカウント登録により%{terms}、%{privacy} に同意したとみなされます。"
+
+
+  shared:
+    splash_modal:
+      modal_01:
+        message_1: "① 見たままを%{locale_in_game}にする"
+        message_2_html: "ランダムに表示される画像を<br>自分の%{locale_in_game}でAIに説明しよう！"
+      modal_02:
+        message_1: "② AIがイメージして採点"
+        message_2_html: "あなたの説明をAIが絵にする。<br>シンクロ率を判定！"
+      modal_03:
+        message_1: "③ コツを学んでレベルUP"
+        message_2_html: "自然なフレーズをAIが紹介<br>表現力がグングン身につく！"
+
+    footer:
+      home: "ホーム"
+      history: "プレイ履歴"
+      profile: "プロフィール"
+      require_login: ログイン必須
+      
+    scoring_button:
+      scoring: "採点"
+
+    generated_image:
+      loading: "読み込み中..."
+
+    evidence_of_evaluation:
+      labels:
+        score: "スコア:"
+        rationale: "根拠:"
+      perfect:
+        label: "Perfect（完璧）"
+        score: "95〜100％"
+        description_html: "主語、背景、アクション、光の加減、雰囲気に至るまで、すべての要素が相手（AI）に完璧に伝達された状態です。母語話者と同等以上の高い描写力・語彙力を発揮できた最高評価です。"
+      amazing:
+        label: "Amazing（素晴らしい）"
+        score: "85〜94％"
+        description_html: "伝達すべきコアも背景のディテールもほぼ一致しています。「湖の水色の濃さ」や「後部座席からの距離感」など、言語化が非常に難しい微細なニュアンスや色味のズレが少しあるだけで、イメージ共有の正確性は「驚くほど高い（Amazing）」と言える帯域です。"
+      great:
+        label: "Great（とても良い）"
+        score: "75〜84％"
+        description_html: "メインとなる被写体と状況は高度に正確に伝わっています。ただし、「早朝」という時間帯が抜けていたり、「きれいな」という雰囲気が一般的な背景として処理（省略）されたりしています。とはいえ、聞き手は十分すぎるほど鮮明なイメージを持てるため「Great」と称賛すべきレベルです。"
+      good:
+        label: "Good（良い）"
+        score: "70〜74％"
+        description_html: "目立つディテールの省略や文法の乱れはあるものの、「誰が・どこで・何をしている」という最も伝えたい本質（意図）は正しく相手に届いています。%{locale_in_game}学習の初期目標である「実生活で困らないイメージ共有」は完全にクリアできている状態です。"
+      okay:
+        label: "Okay（まあまあ・惜しい）"
+        score: "50〜69％"
+        description_html: "知っている単語を並べて意図は伝えようとしていますが、約半分しか伝わっていない状態です。例えば「カヌー」という単語は伝わっても、「女性が漕いでいる」というアクションが伝わらず無人のカヌーになってしまうなど、相手の脳内（AI画像）には明らかに異なる情景が生成されているため、日常生活でも「それってこういう事？」と聞き返されるレベルです。"
+      needs_work:
+        label: "Needs Work（もう一息・要改善）"
+        score: "0〜49％"
+        description_html: "1〜2個の単語しか拾われていないか、文法構造が破綻して全く違う情景として伝わってしまった状態です。イメージの共有には至っておらず、相手は「何を言っているのか分からない」状態であるため、基礎的な語彙や文法の見直し（Needs Work）が必要です。"

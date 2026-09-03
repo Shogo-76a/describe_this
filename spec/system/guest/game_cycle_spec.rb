@@ -4,6 +4,14 @@ RSpec.describe 'ゲスト ゲームメインサイクル', type: :system do
   # ゲーム開始から画像生成・更新までの一連を1カセットにまとめる想定
   context '生成画像がある場合' do
     it '開始画面から画面3のAPIデータ変換・更新まで一連の流れが正しく機能すること', vcr: { cassette_name: 'guest_game_cycle_flow' }, js: true do
+      visit root_path
+      page.refresh
+      find('.modal').send_keys(:escape) # ポップアップを消す
+
+      find('.dropdown.w-30').click
+      find('.dropdown-content.menu a', text: '英語').click
+      expect(page).to have_css('.btn-sm.select', text: '英語')
+
       # --- ゲーム開始画面 ---
       visit new_guest_game_path
       page.refresh # 導入画面をスキップ
@@ -35,9 +43,9 @@ RSpec.describe 'ゲスト ゲームメインサイクル', type: :system do
       expect(page).to have_content("イメージ")
       expect(page).to have_content("シンクロ率")
       expect(page).to have_selector('.radial-progress', visible: true) # スコア
-      expect(page).to have_css('[data-evaluation-target="text"]') # 判定テキスト
-      expect(page).to have_content("判定基準について")
-      click_button '判定基準について'
+      expect(page).to have_css('[data-evaluation-target="text"]') # 評価テキスト
+      expect(page).to have_content("評価基準について")
+      click_button '評価基準について'
 
       # モーダルを確認
       expect(page).to have_css(".modal", visible: true)

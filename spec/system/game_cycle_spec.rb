@@ -12,6 +12,10 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
   context '生成画像がある場合' do
     it '開始画面から画面3のAPIデータ変換・更新まで一連の流れが正しく機能すること', vcr: { cassette_name: 'game_cycle_flow' }, js: true do
       # --- ゲーム開始画面 ---
+      find('.dropdown.w-30').click
+      find('.dropdown-content.menu a', text: '英語').click
+      expect(page).to have_css('.btn-sm.select', text: '英語')
+
       click_button 'はじめる' # root -> new をトリガ
       expect(page).to have_content("お題", wait: 5)
       expect(page).to have_button("つぎへ")
@@ -39,16 +43,16 @@ RSpec.describe 'ログイン後 ゲームメインサイクル', type: :system d
       expect(page).to have_content("イメージ")
       expect(page).to have_content("シンクロ率")
       expect(page).to have_selector('.radial-progress', visible: true) # スコア
-      expect(page).to have_css('[data-evaluation-target="text"]') # 判定テキスト
-      expect(page).to have_content("判定基準について")
-      click_button '判定基準について'
+      expect(page).to have_css('[data-evaluation-target="text"]') # 評価テキスト
+      expect(page).to have_content("評価基準について")
+      click_button '評価基準について'
 
       # モーダルを確認
       expect(page).to have_css(".modal", visible: true)
       expect(page).to have_content("Great（とても良い）")
       find('.modal').send_keys(:escape) # モーダルを消す
 
-      expect(page).to have_button("つぎへ")
+      expect(page).to have_button("つぎへ", wait: 5)
       click_button 'つぎへ' # score -> feedback の遷移をトリガ
 
       # --- フィードバックページ ---

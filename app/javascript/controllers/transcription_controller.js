@@ -5,6 +5,7 @@ import { Controller } from '@hotwired/stimulus';
 // Connects to data-controller="transcription"
 export default class extends Controller {
   static targets = ['recordButton', 'stopButton', 'loadButton', 'transcript'];
+  static values = { gameId: Number };
 
   connect() {
     this.mediaRecorder = null;
@@ -82,7 +83,7 @@ export default class extends Controller {
 
     const form = new FormData();
     form.append('audio', file);
-
+    form.append('game_id', this.gameIdValue); // ゲームIDをパラメータに追加。params[:game_id]
     try {
       const res = await fetch('/transcriptions', {
         method: 'POST',

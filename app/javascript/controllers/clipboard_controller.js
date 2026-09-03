@@ -3,6 +3,9 @@ import TurndownService from 'turndown';
 
 export default class extends Controller {
   static targets = ['source', 'button'];
+  static values = {
+    copyMessage: String,
+  };
 
   copy() {
     // コピーしたくない要素を取り除く処理
@@ -24,9 +27,9 @@ export default class extends Controller {
 
   showCopied() {
     const original = this.buttonTarget.innerHTML;
-
+    const copy_message = this.copyMessageValue;
     const checkIconSvg = `
-      <div class="tooltip tooltip-open" data-tip="コピーしました">
+      <div class="tooltip tooltip-open" data-tip="${copy_message}">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-4">
           <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
         </svg>

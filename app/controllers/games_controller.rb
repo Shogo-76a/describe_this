@@ -70,6 +70,7 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.build(game_params)
+    @game.locale_in_game = cookies[:job_param].to_s
 
     if @game.save
       redirect_to user_game_path(current_user, @game)
@@ -86,12 +87,12 @@ class GamesController < ApplicationController
     @game.message_seq += 1
 
     updater = GameUpdater.new(@game, game_params)
-    success, errors, system_replies = updater.call
+    success, errors, system_reply = updater.call
 
     if success
       respond_to do |format|
         format.turbo_stream do
-          @system_replies = system_replies
+          @system_reply = system_reply
         end
       end
     else
@@ -100,7 +101,7 @@ class GamesController < ApplicationController
   end
 
   def check_generated_image
-    @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
+    @system_reply = GameForm.new(feedback: t(".system_message_1"))
 
     image_success = params[:image_success].to_i
 
@@ -122,7 +123,7 @@ class GamesController < ApplicationController
             turbo_stream.append(
               "chat_messages_container",
               partial: "shared/message",
-              locals: { message: @system_replies }
+              locals: { message: @system_reply }
             ),
 
             turbo_stream.update(
@@ -160,7 +161,7 @@ class GamesController < ApplicationController
         turbo_stream.append(
           "chat_messages_container",
           partial: "shared/message",
-          locals: { message: @system_replies }
+          locals: { message: @system_reply }
         ),
 
         turbo_stream.update(
@@ -191,8 +192,12 @@ class GamesController < ApplicationController
       @history_mode = params[:history_mode].to_i
     else
       @history_mode = 0
+
+      in_game_lang = TextSelectorOnLocale.call_no_i18n(@game.locale_in_game)
+      out_game_lang = TextSelectorOnLocale.call_no_i18n(I18n.locale)
+
       # 採点のJobを実行
-      FeedbackJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+      FeedbackJob.perform_later(@game, in_game_lang, out_game_lang) # 引数[レコード, 学習言語("English"など), 説明言語("Japanese"など)]
     end
   end
 

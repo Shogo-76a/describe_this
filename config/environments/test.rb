@@ -6,6 +6,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.i18n.default_locale = :ja
+
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false
 

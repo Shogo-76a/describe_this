@@ -20,6 +20,7 @@ module Guest
 
     def create
       @game = Game.new(game_params)
+      @game.locale_in_game = cookies[:job_param].to_s
 
       if @game.save
         redirect_to guest_game_path(@game)
@@ -35,12 +36,12 @@ module Guest
 
     def update
       updater = GameUpdater.new(@game, game_params)
-      success, errors, system_replies = updater.call
+      success, errors, system_reply = updater.call
 
       if success
         respond_to do |format|
           format.turbo_stream do
-            @system_replies = system_replies
+            @system_reply = system_reply
           end
         end
       else
@@ -49,7 +50,7 @@ module Guest
     end
 
     def check_generated_image
-      @system_replies = GameForm.new(feedback: "分かった！こんな感じかな！")
+      @system_reply = GameForm.new(feedback: t(".system_message_1"))
       image_success = params[:image_success].to_i
 
       if @game.generated_image.attached?
@@ -64,7 +65,7 @@ module Guest
             turbo_stream.append(
               "chat_messages_container",
               partial: "shared/message",
-              locals: { message: @system_replies }
+              locals: { message: @system_reply }
             ),
 
             turbo_stream.update(
@@ -108,8 +109,10 @@ module Guest
     end
 
     def score
+      in_game_lang = TextSelectorOnLocale.call(@game.locale_in_game)
+      out_game_lang = TextSelectorOnLocale.call(cookies[:locale] || I18n.default_locale)
       # 採点のJobを実行
-      Guest::ScoringJob.perform_later(@game, "English", "Japanese") # 引数（レコード, 学習言語, 説明言語）
+      Guest::ScoringJob.perform_later(@game, in_game_lang, out_game_lang) # 引数（レコード, 学習言語, 説明言語）
     end
 
     def feedback
@@ -144,7 +147,7 @@ module Guest
     end
 
     def game_params
-      params.require(:game).permit(:description, :generated_image, :theme_image_url)
+      params.require(:game).permit(:description, :generated_image, :theme_image_url, :locale_in_game)
     end
   end
 end

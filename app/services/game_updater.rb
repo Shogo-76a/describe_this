@@ -4,22 +4,17 @@ class GameUpdater
     @params = params
   end
 
-  # returns [success, errors, system_replies]
+  # returns [success, errors, system_reply]
   def call
     if @game.update(@params)
+
+      language = TextSelectorOnLocale.call_no_i18n(@game.locale_in_game)
+
       # enqueue job
-      GenerateImageJob.perform_later(@game, "English")
-      if Current.user.present?
-        system_replies = [
-          GameForm.new(feedback: "うーん...(想像中)")
-        ]
-      else
-        system_replies = [
-          GameForm.new(feedback: "ゲストモードでは2回目以降送信できません"),
-          GameForm.new(feedback: "うーん...(想像中)")
-        ]
-      end
-      [ true, nil, system_replies ]
+      GenerateImageJob.perform_later(@game, language)
+      system_reply = GameForm.new(feedback:  I18n.t("services.game_updater.system_message_1"))
+      [ true, nil, system_reply ]
+
     else
       [ false, @game.errors, nil ]
     end

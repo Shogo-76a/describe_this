@@ -1,31 +1,312 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  language:
+    Japanese: "Japanese"
+    English: "English"
+  img_src:
+    theme: "Prompt"
+  common:
+    next_page: "Next"
+    close_page: "Close"
+    evaluation_criterion: "Evaluation Criteria"
+    signup: "Sign Up"
+    login: "Log In"
+    terms: "Terms of Service"
+    privacy: "Privacy Policy"
+    or: "or"
+    how_to_play: "How to Play"
+    start_game: "Start"
+    gauge_name_html: "Image<br> Match Rate"
+    locale_in_game: "In-Game Language"
+    locale_out_game: "Menu Language"
+
+    
+  time:
+      formats:
+        short_date: "%b %d, %Y"
+
+  services:
+    game_updater:
+      system_message_1: "Checking message..." # app/services/game_updater.rb 用
+
+  documents:
+    privacy_policy:
+      page_title: "Privacy Policy"
+      intro: >
+       "Describe This" (hereinafter referred to as "the App") establishes this Privacy Policy as follows to properly handle users' personal information and input data.
+      sections:
+        section1:
+          title: "1. Information We Collect"
+          description: "The App collects the following information to provide and improve our services:"
+          items:
+            account: "Account Information"
+            account_desc: "Username, email address, password, etc."
+            user_input: "User Input Data"
+            user_input_desc: "Sentences, translated texts, message content, etc., entered and sent within the telephone game."
+            learning_history: "Learning History Data"
+            learning_history_desc: "Learning progress, scores, usage history, etc."
+            technical_info: "Technical Information"
+            technical_info_desc: "Cookies, IP address, device information, access logs, etc."
+        section2:
+          title: "2. Purpose of Use"
+          description: "The collected information is used for the following purposes:"
+          items:
+            - "For user registration, identity verification, and authentication"
+            - "To provide the telephone game and learning support features"
+            - "For AI-based proofreading of language expressions and answer generation"
+            - "To improve the app, address bugs, and analyze usage patterns"
+            - "To deliver important notices and customer support to users"
+            - "To prevent and address Terms of Service violations and fraudulent usage"
+        section3:
+          title: "3. Use of External Services (AI Services, etc.)"
+          items:
+            - "The App utilizes APIs from third-party AI services (e.g., OpenAI, Inc.) to provide sentence proofreading and language learning features."
+            - "To the extent necessary for service provision, a portion of the text data entered and sent by users will be transmitted to the servers of these external services."
+            - "Transmitted data is used solely for service processing purposes and is managed in accordance with the terms of service and privacy policies of each external service provider."
+        section4:
+          title: "4. Provision to Third Parties and Outsourcing"
+          content: "Except as required by law, we will not provide personal information to third parties without the user's consent. However, we may outsource data handling to external service providers (e.g., hosting services, AI service providers) within the scope necessary to operate and provide the App."
+        section5:
+          title: "5. Access Analytics Tools"
+          content: 'The App may use access analytics tools such as "Google Analytics" to analyze usage and improve our services. These tools use cookies to collect anonymous traffic data, which does not identify individual users.'
+        section6:
+          title: "6. Security Management"
+          content: "To prevent the leakage, loss, or unauthorized access of personal information, the App implements reasonable security measures, including SSL/TLS encrypted communications and appropriate access management."
+        section7:
+          title: "7. Disclosure, Correction, and Deletion of Personal Information"
+          content: "Users may request to review, correct, or delete their account (erase data). If you wish to do so, please contact us at the inquiry address below."
+        section8:
+          title: "8. Changes to the Privacy Policy"
+          content: "The App may update this Privacy Policy in response to changes in laws or revisions to our services. The updated policy shall take effect as soon as it is posted on the App."
+        section9:
+          title: "9. Contact Us"
+          description: "For questions or inquiries regarding this Privacy Policy, please contact us at:"
+          contact_label: "Contact: %{email}"
+      last_updated: "Last updated: %{date}"
+
+    terms:
+      page_title: "Terms of Service"
+      sections:
+        section1:
+          title: "1. Agreement to Terms"
+          content: >
+            By using "Describe This" (hereinafter referred to as "the App"), users agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please refrain from using the App.
+        section2:
+          title: "2. Features and Use of External AI Services"
+          items:
+            - "The App is a service designed to support language learning through a telephone game format."
+            - "The App utilizes third-party AI (Artificial Intelligence) services to provide features such as language proofreading and translation."
+            - "The accuracy, completeness, or usefulness of AI-generated content is not guaranteed. Users should verify all information at their own responsibility."
+            - "In the event of service disruptions, specification changes, or suspension of third-party AI services, some or all functionality of the App may be limited or suspended. The developer assumes no liability for any damages resulting therefrom."
+        section3:
+          title: "3. Account Management and Responsibility"
+          items:
+            - "Users are responsible for managing their account credentials."
+            - "The developer shall not be held liable for any damages arising from poor credential management, password leaks, or unauthorized access by third parties."
+            - "Users bear full responsibility for all content (texts, translations, etc.) they input or transmit through the App."
+        section4:
+          title: "4. Prohibited Conduct"
+          description: "When using the App, the following activities are strictly prohibited:"
+          items:
+            - "Actions that violate laws or public order and morals, or posting illegal content"
+            - "Harassment, threats, or causing nuisance to other users or third parties"
+            - "Bypassing security features, unauthorized manipulation, or interfering with operation of the App"
+            - "Infringing upon the intellectual property or other rights of third parties"
+            - "Any other conduct deemed inappropriate by the developer"
+        section5:
+          title: "5. User Content and Intellectual Property Rights"
+          items:
+            - "All rights to design, text, logos, and other assets related to the App belong to the developer or rightful owners."
+            - "Regarding content posted by users within the App, the developer may use, reproduce, or modify it free of charge within the scope necessary for service provision, improvement, or educational/promotional purposes."
+        section6:
+          title: "6. Disclaimer and Account Suspension"
+          items:
+            - "The developer shall not be held liable for any damages incurred by users arising from the use of the App, except in cases of intentional misconduct or gross negligence by the developer."
+            - "In the event of a violation of these Terms or inappropriate conduct, the developer reserves the right to suspend or delete the account without prior notice."
+        section7:
+          title: "7. Modifications to Service and Terms"
+          content: >
+            The developer may modify or suspend the service content or these Terms of Service at any time as needed. The modified Terms shall take effect as soon as they are posted on the App. Continued use of the App after changes constitutes acceptance of the modified Terms.
+        section8:
+          title: "8. Governing Law and Jurisdiction"
+          content: >
+            These Terms of Service shall be governed by and construed in accordance with the laws of Japan. Any disputes arising in connection with the App shall be subject to the exclusive jurisdiction of the court having jurisdiction over the location of the developer.
+      last_updated: "Last updated: %{date}"
+
+  games:
+    check_generated_image:
+      system_message_1: "How does this look?"
+    
+    new:
+      title: "Prompt"
+      instruction_html: "Describe the prompt in %{locale_in_game}."
+      limit_html: 'You can describe up to <span class="font-bold text-primary text-lg"> %{count} times</span>.'
+
+    show:
+        instruction_html: "Describe the prompt in %{locale_in_game}"
+        chat_placeholder: "Type a message..."
+
+    score:
+      page_title: "Score Results"
+      scoring: "Scoring..."
+
+    feedback:
+        page_title: "Feedback"
+        img_comparison: "🖼️ Image Comparison :"
+        prompt: "Topic :"
+        generated_image: "Generated Image :"
+        general_review: "📄 Overall Review :"
+        your_description: "Your Description "
+        proposal: "Suggestions"
+        note: "*You cannot get a perfect score using sample sentences."
+        phrase: "🎁 Phrases "
+        retry: "Retry"
+        end: "End" 
+        copy: "Copied !"
+
+    index:
+          search_placeholder: "🔍 Search by word..."
+          nothing: "No play history found."
+
+
+  users:
+    top:
+      hello_html: "Hi, %{name}!"
+      speech_1: "Even a single word is super welcome!"
+      speech_2_html: "I'll put my AI brain in high gear<br>and do my absolute best for you!"
+
+    show:
+      user_name: "%{user_name}"
+      contacts: "Contact"
+      logout: "Log Out"
+
+
+  guest:
+    games:
+      top:
+        modal_theme: "How to Play"
+        catchphrase_html: "Bring fun to %{locale_in_game} learning"
+        description_part1_html: "AI visualizes your prompt in %{locale_in_game}.<br>Can you get your message across clearly?"
+        description_part2_html: "Put your vocabulary to the test<br>and discover new expressions."
+
+
+      check_generated_image:
+        system_message_1: "How does this look?"
+      
+      new:
+        title: "Prompt"
+        instruction_html: "Describe the prompt in %{locale_in_game}."
+        guest_limit_html: 'In Guest Mode, you can describe up to <span class="font-bold text-primary text-lg"> %{count} times</span>.'
+
+      show:
+          instruction_html: "Describe the prompt in %{locale_in_game}"
+          chat_placeholder: "Type a message..."
+
+      score:
+        page_title: "Score Results"
+        scoring: "Scoring..."
+
+      feedback:
+          page_title: "Feedback"
+          not_available: "Not available in guest mode."
+          action_html: "Please %{signup_link} or %{login_link}."
+          retry: "Retry"
+          end: "End" 
+
+
+    users:
+      show:
+        guest_user_name: "Guest"
+
+
+  passwords:
+    new:
+      pass_reset: "Reset Password"
+      email: "Email"
+      submit: "Send Reset Link"
+    create:
+      flash_sent_mail: "A password reset link has been sent to your email address."
+    update:
+      flash_changed_pass: "Your password has been successfully updated."
+      alert_pass_mismatched: "Passwords do not match."
+    set_user_by_token:
+      alert_link_expired: "The password reset link has expired."
+    alert_try_again: "Please try again later."
+
+
+  sessions:
+    new: # 個別にキー設定が必要
+      email: "Email"
+      password: "Password"
+      submit: "Log In"
+      signup: "Sign Up"
+      forgot_pass: "Forgot your password?"
+      message_1: "Not registered yet? "
+
+  registrations:
+    new:
+      errors:
+          header:
+            one: "Could not be saved due to 1 error:"
+            other: "Could not be saved due to %{count} errors:"
+      name: "Name"
+      email: "Email"
+      password: "Password"
+      password_confirmation: "Confirm Password"
+      submit: "Sign Up"
+      login: "Log In"
+      message_1: "Already have an account? "
+      action_html: "By creating an account, you agree to our %{terms} and %{privacy}."
+
+  shared:
+    splash_modal:
+      modal_01:
+        message_1: "1. Describe What You See"
+        message_2_html: "Describe the random image to the AI<br>using your own %{locale_in_game} words!"
+      modal_02:
+        message_1: "2. AI Visualizes & Scores"
+        message_2_html: "The AI draws a picture based on your description.<br>See how closely they match!"
+      modal_03:
+        message_1: "3. Get Tips & Level Up"
+        message_2_html: "Learn natural phrasing recommended by AI<br>and expand your vocabulary fast!"
+
+
+    footer:
+      home: "Home"
+      history: "History"
+      profile: "Profile"
+      require_login: "Login Required"
+
+    scoring_button:
+        scoring: "Score"
+
+    generated_image:
+        loading: "Loading..."
+
+    evidence_of_evaluation:
+      labels:
+        score: "Score:"
+        rationale: "Rationale:"
+      perfect:
+        label: "Perfect"
+        score: "95–100%"
+        description_html: "All elements—including subject, background, action, lighting, and mood—were perfectly conveyed to the AI. This top rating shows high descriptive ability and vocabulary equivalent to or exceeding a native speaker."
+      amazing:
+        label: "Amazing"
+        score: "85–94%"
+        description_html: "Both core elements and background details align almost completely. Slight discrepancies exist only in subtle nuances or shades that are extremely difficult to express in words (e.g., 'the shade of blue of the lake' or 'distance from the back seat'). The accuracy of shared imagery remains exceptionally high."
+      great:
+        label: "Great"
+        score: "75–84%"
+        description_html: "The main subject and context are communicated with high accuracy. Minor details may be missing or generalized (e.g., omitting the time of day like 'early morning' or treating 'pretty' as a generic background). Still, the listener gains a clear enough image to warrant a 'Great' rating."
+      good:
+        label: "Good"
+        score: "70–74%"
+        description_html: "Despite noticeable omitted details or grammatical slips, the core message—who, where, and what—reaches the listener correctly. This fully meets the foundational goal of %{locale_in_game} learning: sharing images effectively in daily life."
+      okay:
+        label: "Okay"
+        score: "50–69%"
+        description_html: "While intent is conveyed using known words, only about half of the message gets across. For example, the word 'canoe' is understood, but the action 'a woman is rowing' is lost, resulting in an empty canoe. The AI generates a distinctly different scene, equivalent to a real-life conversation where someone asks, 'Do you mean this?'"
+      needs_work:
+        label: "Needs Work"
+        score: "0–49%"
+        description_html: "Only one or two words were picked up, or broken grammar led to an entirely different scene being conveyed. The image was not successfully shared, leaving the listener unable to understand. Reviewing basic vocabulary and grammar is recommended."

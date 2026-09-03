@@ -8,7 +8,7 @@
             class: "flex flex-col justify-center items-center w-full h-auto" do |f| %>
             <%= f.text_field :query,
                 value: @query,
-                placeholder: "🔍ワード検索", 
+                placeholder: t(".search_placeholder"), 
                 class: "flex flex-col justify-center items-center w-full h-auto textarea textarea-bordered resize-none min-h-[40px] h-[40px] rounded-2xl"%>
         <% end %>
     </div>
@@ -23,7 +23,7 @@
 <% else %>
     <div class="min-h-[calc(100vh-15rem)] flex flex-col justify-center items-center max-w-sm mx-auto mt-10">
         <div class="flex flex-col text-base-content/50 max-w-xs landscape:max-w-3xl mx-auto">
-            <p class="text-lg">プレイ履歴がありません。</p>
+            <p class="text-lg"><%=t(".nothing")%></p>
 
         </div>
     </div>

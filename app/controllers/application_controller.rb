@@ -7,4 +7,15 @@ class ApplicationController < ActionController::Base
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
+
+  # Cookie読み込んでI18nに反映する
+  around_action :switch_locale
+
+  private
+
+  def switch_locale(&action)
+    locale = params[:locale] || cookies[:locale] || I18n.default_locale
+    cookies[:locale] = locale if params[:locale].present?
+    I18n.with_locale(locale, &action)
+  end
 end

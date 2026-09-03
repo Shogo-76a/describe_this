@@ -2,8 +2,7 @@
     class="flex flex-col justify-center items-center gap-15 py-10">
     <div class="flex flex-col text-center gap-5">
       <div class="flex flex-col text-2xl">
-        <p>イメージ</p>
-        <p>シンクロ率</p>
+        <%= t('common.gauge_name_html') %>
       </div>
 
       <!-- progress_controllerと紐付け -->
@@ -30,7 +29,7 @@
       <%= render_score_badge(@game.feedback["overall"]) %>
       
       <button class="flex flex-row justify-center items-center text-xs text-base-content/30 cursor-pointer" onclick="modal_01.showModal()" do>
-        判定基準について
+        <%= t('common.evaluation_criterion') %>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
           <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
         </svg>
@@ -50,14 +49,14 @@
     <!--ログイン分岐-->
     <% if authenticated? %>
         <div class="flex justify-center mt-20">
-            <%=button_to "つぎへ", feedback_user_game_path(game.user_id, game),
+            <%=button_to t('common.next_page'), feedback_user_game_path(game.user_id, game),
                 method: :get, 
                 class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
                 disabled: false %>
         </div>
     <% else %>
         <div class="flex justify-center mt-20">
-            <%=button_to "つぎへ", feedback_guest_game_path(game),
+            <%=button_to t('common.next_page'), feedback_guest_game_path(game),
                 method: :get, 
                 class: "btn btn-lg btn-primary text-primary-content w-70 h-12 rounded-2xl", 
                 disabled: false %>

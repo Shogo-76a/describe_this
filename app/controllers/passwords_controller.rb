@@ -1,7 +1,7 @@
 class PasswordsController < ApplicationController
   allow_unauthenticated_access
   before_action :set_user_by_token, only: %i[ edit update ]
-  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_password_path, alert: "後で再度お試しください。" }
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_password_path, alert: t(".alert_try_again") }
 
   def new
   end
@@ -11,7 +11,7 @@ class PasswordsController < ApplicationController
       PasswordsMailer.reset(user).deliver_later
     end
 
-    redirect_to new_session_path, notice: "ご記載のメールアドレスへパスワードリセットのメールを送信しました。"
+    redirect_to new_session_path, notice: t(".flash_sent_mail")
   end
 
   def edit
@@ -20,9 +20,9 @@ class PasswordsController < ApplicationController
   def update
     if @user.update(params.permit(:password, :password_confirmation))
       @user.sessions.destroy_all
-      redirect_to new_session_path, notice: "パスワードが変更されました。"
+      redirect_to new_session_path, notice: t(".flash_changed_pass")
     else
-      redirect_to edit_password_path(params[:token]), alert: "パスワードが一致しません。"
+      redirect_to edit_password_path(params[:token]), alert: t(".alert_pass_mismatched")
     end
   end
 
@@ -30,6 +30,6 @@ class PasswordsController < ApplicationController
     def set_user_by_token
       @user = User.find_by_password_reset_token!(params[:token])
     rescue ActiveSupport::MessageVerifier::InvalidSignature
-      redirect_to new_password_path, alert: "パスワードリセットのリンクの有効期限が切れています。"
+      redirect_to new_password_path, alert: t(".alert_link_expired")
     end
 end

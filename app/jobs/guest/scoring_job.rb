@@ -1,5 +1,3 @@
-
-
 module Guest
   class ScoringJob < ApplicationJob
     queue_as :default

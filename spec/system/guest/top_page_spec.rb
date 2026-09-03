@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'ゲスト', type: :system do
   it 'トップページ の要素が すべて 表示される' do
     expected_texts = [
-      "英語 学習に遊びを",
-      "あなたの 英語 で",
+      "学習に遊びを",
+      "あなたの",
       "AIがお題のイメージを想像",
       "正確に伝わるかな？",
       "知ってる語彙や文法を出し切って",

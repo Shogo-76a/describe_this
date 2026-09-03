@@ -4,7 +4,7 @@ RSpec.describe 'ゲスト', type: :system, js: true do
   it 'ポップアップ が表示される / 「とじる」ボタンで ポップアップ が非表示になる' do
     visit root_path
     expect(page).to have_css(".modal", visible: true, wait: 4)
-    expect(page).to have_content("① 見たままを英語にする")
+    expect(page).to have_content("① 見たままを")
     click_button 'つぎへ'
     expect(page).to have_content("② AIがイメージして採点")
     click_button 'つぎへ'
