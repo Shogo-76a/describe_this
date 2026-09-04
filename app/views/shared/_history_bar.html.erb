@@ -4,7 +4,7 @@
     <div class="flex flex-row gap-5">
         <img src="<%= url_for(game.generated_image) %>" alt="レコードイメージ" class="w-20 landscape:w-12 h-auto mask mask-circle object-cover">
         <div class="flex flex-col justify-center items-start gap-2">
-            <p class="text-lg"><%= game.feedback["title_for_history"] %></p>
+            <p class="text-lg"><%= game.feedback&.dig("title_for_history").presence || "no title no data" %></p>
             <div class="flex flex-row justify-center items-start gap-2">
                 <div class="contents text-xs text-base-content/50">
                     <%# 「l ← I18n.localize のショートカット」を呼び出し、format オプションで上記定義したキーを指定 %>
