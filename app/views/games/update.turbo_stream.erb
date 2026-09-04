@@ -17,4 +17,7 @@
             <span class="loading loading-spinner loading-md"></span>
         <% end %>
     <% end %>
+
+    <!-- # 入力欄を空にする -->
+    <%= turbo_stream.update "transcript_id", "" %> 
 <% end %>

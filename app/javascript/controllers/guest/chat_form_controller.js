@@ -24,6 +24,9 @@ export default class extends Controller {
     this.element.reset();
     this.resize();
 
+    // フォームをエラー用クラスを削除する。
+    this.element.querySelector('#transcript_id').classList.remove('is-invalid');
+
     // 成功回数が制限に達したら、ボタンを無効化する
     if (this.submitCount >= this.limitValue) {
       this.sendButtonTarget.disabled = true;
@@ -98,5 +101,9 @@ export default class extends Controller {
       // テキストエリアをほんの少し揺らす（DaisyUI等と組み合わせてプチ演出も可）
       return false;
     }
+
+    // テキストが許可されてない言語だった場合に送信できなくする（翻訳サポートなしの時だけ）
+
+    // テキストが一単語だけでは送信できなくする（翻訳サポートなしの時だけ）
   }
 }

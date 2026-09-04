@@ -27,7 +27,7 @@ class Game < ApplicationRecord
     has_one_attached :generated_image
     belongs_to :user, optional: true # ゲストユーザーの場合は user_id つかないため、nullでも作成できるよう optional に設定。
 
-    validates :description, presence: true, on: :update
+    validates :description, presence: true, specific_language: true, on: :update # specific_languageは自作バリデータ
 
     enum :mode, { beginner: 0, elementary: 1, standard: 2 }
 

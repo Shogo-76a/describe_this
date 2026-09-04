@@ -28,5 +28,23 @@ module App
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    # エラー時に元のデザインを崩さないための設定
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+      # html_tag は Rails が生成した <input ...> などの文字列
+      # Nokogiri を使って HTML を安全に解析
+      doc = Nokogiri::HTML::DocumentFragment.parse(html_tag)
+      element = doc.at('input, textarea, select')
+
+      if element
+        # 既存の class に 'is-invalid'（または任意のクラス名）を追加
+        existing_class = element['class']
+        element['class'] = [existing_class, 'is-invalid'].compact.join(' ')
+        doc.to_html.html_safe
+      else
+        html_tag
+      end
+    end
+
   end
 end

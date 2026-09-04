@@ -19,6 +19,7 @@ ja:
     locale_in_game: "ゲームで使う言語"
     locale_out_game: "メニューの言語"
     translation_support: "翻訳サポート"
+    chat_placeholder: "メッセージを入力..."
 
   enums:
     games:
@@ -146,7 +147,6 @@ ja:
 
     show: 
       instruction_html: "お題を %{locale_in_game}で 説明してください"
-      chat_placeholder: "メッセージを入力..."
 
     score:
       page_title: "採点結果"

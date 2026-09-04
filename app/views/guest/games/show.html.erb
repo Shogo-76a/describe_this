@@ -50,7 +50,7 @@
 
 
         <!-- テキスト入力欄 -->
-        <div class="max-w-2xl mx-auto w-full mt-5">
+        <div id="chat_form_wrapper" class="max-w-2xl mx-auto w-full mt-5">
             <%= form_with(
                 url: guest_game_path, model: @game,
                 data: { 
@@ -73,7 +73,7 @@
                         },
                         rows: 1,
                         class: "textarea textarea-bordered w-full resize-none py-2 min-h-[40px] h-[40px]", 
-                        placeholder: t('.chat_placeholder') %>
+                        placeholder: t('common.chat_placeholder') %>
                     <div class="tooltip tooltip-open tooltip-primary">
                         <div class="tooltip-content bg-transparent shadow-none">
                             <div class="text-sm flex flex-col justify-center items-center text-primary font-bold">
@@ -89,6 +89,7 @@
                 </div>
             <% end %>
         </div>
+        
     </div>
 
     <!-- チャット欄 -->

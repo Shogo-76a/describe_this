@@ -37,34 +37,66 @@
     </div>
 
 
-    <!-- ゲーム内言語設定 -->
-    <div class="grid grid-cols-[150px_1fr] flex flex-row items-center border-y-2 border-base-content/10 py-3">
-      <div class="flex flex-row items-center gap-2">
-          <%=t("common.locale_in_game")%>
-      </div>
-      <div class="dropdown w-30 ml-5">
-        <!-- 言語リスト -->
-        <% langs_in_game = [ 
-          { locale: 'ja', text: t('language.Japanese'), job_param: "Japanese" }, 
-          { locale: 'en', text: t('language.English') }, 
-        ] %>
-
-        <!-- ボタン（表示部分） -->
-        <div tabindex="0" role="button" class="btn-sm select m-1">
-          <% current_lang_in_game = langs_in_game.find { |lang| lang[:locale] == cookies[:job_param].to_s } %>
-          <%= current_lang_in_game ? current_lang_in_game[:text] : t(".language.Japanese") %>
+    <div class="flex flex-col items-center border-y-2 border-base-content/10 py-3">
+      <!-- ゲーム内言語設定 -->
+      <div class="grid grid-cols-[150px_1fr] flex flex-row items-center">
+        <div class="flex flex-row items-center gap-2">
+            <%=t("common.locale_in_game")%>
         </div>
+        <div class="dropdown w-30 ml-5">
+          <!-- 言語リスト -->
+          <% langs_in_game = [ 
+            { locale: 'ja', text: t('language.Japanese') }, 
+            { locale: 'en', text: t('language.English') }, 
+          ] %>
 
-        <!-- メニュー一覧（クリック領域を100%確保） -->
-        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-          <% langs_in_game.each do |lang| %>
-            <li>
-              <%= link_to update_locale_in_game_locale_path(job_param: lang[:locale]), class: "w-full h-full block" do %>
-                <span class="opacity-50 mr-5"><%= lang[:locale].upcase %></span> <%= lang[:text] %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+          <!-- ボタン（表示部分） -->
+          <div tabindex="0" role="button" class="btn-sm select m-1">
+            <% current_lang_in_game = langs_in_game.find { |lang| lang[:locale] == cookies[:job_param].to_s } %>
+            <%= current_lang_in_game ? current_lang_in_game[:text] : t(".language.Japanese") %>
+          </div>
+
+          <!-- メニュー一覧（クリック領域を100%確保） -->
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <% langs_in_game.each do |lang| %>
+              <li>
+                <%= link_to update_locale_in_game_locale_path(job_param: lang[:locale]), class: "w-full h-full block" do %>
+                  <span class="opacity-50 mr-5"><%= lang[:locale].upcase %></span> <%= lang[:text] %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 翻訳サポート -->
+      <div class="grid grid-cols-[150px_1fr] flex flex-row items-center">
+        <div class="flex flex-row items-center gap-2">
+            <%=t("common.translation_support")%>
+        </div>
+        <div class="dropdown dropdown-top w-30 ml-5">
+          <!-- 言語リスト -->
+          <% mode_options = [ 
+            { mode: 0, text: t('enums.games.mode.beginner') }, 
+            { mode: 2, text: t('enums.games.mode.standard') }, 
+          ] %>
+
+          <!-- ボタン（表示部分） -->
+          <div tabindex="0" role="button" class="btn-sm select m-1">
+            <% current_mode = mode_options.find { |mode| mode[:mode] == cookies[:mode].to_i } %>
+            <%= current_mode ? current_mode[:text] : t("enums.games.mode.beginner") %>
+          </div>
+
+          <!-- メニュー一覧（クリック領域を100%確保） -->
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <% mode_options.each do |mode| %>
+              <li> 
+                <%= link_to update_game_mode_locale_path(mode: mode[:mode]), class: "w-full h-full block" do %>
+                  <%= mode[:text] %>
+                <% end %>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
 

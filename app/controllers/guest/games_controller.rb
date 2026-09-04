@@ -31,10 +31,14 @@ module Guest
     end
 
     def show
-      @message_limit = 1
+      @message_limit = 1 # メッセージ送信回数
     end
 
     def update
+
+      # 翻訳サポートありなしの分岐の中継メソッド（currentモデルにmodeとallowed_languagesの値を渡す）
+      set_mode_context(@game)
+
       updater = GameUpdater.new(@game, game_params)
       success, errors, system_reply = updater.call
 
@@ -45,7 +49,20 @@ module Guest
           end
         end
       else
-        render :show, status: :unprocessable_entity
+        @message_limit = 1 # メッセージ送信回数　ゲストは1回だけの送信なので、送信失敗したら残り回数は1回のまま。
+        
+        # 修正ポイント：エラー時もTurbo Streamを使ってフォーム部分だけを更新する
+        respond_to do |format|
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.update(
+              "chat_form_wrapper", # フォームを囲んでいる要素のID（ビューに合わせて変更してください）
+              partial: "shared/guest_chat_form_wrapper", # フォーム部分のパーシャル名
+              locals: { game: @game, message_limit: @message_limit }
+            )
+          end
+          # JavaScriptが無効な環境や直接アクセスされた場合のフォールバック
+          format.html { render :show, status: :unprocessable_entity }
+        end
       end
     end
 
@@ -149,5 +166,22 @@ module Guest
     def game_params
       params.require(:game).permit(:description, :generated_image, :theme_image_url, :locale_in_game)
     end
+
+    def set_mode_context(game)
+      # cookieから現在のゲームモードを取得（なければ 0 翻訳サポートあり）
+      mode = cookies[:mode].to_i || 0
+      Current.mode = mode
+
+      # モードに応じて、許可する言語を柔軟に切り替える
+      Current.allowed_languages = case mode
+                                  when 0
+                                    nil # nil の場合はバリデーションをスキップする目印にする
+                                  when 2
+                                    [game.locale_in_game] # 'en' などが入る 
+                                  else
+                                    nil # デフォルト
+                                  end
+    end
+
   end
 end

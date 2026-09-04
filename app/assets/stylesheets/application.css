@@ -8,3 +8,10 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+
+.is-invalid {
+  border-color: #dc3545 !important;
+  background-color: #fff8f8;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
