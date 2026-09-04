@@ -9,10 +9,10 @@
 #  image_seq       :integer          default(0), not null
 #  locale_in_game  :string           default("en"), not null
 #  message_seq     :integer          default(0), not null
+#  mode            :integer          default(0), not null
 #  theme_image_url :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  session_id      :string
 #  user_id         :bigint
 #
 # Indexes
@@ -28,6 +28,8 @@ class Game < ApplicationRecord
     belongs_to :user, optional: true # ゲストユーザーの場合は user_id つかないため、nullでも作成できるよう optional に設定。
 
     validates :description, presence: true, on: :update
+
+    enum :mode, { beginner: 0, elementary: 1, standard: 2 }
 
     # description カラムに文字が入っていれば、ユーザーからのメッセージと判定する
     def from_user?

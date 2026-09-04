@@ -18,7 +18,14 @@ en:
     gauge_name_html: "Image<br> Match Rate"
     locale_in_game: "In-Game Language"
     locale_out_game: "Menu Language"
+    translation_support: "Translation Support"
 
+  enums:
+    games:
+      mode:
+        beginner: "Yes"
+        elementary: "Normal"
+        standard: "None"
     
   time:
       formats:

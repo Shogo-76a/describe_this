@@ -18,8 +18,14 @@ ja:
     gauge_name_html: "イメージ<br>シンクロ率"
     locale_in_game: "ゲームで使う言語"
     locale_out_game: "メニューの言語"
+    translation_support: "翻訳サポート"
 
-
+  enums:
+    games:
+      mode:
+        beginner: "あり"
+        elementary: "ふつう"
+        standard: "なし"
 
   time:
       formats:
