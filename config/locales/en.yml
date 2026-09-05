@@ -8,6 +8,7 @@ en:
     next_page: "Next"
     close_page: "Close"
     evaluation_criterion: "Evaluation Criteria"
+    info_difficulty_level: "Difficulty Differences"
     signup: "Sign Up"
     login: "Log In"
     terms: "Terms of Service"
@@ -16,9 +17,9 @@ en:
     how_to_play: "How to Play"
     start_game: "Start"
     gauge_name_html: "Image<br> Match Rate"
-    locale_in_game: "In-Game Language"
+    locale_in_game: "Target Language"
     locale_out_game: "Menu Language"
-    translation_support: "difficulty level"
+    difficulty level: "difficulty level"
     chat_placeholder: "Type a message..."
 
   enums:
@@ -316,3 +317,33 @@ en:
         label: "Needs Work"
         score: "0–49%"
         description_html: "Only one or two words were picked up, or broken grammar led to an entirely different scene being conveyed. The image was not successfully shared, leaving the listener unable to understand. Reviewing basic vocabulary and grammar is recommended."
+
+    difficulty_info:
+      title: "About Difficulty Levels"
+      description: "There are differences in \"Allowed Languages\" and \"Word Count.\""
+
+      easy:
+        title: "Easy"
+        languages_label: "Allowed Languages"
+        languages_summary: "You can use any language you like during the game. After finishing, you can review your phrasing in your target language on the feedback page."
+        languages_examples:
+          - "Even if your target language is English, you can still use Japanese during the game."
+          - "You can check the English equivalent of your Japanese descriptions on the feedback page."
+
+        word_count_label: "Word Count"
+        word_count_summary: "You can play with just a single word."
+        word_count_examples:
+          - "Entering just \"apple\" is enough to play."
+
+      hard:
+        title: "Hard"
+        languages_label: "Allowed Languages"
+        languages_summary: "You can only use the language set as your target language."
+        languages_examples:
+          - "If your target language is English, you can only speak or type in English during the game."
+
+        word_count_label: "Word Count"
+        word_count_summary: "You cannot play with just a single word. Please express yourself in natural sentences as much as possible."
+        word_count_examples:
+          - "✕ \"apple\" alone"
+          - "〇 \"There is an apple.\""

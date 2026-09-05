@@ -1,0 +1,56 @@
+<div class="space-y-6">
+  <div>
+    <h2 class="text-xl font-bold"><%= t("shared.difficulty_info.title") %></h2>
+    <p class="mt-2 text-gray-600"><%= t("shared.difficulty_info.description") %></p>
+  </div>
+
+  <!-- やさしい -->
+  <section class="space-y-3">
+    <h3 class="text-2xl font-semibold"><%= t("shared.difficulty_info.easy.title") %></h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li>
+        <strong><%= t("shared.difficulty_info.easy.languages_label") %>:</strong>
+        <%= t("shared.difficulty_info.easy.languages_summary") %>
+        <ul class="list-circle pl-5 mt-1 space-y-1 text-sm text-gray-600">
+          <% t("shared.difficulty_info.easy.languages_examples").each do |example| %>
+            <li><%= example %></li>
+          <% end %>
+        </ul>
+      </li>
+      <li>
+        <strong><%= t("shared.difficulty_info.easy.word_count_label") %>:</strong>
+        <%= t("shared.difficulty_info.easy.word_count_summary") %>
+        <ul class="list-circle pl-5 mt-1 space-y-1 text-sm text-gray-600">
+          <% t("shared.difficulty_info.easy.word_count_examples").each do |example| %>
+            <li><%= example %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!-- むずかしい -->
+  <section class="space-y-3">
+    <h3 class="text-2xl font-semibold"><%= t("shared.difficulty_info.hard.title") %></h3>
+    <ul class="list-disc pl-5 space-y-2">
+      <li>
+        <strong><%= t("shared.difficulty_info.hard.languages_label") %>:</strong>
+        <%= t("shared.difficulty_info.hard.languages_summary") %>
+        <ul class="list-circle pl-5 mt-1 space-y-1 text-sm text-gray-600">
+          <% t("shared.difficulty_info.hard.languages_examples").each do |example| %>
+            <li><%= example %></li>
+          <% end %>
+        </ul>
+      </li>
+      <li>
+        <strong><%= t("shared.difficulty_info.hard.word_count_label") %>:</strong>
+        <%= t("shared.difficulty_info.hard.word_count_summary") %>
+        <ul class="list-circle pl-5 mt-1 space-y-1 text-sm text-gray-600">
+          <% t("shared.difficulty_info.hard.word_count_examples").each do |example| %>
+            <li><%= example %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</div>
