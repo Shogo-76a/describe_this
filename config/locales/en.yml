@@ -18,14 +18,15 @@ en:
     gauge_name_html: "Image<br> Match Rate"
     locale_in_game: "In-Game Language"
     locale_out_game: "Menu Language"
-    translation_support: "Translation Support"
+    translation_support: "difficulty level"
+    chat_placeholder: "Type a message..."
 
   enums:
     games:
       mode:
-        beginner: "Yes"
-        elementary: "Normal"
-        standard: "None"
+        beginner: "Easy"
+        elementary: "Medium"
+        standard: "Hard"
     
   time:
       formats:
@@ -150,7 +151,6 @@ en:
 
     show:
         instruction_html: "Describe the prompt in %{locale_in_game}"
-        chat_placeholder: "Type a message..."
 
     score:
       page_title: "Score Results"
@@ -206,7 +206,6 @@ en:
 
       show:
           instruction_html: "Describe the prompt in %{locale_in_game}"
-          chat_placeholder: "Type a message..."
 
       score:
         page_title: "Score Results"

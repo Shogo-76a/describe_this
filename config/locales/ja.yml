@@ -18,15 +18,15 @@ ja:
     gauge_name_html: "イメージ<br>シンクロ率"
     locale_in_game: "ゲームで使う言語"
     locale_out_game: "メニューの言語"
-    translation_support: "翻訳サポート"
+    translation_support: "難易度"
     chat_placeholder: "メッセージを入力..."
 
   enums:
     games:
       mode:
-        beginner: "あり"
+        beginner: "やさしい"
         elementary: "ふつう"
-        standard: "なし"
+        standard: "むずかしい"
 
   time:
       formats:
@@ -201,7 +201,6 @@ ja:
 
       show: 
         instruction_html: "お題を %{locale_in_game}で 説明してください"
-        chat_placeholder: "メッセージを入力..."
 
       score:
         page_title: "採点結果"
