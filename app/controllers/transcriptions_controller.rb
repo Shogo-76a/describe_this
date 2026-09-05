@@ -14,7 +14,7 @@ class TranscriptionsController < ApplicationController
     service = TranscribeService.new(
       audio_file: audio_file,
       prompt: "Hello, this is a clear, articulate, and natural #{in_game_lang} transcript without any filler words like um or uh.",
-      language: @game.locale_in_game # "en"などのゲーム内言語設定。
+      # language: @game.locale_in_game # "en"の時に日本語音声を自動で英語に翻訳しますが、"ja"の時は英語を日本語に訳さないので、コメントアウトしてます。
     )
 
     text = service.call

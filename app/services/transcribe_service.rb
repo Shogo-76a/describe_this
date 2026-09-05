@@ -3,7 +3,7 @@ class TranscribeService
   class ValidationError < Error; end
   class OpenAIError < Error; end
 
-  def initialize(audio_file:, prompt: nil, language: "ja", client: nil, model: "whisper-1", temperature: 0.0)
+  def initialize(audio_file:, prompt: nil, language: nil, client: nil, model: "whisper-1", temperature: 0.0)
     @audio_file = audio_file
     @prompt = prompt
     @language = language
@@ -20,7 +20,6 @@ class TranscribeService
       parameters: {
         model: @model,
         file: @audio_file.tempfile,
-        language: @language,
         prompt: @prompt,
         temperature: @temperature
       }
