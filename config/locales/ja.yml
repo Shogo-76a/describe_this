@@ -174,7 +174,7 @@ ja:
   users:
     top:
       hello_html: "こんにちは！<br>%{name} さん！"
-      speech_1: "単語1つでも大歓迎！"
+      speech_1: "「やさしい」モードなら単語1つでも大歓迎！"
       speech_2_html: "僕のAI脳をフル回転させて<br>全力で受け止めるよ〜！"
 
     show:
