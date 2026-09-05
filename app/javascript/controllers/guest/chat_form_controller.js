@@ -99,7 +99,7 @@ export default class extends Controller {
     if (text.trim() === '') {
       event.preventDefault(); // サーバーへの送信（通信）を完全にストップする
 
-      // テキストエリアをほんの少し揺らす（DaisyUI等と組み合わせてプチ演出も可）
+      this.textareaTarget.classList.add('is-invalid');
       return false;
     }
 
@@ -116,6 +116,7 @@ export default class extends Controller {
     if (wordCount === 1) {
       event.preventDefault();
       console.log('1単語のみです。送信できません。');
+      this.textareaTarget.classList.add('is-invalid');
       return false;
     }
 
