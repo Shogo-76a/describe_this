@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   # ゲームモードををCookieから読み込んでCurrentモデルに保存 → 自作バリデータで値を使う
   before_action :set_mode_context
-  
+
 
   private
 
@@ -40,7 +40,6 @@ class ApplicationController < ActionController::Base
     Rails.logger.info "=== DEBUG set_locale_in_game ==="
     Rails.logger.info "locale_in_game: #{locale_in_game}"
     Rails.logger.info "====================="
-
   end
 
 
@@ -61,19 +60,18 @@ class ApplicationController < ActionController::Base
 
     # バリデータspecific_language_validatorに渡すため、Currentモデルのアトリビュートに値を保存。
     Current.mode = mode
-      # 許可する言語を 限定するかしないか を切り替える
+    # 許可する言語を 限定するかしないか を切り替える
     Current.allowed_languages = case mode
-                                when 0
+    when 0
                                   nil # nil の場合はバリデーションをスキップする目印にする
-                                when 2
-                                  [Current.locale_in_game] # 'en' などが入る 
-                                else
+    when 2
+                                  [ Current.locale_in_game ] # 'en' などが入る
+    else
                                   nil # デフォルト
-                                end
+    end
 
     Rails.logger.info "=== DEBUG set_mode_context ==="
     Rails.logger.info "mode: #{mode}"
     Rails.logger.info "====================="
   end
-
 end

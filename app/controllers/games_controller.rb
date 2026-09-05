@@ -97,7 +97,7 @@ class GamesController < ApplicationController
       end
     else
       @message_limit -= @game.message_seq - 1 # メッセージ送信できなかった時のカウント数。内訳：残り送信可能数 =（送信済み数 + 送信予定数）- 送信予定数の打消し
-      
+
       # 修正ポイント：エラー時もTurbo Streamを使ってフォーム部分だけを更新する
       respond_to do |format|
         format.turbo_stream do
@@ -248,5 +248,4 @@ private
     Current.session&.user
   end
   helper_method :current_user
-
 end

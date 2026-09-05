@@ -56,7 +56,7 @@ gem "omniauth-line-v2_1", ">= 1.2"
 gem "omniauth-twitter2"
 
 # Google Compact Language Detector v3
-gem "cld3" 
+gem "cld3"
 
 
 group :development, :test do

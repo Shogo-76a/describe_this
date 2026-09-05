@@ -15,5 +15,4 @@ class LocalesController < ApplicationController
     cookies[:mode] = params[:mode]
     redirect_back fallback_location: root_path
   end
-
 end

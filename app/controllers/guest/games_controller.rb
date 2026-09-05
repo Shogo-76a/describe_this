@@ -22,7 +22,7 @@ module Guest
       @game = Game.new(game_params)
       @game.locale_in_game = Current.locale_in_game # ゲーム内言語
       @game.mode = Current.mode # ゲームモード（他言語の使用OKか否か）
-      
+
       if @game.save
         redirect_to guest_game_path(@game)
       else
@@ -47,7 +47,7 @@ module Guest
         end
       else
         @message_limit = 1 # メッセージ送信回数　ゲストは1回だけの送信なので、送信失敗したら残り回数は1回のまま。
-        
+
         # 修正ポイント：エラー時もTurbo Streamを使ってフォーム部分だけを更新する
         respond_to do |format|
           format.turbo_stream do
@@ -163,6 +163,5 @@ module Guest
     def game_params
       params.require(:game).permit(:description, :generated_image, :theme_image_url, :locale_in_game)
     end
-
   end
 end
