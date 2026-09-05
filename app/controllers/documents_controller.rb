@@ -1,5 +1,4 @@
 class DocumentsController < ApplicationController
-  include Authentication
   allow_unauthenticated_access only: %i[ privacy_policy terms ]
 
   def privacy_policy; end

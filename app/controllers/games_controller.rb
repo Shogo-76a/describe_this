@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-  include Authentication
   # @game = Game.find(params[:id]) をまとめてます。
   before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
   before_action :set_message_limit, only: %i[new show update]
@@ -69,8 +68,8 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.build(game_params)
-    @game.locale_in_game = cookies[:job_param].to_s
-    @game.mode = cookies[:mode].to_i 
+    @game.locale_in_game = Current.locale_in_game # ゲーム内言語
+    @game.mode = Current.mode # ゲームモード（他言語の使用OKか否か）
 
     if @game.save
 
@@ -86,9 +85,6 @@ class GamesController < ApplicationController
   def update
     # ユーザーのメッセージ送信回数。check_generated_imageアクションで画面更新する要素を分岐する
     @game.message_seq += 1
-
-    # 翻訳サポートありなしの分岐の中継メソッド（currentモデルにmodeとallowed_languagesの値を渡す）
-    set_mode_context(@game)
 
     updater = GameUpdater.new(@game, game_params)
     success, errors, system_reply = updater.call
@@ -252,22 +248,5 @@ private
     Current.session&.user
   end
   helper_method :current_user
-
-
-  def set_mode_context(game)
-    # cookieから現在のゲームモードを取得（なければ 0 翻訳サポートあり）
-    mode = cookies[:mode].to_i || 0
-    Current.mode = mode
-
-    # モードに応じて、許可する言語を柔軟に切り替える
-    Current.allowed_languages = case mode
-                                when 0
-                                  nil # nil の場合はバリデーションをスキップする目印にする
-                                when 2
-                                  [game.locale_in_game] # 'en' などが入る 
-                                else
-                                  nil # デフォルト
-                                end
-  end
 
 end

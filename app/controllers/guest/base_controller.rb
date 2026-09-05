@@ -1,6 +1,5 @@
 module Guest
   class BaseController < ApplicationController
-    include Authentication
     # ゲスト用コントローラの基底クラス
     allow_unauthenticated_access
 

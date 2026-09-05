@@ -20,8 +20,9 @@ module Guest
 
     def create
       @game = Game.new(game_params)
-      @game.locale_in_game = cookies[:job_param].to_s
-
+      @game.locale_in_game = Current.locale_in_game # ゲーム内言語
+      @game.mode = Current.mode # ゲームモード（他言語の使用OKか否か）
+      
       if @game.save
         redirect_to guest_game_path(@game)
       else
@@ -35,10 +36,6 @@ module Guest
     end
 
     def update
-
-      # 翻訳サポートありなしの分岐の中継メソッド（currentモデルにmodeとallowed_languagesの値を渡す）
-      set_mode_context(@game)
-
       updater = GameUpdater.new(@game, game_params)
       success, errors, system_reply = updater.call
 
@@ -165,22 +162,6 @@ module Guest
 
     def game_params
       params.require(:game).permit(:description, :generated_image, :theme_image_url, :locale_in_game)
-    end
-
-    def set_mode_context(game)
-      # cookieから現在のゲームモードを取得（なければ 0 翻訳サポートあり）
-      mode = cookies[:mode].to_i || 0
-      Current.mode = mode
-
-      # モードに応じて、許可する言語を柔軟に切り替える
-      Current.allowed_languages = case mode
-                                  when 0
-                                    nil # nil の場合はバリデーションをスキップする目印にする
-                                  when 2
-                                    [game.locale_in_game] # 'en' などが入る 
-                                  else
-                                    nil # デフォルト
-                                  end
     end
 
   end
