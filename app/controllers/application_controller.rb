@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale_and_cookies
     # 起動直後にクッキーがなければ、初期値をセットする。
-    cookies[:job_param] ||= 'en'
+    cookies[:job_param] ||= "en"
     cookies[:mode]      ||= 0
 
     # i18nのロケールを決定する（URLパラメータ -> セッション -> デフォルト値）
