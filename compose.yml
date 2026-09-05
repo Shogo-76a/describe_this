@@ -35,6 +35,7 @@ services:
       - .:/app
       # GemをPC側にキャッシュし、ビルドを高速化する
       - bundle_data:/usr/local/bundle:cached
+      
     ports:
       # PCの3000番ポートをコンテナの3000番ポートに接続
       - "3000:3000"

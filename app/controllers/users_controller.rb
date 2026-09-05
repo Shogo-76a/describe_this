@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  include Authentication
-
   def top
     if authenticated?
       @user = current_user

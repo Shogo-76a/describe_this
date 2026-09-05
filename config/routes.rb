@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   get "locales/update"
 
-  # 言語設定
+  # Cookieに保存する系の処理。言語設定など。
   resource :locale, only: [ :update ] do
     member do
       get :update_locale_in_game
+      get :update_game_mode
     end
   end
 

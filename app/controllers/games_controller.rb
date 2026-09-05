@@ -1,10 +1,8 @@
 class GamesController < ApplicationController
-  include Authentication
   # @game = Game.find(params[:id]) をまとめてます。
   before_action :set_game, only: %i[show update check_generated_image check_score score feedback destroy]
+  before_action :set_message_limit, only: %i[new show update]
 
-  # @message_limit = 3 をまとめてます。
-  before_action :set_message_limit, only: %i[new show]
 
   def index
     # ワード検索
@@ -70,9 +68,11 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.build(game_params)
-    @game.locale_in_game = cookies[:job_param].to_s
+    @game.locale_in_game = Current.locale_in_game # ゲーム内言語
+    @game.mode = Current.mode # ゲームモード（他言語の使用OKか否か）
 
     if @game.save
+
       redirect_to user_game_path(current_user, @game)
     else
       render :new, status: :unprocessable_entity
@@ -96,7 +96,20 @@ class GamesController < ApplicationController
         end
       end
     else
-      render :show, status: :unprocessable_entity
+      @message_limit -= @game.message_seq - 1 # メッセージ送信できなかった時のカウント数。内訳：残り送信可能数 =（送信済み数 + 送信予定数）- 送信予定数の打消し
+
+      # 修正ポイント：エラー時もTurbo Streamを使ってフォーム部分だけを更新する
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update(
+            "chat_form_wrapper", # フォームを囲んでいる要素のID（ビューに合わせて変更してください）
+            partial: "shared/chat_form_wrapper", # フォーム部分のパーシャル名
+            locals: { game: @game, message_limit: @message_limit }
+          )
+        end
+        # JavaScriptが無効な環境や直接アクセスされた場合のフォールバック
+        format.html { render :show, status: :unprocessable_entity }
+      end
     end
   end
 

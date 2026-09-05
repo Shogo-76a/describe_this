@@ -9,10 +9,10 @@
 #  image_seq       :integer          default(0), not null
 #  locale_in_game  :string           default("en"), not null
 #  message_seq     :integer          default(0), not null
+#  mode            :integer          default(0), not null
 #  theme_image_url :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  session_id      :string
 #  user_id         :bigint
 #
 # Indexes

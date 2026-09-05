@@ -10,7 +10,7 @@ module Authentication
     def allow_unauthenticated_access(**options)
       skip_before_action :require_authentication, **options
 
-      # 【追記】認証は必須にしないが、セッションがあれば復元するように指定
+      # 認証は必須にしないが、セッションがあれば復元するように指定
       before_action :resume_session, **options
     end
   end

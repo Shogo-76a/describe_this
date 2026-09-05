@@ -10,4 +10,9 @@ class LocalesController < ApplicationController
     cookies[:job_param] = params[:job_param]
     redirect_back fallback_location: root_path
   end
+
+  def update_game_mode
+    cookies[:mode] = params[:mode]
+    redirect_back fallback_location: root_path
+  end
 end

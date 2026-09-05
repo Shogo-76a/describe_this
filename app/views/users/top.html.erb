@@ -33,38 +33,86 @@
       </div>
     </div>
 
+    <div class="flex flex-col items-center border-y-2 border-base-content/10 py-3">
+        <!-- ゲーム内言語設定 -->
+        <div class="grid grid-cols-[150px_1fr] flex flex-row items-center">
+          <div class="flex flex-row justify-self-end items-center gap-2">
+            <%=t("common.locale_in_game")%>
+          </div>
+          <div class="dropdown w-30 ml-5">
+            <!-- 言語リスト -->
+            <% langs_in_game = [ 
+              { locale: 'ja', text: t('language.Japanese') }, 
+              { locale: 'en', text: t('language.English') }, 
+            ] %>
 
-    <!-- ゲーム内言語設定 -->
-    <div class="grid grid-cols-[150px_1fr] flex flex-row items-center">
-      <div class="flex flex-row items-center gap-2">
-          <%=t("common.locale_in_game")%>
-      </div>
-      <div class="dropdown w-30 ml-5">
-        <!-- 言語リスト -->
-        <% langs_in_game = [ 
-          { locale: 'ja', text: t('language.Japanese'), job_param: "Japanese" }, 
-          { locale: 'en', text: t('language.English') }, 
-        ] %>
+            <!-- ボタン（表示部分） -->
+            <div tabindex="0" role="button" class="btn-sm select m-1">
+              <% current_lang_in_game = langs_in_game.find { |lang| lang[:locale] == cookies[:job_param].to_s } %>
+              <%= current_lang_in_game ? current_lang_in_game[:text] : t(".language.Japanese") %>
+            </div>
 
-        <!-- ボタン（表示部分） -->
-        <div tabindex="0" role="button" class="btn-sm select m-1">
-          <% current_lang_in_game = langs_in_game.find { |lang| lang[:locale] == cookies[:job_param].to_s } %>
-          <%= current_lang_in_game ? current_lang_in_game[:text] : t(".language.Japanese") %>
+            <!-- メニュー一覧（クリック領域を100%確保） -->
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+              <% langs_in_game.each do |lang| %>
+                <li>
+                  <%= link_to update_locale_in_game_locale_path(job_param: lang[:locale]), class: "w-full h-full block" do %>
+                    <span class="opacity-50 mr-5"><%= lang[:locale].upcase %></span> <%= lang[:text] %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
         </div>
 
-        <!-- メニュー一覧（クリック領域を100%確保） -->
-        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-          <% langs_in_game.each do |lang| %>
-            <li>
-              <%= link_to update_locale_in_game_locale_path(job_param: lang[:locale]), class: "w-full h-full block" do %>
-                <span class="opacity-50 mr-5"><%= lang[:locale].upcase %></span> <%= lang[:text] %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
+        <!-- 翻訳サポート -->
+        <div class="grid grid-cols-[150px_1fr] flex flex-row items-center">
+          <div class="flex flex-row justify-self-end items-center gap-2">
+            <%=t("common.difficulty_level")%>
+          </div>
+          <div class="dropdown w-30 ml-5">
+            <!-- 言語リスト -->
+            <% mode_options = [ 
+              { mode: 0, text: t('enums.games.mode.beginner') }, 
+              { mode: 2, text: t('enums.games.mode.standard') }, 
+            ] %>
 
+            <!-- ボタン（表示部分） -->
+            <div tabindex="0" role="button" class="btn-sm select m-1">
+              <% current_mode = mode_options.find { |mode| mode[:mode] == cookies[:mode].to_i } %>
+              <%= current_mode ? current_mode[:text] : t("enums.games.mode.beginner") %>
+            </div>
+
+            <!-- メニュー一覧（クリック領域を100%確保） -->
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+              <% mode_options.each do |mode| %>
+                <li> 
+                  <%= link_to update_game_mode_locale_path(mode: mode[:mode]), class: "w-full h-full block" do %>
+                    <%= mode[:text] %>
+                  <% end %>
+              <% end %>
+            </ul>
+          </div>
+
+          <div><!-- gridの配置調整に使用 --></div>
+
+          <button class="flex flex-row justify-center items-center text-xs text-base-content/30 cursor-pointer ml-5" onclick="modal_01.showModal()" do>
+            <%= t('common.info_difficulty_level') %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+            </svg>
+          </button>
+          <dialog id="modal_01" class="modal">
+            <div class="modal-box w-[340] landscape:w-auto h-[660] rounded-2xl">
+              <%= render partial: "shared/info_difficulty_level" %>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+              <button>close</button>
+            </form>
+          </dialog>
+
+        </div>
+    </div>
 
 
     <!-- 遊び方モーダルの内容 -->
