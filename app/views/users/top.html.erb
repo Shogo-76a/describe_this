@@ -49,7 +49,7 @@
             <!-- ボタン（表示部分） -->
             <div tabindex="0" role="button" class="btn-sm select m-1">
               <% current_lang_in_game = langs_in_game.find { |lang| lang[:locale] == cookies[:job_param].to_s } %>
-              <%= current_lang_in_game ? current_lang_in_game[:text] : t(".language.Japanese") %>
+              <%= current_lang_in_game[:text]%>
             </div>
 
             <!-- メニュー一覧（クリック領域を100%確保） -->

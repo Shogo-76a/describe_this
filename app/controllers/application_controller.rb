@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
+  # cookieが空の場合は初期値を入れる
+  before_action :set_locale_and_cookies
+
   # メニュー言語をCookieから読み込んでI18nに反映する
   around_action :switch_locale
 
@@ -19,6 +22,16 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+  def set_locale_and_cookies
+    # 起動直後にクッキーがなければ、初期値をセットする
+    cookies[:job_param] ||= 'en'
+    cookies[:mode]      ||= 0
+
+    # i18nのロケールを決定する（URLパラメータ -> セッション -> デフォルト値）
+    I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
+  end
+
 
   # メニュー言語
   def switch_locale(&action)
@@ -32,8 +45,8 @@ class ApplicationController < ActionController::Base
 
   # ゲーム内言語
   def set_locale_in_game
-    # paramsまたはcookieからゲームで使う言語設定を取得（なければ "ja"）
-    locale_in_game = params[:job_param].to_s.presence || cookies[:job_param].to_s.presence || "ja"
+    # paramsまたはcookieからゲームで使う言語設定を取得（なければ "en"）
+    locale_in_game = params[:job_param].to_s.presence || cookies[:job_param].to_s.presence || "en"
     cookies[:job_param] = locale_in_game if params[:job_param].present?
     Current.locale_in_game = locale_in_game
 
