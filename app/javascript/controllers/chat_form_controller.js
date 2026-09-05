@@ -94,7 +94,8 @@ export default class extends Controller {
   validateForm(event) {
     const text = this.textareaTarget.value;
 
-    // 文字列の前後スペースや改行を除去（trim）して、完全に空っぽだったら
+    // バリデート_1:
+    //   文字列の前後スペースや改行を除去（trim）して、完全に空っぽだったら
     if (text.trim() === '') {
       event.preventDefault(); // サーバーへの送信（通信）を完全にストップする
 
@@ -102,8 +103,23 @@ export default class extends Controller {
       return false;
     }
 
-    // テキストが許可されてない言語だった場合に送信できなくする（翻訳サポートなしの時だけ）
+    // バリデート_2:
+    //   テキストが一単語だけでは送信できなくする（翻訳サポートなしの時だけ）
+    //   単語単位で分割するセグメンターを作成（言語は自動判別）
+    const segmenter = new Intl.Segmenter(undefined, { granularity: 'word' });
+    const segments = segmenter.segment(text);
 
-    // テキストが一単語だけでは送信できなくする（翻訳サポートなしの時だけ）
+    // 空白や記号を除外して、純粋な単語の数だけをカウント
+    const wordCount = Array.from(segments).filter(segment => segment.isWordLike).length;
+
+    // 1単語のみの場合に特定の処理を実行
+    if (wordCount === 1) {
+      event.preventDefault();
+      console.log('1単語のみです。送信できません。');
+      return false;
+    }
+
+    // バリデート_3:
+    // テキストが許可されてない言語だった場合に送信できなくする（翻訳サポートなしの時だけ）
   }
 }
