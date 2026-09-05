@@ -18,7 +18,7 @@
 | ---------- | -------------------------------- |
 | フロントエンド    | Hotwire / JavaScript             |
 | CSSフレームワーク | DaisyUI                          |
-| バックエンド    | Ruby 4.0.5 / Ruby on Rails 8.1.3 |
+| バックエンド    | Ruby 3.4 / Ruby on Rails 8.1.3 |
 | データベース     | PostgreSQL 18.3                  |
 | 外部API      | DeepInfra / OpenAI / Cloudinary  |
 | バージョン管理ツール | GitHub                           |

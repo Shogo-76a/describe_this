@@ -9,7 +9,7 @@ ENV RAILS_ENV=development
 # 必要なシステムライブラリをインストール
 # postgresql-client: RailsからPostgreSQLに接続するために必要
 # vim, nano: コンテナ内でファイルを編集するためのエディタ
-# 【追加】cld3のビルドと実行に必要なプロトコルバッファ関連のパッケージ
+# cld3のビルドと実行に必要なプロトコルバッファ関連のパッケージ
 RUN apt-get update -qq && apt-get install -y \
   ca-certificates curl gnupg postgresql-client vim nano \
   protobuf-compiler libprotobuf-dev pkg-config
