@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale_and_cookies
-    # 起動直後にクッキーがなければ、初期値をセットする
+    # 起動直後にクッキーがなければ、初期値をセットする。
     cookies[:job_param] ||= 'en'
     cookies[:mode]      ||= 0
 
