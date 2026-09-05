@@ -1,0 +1,43 @@
+name: Test and Badge
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- 1. テスト環境のセットアップと実行 ---
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+
+      - name: Run tests
+        run: |
+          bundle exec rspec
+
+      # --- 2. カバレッジ結果（%）を取得 ---
+      # SimpleCovの coverage/.last_run.json などからパーセンテージを抜き出す例
+      - name: Extract coverage
+        id: coverage
+        run: |
+          COVERAGE=$(jq -r '.result.line' coverage/.last_run.json)
+          echo "PERCENT=$COVERAGE" >> $GITHUB_OUTPUT
+
+      # --- 3. Gist にバッジデータを書き込む ---
+      - name: Update Dynamic Badge Gist
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 1234567890abcdef1234567890abcdef  # Step 1 で取得した Gist ID
+          filename: coverage.json
+          label: coverage
+          message: ${{ steps.coverage.outputs.PERCENT }}%
+          valColorRange: ${{ steps.coverage.outputs.PERCENT }}
+          minColorRange: 50
+          maxColorRange: 90
