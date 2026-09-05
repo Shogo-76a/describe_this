@@ -8,7 +8,7 @@ RSpec.describe 'ゲスト ゲームメインサイクル', type: :system do
       page.refresh
       find('.modal').send_keys(:escape) # ポップアップを消す
 
-      find('.dropdown.w-30').click
+      all('.dropdown.w-30')[0].click
       find('.dropdown-content.menu a', text: '英語').click
       expect(page).to have_css('.btn-sm.select', text: '英語')
 
