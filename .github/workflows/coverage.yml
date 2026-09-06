@@ -1,6 +1,7 @@
 name: Test and Badge
 
 on:
+  pull_request:
   push:
     branches: [ main ]
 
