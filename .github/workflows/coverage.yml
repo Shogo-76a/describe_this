@@ -20,22 +20,9 @@ jobs:
           ruby-version: '3.4'
           bundler-cache: true
 
-      - name: Precompile assets
-        run: bundle exec rails assets:precompile RAILS_ENV=test
-
-      - name: Run migration
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        run: bundle exec rails db:test:prepare
-
-      - name: Run rspec
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }} # GitHub Settings -> Secrets and variables -> Actions に登録済みのmaster.key設定
-          # REDIS_URL: redis://localhost:6379/0
-        run: bundle exec rspec
+      - name: Run tests
+        run: |
+          bundle exec rspec
 
       # --- 2. カバレッジ結果（%）を取得 ---
       # SimpleCovの coverage/.last_run.json などからパーセンテージを抜き出す例
