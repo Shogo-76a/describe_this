@@ -15,15 +15,23 @@
 ---
 ### 技術構成
 
-| カテゴリ       | 使用技術                             |
-| ---------- | -------------------------------- |
-| フロントエンド    | Hotwire / JavaScript             |
-| CSSフレームワーク | DaisyUI                          |
-| バックエンド    | Ruby 3.4 / Ruby on Rails 8.1.3 |
-| データベース     | PostgreSQL 18.3                  |
-| 外部API      | DeepInfra / OpenAI / Cloudinary  |
-| バージョン管理ツール | GitHub                           |
-| デプロイ       | Render(App) / Neon(DB)           |
+| カテゴリ           | 使用技術                                                  |
+| -------------- | ----------------------------------------------------- |
+| フロントエンド        | Hotwire (Turbo Rails / Stimulus Rails) / JavaScript   |
+| CSSフレームワーク     | Tailwind CSS / DaisyUI                                |
+| バックエンド         | Ruby 3.4 / Ruby on Rails 8.1.3 / Puma                 |
+| データベース         | PostgreSQL                                            |
+| キャッシュ & ジョブキュー | Solid Cache / Solid Queue                             |
+| 外部API          | OpenAI / Cloudinary / Google OAuth2                   |
+| ストレージ          | Active Storage (Cloudinary)                           |
+| 言語検出           | CLD3 (Google Compact Language Detector v3)            |
+| 認証             | Bcrypt / OmniAuth                                     |
+| 管理画面           | Avo                                                   |
+| テスト            | RSpec / Capybara / FactoryBot / Faker / WebMock / VCR |
+| セキュリティ         | Brakeman / Bundler Audit                              |
+| リント            | RuboCop / ESLint                                      |
+| バージョン管理ツール     | GitHub                                                |
+| デプロイ           | Render(App) / Neon(DB)                                |
 
 ---
 ### 画面遷移図
