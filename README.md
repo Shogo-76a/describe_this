@@ -33,27 +33,55 @@ Figma：[URL](https://www.figma.com/design/Ww2Wdo9hGjPXsq2QVxKj63/%E7%94%BB%E9%9
 ### ER図
 ```mermaid
 erDiagram
-  GAMES {
-    bigint id PK
-    datetime created_at
-    text description
-    jsonb feedback
-    string session_id
-    string theme_image_url
-    datetime updated_at
-  }
-  
-  ACTIVE_STORAGE_ATTACHMENTS {
-    bigint id PK
-    bigint blob_id FK
-    datetime created_at
-    string name
-    bigint record_id
-    string record_type
-  }
-  
+    USER ||--o{ SESSION : has_many
+    USER ||--o{ GAME : has_many
+    GAME }o--|| USER : belongs_to
+    SESSION }o--|| USER : belongs_to
+    GAME ||--|| ACTIVE_STORAGE_ATTACHMENTS : has_one_attached
 
-  GAMES ||--o| ACTIVE_STORAGE_ATTACHMENTS : generated_image
+    USER {
+        bigint id PK
+        string email_address UK
+        string name UK
+        string password_digest
+        string provider
+        string uid
+        boolean admin
+        datetime created_at
+        datetime updated_at
+    }
+
+    SESSION {
+        bigint id PK
+        bigint user_id FK
+        string ip_address
+        string user_agent
+        datetime created_at
+        datetime updated_at
+    }
+
+    GAME {
+        bigint id PK
+        bigint user_id FK "optional"
+        text description
+        text array_context
+        jsonb feedback
+        string theme_image_url
+        integer image_seq
+        integer message_seq
+        integer mode
+        string locale_in_game
+        datetime created_at
+        datetime updated_at
+    }
+
+    ACTIVE_STORAGE_ATTACHMENTS {
+        bigint id
+        string name
+        bigint record_id
+        string record_type
+        datetime created_at
+    }
 ```
 ---
 ### テストカバレッジ
