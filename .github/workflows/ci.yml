@@ -131,6 +131,31 @@ jobs:
           # REDIS_URL: redis://localhost:6379/0
         run: bundle exec rspec
 
+
+        
+      - name: Extract coverage
+        id: coverage
+        run: |
+          # SimpleCov が生成する JSON から全体のカバレッジ(%)を取得
+          COVERAGE=$(jq -r '.result.line' coverage/.last_run.json)
+          echo "PERCENT=$COVERAGE" >> $GITHUB_OUTPUT
+
+      - name: Update Dynamic Badge Gist
+        # PRのテストではバッジを上書きせず、mainブランチにマージ(Push)された時だけ更新する
+        if: github.ref == 'refs/heads/main'
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 1234567890abcdef1234567890abcdef  # ※ご自身のGist IDに変更してください
+          filename: coverage.json
+          label: coverage
+          message: ${{ steps.coverage.outputs.PERCENT }}%
+          valColorRange: ${{ steps.coverage.outputs.PERCENT }}
+          minColorRange: 50
+          maxColorRange: 90
+
+
+
       - name: Archive rspec result screenshots
         if: failure()
         uses: actions/upload-artifact@v4

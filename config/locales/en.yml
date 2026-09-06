@@ -179,7 +179,7 @@ en:
   users:
     top:
       hello_html: "Hi, %{name}!"
-      speech_1: "Even a single word is super welcome!"
+      speech_1: "In Easy mode, even a single word is totally fine!"
       speech_2_html: "I'll put my AI brain in high gear<br>and do my absolute best for you!"
 
     show:
