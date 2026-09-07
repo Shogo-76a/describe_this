@@ -34,6 +34,21 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://kit.fontawesome.com/2f0174ba73.js" crossorigin="anonymous"></script>
+
+
+    <!-- 本番環境のみGoogle Analyticsを読み込む -->
+    <% if Rails.env.production? %>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-HMPQKDXZF4"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', Rails.application.credentials.google_analytics.id);
+      </script>
+    <% end %>
+    
   </head>
 
   <body>
