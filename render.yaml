@@ -1,7 +1,7 @@
 services:
   - type: web
     name: describe_this
-    runtime: ruby
+    runtime: docker
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
