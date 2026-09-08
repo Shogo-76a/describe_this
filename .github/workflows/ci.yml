@@ -143,7 +143,7 @@ jobs:
       - name: Update Dynamic Badge Gist
         # PRのテストではバッジを上書きせず、mainブランチにマージ(Push)された時だけ更新する
         if: github.ref == 'refs/heads/main'
-        uses: schneegans/dynamic-badges-action@v1.7.0
+        uses: schneegans/dynamic-badges-action@v1.9.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
           gistID: 234b6e320f963e6caba5f7989daeb41f  
