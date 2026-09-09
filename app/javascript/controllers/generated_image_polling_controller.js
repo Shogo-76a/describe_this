@@ -11,13 +11,13 @@ export default class extends Controller {
 
   connect() {
     this.attempts = 0; // ポーリングの回数をカウント
-    this.image_success = 0; // 表示成功を判定。成功時は"1"
+    this.image_success = 0; // 生成完了を判定。成功時は"1"
     this.timeoutId = null;
     this.isPollingActive = false; // ポーリングの稼働状態を管理するフラグ
 
     this.handleSubmitEnd = () => {
       this.attempts = 0; // 再送時は試行回数をリセット
-      this.image_success = 0; // 表示判定をリセット
+      this.image_success = 0; // 生成完了の判定をリセット
       this.stopPolling(); // 既存のタイマーがあればクリア
       this.startPolling();
     };
@@ -101,7 +101,7 @@ export default class extends Controller {
       );
       this.stopPolling(); // ここでループを終了
 
-      this.image_success = 1; // 画像表示成功時に'1'を代入。
+      this.image_success = 1; // 画像生成完了時に'1'を代入。
       console.log('画像生成完了');
 
       // 画像が表示されてることをチェックするポーリング。
