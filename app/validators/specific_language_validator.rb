@@ -22,7 +22,7 @@ class SpecificLanguageValidator < ActiveModel::EachValidator
 
       # ここで登録したメッセージがビューに渡る
       record.errors.add(attribute, message)
-      Rails.logger.info"result: #{message}"
+      Rails.logger.info "result: #{message}"
     end
   end
 end
