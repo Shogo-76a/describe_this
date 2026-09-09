@@ -68,7 +68,7 @@ module Guest
       image_success = params[:image_success].to_i
 
       if @game.generated_image.attached?
-        if image_success < 1
+        if image_success > 0
           render turbo_stream: [
             turbo_stream.update(
               "generated-image",
