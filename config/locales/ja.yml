@@ -223,7 +223,6 @@ ja:
   passwords:
     new:
       pass_reset: "パスワードリセット"
-      email: "メールアドレス"
       submit: "リセットのメールを送信" 
     create:
       flash_sent_mail: "ご記載のメールアドレスへパスワードリセットのメールを送信しました。"
@@ -237,8 +236,6 @@ ja:
 
   sessions:
     new: # 個別にキー設定が必要
-      email: "メールアドレス"
-      password: "パスワード"
       submit: "ログイン" 
       signup: "新規登録"
       forgot_pass: "パスワードを忘れた場合"
@@ -247,12 +244,6 @@ ja:
 
   registrations:
     new:
-      errors:
-        header: "%{count}件のエラーが発生したため登録できませんでした:"
-      name: "ユーザー名"
-      email: "メールアドレス"
-      password: "パスワード"
-      password_confirmation: "パスワード（確認用）"
       submit: "新規登録" 
       login: "ログイン" 
       message_1: "ご登録済みの方はこちら："
@@ -341,3 +332,30 @@ ja:
         word_count_examples:
           - "✕：「リンゴ」だけ"
           - "〇：「リンゴがある」"
+
+
+
+
+  # フォームなど、モデルの属性が割り当てられてる場所に自動反映される。t(".email")などの記述不要。
+  activerecord:
+    # モデル名や属性名
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        name: "ユーザー名"
+        email_address: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認用）"
+
+    # エラーメッセージの共通テンプレート
+    errors:
+      header:
+        one: "エラーが発生したため登録できませんでした:"
+        other: "%{count}件のエラーが発生したため登録できませんでした:"
+      messages:
+        blank: "を入力してください"
+        taken: "はすでに存在します"
+
+
+

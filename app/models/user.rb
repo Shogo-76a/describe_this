@@ -19,7 +19,7 @@
 #  index_users_on_provider_and_uid  (provider,uid) UNIQUE
 #
 class User < ApplicationRecord
-  has_secure_password validations: false # 外部認証時はパスワード入力を必須にしない場合
+  has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :games, dependent: :destroy
 
