@@ -13,7 +13,7 @@
 
   <%= form_with url: passwords_path, class: "flex flex-col w-full items-center justify-center gap-3" do |form| %>
     <div class="w-full">
-      <%= form.label :email_address, t(".email") %>
+      <%= form.label :email_address, t("activerecord.attributes.user.email_address") %>
       <%= form.email_field :email_address, required: true, autocomplete: "username", value: params[:email_address], 
       class: "mt-1 items-center justify-center input input-bordered rounded-full w-full"%>
     </div>

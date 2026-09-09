@@ -228,7 +228,6 @@ en:
   passwords:
     new:
       pass_reset: "Reset Password"
-      email: "Email"
       submit: "Send Reset Link"
     create:
       flash_sent_mail: "A password reset link has been sent to your email address."
@@ -242,8 +241,6 @@ en:
 
   sessions:
     new: # 個別にキー設定が必要
-      email: "Email"
-      password: "Password"
       submit: "Log In"
       signup: "Sign Up"
       forgot_pass: "Forgot your password?"
@@ -251,14 +248,6 @@ en:
 
   registrations:
     new:
-      errors:
-          header:
-            one: "Could not be saved due to 1 error:"
-            other: "Could not be saved due to %{count} errors:"
-      name: "Name"
-      email: "Email"
-      password: "Password"
-      password_confirmation: "Confirm Password"
       submit: "Sign Up"
       login: "Log In"
       message_1: "Already have an account? "
@@ -347,3 +336,30 @@ en:
         word_count_examples:
           - "✕ \"apple\" alone"
           - "〇 \"There is an apple.\""
+
+
+
+
+
+  activerecord:
+    # モデル名や属性名
+    models:
+      user: "User"
+    attributes:
+      user:
+        name: "Name"
+        email_address: "Email"
+        password: "Password"
+        password_confirmation: "Confirm Password"
+
+    # エラーメッセージの共通テンプレート
+    errors:
+      header:
+        one: "Unable to save due to 1 error"
+        other: "Unable to save due to %{count} errors"
+      messages:
+        blank: "can't be blank"
+        taken: "has already been taken"
+        confirmation: "doesn't match %{attribute}"
+        
+
