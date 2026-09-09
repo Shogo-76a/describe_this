@@ -21,7 +21,8 @@ class GamesController < ApplicationController
 
         # 各単語ごとのPostgreSQL条件（テキスト用）
         sql_conditions = [
-          "jsonb_path_exists(feedback, :phrase_path) OR
+          "jsonb_path_exists(feedback, :title_for_history_path) OR
+          jsonb_path_exists(feedback, :phrase_path) OR
           jsonb_path_exists(feedback, :example_path) OR
           jsonb_path_exists(feedback, :meaning_path) OR
           jsonb_path_exists(feedback, :trans_path) OR
@@ -30,6 +31,7 @@ class GamesController < ApplicationController
         ]
 
         query_params = {
+          title_for_history_path:  "$.title_for_history ? (@ like_regex \"#{escaped_keyword}\" flag \"i\")",
           phrase_path:  "$.proposals[*].bonus_phrase.phrase ? (@ like_regex \"#{escaped_keyword}\" flag \"i\")",
           example_path: "$.proposals[*].bonus_phrase.example ? (@ like_regex \"#{escaped_keyword}\" flag \"i\")",
           meaning_path: "$.proposals[*].bonus_phrase.meaning ? (@ like_regex \"#{escaped_keyword}\" flag \"i\")",
