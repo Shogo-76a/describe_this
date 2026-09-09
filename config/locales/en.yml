@@ -355,9 +355,11 @@ en:
     # エラーメッセージの共通テンプレート
     errors:
       header:
-        one: "Unable to save due to 1 error:"
-        other: "Unable to save due to %{count} errors:"
+        one: "Unable to save due to 1 error"
+        other: "Unable to save due to %{count} errors"
       messages:
         blank: "can't be blank"
         taken: "has already been taken"
+        confirmation: "doesn't match %{attribute}"
+        
 
