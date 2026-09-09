@@ -13,11 +13,16 @@ class SpecificLanguageValidator < ActiveModel::EachValidator
     detector = CLD3::NNetLanguageIdentifier.new(0, 1000)
     result = detector.find_language(value)
 
+    Rails.logger.info "=== DEBUG result ==="
+    Rails.logger.info "result: #{result}"
+    Rails.logger.info "====================="
+
     if result.reliable? && !Current.allowed_languages.include?(result.language.to_s)
       message = options[:message] || "はこのゲームモードでは使用できない言語です。"
 
       # ここで登録したメッセージがビューに渡る
       record.errors.add(attribute, message)
+      Rails.logger.info"result: #{message}"
     end
   end
 end
