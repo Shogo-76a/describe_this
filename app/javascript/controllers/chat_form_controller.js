@@ -5,6 +5,7 @@ export default class extends Controller {
   static values = { limit: { type: Number, default: 1 } };
   static targets = ['textarea', 'sendButton', 'submitCountDown'];
 
+  //1回のみ呼ばれる。
   initialize() {
     this.submitCount = 0;
   }
@@ -103,24 +104,37 @@ export default class extends Controller {
       return false;
     }
 
-    // バリデート_2:
-    //   テキストが一単語だけでは送信できなくする（翻訳サポートなしの時だけ）
-    //   単語単位で分割するセグメンターを作成（言語は自動判別）
-    const segmenter = new Intl.Segmenter(undefined, { granularity: 'word' });
-    const segments = segmenter.segment(text);
+    // ゲームモードのCookieを取得
+    const game_mode = this.getCookie('mode');
+    // ゲームモードが「'0' = やさしい」ではない場合、バリデート２を実行する
+    if (game_mode !== '0') {
+      // バリデート_2:
+      //   テキストが一単語だけでは送信できなくする（翻訳サポートなしの時だけ）
+      //   単語単位で分割するセグメンターを作成（言語は自動判別）
+      const segmenter = new Intl.Segmenter(undefined, { granularity: 'word' });
+      const segments = segmenter.segment(text);
 
-    // 空白や記号を除外して、純粋な単語の数だけをカウント
-    const wordCount = Array.from(segments).filter(segment => segment.isWordLike).length;
+      // 空白や記号を除外して、純粋な単語の数だけをカウント
+      const wordCount = Array.from(segments).filter(segment => segment.isWordLike).length;
 
-    // 1単語のみの場合に特定の処理を実行
-    if (wordCount === 1) {
-      event.preventDefault();
-      console.log('1単語のみです。送信できません。');
-      this.textareaTarget.classList.add('is-invalid');
-      return false;
+      // 1単語のみの場合に特定の処理を実行
+      if (wordCount === 1) {
+        event.preventDefault();
+        console.log('1単語のみです。送信できません。');
+        this.textareaTarget.classList.add('is-invalid');
+        return false;
+      }
     }
 
     // バリデート_3:
     // テキストが許可されてない言語だった場合に送信できなくする（翻訳サポートなしの時だけ）
   }
+
+  // Cookie名から値を取得するヘルパー関数
+  getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
 }

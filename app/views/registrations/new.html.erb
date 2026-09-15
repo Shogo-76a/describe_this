@@ -31,12 +31,23 @@
 
     <div class="w-full">
       <%= form.label :password %>
-      <%= form.password_field :password, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
+      <%= form.password_field :password, 
+        required: true, 
+        id: "user_password", 
+        class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" 
+        %>
     </div>
 
     <div class="w-full">
       <%= form.label :password_confirmation %>
-      <%= form.password_field :password_confirmation, required: true, class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" %>
+
+      <!-- 変数 error_msg にパスワード不一致のエラーメッセージを代入する -->
+      <% error_msg = t("activerecord.errors.messages.confirmation", attribute: User.human_attribute_name(:password)) %>
+      <%= form.password_field :password_confirmation, 
+        required: true,
+        oninput: "this.setCustomValidity(this.value !== document.getElementById('user_password').value ? #{error_msg.to_json} : '')",
+        class: "mt-1 items-center justify-center input input-bordered rounded-full w-full" 
+        %>
     </div>
 
     <div class="w-full my-4 landscape:my-2">
